@@ -33,7 +33,7 @@ return {
 		"Skardyy/makurai-nvim",
 		priority = 1000,
 		config = function()
-			vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { bg = "#565A60" })
+			-- vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { bg = "#565A60" })
 		end,
 	},
 }

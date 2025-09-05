@@ -1,0 +1,33 @@
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
+  home.packages = with pkgs; [
+    fuzzel
+  ];
+
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        width = 60;
+        lines = 6;
+        line-height = 36;
+        anchor = "top";
+        y-margin = 20;
+        inner-pad = 10;
+        prompt = ">  ";
+        font = lib.mkForce (config.stylix.fonts.monospace.name + ":size=14");
+      };
+
+      border = {
+        radius = 10;
+        selection-radius = 5;
+        width = 2;
+      };
+    };
+  };
+}

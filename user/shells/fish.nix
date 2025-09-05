@@ -11,7 +11,7 @@
     enable = true;
     interactiveShellInit = ''
       set fish_greeting
-      
+
       set -U pure_check_for_new_release false
       set -U pure_enable_single_line_prompt true
       set -U pure_sow_subsecond_command_duration true
@@ -24,29 +24,30 @@
       tv init fish | source
     '';
     plugins = [
-      { name = "pure"; src = pkgs.fishPlugins.pure.src; }
+      {
+        name = "pure";
+        src = pkgs.fishPlugins.pure.src;
+      }
     ];
     functions = {
       og.body = ''
-	  set -l path (tv git-repos)
-	  if test -z $path
-	    return
-	  end
-	  
-	  cd $path 
-	  nvim .
-	'';
+        	  set -l path (tv git-repos)
+        	  if test -z $path
+        	    return
+        	  end
+        	  
+        	  cd $path 
+        	  nvim .
+        	'';
       yy.body = ''
-        set tmp (mktemp -t "yazi-cwd.XXXXXX")
-	yazi $argv --cwd-file="$tmp"
-	if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-	  cd -- "$cwd"
-	end
-	rm -f -- "$tmp"
+                set tmp (mktemp -t "yazi-cwd.XXXXXX")
+        	yazi $argv --cwd-file="$tmp"
+        	if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        	  cd -- "$cwd"
+        	end
+        	rm -f -- "$tmp"
       '';
-      
-    };
-    shellAliases = {
+
     };
   };
 }

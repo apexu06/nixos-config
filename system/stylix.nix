@@ -1,0 +1,10 @@
+{ inputs, ... }:
+
+{
+  imports = [
+    inputs.stylix.nixosModules.stylix
+  ];
+
+  stylix.autoEnable = false;
+  stylix.targets.console.enable = true;
+}

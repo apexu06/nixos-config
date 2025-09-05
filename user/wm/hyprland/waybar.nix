@@ -1,7 +1,17 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    waybar
+    inter
+  ];
+
   programs.waybar = {
     enable = true;
+    systemd = {
+      enable = true;
+      target = "graphical-session.target";
+    };
+
     settings.main = {
       layer = "top";
       height = 10;
@@ -142,7 +152,7 @@
       };
       network = {
         format-wifi = "{icon}  {essid}";
-        format-ethernet = "{ipaddr}/{cidr}";
+        format-ethernet = " {ipaddr}/{cidr}";
         tooltip-format = "{essid} {gwaddr}";
         format-linked = "{ifname} (No IP)";
         format-disconnected = "󰤭 ";
@@ -242,55 +252,61 @@
       @define-color clock #bb9af7;
       @define-color disabled #565f89; /* tray, muted volume etc..*/
       @define-color background #1a1b26;
-      
+
       * {
         font-size: 16px;
       }
-      
+
       #custom-spotify-metadata {
         font-size: 16px;
       }
-      
+
       window#waybar {
         background-color: rgba(0, 0, 0, 0.2);
       }
-      
+
       window#waybar.hidden {
         opacity: 0.2;
       }
-      
+
       button {
         border: none;
         border-radius: 4px;
       }
-      
+
       button:hover {
         background: inherit;
       }
-      
+
       #workspaces {
         margin: 6px;
         border-radius: 12px;
         background-color: rgba(0, 0, 0, 0.4);
       }
-      
+
       #workspaces button {
+        font-size: 16px;
+        font-weight: normal;
         padding: 4px 6px 4px 6px;
         color: white;
+        border: none;
       }
-      
+
       #workspaces button.active {
-        color: @window;
+        font-weight: bold;
+        outline: none;
+        color: @base0D;
+        border: none;
       }
-      
+
       #workspaces button.urgent {
         background-color: #eb4d4b;
       }
-      
+
       .modules-right {
         margin: 6px;
       }
-      
+
       #clock,
       #battery,
       #cpu,
@@ -304,53 +320,53 @@
         padding: 0px 14px 0px 14px;
         border-radius: 4px;
       }
-      
+
       #tray {
         padding-right: 0px;
         margin-right: 0px;
       }
-      
+
       #clock {
         color: white;
         min-width: 65px;
       }
-      
+
       #backlight {
         /* background-color: @brightness; */
       }
-      
+
       #memory {
         /* background-color: @window; */
       }
-      
+
       #network {
         /* background-color: @wifi; */
       }
-      
+
       #network.disconnected {
       }
-      
+
       #wireplumber {
         /* background-color: @volume; */
       }
-      
+
       #wireplumber.muted {
         /* background-color: @disabled; */
       }
-      
+
       #custom-spotify-metadata {
         margin-right: 0px;
         padding-right: 8px;
         color: @foreground;
       }
-      
+
       #battery {
         /* background-color: @battery; */
       }
-      
+
       #battery.charging {
       }
-      
+
       #battery.critical:not(.charging) {
         background-color: @color1;
         color: #ffffff;
@@ -361,27 +377,27 @@
         animation-direction: alternate;
         box-shadow: 0px 0px 0px 0px @color1;
       }
-      
+
       #custom-spotify:hover {
         color: red;
       }
-      
+
       #tray {
         padding: 0px 8px 0px 8px;
         /* background-color: @disabled; */
       }
-      
+
       #tray > .needs-attention {
         -gtk-icon-effect: highlight;
         background-color: #eb4d4b;
       }
-      
+
       #cava {
         color: @window;
         margin: 0;
         padding: 0;
       }
-      
+
       @keyframes blink {
         to {
           background-color: #ffffff;

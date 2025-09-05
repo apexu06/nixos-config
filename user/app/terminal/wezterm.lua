@@ -7,13 +7,13 @@ local config = wezterm.config_builder()
 config.font = wezterm.font("IosevkaTerm Nerd Font", { weight = "Regular", stretch = "ExtraCondensed" })
 config.font_size = 14
 config.cell_width = 0.97
-config.bold_brightens_ansi_colors = "No"
 config.freetype_load_target = "HorizontalLcd"
 
-config.color_scheme = "tokyonight_night"
 config.colors = {
-	background = "#16161E",
+	-- background = "#16161E",
+	cursor_bg = "#ffffff",
 }
+
 config.enable_tab_bar = true
 config.tab_bar_at_bottom = true
 config.tab_and_split_indices_are_zero_based = true
