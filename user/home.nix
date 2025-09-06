@@ -5,6 +5,7 @@
     ./shells/cli-utils.nix
     ./wm/hyprland/hyprland.nix
     ./app/neovim/nvim.nix
+    ./app/browser/zen.nix
     ./app/terminal/wezterm.nix
     ./app/git.nix
   ];
@@ -19,6 +20,13 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    "$HOME/bin"
+    "$HOME/.nix-profile/bin"
+    "$HOME/.nix-profile/share/applications"
+  ];
 
   programs.home-manager.enable = true;
 }

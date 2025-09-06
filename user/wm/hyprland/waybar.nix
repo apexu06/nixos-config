@@ -47,7 +47,7 @@
           "9" = "9";
           urgent = "";
           focused = "";
-          default = " ";
+          default = "1";
         };
         persistent-workspaces = {
           "*" = 3;
@@ -269,8 +269,13 @@
         opacity: 0.2;
       }
 
+      .modules-left #workspaces button.active {
+        border: none;
+      }
+
       button {
         border: none;
+        outline: none;
         border-radius: 4px;
       }
 
@@ -289,14 +294,11 @@
         font-weight: normal;
         padding: 4px 6px 4px 6px;
         color: white;
-        border: none;
       }
 
       #workspaces button.active {
-        font-weight: bold;
-        outline: none;
+        padding: 4px 6px 6px 6px;
         color: @base0D;
-        border: none;
       }
 
       #workspaces button.urgent {

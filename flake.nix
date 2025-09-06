@@ -17,6 +17,11 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -30,13 +35,19 @@
       lib = nixpkgs.lib;
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+
+      settings = {
+        de = "hyprland";
+        theme = "tokyo-night-terminal-dark";
+      };
     in
     {
       nixosConfigurations = {
-        nixos = lib.nixosSystem {
+        iusenixbtw = lib.nixosSystem {
           specialArgs = {
             inherit system;
             inherit inputs;
+            inherit settings;
           };
           modules = [
             ./system/configuration.nix
@@ -49,6 +60,7 @@
           extraSpecialArgs = {
             inherit apple-fonts;
             inherit inputs;
+            inherit settings;
           };
           modules = [
             ./user/home.nix

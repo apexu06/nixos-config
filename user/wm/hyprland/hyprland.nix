@@ -1,4 +1,5 @@
 { pkgs, ... }:
+
 {
   imports = [
     ./waybar.nix
@@ -8,30 +9,28 @@
 
   home.packages = with pkgs; [
     polkit_gnome
-    nautilus
+    nwg-look
+    pavucontrol
     hypridle
+    hyprlock
     hyprpicker
     swaylock-fancy
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gtk
     wlogout
-    firefox
+    nautilus
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
     extraConfig = builtins.readFile ./hyprland.conf;
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-    ];
+    systemd.variables = [ "--all" ];
   };
 
   programs = {
     swaylock.enable = true;
+    wofi.enable = true;
+  };
+
+  services = {
+    polkit-gnome.enable = true;
   };
 }

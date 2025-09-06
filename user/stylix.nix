@@ -2,19 +2,26 @@
   pkgs,
   apple-fonts,
   inputs,
+  settings,
   ...
 }:
 
+let
+  themePath = builtins.toPath ../theme/${settings.theme}/${settings.theme}.yaml;
+  backgroundUrl = builtins.readFile ../theme/${settings.theme}/background-url.txt;
+  backgroundHash = builtins.readFile ../theme/${settings.theme}/background-sha256.txt;
+in
 {
   imports = [
     inputs.stylix.homeModules.stylix
   ];
 
   stylix = {
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-terminal-dark.yaml";
+    base16Scheme = themePath;
+
     image = pkgs.fetchurl {
-      url = "https://w.wallhaven.cc/full/5y/wallhaven-5y7g79.jpg";
-      hash = "sha256-QNfvxIWgJcv6r5HeCd2oUlZzDPccV2GEdBnQcrf0Ufg=";
+      url = backgroundUrl;
+      hash = backgroundHash;
     };
 
     enable = true;
@@ -28,6 +35,8 @@
 
     targets.neovim.plugin = "mini.base16";
     targets.neovim.enable = true;
+
+    targets.zen-browser.profileNames = [ "default" ];
 
     fonts = {
       serif = {

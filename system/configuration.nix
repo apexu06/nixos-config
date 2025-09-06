@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ./stylix.nix
+    ./wm/hyprland.nix
   ];
 
   nix.settings.experimental-features = [
@@ -18,7 +19,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "iusenixbtw"; # Define your hostname.
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Vienna";
@@ -50,13 +51,12 @@
     vim
     wget
     git
-    fish
     wayland
+    fish
   ];
 
   services = {
     openssh.enable = true;
-    displayManager.gdm.enable = true;
 
     xserver = {
       enable = true;
@@ -68,25 +68,34 @@
     };
 
     locate.enable = true;
-    gnome.gnome-keyring.enable = true;
-    dbus.enable = true;
-    dbus.packages = [ pkgs.dconf ];
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
   };
 
   programs = {
     fish.enable = true;
-    hyprland = {
-      enable = true;
-      xwayland = {
-        enable = true;
-      };
-    };
     dconf.enable = true;
   };
 
   security = {
+    rtkit.enable = true;
     polkit.enable = true;
-    pam.services.swaylock = { };
-    pam.services.login.enableGnomeKeyring = true;
   };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+  };
+
+  # targets.genericLinux = {
+  #   enable = true;
+  # };
+
 }
