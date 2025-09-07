@@ -58,6 +58,24 @@ in
         package = pkgs.noto-fonts-emoji;
         name = "Noto Color Emoji";
       };
+
+      sizes = {
+        applications = 12;
+        desktop = 14;
+      };
+    };
+
+    icons = {
+      enable = true;
+      package = pkgs.papirus-icon-theme;
+      dark = "Papirus-Dark";
+      light = "Papirus-Light";
+    };
+
+    cursor = {
+      name = "Catppuccin Mocha Dark";
+      package = pkgs.catppuccin-cursors.mochaDark;
+      size = 32;
     };
   };
 

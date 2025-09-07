@@ -47,7 +47,7 @@
           "9" = "9";
           urgent = "";
           focused = "";
-          default = "1";
+          default = " ";
         };
         persistent-workspaces = {
           "*" = 3;
@@ -244,17 +244,8 @@
       };
     };
     style = ''
-      @define-color brightness #f7768e;
-      @define-color wifi #ff9e64;
-      @define-color volume #73daca;
-      @define-color battery #7dcfff;
-      @define-color window #7aa2f7;
-      @define-color clock #bb9af7;
-      @define-color disabled #565f89; /* tray, muted volume etc..*/
-      @define-color background #1a1b26;
-
       * {
-        font-size: 16px;
+        font-size: 18px;
       }
 
       #custom-spotify-metadata {
@@ -290,14 +281,13 @@
       }
 
       #workspaces button {
-        font-size: 16px;
         font-weight: normal;
-        padding: 4px 6px 4px 6px;
+        padding: 4px 6px 2px 6px;
         color: white;
       }
 
       #workspaces button.active {
-        padding: 4px 6px 6px 6px;
+        padding: 4px 6px 5px 6px;
         color: @base0D;
       }
 
@@ -318,7 +308,6 @@
       #backlight,
       #memory,
       #tray {
-        color: @foreground;
         padding: 0px 14px 0px 14px;
         border-radius: 4px;
       }
@@ -329,37 +318,12 @@
       }
 
       #clock {
-        color: white;
         min-width: 65px;
-      }
-
-      #backlight {
-        /* background-color: @brightness; */
-      }
-
-      #memory {
-        /* background-color: @window; */
-      }
-
-      #network {
-        /* background-color: @wifi; */
-      }
-
-      #network.disconnected {
-      }
-
-      #wireplumber {
-        /* background-color: @volume; */
-      }
-
-      #wireplumber.muted {
-        /* background-color: @disabled; */
       }
 
       #custom-spotify-metadata {
         margin-right: 0px;
         padding-right: 8px;
-        color: @foreground;
       }
 
       #battery {
@@ -386,18 +350,11 @@
 
       #tray {
         padding: 0px 8px 0px 8px;
-        /* background-color: @disabled; */
       }
 
       #tray > .needs-attention {
         -gtk-icon-effect: highlight;
         background-color: #eb4d4b;
-      }
-
-      #cava {
-        color: @window;
-        margin: 0;
-        padding: 0;
       }
 
       @keyframes blink {

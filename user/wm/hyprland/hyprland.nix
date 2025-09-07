@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, settings, ... }:
 
 {
   imports = [
     ./waybar.nix
-    ./fuzzel.nix
+    ./dunst.nix
+    (if settings.launcher == "tofi" then ../../app/launcher/tofi.nix else ../../app/launcher/fuzzel.nix)
     ./hypridle.nix
   ];
 
@@ -17,12 +18,17 @@
     swaylock-fancy
     wlogout
     nautilus
+    eog
+    adwaita-icon-theme
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    extraConfig = builtins.readFile ./hyprland.conf;
     systemd.variables = [ "--all" ];
+    extraConfig = ''
+      $drun = ${if settings.launcher == "tofi" then "tofi-drun --drun-launch=true" else "fuzzel"}
+    ''
+    + builtins.readFile ./hyprland.conf;
   };
 
   programs = {

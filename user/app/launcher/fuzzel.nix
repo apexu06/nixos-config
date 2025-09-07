@@ -21,6 +21,7 @@
         inner-pad = 10;
         prompt = ">  ";
         font = lib.mkForce (config.stylix.fonts.monospace.name + ":size=14");
+        scaling-filter = "lanczos-3";
       };
 
       border = {

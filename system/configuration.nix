@@ -4,6 +4,8 @@
   imports = [
     ./hardware-configuration.nix
     ./stylix.nix
+    ./pipewire.nix
+    ./virtualization.nix
     ./wm/hyprland.nix
   ];
 
@@ -68,13 +70,6 @@
     };
 
     locate.enable = true;
-
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
   };
 
   programs = {
@@ -94,8 +89,7 @@
     ];
   };
 
-  # targets.genericLinux = {
-  #   enable = true;
-  # };
-
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 }

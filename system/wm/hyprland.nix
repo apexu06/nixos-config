@@ -12,11 +12,9 @@ in
   services = {
     displayManager = {
       enable = true;
-      gdm.enable = false;
+      gdm.enable = true;
     };
   };
-
-  services.xserver.displayManager.lightdm.enable = false;
 
   programs = {
     hyprland = {

@@ -39,6 +39,7 @@
       settings = {
         de = "hyprland";
         theme = "tokyo-night-terminal-dark";
+        launcher = "tofi";
       };
     in
     {
