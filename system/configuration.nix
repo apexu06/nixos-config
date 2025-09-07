@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [
@@ -16,7 +16,10 @@
 
   system.stateVersion = "25.05";
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.limine = {
+    enable = true;
+    maxGenerations = 5;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
