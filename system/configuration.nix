@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, settings, ... }:
 
 {
   imports = [
@@ -6,20 +6,28 @@
     ./stylix.nix
     ./pipewire.nix
     ./virtualization.nix
-    ./wm/hyprland.nix
+    ./de/${settings.de}.nix
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      trusted-users = [
+        "root"
+        "apexu"
+      ];
+    };
+  };
   system.stateVersion = "25.05";
 
-  boot.loader.limine = {
+  boot.loader.systemd-boot = {
     enable = true;
-    maxGenerations = 5;
+    configurationLimit = 5;
   };
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -73,6 +81,14 @@
     };
 
     locate.enable = true;
+    fprintd.enable = true;
+
+    power-profiles-daemon.enable = true;
+  };
+
+  systemd.services.fprintd = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "simple";
   };
 
   programs = {

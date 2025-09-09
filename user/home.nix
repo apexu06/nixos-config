@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, settings, ... }:
 {
   imports = [
     ./stylix.nix
+    ./xdg.nix
     ./shells/fish.nix
     ./shells/cli-utils.nix
-    ./wm/hyprland/hyprland.nix
+    (if settings.de == "hyprland" then ./de/hyprland/hyprland.nix else { })
     ./app/neovim/nvim.nix
     ./app/browser/zen.nix
     ./app/vesktop.nix
@@ -19,39 +20,15 @@
     spotify
     vlc
     vscode
+    devenv
   ];
 
-  xdg.desktopEntries = {
-    yazi = {
-      name = "Yazi";
-      noDisplay = true;
-    };
-    btop = {
-      name = "btop++";
-      noDisplay = true;
-    };
-    fish = {
-      name = "fish";
-      noDisplay = true;
-    };
-    vim = {
-      name = "Vim";
-      noDisplay = true;
-    };
-    gvim = {
-      name = "GVim";
-      noDisplay = true;
-    };
-    nvim = {
-      name = "nvim";
-      noDisplay = true;
-    };
-  };
-
   nixpkgs.config.allowUnfree = true;
+
   home.stateVersion = "25.05"; # Please read the comment before changing.
   home.sessionVariables = {
     EDITOR = "nvim";
+    SHELL = "fish";
   };
 
   home.sessionPath = [

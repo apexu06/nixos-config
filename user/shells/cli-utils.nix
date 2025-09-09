@@ -4,23 +4,23 @@
     fd
     ripgrep
     findutils
-    bat
     unzip
     killall
     btop
     fastfetch
-    television
     fzf
     gh
     xdg-utils
-    yazi
     wl-clipboard
     rustup
     eza
     brightnessctl
+    tree
+    file
   ];
 
   home.shellAliases = {
+    cat = "bat";
     shit = "shutdown";
     ls = "eza --color=always --all --group-directories-first --long --icons --no-permissions --git";
     xo = "xdg-open";
@@ -32,4 +32,8 @@
     gp = "git push";
     gpl = "git pull";
   };
+
+  programs.bat.enable = true;
+  programs.television.enable = true;
+  programs.yazi.enable = true;
 }

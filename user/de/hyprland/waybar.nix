@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     waybar
-    inter
   ];
 
   programs.waybar = {
@@ -23,11 +22,10 @@
 
       ];
       modules-right = [
-        "network"
+        "tray"
         "wireplumber"
         "backlight"
         "battery"
-        "tray"
         "clock"
       ];
       "hyprland/workspaces" = {

@@ -6,6 +6,7 @@
     ./dunst.nix
     (if settings.launcher == "tofi" then ../../app/launcher/tofi.nix else ../../app/launcher/fuzzel.nix)
     ./hypridle.nix
+    ./hyprlock.nix
   ];
 
   home.packages = with pkgs; [
@@ -14,8 +15,8 @@
     pavucontrol
     hypridle
     hyprlock
+    hyprshot
     hyprpicker
-    swaylock-fancy
     wlogout
     nautilus
     eog
@@ -27,13 +28,10 @@
     systemd.variables = [ "--all" ];
     extraConfig = ''
       $drun = ${if settings.launcher == "tofi" then "tofi-drun --drun-launch=true" else "fuzzel"}
+      $screenshot = hyprshot -m region
+      $lockscreen = hyprlock
     ''
     + builtins.readFile ./hyprland.conf;
-  };
-
-  programs = {
-    swaylock.enable = true;
-    wofi.enable = true;
   };
 
   services = {

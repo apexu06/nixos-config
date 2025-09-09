@@ -24,20 +24,20 @@ in
       };
     };
     hyprlock.enable = true;
+    nm-applet.enable = true;
   };
 
   security = {
-    pam.services.swaylock = { };
     pam.services.hyprlock = { };
     pam.services.hyprland.enable = true;
   };
 
-  environment.sessionVariables =
-    if isVM then
-      {
-        LIBGL_ALWAYS_SOFTWARE = "1";
-        WLR_NO_HARDWARE_CURSORS = "1";
-      }
-    else
-      { };
+  # environment.sessionVariables =
+  #   if isVM then
+  #     {
+  #       LIBGL_ALWAYS_SOFTWARE = "1";
+  #       WLR_NO_HARDWARE_CURSORS = "1";
+  #     }
+  #   else
+  #     { };
 }

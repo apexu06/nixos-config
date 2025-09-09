@@ -7,4 +7,5 @@
 
   stylix.autoEnable = false;
   stylix.targets.console.enable = true;
+  stylix.targets.gnome.enable = true;
 }
