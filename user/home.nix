@@ -11,6 +11,7 @@
     ./app/vesktop.nix
     ./app/terminal/wezterm.nix
     ./app/git.nix
+    ./app/ags/ags.nix
   ];
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";

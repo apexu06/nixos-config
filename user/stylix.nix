@@ -81,9 +81,9 @@ in
 
   };
 
-  xdg.configFile."ags/theme.css".text = ''
+  xdg.configFile."stylix/theme.css".text = ''
     :root {
-      /* Colors */
+      /* colors */
       --base00: #${config.lib.stylix.colors.base00};
       --base01: #${config.lib.stylix.colors.base01};
       --base02: #${config.lib.stylix.colors.base02};
@@ -94,14 +94,14 @@ in
       --base07: #${config.lib.stylix.colors.base07};
       --base08: #${config.lib.stylix.colors.base08};
       --base09: #${config.lib.stylix.colors.base09};
-      --base0A: #${config.lib.stylix.colors.base0A};
-      --base0B: #${config.lib.stylix.colors.base0B};
-      --base0C: #${config.lib.stylix.colors.base0C};
-      --base0D: #${config.lib.stylix.colors.base0D};
-      --base0E: #${config.lib.stylix.colors.base0E};
-      --base0F: #${config.lib.stylix.colors.base0F};
+      --base0a: #${config.lib.stylix.colors.base0A};
+      --base0b: #${config.lib.stylix.colors.base0B};
+      --base0c: #${config.lib.stylix.colors.base0C};
+      --base0d: #${config.lib.stylix.colors.base0D};
+      --base0e: #${config.lib.stylix.colors.base0E};
+      --base0f: #${config.lib.stylix.colors.base0F};
 
-      /* Font */
+      /* font */
       --font-family: "${config.stylix.fonts.monospace.name}";
       --font-size: ${toString config.stylix.fonts.sizes.applications}px;
     }
