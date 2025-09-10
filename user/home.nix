@@ -13,6 +13,7 @@
     ./app/git.nix
     ./app/ags/ags.nix
     ./app/thunderbird.nix
+    ./app/spotify-player.nix
   ];
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";
@@ -20,7 +21,7 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     protonmail-desktop
-    spotify
+    spotifywm
     vlc
     vscode
     devenv

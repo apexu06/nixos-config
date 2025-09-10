@@ -83,7 +83,7 @@ config.keys = {
 	{ key = "[", mods = "ALT", action = act.MoveTabRelative(-1) },
 	{ key = "]", mods = "ALT", action = act.MoveTabRelative(1) },
 	{ key = "p", mods = "ALT", action = act.ShowTabNavigator },
-	{ key = "e", mods = "LEADER", action = act.CloseCurrentTab({ confirm = false }) },
+	{ key = "e", mods = "LEADER", action = act.CloseCurrentPane({ confirm = false }) },
 }
 
 for i = 0, 8 do

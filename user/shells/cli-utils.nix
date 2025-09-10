@@ -31,6 +31,8 @@
     gs = "git status";
     gp = "git push";
     gpl = "git pull";
+    hs = "home-manager switch --flake $HOME/.dotfiles";
+    ns = "sudo nixos-rebuild switch --flake $HOME/.dotfiles";
   };
 
   programs.bat.enable = true;
