@@ -15,7 +15,7 @@
     settings = {
       global = {
         monitor = 0;
-        follow = "none";
+        follow = "mouse";
         width = 400;
         height = 100;
         origin = "top-right";

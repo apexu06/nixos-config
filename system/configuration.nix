@@ -84,6 +84,8 @@
     fprintd.enable = true;
 
     power-profiles-daemon.enable = true;
+    gnome.gnome-keyring.enable = true;
+    protonmail-bridge.enable = true;
   };
 
   systemd.services.fprintd = {

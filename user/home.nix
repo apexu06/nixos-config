@@ -12,12 +12,14 @@
     ./app/terminal/wezterm.nix
     ./app/git.nix
     ./app/ags/ags.nix
+    ./app/thunderbird.nix
   ];
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    protonmail-desktop
     spotify
     vlc
     vscode

@@ -3,10 +3,10 @@
 {
   imports = [
     ./waybar.nix
-    ./dunst.nix
     (if settings.launcher == "tofi" then ../../app/launcher/tofi.nix else ../../app/launcher/fuzzel.nix)
     ./hypridle.nix
     ./hyprlock.nix
+    ./dunst.nix
   ];
 
   home.packages = with pkgs; [

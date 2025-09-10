@@ -11,7 +11,6 @@ return {
 	},
 	{
 		"mrjones2014/smart-splits.nvim",
-		build = "./kitty/install-kittens.bash",
 		lazy = false,
 		init = function()
 			vim.keymap.set("n", "<A-h>", require("smart-splits").resize_left)

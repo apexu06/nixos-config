@@ -30,6 +30,7 @@ in
   security = {
     pam.services.hyprlock = { };
     pam.services.hyprland.enable = true;
+    pam.services.hyprland.enableGnomeKeyring = true;
   };
 
   # environment.sessionVariables =
