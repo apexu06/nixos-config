@@ -1,11 +1,23 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  home.packages = with pkgs; [
-    ags
+  imports = [
+    inputs.ags.homeManagerModules.default
   ];
 
-  xdg.configFile."ags".source = ./ags-bar;
+  programs.ags = {
+    enable = true;
+    configDir = ./ags-bar;
+
+    extraPackages = with pkgs; [
+      inputs.astal.packages.${pkgs.system}.battery
+      fzf
+    ];
+  };
 
   systemd.user.services.ags = {
     unit = {
