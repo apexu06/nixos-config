@@ -13,7 +13,6 @@
     ./app/git.nix
     ./app/ags/ags.nix
     ./app/thunderbird.nix
-    ./app/spotify-player.nix
   ];
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";
