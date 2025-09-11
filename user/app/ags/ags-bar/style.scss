@@ -1,22 +1,59 @@
 // https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
-$fg: #{"@theme_fg_color"};
-$bg: #{"@theme_bg_color"};
-$text: #{"@theme_text_color"};
-$base: #{"@theme_base_color"};
+$accent: #{"@accent_color"};
+$accent_bg: #{"@accent_bg_color"};
+$accent_fg: #{"@accent_fg_color"};
+
+$destructive: #{"@destructive_color"};
+$destructive_bg: #{"@destructive_bg_color"};
+$destructive_fg: #{"@destructive_fg_color"};
+
+$success: #{"@success_color"};
+$success_bg: #{"@success_bg_color"};
+$success_fg: #{"@success_fg_color"};
+
+$warning: #{"@warning_color"};
+$warning_bg: #{"@warning_bg_color"};
+$warning_fg: #{"@warning_fg_color"};
+
+$error: #{"@error_color"};
+$error_bg: #{"@error_bg_color"};
+$error_fg: #{"@error_fg_color"};
+
+$bg: #{"@window_bg_color"};
+$fg: #{"@window_fg_color"};
 
 window.Bar {
   background: transparent;
-  color: $fg-color;
-  font-weight: normal;
+  color: $fg;
+  font-weight: "lighter";
 
-  > centerbox {
-    background: $bg-color;
-    border-radius: 10px;
-    margin: 8px;
-  }
+  .main {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 0px;
 
-  button {
-    border-radius: 8px;
-    margin: 2px;
+    .workspace-container {
+      background: rgba(0, 0, 0, 0.4);
+      margin: 6px;
+      padding: 4px;
+      border-radius: 12px;
+
+      .workspace-button {
+        min-width: 26px;
+        min-height: 26px;
+      }
+
+      .workspace-button.focused {
+        color: $accent;
+      }
+    }
   }
+}
+
+button {
+  background: transparent;
+  font-weight: 400;
+  min-width: 0px;
+  min-height: 0px;
+  padding: 0px;
+  margin: 0px;
 }

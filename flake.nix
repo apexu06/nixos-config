@@ -49,7 +49,7 @@
       settings = {
         de = "hyprland";
         theme = "tokyo-night-terminal-dark";
-        launcher = "fuzzel";
+        launcher = "tofi";
       };
     in
     {

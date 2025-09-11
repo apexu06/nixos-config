@@ -10,71 +10,80 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ags,
-  }: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-    pname = "my-shell";
-    entry = "app.ts";
+  outputs =
+    {
+      self,
+      nixpkgs,
+      ags,
+    }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+      pname = "my-shell";
+      entry = "app.ts";
 
-    astalPackages = with ags.packages.${system}; [
-      io
-      astal4 # or astal3 for gtk3
-      notifd 
-      tray 
-      wireplumber
-      network
-      powerprofiles
-      bluetooth
-      battery
-      hyprland
-      apps
-    ];
+      astalPackages = with ags.packages.${system}; [
+        io
+        astal4 # or astal3 for gtk3
+        notifd
+        tray
+        wireplumber
+        network
+        powerprofiles
+        bluetooth
+        battery
+        hyprland
+        apps
+      ];
 
-    extraPackages =
-      astalPackages
-      ++ [
+      extraPackages = astalPackages ++ [
         pkgs.libadwaita
         pkgs.libsoup_3
+        pkgs.nodePackages.nodemon
+        pkgs.inotify-tools
       ];
-  in {
-    packages.${system} = {
-      default = pkgs.stdenv.mkDerivation {
-        name = pname;
-        src = ./.;
 
-        nativeBuildInputs = with pkgs; [
-          wrapGAppsHook
-          gobject-introspection
-          ags.packages.${system}.default
-        ];
+      devTools = with pkgs; [
+        nodePackages.nodemon
+        inotify-tools
+      ];
+    in
+    {
+      packages.${system} = {
+        default = pkgs.stdenv.mkDerivation {
+          name = pname;
+          src = ./.;
 
-        buildInputs = extraPackages ++ [pkgs.gjs];
+          nativeBuildInputs = with pkgs; [
+            wrapGAppsHook
+            gobject-introspection
+            ags.packages.${system}.default
+          ];
 
-        installPhase = ''
-          runHook preInstall
+          buildInputs = extraPackages ++ [ pkgs.gjs ];
 
-          mkdir -p $out/bin
-          mkdir -p $out/share
-          cp -r * $out/share
-          ags bundle ${entry} $out/bin/${pname} -d "SRC='$out/share'"
+          installPhase = ''
+            runHook preInstall
 
-          runHook postInstall
-        '';
+            mkdir -p $out/bin
+            mkdir -p $out/share
+            cp -r * $out/share
+            ags bundle ${entry} $out/bin/${pname} -d "SRC='$out/share'"
+
+            runHook postInstall
+          '';
+        };
+      };
+
+      devShells.${system} = {
+        default = pkgs.mkShell {
+          buildInputs = [
+            (ags.packages.${system}.default.override {
+              inherit extraPackages;
+            })
+          ]
+          ++ devTools;
+        };
       };
     };
-
-    devShells.${system} = {
-      default = pkgs.mkShell {
-        buildInputs = [
-          (ags.packages.${system}.default.override {
-            inherit extraPackages;
-          })
-        ];
-      };
-    };
-  };
 }

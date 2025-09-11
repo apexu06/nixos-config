@@ -15,6 +15,7 @@ return { -- Autoformat
 			json = { "prettierd" },
 			jsonc = { "prettierd" },
 			css = { "prettierd" },
+			scss = { "prettierd" },
 			sh = { "shfmt" },
 			markdown = { "prettierd" },
 			python = { "ruff" },
