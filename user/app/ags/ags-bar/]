@@ -1,0 +1,162 @@
+import { Gtk } from "ags/gtk4";
+import Wp from "gi://AstalWp?version=0.1";
+import { createState, With } from "gnim";
+
+const VOLUME_SCROLL_STEP = 0.01;
+
+export default function Volume() {
+  const wp = Wp.get_default();
+
+  type VolumeState = {
+    allDevices: Wp.Device[];
+    currentSpeaker: Wp.Endpoint | undefined;
+    volume: number;
+    isMuted: boolean;
+  };
+
+  const [state, setState] = createState<VolumeState>({
+    allDevices: [],
+    currentSpeaker: undefined,
+    volume: 0,
+    isMuted: false,
+  });
+
+  wp.connect("ready", () => {
+    const speaker = wp.audio.default_speaker;
+
+    if (speaker) {
+      setState({
+        allDevices: wp.audio.devices,
+        currentSpeaker: speaker,
+        volume: Math.round(speaker.volume * 100),
+        isMuted: speaker.mute,
+      });
+
+      speaker.connect("notify::volume", () => {
+        setState({
+          ...state.get(),
+          volume: Math.round(speaker.volume * 100),
+        });
+      });
+
+      speaker.connect("notify::mute", () => {
+        setState({
+          ...state.get(),
+          isMuted: speaker.mute,
+        });
+      });
+
+      wp.connect("device-added", () => {
+        setState({
+          ...state.get(),
+          allDevices: wp.audio.devices,
+        });
+      });
+
+      wp.connect("device-removed", () => {
+        setState({
+          ...state.get(),
+          allDevices: wp.audio.devices,
+        });
+      });
+    }
+  });
+
+  function getVolumeIcon(volume: number, muted: boolean) {
+    if (muted || volume === 0) return "audio-volume-muted";
+    if (volume < 30) return "audio-volume-low";
+    if (volume < 70) return "audio-volume-medium";
+    return "audio-volume-high";
+  }
+
+  function adjustVolume(direction: "up" | "down") {
+    const speaker = state.get().currentSpeaker;
+    if (!speaker) return;
+
+    const currentVolume = speaker.volume;
+    const newVolume =
+      direction === "up"
+        ? Math.min(1.0, currentVolume + VOLUME_SCROLL_STEP)
+        : Math.max(0.0, currentVolume - VOLUME_SCROLL_STEP);
+
+    speaker.volume = newVolume;
+  }
+
+  return (
+    <box>
+      <With value={state}>
+        {(s) => (
+          <menubutton
+            class="module"
+            $={(self) => {
+              const controller = new Gtk.EventControllerScroll();
+              controller.set_flags(Gtk.EventControllerScrollFlags.VERTICAL);
+
+              controller.connect("scroll", (_c, _dx, dy) => {
+                if (dy < 0) {
+                  adjustVolume("up");
+                } else {
+                  adjustVolume("down");
+                }
+
+                return true;
+              });
+              self.add_controller(controller);
+            }}
+          >
+            <box halign={Gtk.Align.CENTER}>
+              <image
+                iconName={getVolumeIcon(s.volume, s.isMuted)}
+                iconSize={Gtk.IconSize.NORMAL}
+                css="margin-right: 8px"
+              />
+              <label label={s.volume.toString() + "%"} />
+            </box>
+            <popover>
+              <box>
+                <label label="Volume" />
+                <Gtk.ComboBoxText
+                  $={(self) => {
+                    const outputs = s.allDevices.filter(
+                      (s) => s.outputRoutes.length !== 0,
+                    );
+
+                    for (let device of outputs) {
+                      self.append(
+                        device.get_id().toString(),
+                        device.description,
+                      );
+                    }
+
+                    if (s.currentSpeaker)
+                      self.set_active_id(s.currentSpeaker.device_id.toString());
+
+                    self.connect("changed", (combo) => {
+                      const output = outputs.find(
+                        (o) => o.id.toString() === combo.get_active_id(),
+                      );
+
+                      if (output) {
+                        const speaker = wp.audio.speakers.find(
+                          (s) => s.device_id === output.id,
+                        );
+
+                        if (speaker) {
+                          speaker.set_is_default(true);
+                          setState({
+                            ...state.get(),
+                            currentSpeaker: speaker,
+                          });
+                        }
+                      }
+                    });
+                  }}
+                />
+              </box>
+            </popover>
+          </menubutton>
+        )}
+      </With>
+    </box>
+  );
+}

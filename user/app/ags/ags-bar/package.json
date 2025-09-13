@@ -4,7 +4,8 @@
     "gnim": "*"
   },
   "prettier": {
-    "semi": false,
+    "trailingComma": "all",
+    "semi": true,
     "tabWidth": 2
   }
 }

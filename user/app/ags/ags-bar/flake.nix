@@ -40,12 +40,12 @@
         pkgs.libadwaita
         pkgs.libsoup_3
         pkgs.nodePackages.nodemon
-        pkgs.inotify-tools
       ];
 
       devTools = with pkgs; [
         nodePackages.nodemon
         inotify-tools
+        pkgs.pantheon.elementary-iconbrowser
       ];
     in
     {

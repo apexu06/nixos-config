@@ -1,4 +1,5 @@
 // https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
+
 $accent: #{"@accent_color"};
 $accent_bg: #{"@accent_bg_color"};
 $accent_fg: #{"@accent_fg_color"};
@@ -25,7 +26,7 @@ $fg: #{"@window_fg_color"};
 window.Bar {
   background: transparent;
   color: $fg;
-  font-weight: "lighter";
+  font-weight: 400;
 
   .main {
     background: rgba(0, 0, 0, 0.4);
@@ -45,12 +46,38 @@ window.Bar {
       .workspace-button.focused {
         color: $accent;
       }
+
+      .workspace-button.urgent {
+        color: $destructive;
+      }
+    }
+
+    .dropdown {
+      padding: 8px;
+      border-radius: 8px;
+      background: $bg;
+    }
+
+    .dropdown:hover {
+      background-color: #{"alpha(@window_fg_color, 0.1)"};
+    }
+
+    .module {
+      border-radius: 16px;
+      transition: 200ms;
+      padding: 0px 12px 0px 12px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .module:hover {
+      background: $bg;
     }
   }
 }
 
 button {
   background: transparent;
+  border-radius: 0px;
   font-weight: 400;
   min-width: 0px;
   min-height: 0px;
