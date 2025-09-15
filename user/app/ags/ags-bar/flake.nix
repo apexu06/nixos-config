@@ -27,6 +27,7 @@
         astal4 # or astal3 for gtk3
         notifd
         tray
+        mpris
         wireplumber
         network
         powerprofiles

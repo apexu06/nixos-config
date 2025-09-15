@@ -1,5 +1,3 @@
-// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
-
 $accent: #{"@accent_color"};
 $accent_bg: #{"@accent_bg_color"};
 $accent_fg: #{"@accent_fg_color"};
@@ -52,14 +50,26 @@ window.Bar {
       }
     }
 
-    .dropdown {
-      padding: 8px;
-      border-radius: 8px;
-      background: $bg;
-    }
+    .volume-popover {
+      .dropdown {
+        padding: 8px;
+        border-radius: 8px;
+        background: $bg;
+      }
 
-    .dropdown:hover {
-      background-color: #{"alpha(@window_fg_color, 0.1)"};
+      .dropdown:hover {
+        background-color: #{"alpha(@window_fg_color, 0.1)"};
+      }
+
+      .volume-settings-button {
+        border-radius: 100%;
+        padding: 12px;
+        background-color: $bg;
+      }
+
+      .volume-settings-button:hover {
+        background-color: #{"alpha(@window_fg_color, 0.1)"};
+      }
     }
 
     .module {

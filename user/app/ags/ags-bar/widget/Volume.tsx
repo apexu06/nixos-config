@@ -1,4 +1,5 @@
-import { Gtk } from "ags/gtk4";
+import { Gdk, Gtk } from "ags/gtk4";
+import { subprocess } from "ags/process";
 import Wp from "gi://AstalWp?version=0.1";
 import { createState, With } from "gnim";
 
@@ -26,6 +27,8 @@ export default function Volume() {
     outputIsMuted: false,
     inputIsMuted: false,
   });
+
+  let popover: Gtk.Popover | undefined = undefined;
 
   wp.connect("ready", () => {
     const output = wp.audio.defaultSpeaker;
@@ -106,41 +109,86 @@ export default function Volume() {
     output.volume = newVolume;
   }
 
-  // https://google.com
+  function handleSettingsButtonClicked() {
+    if (popover) popover.popdown();
+    subprocess(
+      "pavucontrol",
+      (out) => console.log(out), // optional
+      (err) => console.error(err), // optional
+    );
+  }
 
   return (
     <box>
       <With value={state}>
         {(s) => (
-          <menubutton
-            class="module"
-            $={(self) => {
-              const controller = new Gtk.EventControllerScroll();
-              controller.set_flags(Gtk.EventControllerScrollFlags.VERTICAL);
+          <box hexpand={false}>
+            <button
+              class="module"
+              $={(self) => {
+                const controller = new Gtk.EventControllerScroll();
+                controller.set_flags(Gtk.EventControllerScrollFlags.VERTICAL);
 
-              controller.connect("scroll", (_c, _dx, dy) => {
-                if (dy < 0) {
-                  adjustVolume("up");
-                } else {
-                  adjustVolume("down");
-                }
+                controller.connect("scroll", (_c, _dx, dy) => {
+                  if (dy < 0) {
+                    adjustVolume("up");
+                  } else {
+                    adjustVolume("down");
+                  }
 
-                return true;
-              });
-              self.add_controller(controller);
-            }}
-          >
-            <box halign={Gtk.Align.CENTER}>
-              <image
-                iconName={getVolumeIcon(s.outputVolume, s.outputIsMuted)}
-                iconSize={Gtk.IconSize.NORMAL}
-                css="margin-right: 8px"
-              />
-              <label label={s.outputVolume.toString() + "%"} />
-            </box>
+                  return true;
+                });
+                self.add_controller(controller);
 
-            <popover autohide={false} widthRequest={450}>
+                self.connect("clicked", () => {
+                  if (popover) {
+                    popover.set_pointing_to(self.get_allocation());
+                    popover.popup();
+                  }
+                });
+              }}
+            >
+              <box halign={Gtk.Align.CENTER}>
+                <image
+                  iconName={getVolumeIcon(s.outputVolume, s.outputIsMuted)}
+                  iconSize={Gtk.IconSize.NORMAL}
+                  css="margin-right: 8px;"
+                />
+                <label label={s.outputVolume.toString() + "%"} />
+              </box>
+            </button>
+
+            <popover
+              $={(p) => {
+                popover = p;
+                p.set_has_arrow(false);
+                p.set_cascade_popdown(false);
+                p.set_autohide(true);
+              }}
+              widthRequest={450}
+              class="volume-popover"
+            >
               <box orientation={Gtk.Orientation.VERTICAL} spacing={8}>
+                <centerbox
+                  orientation={Gtk.Orientation.HORIZONTAL}
+                  css={"padding-left: 8px;"}
+                >
+                  <label
+                    label={"Audio"}
+                    $type="start"
+                    css={"font-size: 20px; font-weight: bold;"}
+                  />
+                  <button
+                    class="volume-settings-button"
+                    $type="end"
+                    onClicked={handleSettingsButtonClicked}
+                  >
+                    <image
+                      iconName={"preferences-desktop-sound"}
+                      iconSize={Gtk.IconSize.NORMAL}
+                    />
+                  </button>
+                </centerbox>
                 <box orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
                   <image
                     iconName="audio-headphones"
@@ -231,9 +279,25 @@ export default function Volume() {
                     }}
                   />
                 </box>
+                <Gtk.Separator />
+                <box orientation={Gtk.Orientation.HORIZONTAL}>
+                  <image
+                    iconName="audio-headphones"
+                    iconSize={Gtk.IconSize.NORMAL}
+                  />
+                  <slider
+                    min={0}
+                    max={1}
+                    hexpand={true}
+                    value={s.currentOutput?.volume!}
+                    onChangeValue={({ value }) =>
+                      s.currentOutput?.set_volume(value)
+                    }
+                  />
+                </box>
               </box>
             </popover>
-          </menubutton>
+          </box>
         )}
       </With>
     </box>
