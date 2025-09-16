@@ -14,7 +14,7 @@ import { For, With, createBinding, onCleanup } from "ags";
 import { createPoll } from "ags/time";
 import { execAsync } from "ags/process";
 
-function Mpris() {
+export function Mpris() {
   const mpris = AstalMpris.get_default();
   const apps = new AstalApps.Apps();
   const players = createBinding(mpris, "players");
