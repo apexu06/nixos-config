@@ -11,12 +11,13 @@
     ./app/vesktop.nix
     ./app/terminal/wezterm.nix
     ./app/git.nix
-    ./app/ags/ags.nix
     ./app/thunderbird.nix
-    ./app/spotify-player.nix
+    ./app/shell/quickshell/quickshell.nix
   ];
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";
+
+  qt.enable = true;
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [

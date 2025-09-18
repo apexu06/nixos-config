@@ -1,0 +1,129 @@
+$accent: #{"@accent_color"};
+$accent_bg: #{"@accent_bg_color"};
+$accent_fg: #{"@accent_fg_color"};
+
+$destructive: #{"@destructive_color"};
+$destructive_bg: #{"@destructive_bg_color"};
+$destructive_fg: #{"@destructive_fg_color"};
+
+$success: #{"@success_color"};
+$success_bg: #{"@success_bg_color"};
+$success_fg: #{"@success_fg_color"};
+
+$warning: #{"@warning_color"};
+$warning_bg: #{"@warning_bg_color"};
+$warning_fg: #{"@warning_fg_color"};
+
+$error: #{"@error_color"};
+$error_bg: #{"@error_bg_color"};
+$error_fg: #{"@error_fg_color"};
+
+$bg: #{"@window_bg_color"};
+$fg: #{"@window_fg_color"};
+
+$border: #{"@headerbar_border_color"};
+$lighter_bg: #{"@card_bg_color"};
+$lightest_bg: #{"alpha(@window_fg_color, 0.05)"};
+$hover_bg: #{"alpha(@window_fg_color, 0.1)"};
+
+window.Bar {
+  background: transparent;
+  color: $fg;
+  font-weight: 400;
+
+  .main {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 0px;
+    padding: 6px 12px 6px 6px;
+
+    .base-container {
+      background-color: $lighter_bg;
+      border-radius: 16px;
+      padding: 8px;
+    }
+
+    .workspace-container {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px;
+      border-radius: 12px;
+
+      .workspace-button {
+        min-width: 26px;
+        min-height: 26px;
+      }
+
+      .workspace-button.focused {
+        color: $accent;
+      }
+
+      .workspace-button.urgent {
+        color: $destructive;
+      }
+    }
+
+    .volume-popover {
+      padding: 2px;
+
+      .dropdown {
+        padding: 8px;
+        border-radius: 8px;
+        background-color: #{"alpha(@window_fg_color, 0.05)"};
+        transition: 200ms;
+      }
+
+      .dropdown:hover {
+        background-color: #{"alpha(@window_fg_color, 0.1)"};
+      }
+
+      .volume-settings-button {
+        border-radius: 100%;
+        padding: 12px;
+        background-color: $lightest_bg;
+      }
+
+      .volume-settings-button:hover {
+        background-color: $hover_bg;
+      }
+    }
+
+    .player-selection {
+      .player-selection-button {
+        padding: 8px;
+        border-radius: 8px;
+        background-color: $lighter_bg;
+      }
+
+      .player-selection-button:hover {
+        background-color: $hover_bg;
+      }
+    }
+
+    .module {
+      border-radius: 16px;
+      transition: 200ms;
+      padding: 0px 12px 0px 12px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .module:hover {
+      background: $bg;
+    }
+  }
+}
+
+popover > contents {
+  background: $bg;
+}
+popover {
+  margin-top: 8px;
+}
+
+button {
+  background: transparent;
+  border-radius: 0px;
+  font-weight: 400;
+  min-width: 0px;
+  min-height: 0px;
+  padding: 0px;
+  margin: 0px;
+}

@@ -27,6 +27,7 @@
         astal4 # or astal3 for gtk3
         notifd
         tray
+        mpris
         wireplumber
         network
         powerprofiles
@@ -34,18 +35,20 @@
         battery
         hyprland
         apps
+        cava
       ];
 
       extraPackages = astalPackages ++ [
         pkgs.libadwaita
         pkgs.libsoup_3
         pkgs.nodePackages.nodemon
-        pkgs.inotify-tools
       ];
 
       devTools = with pkgs; [
         nodePackages.nodemon
         inotify-tools
+        pkgs.pantheon.elementary-iconbrowser
+        pkgs.cava
       ];
     in
     {
