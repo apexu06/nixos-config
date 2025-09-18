@@ -40,6 +40,7 @@ export default function Workspaces() {
   hyprland.connect("workspace-added", updateWorkspaces);
   hyprland.connect("workspace-removed", updateWorkspaces);
   hyprland.connect("urgent", (_, c) => {
+    if (c === null) return;
     setState({
       ...state.get(),
       urgent: c.get_workspace().get_id(),

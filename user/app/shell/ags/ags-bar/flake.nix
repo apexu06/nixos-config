@@ -35,6 +35,7 @@
         battery
         hyprland
         apps
+        cava
       ];
 
       extraPackages = astalPackages ++ [
@@ -47,6 +48,7 @@
         nodePackages.nodemon
         inotify-tools
         pkgs.pantheon.elementary-iconbrowser
+        pkgs.cava
       ];
     in
     {

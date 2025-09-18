@@ -163,6 +163,7 @@ export default function Volume() {
       <popover
         $={(p) => {
           popover = p;
+          p.set_has_arrow(false);
         }}
         widthRequest={450}
       >
@@ -171,7 +172,10 @@ export default function Volume() {
           spacing={8}
           class="volume-popover"
         >
-          <centerbox orientation={Gtk.Orientation.HORIZONTAL}>
+          <centerbox
+            orientation={Gtk.Orientation.HORIZONTAL}
+            class="base-container"
+          >
             <label
               label={"Audio"}
               $type="start"
@@ -192,7 +196,11 @@ export default function Volume() {
           <box>
             <With value={state}>
               {(s) => (
-                <box orientation={Gtk.Orientation.VERTICAL} spacing={8}>
+                <box
+                  orientation={Gtk.Orientation.VERTICAL}
+                  spacing={8}
+                  class="base-container"
+                >
                   <box orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
                     <image
                       iconName="audio-headphones"
@@ -287,33 +295,43 @@ export default function Volume() {
               )}
             </With>
           </box>
-          <Gtk.Separator />
 
-          <box orientation={Gtk.Orientation.HORIZONTAL}>
-            <image iconName="audio-headphones" iconSize={Gtk.IconSize.NORMAL} />
-            <slider
-              min={0}
-              max={1}
-              hexpand={true}
-              value={createBinding(wp.defaultSpeaker, "volume")}
-              onChangeValue={({ value }) => wp.defaultSpeaker.set_volume(value)}
-            />
-          </box>
+          <box
+            orientation={Gtk.Orientation.VERTICAL}
+            spacing={8}
+            class="base-container"
+          >
+            <box orientation={Gtk.Orientation.HORIZONTAL}>
+              <image
+                iconName="audio-headphones"
+                iconSize={Gtk.IconSize.NORMAL}
+              />
+              <slider
+                min={0}
+                max={1}
+                hexpand={true}
+                value={createBinding(wp.defaultSpeaker, "volume")}
+                onChangeValue={({ value }) =>
+                  wp.defaultSpeaker.set_volume(value)
+                }
+              />
+            </box>
 
-          <box orientation={Gtk.Orientation.HORIZONTAL}>
-            <image
-              iconName="audio-input-microphone"
-              iconSize={Gtk.IconSize.NORMAL}
-            />
-            <slider
-              min={0}
-              max={1.5}
-              hexpand={true}
-              value={createBinding(wp.defaultMicrophone, "volume")}
-              onChangeValue={({ value }) =>
-                wp.defaultMicrophone.set_volume(value)
-              }
-            />
+            <box orientation={Gtk.Orientation.HORIZONTAL}>
+              <image
+                iconName="audio-input-microphone"
+                iconSize={Gtk.IconSize.NORMAL}
+              />
+              <slider
+                min={0}
+                max={1.5}
+                hexpand={true}
+                value={createBinding(wp.defaultMicrophone, "volume")}
+                onChangeValue={({ value }) =>
+                  wp.defaultMicrophone.set_volume(value)
+                }
+              />
+            </box>
           </box>
         </box>
       </popover>

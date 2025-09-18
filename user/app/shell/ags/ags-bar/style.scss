@@ -21,6 +21,11 @@ $error_fg: #{"@error_fg_color"};
 $bg: #{"@window_bg_color"};
 $fg: #{"@window_fg_color"};
 
+$border: #{"@headerbar_border_color"};
+$lighter_bg: #{"@card_bg_color"};
+$lightest_bg: #{"alpha(@window_fg_color, 0.05)"};
+$hover_bg: #{"alpha(@window_fg_color, 0.1)"};
+
 window.Bar {
   background: transparent;
   color: $fg;
@@ -30,6 +35,12 @@ window.Bar {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 0px;
     padding: 6px 12px 6px 6px;
+
+    .base-container {
+      background-color: $lighter_bg;
+      border-radius: 16px;
+      padding: 8px;
+    }
 
     .workspace-container {
       background: rgba(0, 0, 0, 0.4);
@@ -51,10 +62,13 @@ window.Bar {
     }
 
     .volume-popover {
+      padding: 2px;
+
       .dropdown {
         padding: 8px;
         border-radius: 8px;
-        background: $bg;
+        background-color: #{"alpha(@window_fg_color, 0.05)"};
+        transition: 200ms;
       }
 
       .dropdown:hover {
@@ -64,15 +78,23 @@ window.Bar {
       .volume-settings-button {
         border-radius: 100%;
         padding: 12px;
-        background-color: $bg;
+        background-color: $lightest_bg;
       }
 
       .volume-settings-button:hover {
-        background-color: #{"alpha(@window_fg_color, 0.1)"};
+        background-color: $hover_bg;
+      }
+    }
+
+    .player-selection {
+      .player-selection-button {
+        padding: 8px;
+        border-radius: 8px;
+        background-color: $lighter_bg;
       }
 
-      .player-selection {
-        padding: 20px;
+      .player-selection-button:hover {
+        background-color: $hover_bg;
       }
     }
 
@@ -89,6 +111,13 @@ window.Bar {
   }
 }
 
+popover > contents {
+  background: $bg;
+}
+popover {
+  margin-top: 8px;
+}
+
 button {
   background: transparent;
   border-radius: 0px;
@@ -97,8 +126,4 @@ button {
   min-height: 0px;
   padding: 0px;
   margin: 0px;
-}
-
-button:hover {
-  background-color: #{"alpha(@window_fg_color, 0.1)"};
 }

@@ -7,7 +7,7 @@ export default function Clock() {
   return (
     <menubutton class="module" css="min-width: 72px;">
       <label label={time} />
-      <popover>
+      <popover $={(self) => self.set_has_arrow(false)}>
         <Gtk.Calendar />
       </popover>
     </menubutton>
