@@ -7,7 +7,6 @@ import {
   createBinding,
   createComputed,
   createState,
-  For,
   With,
 } from "ags";
 import Pango from "gi://Pango?version=1.0";
@@ -83,7 +82,12 @@ export default function Mpris() {
   });
 
   return (
-    <box class="module" orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
+    <box
+      class="module"
+      orientation={Gtk.Orientation.HORIZONTAL}
+      spacing={8}
+      visible={state((s) => s.players.length !== 0)}
+    >
       <With value={state}>
         {(state) => {
           if (!state.currentPlayer || state.currentPlayer.identity === null)
@@ -91,10 +95,15 @@ export default function Mpris() {
 
           const [app] = apps.exact_query(state.currentPlayer.entry);
           return (
-            <box orientation={Gtk.Orientation.HORIZONTAL} spacing={4}>
+            <box
+              orientation={Gtk.Orientation.HORIZONTAL}
+              spacing={8}
+              valign={Gtk.Align.CENTER}
+            >
               <button onClicked={() => popover.popup()}>
                 <image iconName={app.iconName} />
               </button>
+              <Gtk.Separator orientation={Gtk.Orientation.VERTICAL} />
               <Player state={state} />
             </box>
           );
@@ -147,56 +156,183 @@ export default function Mpris() {
   );
 }
 
+function Player({ state }: { state: PlayerState }) {
+  if (!state.currentPlayer || state.currentPlayer === null) return <box></box>;
+
+  const title = createBinding(state.currentPlayer, "title");
+  const artist = createBinding(state.currentPlayer, "artist");
+  const progress = createBinding(state.currentPlayer, "position");
+  const length = createBinding(state.currentPlayer, "length");
+  const cover = createBinding(state.currentPlayer, "coverArt");
+  const songInfo = createComputed((get) => {
+    if (get(artist) === null) {
+      return "nothing playing";
+    }
+    return get(title) + " - " + get(artist);
+  });
+
+  const progressPercent = createComputed((get) => get(progress) / get(length));
+
+  return (
+    <menubutton>
+      <box orientation={Gtk.Orientation.HORIZONTAL} hexpand={false} spacing={8}>
+        <box
+          orientation={Gtk.Orientation.VERTICAL}
+          valign={Gtk.Align.CENTER}
+          spacing={1}
+        >
+          <label
+            maxWidthChars={20}
+            ellipsize={Pango.EllipsizeMode.END}
+            label={songInfo}
+          />
+
+          <drawingarea
+            height_request={2}
+            css={"border-radius: 8px;"}
+            hexpand
+            $={(self) => {
+              self.set_draw_func((area, cr, width, height) => {
+                cr.rectangle(0, 0, width * progressPercent.get(), height);
+
+                cr.setSourceRGBA(1, 1, 1, 1);
+                cr.fill();
+
+                state.currentPlayer?.connect("notify::position", () =>
+                  area.queue_draw(),
+                );
+              });
+            }}
+          />
+        </box>
+
+        <Cava />
+      </box>
+
+      <popover $={(self) => self.set_has_arrow(false)}>
+        <box>
+          <label
+            label={"choose something to play"}
+            visible={artist((p) => p === null)}
+          />
+          <box
+            orientation={Gtk.Orientation.HORIZONTAL}
+            spacing={8}
+            class={"player-container"}
+            visible={artist((p) => p !== null)}
+          >
+            <image file={cover} pixelSize={64} />
+
+            <box
+              orientation={Gtk.Orientation.VERTICAL}
+              spacing={4}
+              valign={Gtk.Align.CENTER}
+            >
+              <label
+                label={title}
+                halign={Gtk.Align.START}
+                css={"font-weight: bold;"}
+              />
+              <label
+                label={title}
+                halign={Gtk.Align.START}
+                css={"font-size: 14px;"}
+              />
+            </box>
+
+            <Gtk.Separator orientation={Gtk.Orientation.VERTICAL} />
+
+            <box
+              orientation={Gtk.Orientation.VERTICAL}
+              valign={Gtk.Align.BASELINE_CENTER}
+              spacing={16}
+            >
+              <box spacing={8}>
+                <button
+                  onClicked={() => state.currentPlayer?.previous()}
+                  visible={createBinding(state.currentPlayer, "canGoPrevious")}
+                >
+                  <image iconName="media-seek-backward-symbolic" />
+                </button>
+                <button
+                  onClicked={() => state.currentPlayer?.play_pause()}
+                  visible={createBinding(state.currentPlayer, "canControl")}
+                >
+                  <box>
+                    <image
+                      iconName="media-playback-pause-symbolic"
+                      visible={createBinding(
+                        state.currentPlayer,
+                        "playbackStatus",
+                      )((s) => s === AstalMpris.PlaybackStatus.PLAYING)}
+                    />
+                    <image
+                      iconName="media-playback-start-symbolic"
+                      visible={createBinding(
+                        state.currentPlayer,
+                        "playbackStatus",
+                      )((s) => s !== AstalMpris.PlaybackStatus.PLAYING)}
+                    />
+                  </box>
+                </button>
+
+                <button
+                  onClicked={() => state.currentPlayer?.next()}
+                  visible={createBinding(state.currentPlayer, "canGoNext")}
+                >
+                  <image iconName="media-seek-forward-symbolic" />
+                </button>
+              </box>
+              <slider
+                css={"padding: 0px;"}
+                min={0}
+                max={1}
+                showFillLevel
+                value={createBinding(state.currentPlayer, "volume")}
+                hexpand
+                onChangeValue={({ value }) => {
+                  state.currentPlayer?.set_volume(value);
+                }}
+              />
+            </box>
+          </box>
+        </box>
+      </popover>
+    </menubutton>
+  );
+}
+
 function Cava() {
   const cava = AstalCava.get_default();
 
   if (cava) {
-    cava.set_bars(8);
+    cava.set_bars(6);
   }
 
   return (
-    <box orientation={Gtk.Orientation.HORIZONTAL} valign={Gtk.Align.END}>
-      <drawingarea
-        width_request={40}
-        height_request={10}
-        $={(self) => {
-          self.set_draw_func((area, cr, width, height) => {
-            const values = cava?.get_values() ?? [];
-            const barWidth = width / values.length;
+    <drawingarea
+      width_request={30}
+      $={(self) => {
+        self.set_draw_func((area, cr, width, height) => {
+          const values = cava?.get_values() ?? [];
+          const barWidth = width / values.length;
+          const baseline = height / 2;
 
-            values.forEach((v, i) => {
-              const barHeight = v * height;
-              cr.rectangle(
-                i * barWidth,
-                height - barHeight,
-                barWidth - 2,
-                barHeight,
-              );
-              cr.setSourceRGBA(1, 1, 1, 1);
-              cr.fill();
-            });
+          values.forEach((v, i) => {
+            const barHeight = v * (height / 2);
+            const x = i * barWidth;
 
-            cava?.connect("notify::values", () => area.queue_draw());
+            cr.rectangle(x, baseline - barHeight, barWidth - 2, barHeight);
+
+            cr.rectangle(x, baseline, barWidth - 2, barHeight);
+
+            cr.setSourceRGBA(1, 1, 1, 1);
+            cr.fill();
           });
-        }}
-      />
-    </box>
-  );
-}
 
-function Player({ state }: { state: PlayerState }) {
-  if (!state.currentPlayer) return;
-  const title = createBinding(state.currentPlayer, "title");
-  const artist = createBinding(state.currentPlayer, "artist");
-
-  const songInfo = createComputed((get) => get(title) + " - " + get(artist));
-  return (
-    <box orientation={Gtk.Orientation.HORIZONTAL} valign={Gtk.Align.CENTER}>
-      <label
-        maxWidthChars={20}
-        ellipsize={Pango.EllipsizeMode.END}
-        label={songInfo}
-      />
-    </box>
+          cava?.connect("notify::values", () => area.queue_draw());
+        });
+      }}
+    />
   );
 }

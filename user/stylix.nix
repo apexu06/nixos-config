@@ -4,6 +4,7 @@
   inputs,
   settings,
   config,
+  lib,
   ...
 }:
 
@@ -36,6 +37,9 @@ in
 
     targets.neovim.plugin = "mini.base16";
     targets.neovim.enable = true;
+
+    targets.qt.enable = true;
+    targets.qt.platform = lib.mkForce "qtct";
 
     targets.zen-browser.profileNames = [ "default" ];
 

@@ -1,0 +1,5 @@
+{
+  "watch": ["."],
+  "ext": "tsx,ts,json,scss",
+  "exec": "pkill -HUP ags || ags run ."
+}
