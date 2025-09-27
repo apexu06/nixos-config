@@ -4,6 +4,7 @@ import Workspaces from "./Workspaces";
 import Volume from "./Volume";
 import Clock from "./Clock";
 import Mpris from "./Mpris";
+import Battery from "./Battery";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
@@ -29,6 +30,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             spacing={4}
           >
             <Volume />
+            <Battery />
           </box>
 
           <Clock />

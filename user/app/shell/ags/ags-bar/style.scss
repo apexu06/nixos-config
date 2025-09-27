@@ -18,7 +18,8 @@ $error: #{"@error_color"};
 $error_bg: #{"@error_bg_color"};
 $error_fg: #{"@error_fg_color"};
 
-$bg: #{"@window_bg_color"};
+$bg: #{"alpha(@window_bg_color, 0.7)"};
+$bar_bg: #{"alpha(@window_bg_color, 0.4)"};
 $fg: #{"@window_fg_color"};
 
 $border: #{"@headerbar_border_color"};
@@ -32,7 +33,7 @@ window.Bar {
   font-weight: 400;
 
   .main {
-    background: rgba(0, 0, 0, 0.4);
+    background: $bar_bg;
     border-radius: 0px;
     padding: 6px 12px 6px 6px;
 
@@ -64,16 +65,6 @@ window.Bar {
     .volume-popover {
       padding: 2px;
 
-      .dropdown {
-        padding: 8px;
-        border-radius: 8px;
-        background-color: #{"alpha(@window_fg_color, 0.05)"};
-      }
-
-      .dropdown:hover {
-        background-color: #{"alpha(@window_fg_color, 0.1)"};
-      }
-
       .volume-settings-button {
         border-radius: 100%;
         padding: 12px;
@@ -98,26 +89,65 @@ window.Bar {
     }
 
     .player-container {
-      background-color: $lighter_bg;
       padding: 8px;
       border-radius: 8px;
+    }
+
+    .powerprofile {
+      padding: 16px;
+      border-radius: 8px;
+      background: $lighter_bg;
+      transition: 200ms;
+      border: 2px solid transparent;
+    }
+
+    .performance:hover,
+    .performance.active {
+      border-color: $destructive_bg;
+      color: $destructive_bg;
+    }
+
+    .balanced:hover,
+    .balanced.active {
+      border-color: $accent_bg;
+      color: $accent_bg;
+    }
+
+    .powersaver:hover,
+    .powersaver.active {
+      border-color: $success_bg;
+      color: $success_bg;
     }
 
     .module {
       border-radius: 16px;
       transition: 200ms;
       padding: 0px 12px 0px 12px;
-      background: rgba(0, 0, 0, 0.4);
+      background: $bar_bg;
     }
 
-    .module:hover {
-      background: $bg;
+    // .module:hover {
+    //   background: $bg;
+    // }
+
+    .level-low {
+      color: red;
+    }
+
+    .dropdown {
+      padding: 8px;
+      border-radius: 8px;
+      background-color: $lightest_bg;
+    }
+
+    .dropdown:hover {
+      background-color: $hover_bg;
     }
   }
 }
 
 popover > contents {
-  background: $bg;
+  background-color: $bg;
 }
 popover {
   margin-top: 8px;

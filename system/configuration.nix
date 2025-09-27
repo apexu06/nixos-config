@@ -89,6 +89,7 @@
     gnome.gnome-keyring.enable = true;
     protonmail-bridge.enable = true;
     gvfs.enable = true;
+    upower.enable = true;
   };
 
   systemd.services.fprintd = {

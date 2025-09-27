@@ -10,6 +10,7 @@ import {
   With,
 } from "ags";
 import Pango from "gi://Pango?version=1.0";
+import AstalPowerProfiles from "gi://AstalPowerProfiles?version=0.1";
 
 type PlayerState = {
   currentPlayer: AstalMpris.Player | null;
@@ -159,6 +160,9 @@ export default function Mpris() {
 function Player({ state }: { state: PlayerState }) {
   if (!state.currentPlayer || state.currentPlayer === null) return <box></box>;
 
+  const powerprofiles = AstalPowerProfiles.get_default();
+  const activeProfile = createBinding(powerprofiles, "activeProfile");
+
   const title = createBinding(state.currentPlayer, "title");
   const artist = createBinding(state.currentPlayer, "artist");
   const progress = createBinding(state.currentPlayer, "position");
@@ -206,7 +210,13 @@ function Player({ state }: { state: PlayerState }) {
           />
         </box>
 
-        <Cava />
+        <With value={activeProfile}>
+          {(p) => {
+            if (p !== "power-saver") {
+              return <Cava />;
+            }
+          }}
+        </With>
       </box>
 
       <popover $={(self) => self.set_has_arrow(false)}>
@@ -226,6 +236,8 @@ function Player({ state }: { state: PlayerState }) {
             <box
               orientation={Gtk.Orientation.VERTICAL}
               spacing={4}
+              hexpand
+              width_request={200}
               valign={Gtk.Align.CENTER}
             >
               <label
@@ -234,7 +246,7 @@ function Player({ state }: { state: PlayerState }) {
                 css={"font-weight: bold;"}
               />
               <label
-                label={title}
+                label={artist}
                 halign={Gtk.Align.START}
                 css={"font-size: 14px;"}
               />
@@ -246,17 +258,20 @@ function Player({ state }: { state: PlayerState }) {
               orientation={Gtk.Orientation.VERTICAL}
               valign={Gtk.Align.BASELINE_CENTER}
               spacing={16}
+              width_request={100}
             >
-              <box spacing={8}>
+              <centerbox>
                 <button
                   onClicked={() => state.currentPlayer?.previous()}
                   visible={createBinding(state.currentPlayer, "canGoPrevious")}
+                  $type="start"
                 >
                   <image iconName="media-seek-backward-symbolic" />
                 </button>
                 <button
                   onClicked={() => state.currentPlayer?.play_pause()}
                   visible={createBinding(state.currentPlayer, "canControl")}
+                  $type="center"
                 >
                   <box>
                     <image
@@ -279,10 +294,11 @@ function Player({ state }: { state: PlayerState }) {
                 <button
                   onClicked={() => state.currentPlayer?.next()}
                   visible={createBinding(state.currentPlayer, "canGoNext")}
+                  $type="end"
                 >
                   <image iconName="media-seek-forward-symbolic" />
                 </button>
-              </box>
+              </centerbox>
               <slider
                 css={"padding: 0px;"}
                 min={0}
