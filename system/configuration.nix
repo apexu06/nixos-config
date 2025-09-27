@@ -95,6 +95,7 @@
     gnome.gnome-keyring.enable = true;
     protonmail-bridge.enable = true;
     gvfs.enable = true;
+    upower.enable = true;
   };
 
   systemd.services.fprintd = {
@@ -111,4 +112,9 @@
     NIXOS_OZONE_WL = "1";
   };
 
+  qt = {
+    enable = true;
+    platformTheme = "qt5ct";
+    style = "kvantum";
+  };
 }

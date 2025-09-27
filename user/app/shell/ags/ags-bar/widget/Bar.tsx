@@ -4,6 +4,7 @@ import Workspaces from "./Workspaces";
 import Volume from "./Volume";
 import Clock from "./Clock";
 import Mpris from "./Mpris";
+import Battery from "./Battery";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
@@ -21,9 +22,17 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       <centerbox orientation={Gtk.Orientation.HORIZONTAL} class="main">
         <Workspaces $type="start" />
 
+        <Mpris $type="center" />
         <box orientation={Gtk.Orientation.HORIZONTAL} $type="end" spacing={8}>
-          <Mpris />
-          <Volume />
+          <box
+            orientation={Gtk.Orientation.HORIZONTAL}
+            class="module"
+            spacing={4}
+          >
+            <Volume />
+            <Battery />
+          </box>
+
           <Clock />
         </box>
       </centerbox>

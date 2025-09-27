@@ -47,8 +47,8 @@
       devTools = with pkgs; [
         nodePackages.nodemon
         inotify-tools
-        pkgs.pantheon.elementary-iconbrowser
-        pkgs.cava
+        pantheon.elementary-iconbrowser
+        cava
       ];
     in
     {

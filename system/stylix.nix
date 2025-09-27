@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 
 {
   imports = [
@@ -9,5 +9,5 @@
   stylix.targets.console.enable = true;
   stylix.targets.gnome.enable = true;
   stylix.targets.qt.enable = true;
-  stylix.homeManagerIntegration.followSystem = true;
+
 }

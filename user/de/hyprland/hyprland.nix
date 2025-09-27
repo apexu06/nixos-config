@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     polkit_gnome
     nwg-look
+    qt6ct
     pavucontrol
     hypridle
     hyprlock

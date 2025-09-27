@@ -1,4 +1,4 @@
-import { Gdk, Gtk } from "ags/gtk4";
+import { Gtk } from "ags/gtk4";
 import { subprocess } from "ags/process";
 import Wp from "gi://AstalWp?version=0.1";
 import { createBinding, createState, With } from "gnim";
@@ -103,7 +103,7 @@ export default function Volume() {
     const currentVolume = output.volume;
     const newVolume =
       direction === "up"
-        ? Math.min(1.0, currentVolume + VOLUME_SCROLL_STEP)
+        ? Math.min(1.5, currentVolume + VOLUME_SCROLL_STEP)
         : Math.max(0.0, currentVolume - VOLUME_SCROLL_STEP);
 
     output.volume = newVolume;
@@ -119,12 +119,10 @@ export default function Volume() {
   }
 
   return (
-    <box hexpand={false}>
+    <box hexpand={false} halign={Gtk.Align.CENTER}>
       <With value={state}>
         {(s) => (
           <button
-            class="module"
-            css={"min-width: 72px;"}
             $={(self) => {
               const controller = new Gtk.EventControllerScroll();
               controller.set_flags(Gtk.EventControllerScrollFlags.VERTICAL);
@@ -148,14 +146,10 @@ export default function Volume() {
               });
             }}
           >
-            <box halign={Gtk.Align.CENTER}>
-              <image
-                iconName={getVolumeIcon(s.outputVolume, s.outputIsMuted)}
-                iconSize={Gtk.IconSize.NORMAL}
-                css="margin-right: 8px;"
-              />
-              <label label={s.outputVolume.toString() + "%"} />
-            </box>
+            <image
+              iconName={getVolumeIcon(s.outputVolume, s.outputIsMuted)}
+              iconSize={Gtk.IconSize.NORMAL}
+            />
           </button>
         )}
       </With>
@@ -302,26 +296,64 @@ export default function Volume() {
             class="base-container"
           >
             <box orientation={Gtk.Orientation.HORIZONTAL}>
-              <image
-                iconName="audio-headphones"
-                iconSize={Gtk.IconSize.NORMAL}
-              />
+              <button
+                onClicked={() =>
+                  wp.defaultSpeaker.set_mute(!wp.defaultSpeaker.get_mute())
+                }
+              >
+                <With value={state}>
+                  {(st) => {
+                    let icon = st.outputIsMuted
+                      ? "audio-volume-muted"
+                      : "audio-headphones";
+
+                    return (
+                      <image iconName={icon} icon_size={Gtk.IconSize.NORMAL} />
+                    );
+                  }}
+                </With>
+              </button>
               <slider
                 min={0}
-                max={1}
+                max={1.5}
                 hexpand={true}
                 value={createBinding(wp.defaultSpeaker, "volume")}
                 onChangeValue={({ value }) =>
                   wp.defaultSpeaker.set_volume(value)
                 }
               />
+
+              <button onClicked={() => wp.defaultSpeaker.set_volume(1)}>
+                <label
+                  label={createBinding(
+                    wp.defaultSpeaker,
+                    "volume",
+                  )((v) => Math.round(v * 100).toString() + "%")}
+                  widthChars={5}
+                />
+              </button>
             </box>
 
             <box orientation={Gtk.Orientation.HORIZONTAL}>
-              <image
-                iconName="audio-input-microphone"
-                iconSize={Gtk.IconSize.NORMAL}
-              />
+              <button
+                onClicked={() =>
+                  wp.defaultMicrophone.set_mute(
+                    !wp.defaultMicrophone.get_mute(),
+                  )
+                }
+              >
+                <With value={state}>
+                  {(st) => {
+                    let icon = st.inputIsMuted
+                      ? "audio-volume-muted"
+                      : "audio-input-microphone";
+
+                    return (
+                      <image iconName={icon} icon_size={Gtk.IconSize.NORMAL} />
+                    );
+                  }}
+                </With>
+              </button>
               <slider
                 min={0}
                 max={1.5}
@@ -331,6 +363,16 @@ export default function Volume() {
                   wp.defaultMicrophone.set_volume(value)
                 }
               />
+
+              <button onClicked={() => wp.defaultMicrophone.set_volume(1)}>
+                <label
+                  label={createBinding(
+                    wp.defaultMicrophone,
+                    "volume",
+                  )((v) => Math.round(v * 100).toString() + "%")}
+                  widthChars={5}
+                />
+              </button>
             </box>
           </box>
         </box>

@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "dev": "nodemon --watch . --ext tsx,ts,json,scss --exec ags run ."
+  },
   "dependencies": {
     "ags": "*",
     "gnim": "*"

@@ -1,4 +1,8 @@
-{ pkgs, settings, ... }:
+{
+  pkgs,
+  settings,
+  ...
+}:
 {
   imports = [
     ./stylix.nix
@@ -12,12 +16,10 @@
     ./app/terminal/wezterm.nix
     ./app/git.nix
     ./app/thunderbird.nix
-    ./app/shell/quickshell/quickshell.nix
+    ./app/shell/ags/ags.nix
   ];
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";
-
-  qt.enable = true;
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
@@ -34,6 +36,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "fish";
+    QT_QPA_PLATFORM = "wayland";
   };
 
   home.sessionPath = [
