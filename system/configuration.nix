@@ -8,6 +8,7 @@
     ./virtualization.nix
     ./de/${settings.de}.nix
     ./steam.nix
+    ./pc.nix
   ];
 
   nix = {
@@ -60,6 +61,11 @@
     shell = pkgs.fish;
   };
 
+  programs = {
+    fish.enable = true;
+    dconf.enable = true;
+  };
+
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     vim
@@ -97,21 +103,9 @@
     serviceConfig.Type = "simple";
   };
 
-  programs = {
-    fish.enable = true;
-    dconf.enable = true;
-  };
-
   security = {
     rtkit.enable = true;
     polkit.enable = true;
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
   };
 
   environment.sessionVariables = {

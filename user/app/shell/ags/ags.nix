@@ -22,6 +22,7 @@
       inputs.astal.packages.${pkgs.system}.bluetooth
       inputs.astal.packages.${pkgs.system}.hyprland
       inputs.astal.packages.${pkgs.system}.wireplumber
+      inputs.astal.packages.${pkgs.system}.apps
       fzf
     ];
   };

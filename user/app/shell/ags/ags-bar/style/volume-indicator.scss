@@ -1,0 +1,14 @@
+@use "colors" as c;
+
+window.VolumeIndicator {
+  background: transparent;
+  color: c.$fg;
+  font-weight: 400;
+  margin-bottom: 100px;
+
+  .container {
+    background-color: c.$bg;
+    border-radius: 16px;
+    padding: 16px;
+  }
+}

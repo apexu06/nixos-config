@@ -1,0 +1,130 @@
+@use "colors" as c;
+
+window.Bar {
+  background: transparent;
+  color: c.$fg;
+  font-weight: 400;
+
+  .main {
+    background: c.$bar_bg;
+    border-radius: 0px;
+    padding: 6px 12px 6px 6px;
+
+    .base-container {
+      background-color: c.$lightest_bg;
+      border-radius: 16px;
+      padding: 8px;
+    }
+
+    .workspace-container {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px;
+      border-radius: 12px;
+
+      .workspace-button {
+        min-width: 26px;
+        min-height: 26px;
+      }
+
+      .workspace-button.focused {
+        color: c.$accent;
+      }
+
+      .workspace-button.urgent {
+        color: c.$destructive;
+      }
+    }
+
+    .volume-popover {
+      padding: 2px;
+
+      .volume-settings-button {
+        border-radius: 100%;
+        padding: 12px;
+        background-color: c.$lightest_bg;
+      }
+
+      .volume-settings-button:hover {
+        background-color: c.$hover_bg;
+      }
+    }
+
+    .player-selection {
+      .player-selection-button {
+        padding: 8px;
+        border-radius: 8px;
+        background-color: c.$lighter_bg;
+      }
+
+      .player-selection-button:hover {
+        background-color: c.$hover_bg;
+      }
+    }
+
+    .player-container {
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .powerprofile {
+      padding: 16px;
+      border-radius: 8px;
+      background: c.$lighter_bg;
+      transition: 200ms;
+      border: 2px solid transparent;
+    }
+
+    .performance:hover,
+    .performance.active {
+      border-color: c.$destructive_bg;
+      color: c.$destructive_bg;
+    }
+
+    .balanced:hover,
+    .balanced.active {
+      border-color: c.$accent_bg;
+      color: c.$accent_bg;
+    }
+
+    .powersaver:hover,
+    .powersaver.active {
+      border-color: c.$success_bg;
+      color: c.$success_bg;
+    }
+
+    .module {
+      border-radius: 16px;
+      transition: 200ms;
+      padding: 0px 12px 0px 12px;
+      background: c.$bar_bg;
+    }
+
+    levelbar {
+      block.full {
+        background-color: c.$success_bg;
+      }
+
+      block.good {
+        background-color: c.$accent_bg;
+      }
+
+      block.medium {
+        background-color: var(--orange-1);
+      }
+
+      block.low {
+        background-color: c.$destructive_bg;
+      }
+    }
+
+    .dropdown {
+      padding: 8px;
+      border-radius: 8px;
+      background-color: c.$lightest_bg;
+    }
+
+    .dropdown:hover {
+      background-color: c.$hover_bg;
+    }
+  }
+}

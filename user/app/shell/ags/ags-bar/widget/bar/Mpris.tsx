@@ -183,7 +183,7 @@ function Player({ state }: { state: PlayerState }) {
         <box
           orientation={Gtk.Orientation.VERTICAL}
           valign={Gtk.Align.CENTER}
-          spacing={1}
+          spacing={3}
         >
           <label
             maxWidthChars={20}
@@ -195,6 +195,7 @@ function Player({ state }: { state: PlayerState }) {
             height_request={2}
             css={"border-radius: 8px;"}
             hexpand
+            visible={progressPercent((p) => p !== 1)}
             $={(self) => {
               self.set_draw_func((area, cr, width, height) => {
                 cr.rectangle(0, 0, width * progressPercent.get(), height);
@@ -237,12 +238,14 @@ function Player({ state }: { state: PlayerState }) {
               orientation={Gtk.Orientation.VERTICAL}
               spacing={4}
               hexpand
-              width_request={200}
+              width_request={220}
               valign={Gtk.Align.CENTER}
             >
               <label
                 label={title}
                 halign={Gtk.Align.START}
+                max_width_chars={20}
+                ellipsize={Pango.EllipsizeMode.END}
                 css={"font-weight: bold;"}
               />
               <label
@@ -303,7 +306,7 @@ function Player({ state }: { state: PlayerState }) {
                 css={"padding: 0px;"}
                 min={0}
                 max={1}
-                showFillLevel
+                visible={createBinding(state.currentPlayer, "canGoNext")}
                 value={createBinding(state.currentPlayer, "volume")}
                 hexpand
                 onChangeValue={({ value }) => {
