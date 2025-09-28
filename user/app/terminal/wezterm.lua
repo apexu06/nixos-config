@@ -4,9 +4,9 @@ local act = wezterm.action
 ---@type Config
 local config = wezterm.config_builder()
 
-config.font = wezterm.font("IosevkaTerm Nerd Font", { weight = "Regular", stretch = "ExtraCondensed" })
-config.font_size = 14
-config.cell_width = 0.97
+config.font = wezterm.font("IosevkaTerm Nerd Font", { weight = "Medium", stretch = "ExtraCondensed" })
+config.font_size = 13.5
+config.cell_width = 1
 config.freetype_load_target = "HorizontalLcd"
 
 config.colors = {

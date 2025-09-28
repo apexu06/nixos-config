@@ -39,6 +39,8 @@ export default function Battery() {
     );
   });
 
+  if (!battery.isPresent) return;
+
   return (
     <menubutton>
       <image iconName={createBinding(battery, "iconName")} />
@@ -62,10 +64,13 @@ export default function Battery() {
             <levelbar
               minValue={0}
               maxValue={1}
-              value={0.2}
+              value={percentage}
               height_request={20}
               $={(self) => {
                 self.add_offset_value("low", 0.2);
+                self.add_offset_value("medium", 0.4);
+                self.add_offset_value("good", 0.6);
+                self.add_offset_value("full", 0.8);
               }}
             />
             <label

@@ -1,0 +1,26 @@
+@use "bar";
+@use "colors" as c;
+@use "volume-indicator";
+
+.base-container {
+  background-color: c.$lightest_bg;
+  border-radius: 16px;
+  padding: 8px;
+}
+
+popover > contents {
+  background-color: c.$bg;
+}
+popover {
+  margin-top: 8px;
+}
+
+button {
+  background: transparent;
+  border-radius: 0px;
+  font-weight: 400;
+  min-width: 0px;
+  min-height: 0px;
+  padding: 0px;
+  margin: 0px;
+}

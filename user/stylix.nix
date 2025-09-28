@@ -3,23 +3,29 @@
   apple-fonts,
   inputs,
   settings,
-  config,
   lib,
   ...
 }:
 
 let
-  themePath = builtins.toPath ../theme/${settings.theme}/${settings.theme}.yaml;
-  backgroundUrl = builtins.readFile ../theme/${settings.theme}/background-url.txt;
-  backgroundHash = builtins.readFile ../theme/${settings.theme}/background-sha256.txt;
+  themeFile = builtins.toPath ../theme/${settings.theme}/theme.yaml;
+  wallpaperFile = builtins.replaceStrings [ "\r" ] [ "" ] (
+    builtins.readFile ../theme/${settings.theme}/wallpaper.txt
+  );
+  wallpaperLines = builtins.filter (x: x != "") (lib.splitString "\n" wallpaperFile);
+
+  backgroundUrl = builtins.elemAt wallpaperLines 0;
+  backgroundHash = builtins.elemAt wallpaperLines 1;
 in
 {
+  home.file."debug".text = backgroundUrl;
+
   imports = [
     inputs.stylix.homeModules.stylix
   ];
 
   stylix = {
-    base16Scheme = themePath;
+    base16Scheme = themeFile;
 
     image = pkgs.fetchurl {
       url = backgroundUrl;

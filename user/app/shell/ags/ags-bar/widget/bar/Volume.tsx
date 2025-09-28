@@ -89,13 +89,6 @@ export default function Volume() {
     }
   });
 
-  function getVolumeIcon(volume: number, muted: boolean) {
-    if (muted || volume === 0) return "audio-volume-muted";
-    if (volume < 30) return "audio-volume-low";
-    if (volume < 70) return "audio-volume-medium";
-    return "audio-volume-high";
-  }
-
   function adjustVolume(direction: "up" | "down") {
     const output = state.get().currentOutput;
     if (!output) return;
@@ -147,7 +140,7 @@ export default function Volume() {
             }}
           >
             <image
-              iconName={getVolumeIcon(s.outputVolume, s.outputIsMuted)}
+              iconName={createBinding(wp.defaultSpeaker, "volumeIcon")}
               iconSize={Gtk.IconSize.NORMAL}
             />
           </button>
