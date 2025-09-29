@@ -61,9 +61,12 @@ window.Bar {
       }
     }
 
+    .player-popover > contents {
+      padding: 0px;
+    }
+
     .player-container {
-      padding: 8px;
-      border-radius: 8px;
+      padding: 16px;
     }
 
     .song-progress {

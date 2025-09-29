@@ -2,7 +2,7 @@ import { Gtk } from "ags/gtk4";
 import AstalHyprland from "gi://AstalHyprland?version=0.1";
 import { createState, With } from "gnim";
 
-const PERSISTENT_WORKSPACES = 5;
+const PERSISTENT_WORKSPACES = 4;
 
 export default function Workspaces() {
   const hyprland = AstalHyprland.get_default();

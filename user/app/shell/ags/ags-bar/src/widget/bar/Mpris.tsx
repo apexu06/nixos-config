@@ -1,4 +1,4 @@
-import { Gtk } from "ags/gtk4";
+import { Gdk, Gtk } from "ags/gtk4";
 import AstalApps from "gi://AstalApps?version=0.1";
 import AstalCava from "gi://AstalCava?version=0.1";
 import AstalMpris from "gi://AstalMpris?version=0.1";
@@ -177,6 +177,8 @@ function Player({ state }: { state: PlayerState }) {
 
   const progressPercent = createComputed((get) => get(progress) / get(length));
 
+  cover.subscribe(() => console.log(cover.get()));
+
   return (
     <menubutton>
       <box orientation={Gtk.Orientation.HORIZONTAL} hexpand={false} spacing={8}>
@@ -229,103 +231,152 @@ function Player({ state }: { state: PlayerState }) {
         </With>
       </box>
 
-      <popover $={(self) => self.set_has_arrow(false)}>
-        <box>
-          <label
-            label={"choose something to play"}
-            visible={artist((p) => p === null)}
-          />
+      <popover
+        $={(self) => {
+          self.set_has_arrow(false);
+        }}
+        width_request={480}
+        height_request={110}
+        class="player-popover"
+      >
+        <overlay>
           <box
-            orientation={Gtk.Orientation.HORIZONTAL}
-            spacing={12}
-            class={"player-container"}
-            visible={artist((p) => p !== null)}
-          >
-            <image file={cover} pixelSize={72} />
+            hexpand
+            vexpand
+            halign={Gtk.Align.FILL}
+            valign={Gtk.Align.FILL}
+            $={(self) => {
+              self.add_css_class("cover-background");
+              const provider = new Gtk.CssProvider();
+              const display = Gdk.Display.get_default();
 
+              Gtk.StyleContext.add_provider_for_display(
+                display!,
+                provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+              );
+
+              const update = (path: string) => {
+                if (!path) return;
+                const url = "file://" + path;
+                provider.load_from_data(
+                  `
+              .cover-background {
+                background-image: url("${url}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                filter: blur(3px) opacity(0.4);
+              }
+              `,
+                  -1,
+                );
+              };
+              cover.subscribe(() => update(cover.get()));
+              update(cover.get());
+            }}
+          />
+          <box class="player-container" $type="overlay">
+            <label
+              label={"choose something to play"}
+              visible={artist((p) => p === null)}
+            />
             <box
-              orientation={Gtk.Orientation.VERTICAL}
-              spacing={4}
-              hexpand
-              width_request={200}
-              valign={Gtk.Align.CENTER}
+              orientation={Gtk.Orientation.HORIZONTAL}
+              spacing={12}
+              visible={artist((p) => p !== null)}
             >
-              <label
-                label={title}
-                halign={Gtk.Align.START}
-                max_width_chars={20}
-                ellipsize={Pango.EllipsizeMode.END}
-                css={"font-weight: bold;"}
-              />
-              <label
-                visible={artist((a) => a !== null)}
-                label={artist}
-                halign={Gtk.Align.START}
-                css={"font-size: 14px;"}
-              />
-            </box>
+              <image file={cover} pixelSize={72} />
 
-            <Gtk.Separator orientation={Gtk.Orientation.VERTICAL} />
-
-            <box
-              orientation={Gtk.Orientation.VERTICAL}
-              valign={Gtk.Align.BASELINE_CENTER}
-              spacing={16}
-              width_request={100}
-            >
-              <centerbox>
-                <button
-                  onClicked={() => state.currentPlayer?.previous()}
-                  visible={createBinding(state.currentPlayer, "canGoPrevious")}
-                  $type="start"
-                >
-                  <image iconName="media-seek-backward-symbolic" />
-                </button>
-                <button
-                  onClicked={() => state.currentPlayer?.play_pause()}
-                  visible={createBinding(state.currentPlayer, "canControl")}
-                  $type="center"
-                >
-                  <box>
-                    <image
-                      iconName="media-playback-pause-symbolic"
-                      visible={createBinding(
-                        state.currentPlayer,
-                        "playbackStatus",
-                      )((s) => s === AstalMpris.PlaybackStatus.PLAYING)}
-                    />
-                    <image
-                      iconName="media-playback-start-symbolic"
-                      visible={createBinding(
-                        state.currentPlayer,
-                        "playbackStatus",
-                      )((s) => s !== AstalMpris.PlaybackStatus.PLAYING)}
-                    />
-                  </box>
-                </button>
-
-                <button
-                  onClicked={() => state.currentPlayer?.next()}
-                  visible={createBinding(state.currentPlayer, "canGoNext")}
-                  $type="end"
-                >
-                  <image iconName="media-seek-forward-symbolic" />
-                </button>
-              </centerbox>
-              <slider
-                css={"padding: 0px;"}
-                min={0}
-                max={1}
-                visible={createBinding(state.currentPlayer, "canGoNext")}
-                value={createBinding(state.currentPlayer, "volume")}
+              <box
+                orientation={Gtk.Orientation.VERTICAL}
+                spacing={4}
                 hexpand
-                onChangeValue={({ value }) => {
-                  state.currentPlayer?.set_volume(value);
-                }}
-              />
+                width_request={200}
+                valign={Gtk.Align.CENTER}
+              >
+                <label
+                  label={title}
+                  halign={Gtk.Align.START}
+                  max_width_chars={19}
+                  ellipsize={Pango.EllipsizeMode.END}
+                  css={"font-weight: bold; font-size: 18px;"}
+                />
+                <label
+                  visible={artist((a) => a !== null)}
+                  label={artist}
+                  halign={Gtk.Align.START}
+                  max_width_chars={17}
+                  ellipsize={Pango.EllipsizeMode.END}
+                  css={"font-size: 16px;"}
+                />
+              </box>
+
+              <Gtk.Separator orientation={Gtk.Orientation.VERTICAL} />
+
+              <box
+                orientation={Gtk.Orientation.VERTICAL}
+                valign={Gtk.Align.BASELINE_CENTER}
+                spacing={16}
+                width_request={100}
+              >
+                <box halign={Gtk.Align.CENTER} spacing={16}>
+                  <button
+                    onClicked={() => state.currentPlayer?.previous()}
+                    visible={createBinding(
+                      state.currentPlayer,
+                      "canGoPrevious",
+                    )}
+                    $type="start"
+                  >
+                    <image iconName="media-seek-backward-symbolic" />
+                  </button>
+                  <button
+                    onClicked={() => state.currentPlayer?.play_pause()}
+                    visible={createBinding(state.currentPlayer, "canControl")}
+                    $type="center"
+                  >
+                    <box>
+                      <image
+                        iconName="media-playback-pause-symbolic"
+                        visible={createBinding(
+                          state.currentPlayer,
+                          "playbackStatus",
+                        )((s) => s === AstalMpris.PlaybackStatus.PLAYING)}
+                      />
+                      <image
+                        iconName="media-playback-start-symbolic"
+                        visible={createBinding(
+                          state.currentPlayer,
+                          "playbackStatus",
+                        )((s) => s !== AstalMpris.PlaybackStatus.PLAYING)}
+                      />
+                    </box>
+                  </button>
+
+                  <button
+                    onClicked={() => state.currentPlayer?.next()}
+                    visible={createBinding(state.currentPlayer, "canGoNext")}
+                    $type="end"
+                  >
+                    <image iconName="media-seek-forward-symbolic" />
+                  </button>
+                </box>
+                <slider
+                  css={"padding: 0px;"}
+                  min={0}
+                  max={1}
+                  visible={createBinding(state.currentPlayer, "canGoNext")}
+                  value={createBinding(state.currentPlayer, "volume")}
+                  hexpand
+                  onChangeValue={({ value }) => {
+                    state.currentPlayer?.set_volume(value);
+                  }}
+                />
+              </box>
             </box>
           </box>
-        </box>
+        </overlay>
       </popover>
     </menubutton>
   );
