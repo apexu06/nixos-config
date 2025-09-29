@@ -1,32 +1,26 @@
 import { Astal, Gdk, Gtk } from "ags/gtk4";
 import app from "ags/gtk4/app";
+import { timeout, Timer } from "ags/time";
 import AstalWp from "gi://AstalWp?version=0.1";
-import GLib from "gi://GLib?version=2.0";
 import { createBinding, createState } from "gnim";
 
 export default function VolumeIndicator(gdkmonitor: Gdk.Monitor) {
   const wp = AstalWp.get_default();
   const [windowVisible, setWindowVisible] = createState(false);
   const [revealChild, setRevealChild] = createState(false);
-  let hideTimeout: GLib.Source | null = null;
+  let hideTimeout: Timer;
 
   function onVolumeChanged() {
-    if (hideTimeout) clearTimeout(hideTimeout);
+    if (hideTimeout) hideTimeout.cancel();
 
     if (!windowVisible.get()) {
       setWindowVisible(true);
-      setTimeout(() => setRevealChild(true), 100);
-    } else {
       setRevealChild(true);
     }
 
-    hideTimeout = setTimeout(() => {
+    hideTimeout = timeout(2000, () => {
       setRevealChild(false);
-      setTimeout(() => {
-        setWindowVisible(false);
-      }, 300);
-      hideTimeout = null;
-    }, 2000);
+    });
   }
 
   wp.defaultSpeaker.connect("notify::volume", onVolumeChanged);
@@ -46,6 +40,9 @@ export default function VolumeIndicator(gdkmonitor: Gdk.Monitor) {
         revealChild={revealChild}
         transitionType={Gtk.RevealerTransitionType.SWING_UP}
         transitionDuration={300}
+        onNotifyChildRevealed={(r) =>
+          !r.childRevealed && setWindowVisible(false)
+        }
       >
         <box class="container" spacing={8} width_request={200}>
           <image iconName={createBinding(wp.defaultSpeaker, "volume_icon")} />

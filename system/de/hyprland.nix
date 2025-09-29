@@ -10,9 +10,6 @@ let
 in
 {
 
-  home.packages = with pkgs; [
-    gnome-disk-utility
-  ];
   services = {
     displayManager = {
       enable = true;
