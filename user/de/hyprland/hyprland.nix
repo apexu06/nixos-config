@@ -22,6 +22,7 @@
     nautilus
     eog
     adwaita-icon-theme
+    gnome-disk-utility
   ];
 
   wayland.windowManager.hyprland = {

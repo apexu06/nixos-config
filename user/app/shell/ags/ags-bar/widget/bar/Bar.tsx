@@ -18,6 +18,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       anchor={TOP | LEFT | RIGHT}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       application={app}
+      height_request={46}
     >
       <centerbox orientation={Gtk.Orientation.HORIZONTAL} class="main">
         <Workspaces $type="start" />

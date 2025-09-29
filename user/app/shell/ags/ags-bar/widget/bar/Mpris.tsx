@@ -195,12 +195,21 @@ function Player({ state }: { state: PlayerState }) {
             height_request={2}
             css={"border-radius: 8px;"}
             hexpand
+            class="song-progress"
             visible={progressPercent((p) => p !== 1)}
             $={(self) => {
               self.set_draw_func((area, cr, width, height) => {
+                const style = area.get_style_context();
+                const color = style.get_color();
+
                 cr.rectangle(0, 0, width * progressPercent.get(), height);
 
-                cr.setSourceRGBA(1, 1, 1, 1);
+                cr.setSourceRGBA(
+                  color.red,
+                  color.green,
+                  color.blue,
+                  color.alpha,
+                );
                 cr.fill();
 
                 state.currentPlayer?.connect("notify::position", () =>
@@ -228,17 +237,17 @@ function Player({ state }: { state: PlayerState }) {
           />
           <box
             orientation={Gtk.Orientation.HORIZONTAL}
-            spacing={8}
+            spacing={12}
             class={"player-container"}
             visible={artist((p) => p !== null)}
           >
-            <image file={cover} pixelSize={64} />
+            <image file={cover} pixelSize={72} />
 
             <box
               orientation={Gtk.Orientation.VERTICAL}
               spacing={4}
               hexpand
-              width_request={220}
+              width_request={200}
               valign={Gtk.Align.CENTER}
             >
               <label
@@ -249,6 +258,7 @@ function Player({ state }: { state: PlayerState }) {
                 css={"font-weight: bold;"}
               />
               <label
+                visible={artist((a) => a !== null)}
                 label={artist}
                 halign={Gtk.Align.START}
                 css={"font-size: 14px;"}
@@ -331,8 +341,11 @@ function Cava() {
   return (
     <drawingarea
       width_request={30}
+      class="cava"
       $={(self) => {
         self.set_draw_func((area, cr, width, height) => {
+          const style = area.get_style_context();
+          const color = style.get_color();
           const values = cava?.get_values() ?? [];
           const barWidth = width / values.length;
           const baseline = height / 2;
@@ -342,10 +355,9 @@ function Cava() {
             const x = i * barWidth;
 
             cr.rectangle(x, baseline - barHeight, barWidth - 2, barHeight);
-
             cr.rectangle(x, baseline, barWidth - 2, barHeight);
 
-            cr.setSourceRGBA(1, 1, 1, 1);
+            cr.setSourceRGBA(color.red, color.green, color.blue, color.alpha);
             cr.fill();
           });
 

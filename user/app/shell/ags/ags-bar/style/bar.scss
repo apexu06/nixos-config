@@ -17,21 +17,21 @@ window.Bar {
     }
 
     .workspace-container {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 4px;
-      border-radius: 12px;
+      background-color: c.$bar_bg;
+      padding: 12px;
+      border-radius: 16px;
 
       .workspace-button {
-        min-width: 26px;
-        min-height: 26px;
+        background-color: c.$fg;
+        border-radius: 100%;
       }
 
       .workspace-button.focused {
-        color: c.$accent;
+        background-color: c.$accent;
       }
 
       .workspace-button.urgent {
-        color: c.$destructive;
+        background-color: c.$destructive;
       }
     }
 
@@ -66,10 +66,18 @@ window.Bar {
       border-radius: 8px;
     }
 
+    .song-progress {
+      color: c.$fg;
+    }
+
+    .cava {
+      color: c.$accent;
+    }
+
     .powerprofile {
       padding: 16px;
       border-radius: 8px;
-      background: c.$lighter_bg;
+      background: c.$lightest_bg;
       transition: 200ms;
       border: 2px solid transparent;
     }

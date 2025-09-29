@@ -9,6 +9,7 @@ let
     )) != "none\n";
 in
 {
+
   services = {
     displayManager = {
       enable = true;
@@ -25,6 +26,7 @@ in
     };
     hyprlock.enable = true;
     nm-applet.enable = true;
+    gnome-disks.enable = true;
   };
 
   security = {

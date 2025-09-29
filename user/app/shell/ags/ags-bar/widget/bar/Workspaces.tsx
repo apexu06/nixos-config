@@ -1,7 +1,8 @@
+import { Gtk } from "ags/gtk4";
 import AstalHyprland from "gi://AstalHyprland?version=0.1";
 import { createState, With } from "gnim";
 
-const PERSISTENT_WORKSPACES = 3;
+const PERSISTENT_WORKSPACES = 5;
 
 export default function Workspaces() {
   const hyprland = AstalHyprland.get_default();
@@ -87,7 +88,7 @@ export default function Workspaces() {
   };
 
   return (
-    <box class="workspace-container">
+    <box>
       <With value={state}>
         {(st) => {
           const workspaceIds = getWorkspaceIds(
@@ -96,7 +97,12 @@ export default function Workspaces() {
           );
 
           return (
-            <box>
+            <box
+              class="workspace-container"
+              spacing={12}
+              valign={Gtk.Align.CENTER}
+              vexpand
+            >
               {workspaceIds.map((id) => {
                 const isFocused = id === st.focused;
                 const isUrgent = id === st.urgent;
@@ -104,10 +110,12 @@ export default function Workspaces() {
                 return (
                   <button
                     onClicked={() => onClicked(id)}
+                    hexpand={false}
+                    vexpand={false}
+                    height_request={10}
+                    width_request={10}
                     class={`workspace-button ${isFocused ? "focused" : ""} ${isUrgent ? "urgent" : ""}`}
-                  >
-                    <label label={id.toString()} />
-                  </button>
+                  ></button>
                 );
               })}
             </box>
