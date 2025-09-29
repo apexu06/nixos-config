@@ -8,6 +8,10 @@
   padding: 8px;
 }
 
+slider > contents {
+  background-color: red;
+}
+
 popover > contents {
   background-color: c.$bg;
   padding: 12px;

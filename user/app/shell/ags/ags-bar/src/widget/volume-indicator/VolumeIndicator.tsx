@@ -2,7 +2,7 @@ import { Astal, Gdk, Gtk } from "ags/gtk4";
 import app from "ags/gtk4/app";
 import { timeout, Timer } from "ags/time";
 import AstalWp from "gi://AstalWp?version=0.1";
-import { createBinding, createState } from "gnim";
+import { createBinding, createState, onCleanup } from "gnim";
 
 export default function VolumeIndicator(gdkmonitor: Gdk.Monitor) {
   const wp = AstalWp.get_default();
@@ -23,10 +23,19 @@ export default function VolumeIndicator(gdkmonitor: Gdk.Monitor) {
     });
   }
 
+  let win: Astal.Window;
+  onCleanup(() => {
+    // Root components (windows) are not automatically destroyed.
+    // When the monitor is disconnected from the system, this callback
+    // is run from the parent <For> which allows us to destroy the window
+    win.destroy();
+  });
+
   wp.defaultSpeaker.connect("notify::volume", onVolumeChanged);
 
   return (
     <window
+      $={(self) => (win = self)}
       visible={windowVisible}
       name="volume-indicator"
       class="VolumeIndicator"

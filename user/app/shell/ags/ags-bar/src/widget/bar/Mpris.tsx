@@ -174,10 +174,7 @@ function Player({ state }: { state: PlayerState }) {
     }
     return get(title) + " - " + get(artist);
   });
-
   const progressPercent = createComputed((get) => get(progress) / get(length));
-
-  cover.subscribe(() => console.log(cover.get()));
 
   return (
     <menubutton>
@@ -222,6 +219,7 @@ function Player({ state }: { state: PlayerState }) {
           />
         </box>
 
+        {/*
         <With value={activeProfile}>
           {(p) => {
             if (p !== "power-saver") {
@@ -229,6 +227,7 @@ function Player({ state }: { state: PlayerState }) {
             }
           }}
         </With>
+*/}
       </box>
 
       <popover

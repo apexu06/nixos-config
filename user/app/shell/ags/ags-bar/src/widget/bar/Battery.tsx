@@ -9,17 +9,6 @@ export default function Battery() {
   const percentage = createBinding(battery, "percentage");
   const charging = createBinding(battery, "charging");
 
-  // const batteryIcon = createComputed((get) => {
-  //   let p = get(percentage);
-  //   let c = get(charging);
-  //
-  //   if (p < 0.05) return `battery-empty${c ? "-charging" : ""}`;
-  //   if (p < 0.2) return `battery-caution${c ? "-charging" : ""}`;
-  //   if (p < 0.35) return `battery-low${c ? "-charging" : ""}`;
-  //   if (p < 0.7) return `battery-good${c ? "-charging" : ""}`;
-  //   return `battery-full${c ? "-charging" : ""}`;
-  // });
-
   const batteryText = createComputed((get) => {
     function formatTimeRemaining(time: number) {
       return `${Math.round(time / 3600)}h ${Math.round((time % 3600) / 60)}min`;
@@ -39,7 +28,7 @@ export default function Battery() {
     );
   });
 
-  if (!battery.isPresent) return;
+  if (!battery.isPresent) return <box></box>;
 
   return (
     <menubutton>
