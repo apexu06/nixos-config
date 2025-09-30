@@ -28,21 +28,19 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       application={app}
       height_request={46}
     >
-      <centerbox orientation={Gtk.Orientation.HORIZONTAL} class="main">
+      <centerbox class="main">
         <Workspaces $type="start" />
 
-        <Mpris $type="center" />
-        <box orientation={Gtk.Orientation.HORIZONTAL} $type="end" spacing={8}>
-          <box
-            orientation={Gtk.Orientation.HORIZONTAL}
-            class="module"
-            spacing={4}
-          >
+        <box spacing={8} $type="center">
+          <Mpris />
+          <Clock />
+        </box>
+        <box $type="end" spacing={8}>
+          <box class="module" spacing={4}>
             <Volume />
             <Battery />
           </box>
           <Tray />
-          <Clock />
         </box>
       </centerbox>
     </window>

@@ -28,6 +28,8 @@ window.Bar {
 
       .workspace-button.focused {
         background-color: c.$accent;
+        min-width: 24px;
+        border-radius: 12px;
       }
 
       .workspace-button.urgent {
@@ -67,6 +69,23 @@ window.Bar {
 
     .player-container {
       padding: 16px;
+
+      .play-button {
+        background: c.$accent;
+        border-radius: 4px;
+      }
+
+      .shuffle-enabled {
+        color: c.$accent;
+      }
+
+      .playlist-loop {
+        color: c.$accent;
+      }
+
+      .track-loop {
+        color: c.$destructive;
+      }
     }
 
     .song-progress {

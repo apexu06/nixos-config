@@ -161,50 +161,17 @@ function Player({ player }: { player: AstalMpris.Player }) {
     }
     return get(title) + " - " + get(artist);
   });
-  const progressPercent = createComputed((get) => get(progress) / get(length));
+  const shuffleStatus = createBinding(player, "shuffleStatus");
+  const loopStatus = createBinding(player, "loopStatus");
 
   return (
     <menubutton>
       <box orientation={Gtk.Orientation.HORIZONTAL} hexpand={false} spacing={8}>
-        <box
-          orientation={Gtk.Orientation.VERTICAL}
-          valign={Gtk.Align.CENTER}
-          spacing={3}
-        >
-          <label
-            maxWidthChars={20}
-            ellipsize={Pango.EllipsizeMode.END}
-            label={songInfo}
-          />
-
-          <drawingarea
-            height_request={2}
-            css={"border-radius: 8px;"}
-            hexpand
-            class="song-progress"
-            visible={progressPercent((p) => p !== 1)}
-            $={(self) => {
-              self.set_draw_func((area, cr, width, height) => {
-                const style = area.get_style_context();
-                const color = style.get_color();
-
-                cr.rectangle(0, 0, width * progressPercent.get(), height);
-
-                cr.setSourceRGBA(
-                  color.red,
-                  color.green,
-                  color.blue,
-                  color.alpha,
-                );
-                cr.fill();
-
-                cr.$dispose();
-              });
-
-              player.connect("notify::position", () => self.queue_draw());
-            }}
-          />
-        </box>
+        <label
+          maxWidthChars={20}
+          ellipsize={Pango.EllipsizeMode.END}
+          label={songInfo}
+        />
 
         <With value={activeProfile}>
           {(p) => {
@@ -269,80 +236,128 @@ function Player({ player }: { player: AstalMpris.Player }) {
               orientation={Gtk.Orientation.HORIZONTAL}
               spacing={12}
               visible={artist((p) => p !== null)}
+              valign={Gtk.Align.CENTER}
             >
-              <image file={cover} pixelSize={72} />
+              <image valign={Gtk.Align.CENTER} file={cover} pixelSize={72} />
 
               <box
                 orientation={Gtk.Orientation.VERTICAL}
                 spacing={4}
-                hexpand
                 width_request={200}
                 valign={Gtk.Align.CENTER}
               >
-                <label
-                  label={title}
-                  halign={Gtk.Align.START}
-                  max_width_chars={19}
-                  ellipsize={Pango.EllipsizeMode.END}
-                  css={"font-weight: bold; font-size: 18px;"}
-                />
-                <label
-                  visible={artist((a) => a !== null)}
-                  label={artist}
-                  halign={Gtk.Align.START}
-                  max_width_chars={17}
-                  ellipsize={Pango.EllipsizeMode.END}
-                  css={"font-size: 16px;"}
-                />
-              </box>
+                <centerbox>
+                  <box
+                    $type="start"
+                    spacing={2}
+                    orientation={Gtk.Orientation.VERTICAL}
+                  >
+                    <label
+                      label={title}
+                      halign={Gtk.Align.START}
+                      max_width_chars={22}
+                      ellipsize={Pango.EllipsizeMode.END}
+                      css={"font-weight: bold; font-size: 18px;"}
+                    />
+                    <label
+                      visible={artist((a) => a !== null)}
+                      label={artist}
+                      halign={Gtk.Align.START}
+                      max_width_chars={17}
+                      ellipsize={Pango.EllipsizeMode.END}
+                      css={"font-size: 16px;"}
+                    />
+                  </box>
 
-              <Gtk.Separator orientation={Gtk.Orientation.VERTICAL} />
+                  <box
+                    $type="end"
+                    css="margin-right: 24px;"
+                    hexpand={false}
+                    spacing={8}
+                  >
+                    <button
+                      visible={loopStatus(
+                        (l) => l !== AstalMpris.Loop.UNSUPPORTED,
+                      )}
+                      onClicked={() => player.loop()}
+                    >
+                      <image
+                        iconName="media-playlist-repeat-symbolic"
+                        class={loopStatus((l) =>
+                          l === AstalMpris.Loop.PLAYLIST
+                            ? "playlist-loop"
+                            : l === AstalMpris.Loop.TRACK
+                              ? "track-loop"
+                              : "",
+                        )}
+                      />
+                    </button>
+                    <button
+                      onClicked={() => player.play_pause()}
+                      visible={createBinding(player, "canControl")}
+                      hexpand={false}
+                    >
+                      <box>
+                        <image
+                          iconName="media-playback-pause-symbolic"
+                          visible={createBinding(
+                            player,
+                            "playbackStatus",
+                          )((s) => s === AstalMpris.PlaybackStatus.PLAYING)}
+                        />
+                        <image
+                          iconName="media-playback-start-symbolic"
+                          visible={createBinding(
+                            player,
+                            "playbackStatus",
+                          )((s) => s !== AstalMpris.PlaybackStatus.PLAYING)}
+                        />
+                      </box>
+                    </button>
 
-              <box
-                orientation={Gtk.Orientation.VERTICAL}
-                valign={Gtk.Align.BASELINE_CENTER}
-                spacing={16}
-                width_request={100}
-              >
-                <box halign={Gtk.Align.CENTER} spacing={16}>
+                    <button
+                      visible={shuffleStatus(
+                        (s) => s !== AstalMpris.Shuffle.UNSUPPORTED,
+                      )}
+                      onClicked={() => player.shuffle()}
+                    >
+                      <image
+                        iconName="media-playlist-shuffle-symbolic"
+                        class={shuffleStatus((s) =>
+                          s === AstalMpris.Shuffle.ON ? "shuffle-enabled" : "",
+                        )}
+                      />
+                    </button>
+                  </box>
+                </centerbox>
+
+                <box spacing={2}>
                   <button
                     onClicked={() => player.previous()}
                     visible={createBinding(player, "canGoPrevious")}
-                    $type="start"
                   >
                     <image iconName="media-seek-backward-symbolic" />
                   </button>
-                  <button
-                    onClicked={() => player.play_pause()}
-                    visible={createBinding(player, "canControl")}
-                    $type="center"
-                  >
-                    <box>
-                      <image
-                        iconName="media-playback-pause-symbolic"
-                        visible={createBinding(
-                          player,
-                          "playbackStatus",
-                        )((s) => s === AstalMpris.PlaybackStatus.PLAYING)}
-                      />
-                      <image
-                        iconName="media-playback-start-symbolic"
-                        visible={createBinding(
-                          player,
-                          "playbackStatus",
-                        )((s) => s !== AstalMpris.PlaybackStatus.PLAYING)}
-                      />
-                    </box>
-                  </button>
+                  <slider
+                    value={progress}
+                    min={0}
+                    max={length}
+                    onChangeValue={({ value }) => player.set_position(value)}
+                    css="padding-top: 0px; padding-bottom: 0px;"
+                    hexpand
+                    visible={createBinding(player, "canSeek")}
+                  />
 
                   <button
                     onClicked={() => player.next()}
                     visible={createBinding(player, "canGoNext")}
-                    $type="end"
                   >
                     <image iconName="media-seek-forward-symbolic" />
                   </button>
                 </box>
+              </box>
+
+              {/*
                 <slider
                   css={"padding: 0px;"}
                   min={0}
@@ -354,7 +369,7 @@ function Player({ player }: { player: AstalMpris.Player }) {
                     player.set_volume(value);
                   }}
                 />
-              </box>
+*/}
             </box>
           </box>
         </overlay>
