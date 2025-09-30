@@ -25,9 +25,6 @@ export default function VolumeIndicator(gdkmonitor: Gdk.Monitor) {
 
   let win: Astal.Window;
   onCleanup(() => {
-    // Root components (windows) are not automatically destroyed.
-    // When the monitor is disconnected from the system, this callback
-    // is run from the parent <For> which allows us to destroy the window
     win.destroy();
   });
 

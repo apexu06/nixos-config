@@ -1,96 +1,17 @@
 import { Gtk } from "ags/gtk4";
 import { subprocess } from "ags/process";
 import Wp from "gi://AstalWp?version=0.1";
-import { createBinding, createState, With } from "gnim";
+import { createBinding } from "gnim";
 
 const VOLUME_SCROLL_STEP = 0.01;
 
 export default function Volume() {
   const wp = Wp.get_default();
 
-  type VolumeState = {
-    allDevices: Wp.Device[];
-    currentOutput: Wp.Endpoint | undefined;
-    currentInput: Wp.Endpoint | undefined;
-    outputVolume: number;
-    inputVolume: number;
-    outputIsMuted: boolean;
-    inputIsMuted: boolean;
-  };
-
-  const [state, setState] = createState<VolumeState>({
-    allDevices: [],
-    currentOutput: undefined,
-    currentInput: undefined,
-    outputVolume: 0,
-    inputVolume: 0,
-    outputIsMuted: false,
-    inputIsMuted: false,
-  });
-
   let popover: Gtk.Popover | undefined = undefined;
 
-  wp.connect("ready", () => {
-    const output = wp.audio.defaultSpeaker;
-    const input = wp.audio.defaultMicrophone;
-
-    if (output) {
-      setState({
-        allDevices: wp.audio.devices,
-        currentOutput: output,
-        currentInput: input,
-        outputVolume: Math.round(output.volume * 100),
-        inputVolume: Math.round(input.volume * 100),
-        outputIsMuted: output.mute,
-        inputIsMuted: input.mute,
-      });
-
-      output.connect("notify::volume", () => {
-        setState({
-          ...state.get(),
-          outputVolume: Math.round(output.volume * 100),
-        });
-      });
-
-      output.connect("notify::mute", () => {
-        setState({
-          ...state.get(),
-          outputIsMuted: output.mute,
-        });
-      });
-
-      input.connect("notify::volume", () => {
-        setState({
-          ...state.get(),
-          inputVolume: Math.round(input.volume * 100),
-        });
-      });
-
-      input.connect("notify::mute", () => {
-        setState({
-          ...state.get(),
-          inputIsMuted: input.mute,
-        });
-      });
-
-      wp.connect("device-added", () => {
-        setState({
-          ...state.get(),
-          allDevices: wp.audio.devices,
-        });
-      });
-
-      wp.connect("device-removed", () => {
-        setState({
-          ...state.get(),
-          allDevices: wp.audio.devices,
-        });
-      });
-    }
-  });
-
   function adjustVolume(direction: "up" | "down") {
-    const output = state.get().currentOutput;
+    const output = wp.defaultSpeaker;
     if (!output) return;
 
     const currentVolume = output.volume;
@@ -113,39 +34,35 @@ export default function Volume() {
 
   return (
     <box hexpand={false} halign={Gtk.Align.CENTER}>
-      <With value={state}>
-        {(s) => (
-          <button
-            $={(self) => {
-              const controller = new Gtk.EventControllerScroll();
-              controller.set_flags(Gtk.EventControllerScrollFlags.VERTICAL);
+      <button
+        $={(self) => {
+          const controller = new Gtk.EventControllerScroll();
+          controller.set_flags(Gtk.EventControllerScrollFlags.VERTICAL);
 
-              controller.connect("scroll", (_c, _dx, dy) => {
-                if (dy < 0) {
-                  adjustVolume("up");
-                } else {
-                  adjustVolume("down");
-                }
+          controller.connect("scroll", (_c, _dx, dy) => {
+            if (dy < 0) {
+              adjustVolume("up");
+            } else {
+              adjustVolume("down");
+            }
 
-                return true;
-              });
-              self.add_controller(controller);
+            return true;
+          });
+          self.add_controller(controller);
 
-              self.connect("clicked", () => {
-                if (popover) {
-                  popover.set_pointing_to(self.get_allocation());
-                  popover.popup();
-                }
-              });
-            }}
-          >
-            <image
-              iconName={createBinding(wp.defaultSpeaker, "volumeIcon")}
-              iconSize={Gtk.IconSize.NORMAL}
-            />
-          </button>
-        )}
-      </With>
+          self.connect("clicked", () => {
+            if (popover) {
+              popover.set_pointing_to(self.get_allocation());
+              popover.popup();
+            }
+          });
+        }}
+      >
+        <image
+          iconName={createBinding(wp.defaultSpeaker, "volumeIcon")}
+          iconSize={Gtk.IconSize.NORMAL}
+        />
+      </button>
 
       <popover
         $={(p) => {
@@ -181,106 +98,94 @@ export default function Volume() {
           </centerbox>
 
           <box>
-            <With value={state}>
-              {(s) => (
-                <box
-                  orientation={Gtk.Orientation.VERTICAL}
-                  spacing={8}
-                  class="base-container"
-                >
-                  <box orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
-                    <image
-                      iconName="audio-headphones"
-                      iconSize={Gtk.IconSize.NORMAL}
-                    />
-                    <Gtk.DropDown
-                      hexpand={true}
-                      class="dropdown"
-                      overflow={Gtk.Overflow.HIDDEN}
-                      $={(self) => {
-                        const outputs = s.allDevices.filter(
-                          (s) => s.outputRoutes.length !== 0,
-                        );
+            <box
+              orientation={Gtk.Orientation.VERTICAL}
+              spacing={8}
+              class="base-container"
+            >
+              <box orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
+                <image
+                  iconName="audio-headphones"
+                  iconSize={Gtk.IconSize.NORMAL}
+                />
+                <Gtk.DropDown
+                  hexpand={true}
+                  class="dropdown"
+                  overflow={Gtk.Overflow.HIDDEN}
+                  $={(self) => {
+                    function updateDevices() {
+                      const devices = wp.devices.filter(
+                        (d) => d.outputRoutes.length !== 0,
+                      );
+                      const store = new Gtk.StringList({
+                        strings: devices.map((d) => d.description),
+                      });
+                      self.set_model(store);
+                    }
 
-                        const store = new Gtk.StringList({
-                          strings: outputs.map((d) => d.description),
-                        });
-                        self.set_model(store);
+                    const devices = createBinding(wp, "devices");
 
-                        if (s.currentOutput)
-                          self.set_selected(
-                            outputs.findIndex(
-                              (d) => d.id === s.currentOutput?.device_id,
-                            ),
-                          );
+                    devices.subscribe(updateDevices);
 
-                        self.connect("notify::selected", () => {
-                          const idx = self.get_selected();
-                          const output = outputs[idx];
+                    self.connect("notify::selected", () => {
+                      const idx = self.get_selected();
+                      const output = devices
+                        .get()
+                        .filter((d) => d.outputRoutes.length !== 0)[idx];
 
-                          const speaker = wp.audio.speakers.find(
-                            (s) => s.device_id === output.id,
-                          );
+                      const speaker = wp.audio.speakers.find(
+                        (s) => s.device_id === output.id,
+                      );
 
-                          if (speaker) {
-                            speaker.set_is_default(true);
-                            setState({
-                              ...state.get(),
-                              currentOutput: speaker,
-                            });
-                          }
-                        });
-                      }}
-                    />
-                  </box>
+                      if (speaker) {
+                        speaker.set_is_default(true);
+                      }
+                    });
+                  }}
+                />
+              </box>
 
-                  <box orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
-                    <image
-                      iconName="audio-input-microphone"
-                      iconSize={Gtk.IconSize.NORMAL}
-                    />
-                    <Gtk.DropDown
-                      hexpand={true}
-                      class="dropdown"
-                      $={(self) => {
-                        const inputs = s.allDevices.filter(
-                          (s) => s.inputRoutes.length !== 0,
-                        );
+              <box orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
+                <image
+                  iconName="audio-input-microphone"
+                  iconSize={Gtk.IconSize.NORMAL}
+                />
+                <Gtk.DropDown
+                  hexpand={true}
+                  class="dropdown"
+                  $={(self) => {
+                    function updateDevices() {
+                      const devices = wp.devices.filter(
+                        (d) => d.inputRoutes.length !== 0,
+                      );
+                      const store = new Gtk.StringList({
+                        strings: devices.map((d) => d.description),
+                      });
+                      self.set_model(store);
+                    }
 
-                        const store = new Gtk.StringList({
-                          strings: inputs.map((d) => d.description),
-                        });
-                        self.set_model(store);
+                    const devices = createBinding(wp, "devices");
 
-                        if (s.currentOutput)
-                          self.set_selected(
-                            inputs.findIndex(
-                              (d) => d.id === s.currentInput?.device_id,
-                            ),
-                          );
+                    devices.subscribe(updateDevices);
 
-                        self.connect("notify::selected", () => {
-                          const idx = self.get_selected();
-                          const input = inputs[idx];
+                    self.connect("notify::selected", () => {
+                      const idx = self.get_selected();
+                      const input = devices
+                        .get()
+                        .filter((d) => d.inputRoutes.length !== 0)[idx];
 
-                          const microphone = wp.audio.microphones.find(
-                            (s) => s.device_id === input.id,
-                          );
+                      const microphone = wp.audio.microphones.find(
+                        (s) => s.device_id === input.id,
+                      );
 
-                          if (microphone) {
-                            microphone.set_is_default(true);
-                            setState({
-                              ...state.get(),
-                              currentInput: microphone,
-                            });
-                          }
-                        });
-                      }}
-                    />
-                  </box>
-                </box>
-              )}
-            </With>
+                      if (microphone) {
+                        microphone.set_is_default(true);
+                      }
+                    });
+                  }}
+                />
+              </box>
+            </box>
           </box>
 
           <box
@@ -294,27 +199,38 @@ export default function Volume() {
                   wp.defaultSpeaker.set_mute(!wp.defaultSpeaker.get_mute())
                 }
               >
-                <With value={state}>
-                  {(st) => {
-                    let icon = st.outputIsMuted
-                      ? "audio-volume-muted"
-                      : "audio-headphones";
-
-                    return (
-                      <image iconName={icon} icon_size={Gtk.IconSize.NORMAL} />
-                    );
-                  }}
-                </With>
+                <image
+                  iconName={createBinding(
+                    wp.defaultSpeaker,
+                    "mute",
+                  )((m) => (m ? "audio-volume-muted" : "audio-headphones"))}
+                  icon_size={Gtk.IconSize.NORMAL}
+                />
               </button>
+              <Gtk.Scale
+                $={(self) => {
+                  self.set_range(0, 1.5);
+
+                  const volume = createBinding(wp.defaultSpeaker, "volume");
+                  volume.subscribe(() => self.set_value(volume.get()));
+                }}
+                class="scale-test"
+                hexpand
+                onChangeValue={(self) => {
+                  wp.defaultSpeaker.set_volume(self.get_value());
+                }}
+              />
+              {/*
               <slider
                 min={0}
                 max={1.5}
-                hexpand={true}
+                hexpand
                 value={createBinding(wp.defaultSpeaker, "volume")}
                 onChangeValue={({ value }) =>
                   wp.defaultSpeaker.set_volume(value)
                 }
               />
+*/}
 
               <button onClicked={() => wp.defaultSpeaker.set_volume(1)}>
                 <label
@@ -335,17 +251,15 @@ export default function Volume() {
                   )
                 }
               >
-                <With value={state}>
-                  {(st) => {
-                    let icon = st.inputIsMuted
-                      ? "audio-volume-muted"
-                      : "audio-input-microphone";
-
-                    return (
-                      <image iconName={icon} icon_size={Gtk.IconSize.NORMAL} />
-                    );
-                  }}
-                </With>
+                <image
+                  iconName={createBinding(
+                    wp.defaultMicrophone,
+                    "mute",
+                  )((m) =>
+                    m ? "audio-volume-muted" : "audio-input-microphone",
+                  )}
+                  icon_size={Gtk.IconSize.NORMAL}
+                />
               </button>
               <slider
                 min={0}

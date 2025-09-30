@@ -7,15 +7,11 @@ import {
   createBinding,
   createComputed,
   createState,
+  For,
   With,
 } from "ags";
 import Pango from "gi://Pango?version=1.0";
 import AstalPowerProfiles from "gi://AstalPowerProfiles?version=0.1";
-
-type PlayerState = {
-  currentPlayer: AstalMpris.Player | null;
-  players: AstalMpris.Player[];
-};
 
 export default function Mpris() {
   const mpris = AstalMpris.get_default();
@@ -23,10 +19,10 @@ export default function Mpris() {
 
   let popover: Gtk.Popover;
 
-  const [state, setState] = createState<PlayerState>({
-    currentPlayer: mpris.players[0],
-    players: mpris.players,
-  });
+  const [currentPlayer, setCurrentPlayer] =
+    createState<AstalMpris.Player | null>(mpris.players[0]);
+
+  const players = createBinding(mpris, "players");
 
   function findValidPlayer(
     players: AstalMpris.Player[],
@@ -48,38 +44,27 @@ export default function Mpris() {
   }
 
   mpris.connect("player-added", () => {
-    const currentState = state.get();
+    const c = currentPlayer.get();
     const validPlayers = mpris.players.filter(
       (p) => p.identity !== null && p.identity !== undefined,
     );
 
-    setState({
-      players: validPlayers,
-      currentPlayer:
-        currentState.currentPlayer &&
-        isPlayerValid(currentState.currentPlayer, validPlayers)
-          ? currentState.currentPlayer
-          : findValidPlayer(validPlayers),
-    });
+    setCurrentPlayer(
+      c && isPlayerValid(c, validPlayers) ? c : findValidPlayer(validPlayers),
+    );
   });
 
   mpris.connect("player-closed", () => {
-    const currentState = state.get();
+    const c = currentPlayer.get();
     const validPlayers = mpris.players.filter(
       (p) => p.identity !== null && p.identity !== undefined,
     );
 
-    const newCurrentPlayer = isPlayerValid(
-      currentState.currentPlayer,
-      validPlayers,
-    )
-      ? currentState.currentPlayer
+    const newCurrentPlayer = isPlayerValid(c, validPlayers)
+      ? c
       : findValidPlayer(validPlayers);
 
-    setState({
-      players: validPlayers,
-      currentPlayer: newCurrentPlayer,
-    });
+    setCurrentPlayer(newCurrentPlayer);
   });
 
   return (
@@ -87,14 +72,13 @@ export default function Mpris() {
       class="module"
       orientation={Gtk.Orientation.HORIZONTAL}
       spacing={8}
-      visible={state((s) => s.players.length !== 0)}
+      visible={players((s) => s.length !== 0)}
     >
-      <With value={state}>
-        {(state) => {
-          if (!state.currentPlayer || state.currentPlayer.identity === null)
-            return;
+      <With value={currentPlayer}>
+        {(currentPlayer) => {
+          if (currentPlayer === null || currentPlayer.identity === null) return;
 
-          const [app] = apps.exact_query(state.currentPlayer.entry);
+          const [app] = apps.exact_query(currentPlayer.entry);
           return (
             <box
               orientation={Gtk.Orientation.HORIZONTAL}
@@ -105,7 +89,7 @@ export default function Mpris() {
                 <image iconName={app.iconName} />
               </button>
               <Gtk.Separator orientation={Gtk.Orientation.VERTICAL} />
-              <Player state={state} />
+              <Player player={currentPlayer} />
             </box>
           );
         }}
@@ -116,58 +100,61 @@ export default function Mpris() {
           popover.set_has_arrow(false);
         }}
       >
-        <With value={state}>
-          {(state) => (
-            <box
-              orientation={Gtk.Orientation.VERTICAL}
-              spacing={8}
-              class={"player-selection"}
-              hexpand={false}
-            >
-              {state.players.map((p) => {
-                const [app] = apps.exact_query(p.entry);
-                return (
-                  <button
-                    onClicked={() => {
-                      setState({ ...state, currentPlayer: p });
-                      popover.popdown();
-                    }}
-                    class="player-selection-button"
-                  >
-                    <box orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
-                      <image visible={!!app.iconName} iconName={app.iconName} />
-                      <label visible={!!app.name} label={app.name} />
-                      {state.currentPlayer === p && (
-                        <image
-                          css="margin-left: 4px;"
-                          visible={!!app.iconName}
-                          iconName={"emblem-default"}
-                          halign={Gtk.Align.END}
-                        />
-                      )}
-                    </box>
-                  </button>
-                );
-              })}
-            </box>
-          )}
-        </With>
+        <box
+          orientation={Gtk.Orientation.VERTICAL}
+          spacing={8}
+          class={"player-selection"}
+          hexpand={false}
+        >
+          <For each={players}>
+            {(player) => {
+              const [app] = apps.exact_query(player.entry);
+              return (
+                <button
+                  onClicked={() => {
+                    setCurrentPlayer(player);
+                    popover.popdown();
+                  }}
+                  class="player-selection-button"
+                >
+                  <box orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
+                    <image visible={!!app.iconName} iconName={app.iconName} />
+                    <label visible={!!app.name} label={app.name} />
+
+                    <With value={currentPlayer}>
+                      {(currentPlayer) => {
+                        if (currentPlayer === player) {
+                          return (
+                            <image
+                              css="margin-left: 4px;"
+                              visible={!!app.iconName}
+                              iconName={"emblem-default"}
+                              halign={Gtk.Align.END}
+                            />
+                          );
+                        }
+                      }}
+                    </With>
+                  </box>
+                </button>
+              );
+            }}
+          </For>
+        </box>
       </popover>
     </box>
   );
 }
 
-function Player({ state }: { state: PlayerState }) {
-  if (!state.currentPlayer || state.currentPlayer === null) return <box></box>;
-
+function Player({ player }: { player: AstalMpris.Player }) {
   const powerprofiles = AstalPowerProfiles.get_default();
   const activeProfile = createBinding(powerprofiles, "activeProfile");
 
-  const title = createBinding(state.currentPlayer, "title");
-  const artist = createBinding(state.currentPlayer, "artist");
-  const progress = createBinding(state.currentPlayer, "position");
-  const length = createBinding(state.currentPlayer, "length");
-  const cover = createBinding(state.currentPlayer, "coverArt");
+  const title = createBinding(player, "title");
+  const artist = createBinding(player, "artist");
+  const progress = createBinding(player, "position");
+  const length = createBinding(player, "length");
+  const cover = createBinding(player, "coverArt");
   const songInfo = createComputed((get) => {
     if (get(artist) === null) {
       return "nothing playing";
@@ -211,15 +198,14 @@ function Player({ state }: { state: PlayerState }) {
                 );
                 cr.fill();
 
-                state.currentPlayer?.connect("notify::position", () =>
-                  area.queue_draw(),
-                );
+                cr.$dispose();
               });
+
+              player.connect("notify::position", () => self.queue_draw());
             }}
           />
         </box>
 
-        {/*
         <With value={activeProfile}>
           {(p) => {
             if (p !== "power-saver") {
@@ -227,7 +213,6 @@ function Player({ state }: { state: PlayerState }) {
             }
           }}
         </With>
-*/}
       </box>
 
       <popover
@@ -321,32 +306,29 @@ function Player({ state }: { state: PlayerState }) {
               >
                 <box halign={Gtk.Align.CENTER} spacing={16}>
                   <button
-                    onClicked={() => state.currentPlayer?.previous()}
-                    visible={createBinding(
-                      state.currentPlayer,
-                      "canGoPrevious",
-                    )}
+                    onClicked={() => player.previous()}
+                    visible={createBinding(player, "canGoPrevious")}
                     $type="start"
                   >
                     <image iconName="media-seek-backward-symbolic" />
                   </button>
                   <button
-                    onClicked={() => state.currentPlayer?.play_pause()}
-                    visible={createBinding(state.currentPlayer, "canControl")}
+                    onClicked={() => player.play_pause()}
+                    visible={createBinding(player, "canControl")}
                     $type="center"
                   >
                     <box>
                       <image
                         iconName="media-playback-pause-symbolic"
                         visible={createBinding(
-                          state.currentPlayer,
+                          player,
                           "playbackStatus",
                         )((s) => s === AstalMpris.PlaybackStatus.PLAYING)}
                       />
                       <image
                         iconName="media-playback-start-symbolic"
                         visible={createBinding(
-                          state.currentPlayer,
+                          player,
                           "playbackStatus",
                         )((s) => s !== AstalMpris.PlaybackStatus.PLAYING)}
                       />
@@ -354,8 +336,8 @@ function Player({ state }: { state: PlayerState }) {
                   </button>
 
                   <button
-                    onClicked={() => state.currentPlayer?.next()}
-                    visible={createBinding(state.currentPlayer, "canGoNext")}
+                    onClicked={() => player.next()}
+                    visible={createBinding(player, "canGoNext")}
                     $type="end"
                   >
                     <image iconName="media-seek-forward-symbolic" />
@@ -365,11 +347,11 @@ function Player({ state }: { state: PlayerState }) {
                   css={"padding: 0px;"}
                   min={0}
                   max={1}
-                  visible={createBinding(state.currentPlayer, "canGoNext")}
-                  value={createBinding(state.currentPlayer, "volume")}
+                  visible={createBinding(player, "canGoNext")}
+                  value={createBinding(player, "volume")}
                   hexpand
                   onChangeValue={({ value }) => {
-                    state.currentPlayer?.set_volume(value);
+                    player.set_volume(value);
                   }}
                 />
               </box>
@@ -387,7 +369,6 @@ function Cava() {
   if (cava) {
     cava.set_bars(6);
   }
-
   return (
     <drawingarea
       width_request={30}
@@ -411,8 +392,10 @@ function Cava() {
             cr.fill();
           });
 
-          cava?.connect("notify::values", () => area.queue_draw());
+          cr.$dispose();
         });
+
+        cava?.connect("notify::values", () => self.queue_draw());
       }}
     />
   );

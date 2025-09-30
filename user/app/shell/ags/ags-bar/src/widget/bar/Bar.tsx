@@ -6,12 +6,19 @@ import Clock from "./Clock";
 import Mpris from "./Mpris";
 import Battery from "./Battery";
 import Tray from "./Tray";
+import { onCleanup } from "gnim";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
 
+  let win: Astal.Window;
+  onCleanup(() => {
+    win.destroy();
+  });
+
   return (
     <window
+      $={(self) => (win = self)}
       visible
       name="bar"
       class="Bar"

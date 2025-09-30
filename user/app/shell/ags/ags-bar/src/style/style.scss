@@ -8,8 +8,12 @@
   padding: 8px;
 }
 
-slider > contents {
-  background-color: red;
+scale trough highlight {
+  background: c.$accent;
+}
+
+levelbar trough block.filled {
+  background: c.$accent;
 }
 
 popover > contents {

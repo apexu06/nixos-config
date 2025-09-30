@@ -28,7 +28,7 @@ export default function Battery() {
     );
   });
 
-  if (!battery.isPresent) return <box></box>;
+  if (!battery.isPresent) return <box visible={false}></box>;
 
   return (
     <menubutton>
