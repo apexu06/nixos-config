@@ -16,7 +16,7 @@
     ./app/terminal/wezterm.nix
     ./app/git.nix
     ./app/thunderbird.nix
-    ./app/shell/quickshell/quickshell.nix
+    ./app/shell/ags/ags.nix
   ];
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";
