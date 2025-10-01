@@ -20,7 +20,7 @@ export default function Mpris() {
   let popover: Gtk.Popover;
 
   const [currentPlayer, setCurrentPlayer] =
-    createState<AstalMpris.Player | null>(mpris.players[0]);
+    createState<AstalMpris.Player | null>({} as AstalMpris.Player);
 
   const players = createBinding(mpris, "players");
 
@@ -72,11 +72,11 @@ export default function Mpris() {
       class="module"
       orientation={Gtk.Orientation.HORIZONTAL}
       spacing={8}
-      visible={players((s) => s.length !== 0)}
+      visible={currentPlayer((c) => c?.identity !== undefined)}
     >
       <With value={currentPlayer}>
         {(currentPlayer) => {
-          if (currentPlayer === null || currentPlayer.identity === null) return;
+          if (currentPlayer?.identity === undefined) return;
 
           const [app] = apps.exact_query(currentPlayer.entry);
           return (
@@ -261,7 +261,7 @@ function Player({ player }: { player: AstalMpris.Player }) {
                     />
                     <label
                       visible={artist((a) => a !== null)}
-                      label={artist}
+                      label={title}
                       halign={Gtk.Align.START}
                       max_width_chars={17}
                       ellipsize={Pango.EllipsizeMode.END}
