@@ -21,6 +21,7 @@ $error_fg: #{"@error_fg_color"};
 $bg: #{"alpha(@window_bg_color, 0.55)"};
 $bar_bg: #{"alpha(@window_bg_color, 0.4)"};
 $fg: #{"@window_fg_color"};
+$dark-text: #{"alpha(@window_fg_color, 0.6)"};
 
 $border: #{"@headerbar_border_color"};
 $lighter_bg: #{"alpha(@card_bg_color, 0.5)"};

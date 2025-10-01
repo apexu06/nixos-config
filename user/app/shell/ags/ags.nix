@@ -23,6 +23,8 @@
       inputs.astal.packages.${pkgs.system}.hyprland
       inputs.astal.packages.${pkgs.system}.wireplumber
       inputs.astal.packages.${pkgs.system}.apps
+      inputs.astal.packages.${pkgs.system}.cava
+      inputs.astal.packages.${pkgs.system}.mpris
       fzf
     ];
   };

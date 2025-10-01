@@ -8,6 +8,14 @@
   padding: 8px;
 }
 
+scale trough highlight {
+  background: c.$accent;
+}
+
+levelbar trough block.filled {
+  background: c.$accent;
+}
+
 popover > contents {
   background-color: c.$bg;
   padding: 12px;
@@ -24,4 +32,9 @@ button {
   min-height: 0px;
   padding: 0px;
   margin: 0px;
+}
+
+.font-small {
+  font-size: 16px;
+  color: c.$dark-text;
 }

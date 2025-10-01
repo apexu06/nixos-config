@@ -5,12 +5,20 @@ import Volume from "./Volume";
 import Clock from "./Clock";
 import Mpris from "./Mpris";
 import Battery from "./Battery";
+import Tray from "./Tray";
+import { onCleanup } from "gnim";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
 
+  let win: Astal.Window;
+  onCleanup(() => {
+    win.destroy();
+  });
+
   return (
     <window
+      $={(self) => (win = self)}
       visible
       name="bar"
       class="Bar"
@@ -20,21 +28,19 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       application={app}
       height_request={46}
     >
-      <centerbox orientation={Gtk.Orientation.HORIZONTAL} class="main">
+      <centerbox class="main">
         <Workspaces $type="start" />
 
-        <Mpris $type="center" />
-        <box orientation={Gtk.Orientation.HORIZONTAL} $type="end" spacing={8}>
-          <box
-            orientation={Gtk.Orientation.HORIZONTAL}
-            class="module"
-            spacing={4}
-          >
+        <box spacing={8} $type="center">
+          <Mpris />
+          <Clock />
+        </box>
+        <box $type="end" spacing={8}>
+          <box class="module" spacing={4}>
             <Volume />
             <Battery />
           </box>
-
-          <Clock />
+          <Tray />
         </box>
       </centerbox>
     </window>
