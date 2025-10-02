@@ -1,6 +1,7 @@
 import { Gtk } from "ags/gtk4";
 import { subprocess } from "ags/process";
 import Wp from "gi://AstalWp?version=0.1";
+import Gio from "gi://Gio?version=2.0";
 import { createBinding } from "gnim";
 
 const VOLUME_SCROLL_STEP = 0.01;
@@ -113,32 +114,26 @@ export default function Volume() {
                   class="dropdown"
                   overflow={Gtk.Overflow.HIDDEN}
                   $={(self) => {
+                    const speakers = createBinding(wp.audio, "speakers");
+
                     function updateDevices() {
-                      const devices = wp.devices.filter(
-                        (d) => d.outputRoutes.length !== 0,
-                      );
+                      const s = speakers.get();
                       const store = new Gtk.StringList({
-                        strings: devices.map((d) => d.description),
+                        strings: s.map((d) => d.description),
                       });
                       self.set_model(store);
+
+                      self.set_selected(s.findIndex((s) => s.isDefault));
                     }
 
-                    const devices = createBinding(wp, "devices");
+                    speakers.subscribe(updateDevices);
 
-                    devices.subscribe(updateDevices);
-
-                    self.connect("notify::selected", () => {
+                    self.connect("notify::selected-item", () => {
                       const idx = self.get_selected();
-                      const output = devices
-                        .get()
-                        .filter((d) => d.outputRoutes.length !== 0)[idx];
+                      const output = speakers.get()[idx];
 
-                      const speaker = wp.audio.speakers.find(
-                        (s) => s.device_id === output.id,
-                      );
-
-                      if (speaker) {
-                        speaker.set_is_default(true);
+                      if (output) {
+                        output.set_is_default(true);
                       }
                     });
                   }}
@@ -154,32 +149,28 @@ export default function Volume() {
                   hexpand={true}
                   class="dropdown"
                   $={(self) => {
+                    const microphones = createBinding(wp.audio, "microphones");
+
                     function updateDevices() {
-                      const devices = wp.devices.filter(
-                        (d) => d.inputRoutes.length !== 0,
-                      );
+                      const m = microphones.get();
                       const store = new Gtk.StringList({
-                        strings: devices.map((d) => d.description),
+                        strings: m.map((d) => d.description),
                       });
                       self.set_model(store);
-                    }
-
-                    const devices = createBinding(wp, "devices");
-
-                    devices.subscribe(updateDevices);
-
-                    self.connect("notify::selected", () => {
-                      const idx = self.get_selected();
-                      const input = devices
-                        .get()
-                        .filter((d) => d.inputRoutes.length !== 0)[idx];
-
-                      const microphone = wp.audio.microphones.find(
-                        (s) => s.device_id === input.id,
+                      m.forEach((m, i) =>
+                        console.log(m.description, i, m.isDefault),
                       );
+                      self.set_selected(m.findIndex((m) => m.isDefault));
+                    }
+                    microphones.subscribe(updateDevices);
 
-                      if (microphone) {
-                        microphone.set_is_default(true);
+                    self.connect("notify::selected-item", () => {
+                      console.log("selcte");
+                      const idx = self.get_selected();
+                      const input = microphones.get().find((m) => m.id === idx);
+
+                      if (input) {
+                        input.set_is_default(true);
                       }
                     });
                   }}
