@@ -30,7 +30,7 @@
     systemd.variables = [ "--all" ];
     extraConfig = ''
       $drun = ${if settings.launcher == "tofi" then "tofi-drun --drun-launch=true" else "fuzzel"}
-      $screenshot = hyprshot -m region
+      $screenshot = hyprshot -m region -o "$HOME/Pictures/"
       $lockscreen = hyprlock
     ''
     + builtins.readFile ./hyprland.conf;

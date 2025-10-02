@@ -18,8 +18,6 @@ let
   backgroundHash = builtins.elemAt wallpaperLines 1;
 in
 {
-  home.file."debug".text = backgroundUrl;
-
   imports = [
     inputs.stylix.homeModules.stylix
   ];

@@ -19,8 +19,9 @@ export default function Mpris() {
 
   let popover: Gtk.Popover;
 
-  const [currentPlayer, setCurrentPlayer] =
-    createState<AstalMpris.Player | null>({} as AstalMpris.Player);
+  const [currentPlayer, setCurrentPlayer] = createState<AstalMpris.Player>(
+    mpris.players[0],
+  );
 
   const players = createBinding(mpris, "players");
 
@@ -49,9 +50,9 @@ export default function Mpris() {
       (p) => p.identity !== null && p.identity !== undefined,
     );
 
-    setCurrentPlayer(
-      c && isPlayerValid(c, validPlayers) ? c : findValidPlayer(validPlayers),
-    );
+    if (!c) {
+      setCurrentPlayer(validPlayers[validPlayers.length - 1]);
+    }
   });
 
   mpris.connect("player-closed", () => {
@@ -63,6 +64,8 @@ export default function Mpris() {
     const newCurrentPlayer = isPlayerValid(c, validPlayers)
       ? c
       : findValidPlayer(validPlayers);
+
+    if (!newCurrentPlayer) return;
 
     setCurrentPlayer(newCurrentPlayer);
   });
