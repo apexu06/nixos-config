@@ -38,4 +38,11 @@
   programs.bat.enable = true;
   programs.television.enable = true;
   programs.yazi.enable = true;
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/apexu/.dotfiles"; # sets NH_OS_FLAKE variable for you
+  };
 }
