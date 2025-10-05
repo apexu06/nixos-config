@@ -10,12 +10,6 @@ window.Bar {
     border-radius: 0px;
     padding: 6px 12px 6px 6px;
 
-    .base-container {
-      background-color: c.$lightest_bg;
-      border-radius: 16px;
-      padding: 8px;
-    }
-
     .workspace-container {
       background-color: c.$bar_bg;
       padding: 12px;

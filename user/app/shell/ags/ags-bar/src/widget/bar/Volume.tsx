@@ -157,15 +157,11 @@ export default function Volume() {
                         strings: m.map((d) => d.description),
                       });
                       self.set_model(store);
-                      m.forEach((m, i) =>
-                        console.log(m.description, i, m.isDefault),
-                      );
                       self.set_selected(m.findIndex((m) => m.isDefault));
                     }
                     microphones.subscribe(updateDevices);
 
                     self.connect("notify::selected-item", () => {
-                      console.log("selcte");
                       const idx = self.get_selected();
                       const input = microphones.get().find((m) => m.id === idx);
 

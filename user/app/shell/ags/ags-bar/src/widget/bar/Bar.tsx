@@ -7,6 +7,7 @@ import Mpris from "./Mpris";
 import Battery from "./Battery";
 import Tray from "./Tray";
 import { onCleanup } from "gnim";
+import Network from "./Network";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
@@ -37,6 +38,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         </box>
         <box $type="end" spacing={8}>
           <box class="module" spacing={4}>
+            <Network />
             <Volume />
             <Battery />
           </box>
