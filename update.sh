@@ -1,3 +1,4 @@
 nix flake update
-sudo nixos-rebuild switch --flake .
-home-manager switch --flake .
+nh os switch .
+nh home switch .
+nh clean all

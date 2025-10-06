@@ -1,6 +1,6 @@
 import { Gtk } from "ags/gtk4";
 import AstalNetwork from "gi://AstalNetwork?version=0.1";
-import { createBinding, For, With } from "gnim";
+import { createBinding, createState, For, With } from "gnim";
 
 export default function Network() {
   const network = AstalNetwork.get_default();
@@ -18,38 +18,38 @@ export default function Network() {
             "accessPoints",
           )((aps) => {
             const connected = wifi.activeAccessPoint;
-            const bySSID = new Map();
+            const bySSID = new Map<string, AstalNetwork.AccessPoint>();
 
             for (const a of aps) {
               if (!a.ssid) continue;
 
               const existing = bySSID.get(a.ssid);
 
-              // Prefer the connected AP if this is it
               if (connected && a.bssid === connected.bssid) {
                 bySSID.set(a.ssid, a);
                 continue;
               }
 
-              // Otherwise keep the strongest one
               if (!existing || a.strength > existing.strength) {
                 bySSID.set(a.ssid, a);
               }
             }
 
-            return Array.from(bySSID.values());
+            return Array.from(bySSID.values()).sort(
+              (a, b) => b.strength - a.strength,
+            );
           });
 
-          accessPoints.subscribe(() => {
-            accessPoints.get().forEach((a) => {
-              console.log(
-                `${a.ssid} | ${a.flags} | ${a.mode} | ${a.bandwidth} | ${(a.frequency / 1000).toFixed(2)} | ${a === wifi.activeAccessPoint}`,
-              );
-            });
-          });
-
+          // accessPoints.subscribe(() => {
+          //   accessPoints.get().forEach((a) => {
+          //     console.log(
+          //       `${a.ssid} | ${a.flags} | ${a.mode} | ${a.bandwidth} | ${(a.frequency / 1000).toFixed(2)} | ${a === wifi.activeAccessPoint}`,
+          //     );
+          //   });
+          // });
+          //
           return (
-            <box>
+            <box hexpand={false}>
               <button
                 onClicked={() => {
                   if (!wifi.scanning) wifi.scan();
@@ -60,7 +60,7 @@ export default function Network() {
               </button>
 
               <popover
-                width_request={400}
+                width_request={450}
                 height_request={100}
                 $={(self) => {
                   popover = self;
@@ -80,44 +80,92 @@ export default function Network() {
                       $type="end"
                     />
                   </centerbox>
-                  <scrolledwindow
-                    class="base-container"
-                    maxContentHeight={700}
-                    height_request={600}
-                  >
-                    <box orientation={Gtk.Orientation.VERTICAL} spacing={8}>
+                  <box class="base-container">
+                    <box
+                      orientation={Gtk.Orientation.VERTICAL}
+                      spacing={8}
+                      vexpand
+                    >
                       <label
                         halign={Gtk.Align.START}
-                        label={createBinding(
-                          wifi,
-                          "scanning",
-                        )((s) => (s ? "Scanning..." : "Available Networks"))}
+                        label="Available networks"
                         css={"font-size: 18px; font-weight: bold;"}
                       />
                       <Gtk.Separator />
-                      <box orientation={Gtk.Orientation.VERTICAL} spacing={4}>
-                        <For each={accessPoints}>
-                          {(ap: AstalNetwork.AccessPoint) => (
-                            <button>
-                              <box spacing={4}>
-                                <image
-                                  iconName={createBinding(ap, "iconName")}
-                                />
-                                <label label={createBinding(ap, "ssid")} />
-                                <image
-                                  iconName="object-select-symbolic"
-                                  visible={createBinding(
-                                    wifi,
-                                    "activeAccessPoint",
-                                  )((active) => active === ap)}
-                                />
-                              </box>
-                            </button>
-                          )}
-                        </For>
-                      </box>
+                      <scrolledwindow
+                        maxContentHeight={150}
+                        propagate_natural_height
+                      >
+                        <box orientation={Gtk.Orientation.VERTICAL} spacing={4}>
+                          <For each={accessPoints}>
+                            {(ap: AstalNetwork.AccessPoint) => {
+                              const [menuOpen, setMenuOpen] =
+                                createState(false);
+
+                              const isActiveAp = createBinding(
+                                wifi,
+                                "activeAccessPoint",
+                              )((active) => active === ap);
+
+                              function handleClick() {
+                                setMenuOpen(!menuOpen.get());
+                              }
+
+                              return (
+                                <box
+                                  orientation={Gtk.Orientation.VERTICAL}
+                                  css="margin-right: 12px;"
+                                >
+                                  <button
+                                    hexpand
+                                    class="network-button"
+                                    onClicked={handleClick}
+                                  >
+                                    <box spacing={4}>
+                                      <image
+                                        iconName={createBinding(ap, "iconName")}
+                                      />
+                                      <label
+                                        label={createBinding(ap, "ssid")}
+                                      />
+                                      <image
+                                        iconName="object-select-symbolic"
+                                        visible={isActiveAp}
+                                      />
+                                    </box>
+                                  </button>
+                                  <revealer revealChild={menuOpen}>
+                                    <box
+                                      height_request={50}
+                                      hexpand
+                                      spacing={8}
+                                    >
+                                      <button
+                                        hexpand
+                                        class="network-connect-button"
+                                      >
+                                        <label
+                                          label={isActiveAp((a) =>
+                                            a ? "Disconnect" : "Connect",
+                                          )}
+                                        />
+                                      </button>
+                                      <button
+                                        hexpand
+                                        class="network-info-button"
+                                      >
+                                        <label label="Info" />
+                                      </button>
+                                    </box>
+                                  </revealer>
+                                </box>
+                              );
+                            }}
+                          </For>
+                        </box>
+                      </scrolledwindow>
                     </box>
-                  </scrolledwindow>
+                  </box>
                 </box>
               </popover>
             </box>

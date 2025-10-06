@@ -116,6 +116,18 @@ window.Bar {
       color: c.$success_bg;
     }
 
+    .network-button {
+      padding: 8px;
+      border-radius: 8px;
+
+      &:hover {
+        background: c.$lightest_bg;
+      }
+    }
+
+    .network-info-button {
+    }
+
     .module {
       border-radius: 16px;
       transition: 200ms;
