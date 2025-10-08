@@ -116,20 +116,37 @@ window.Bar {
       color: c.$success_bg;
     }
 
+    .network-button.active {
+      background: red;
+    }
+
     .network-button {
-      padding: 8px;
+      padding: 10px;
       border-radius: 8px;
+
+      .active {
+      }
 
       &:hover {
         background: c.$lightest_bg;
       }
     }
 
-    .network-info-button {
+    .network-dropdown {
+      padding: 4px;
+      background: c.$lighter_bg;
+      border-radius: 0 0 8px 8px;
+
+      .network-info-button {
+        color: c.$accent;
+        border: 2px solid c.$accent;
+        padding: 4px;
+        border-radius: 100px;
+      }
     }
 
     .module {
-      border-radius: 16px;
+      border-radius: 100px;
       transition: 200ms;
       padding: 0px 12px 0px 12px;
       background: c.$bar_bg;

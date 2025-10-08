@@ -1,5 +1,6 @@
 import { Gtk } from "ags/gtk4";
 import AstalNetwork from "gi://AstalNetwork?version=0.1";
+import GLib from "gi://GLib?version=2.0";
 import { createBinding, createState, For, With } from "gnim";
 
 export default function Network() {
@@ -60,14 +61,19 @@ export default function Network() {
               </button>
 
               <popover
-                width_request={450}
-                height_request={100}
+                widthRequest={400}
                 $={(self) => {
                   popover = self;
                   self.set_has_arrow(false);
+                  self.connect("map", () => {
+                    GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
+                      self.present();
+                      return GLib.SOURCE_REMOVE;
+                    });
+                  });
                 }}
               >
-                <box orientation={Gtk.Orientation.VERTICAL} spacing={8}>
+                <box orientation={Gtk.Orientation.VERTICAL} spacing={8} hexpand>
                   <centerbox class="base-container">
                     <label
                       label={"Wifi"}
@@ -93,7 +99,8 @@ export default function Network() {
                       />
                       <Gtk.Separator />
                       <scrolledwindow
-                        maxContentHeight={150}
+                        maxContentHeight={200}
+                        css="min-height: 150px;"
                         propagate_natural_height
                       >
                         <box orientation={Gtk.Orientation.VERTICAL} spacing={4}>
@@ -118,7 +125,7 @@ export default function Network() {
                                 >
                                   <button
                                     hexpand
-                                    class="network-button"
+                                    class={`network-button ${menuOpen((o) => (o ? "active" : ""))}`}
                                     onClicked={handleClick}
                                   >
                                     <box spacing={4}>
@@ -134,15 +141,11 @@ export default function Network() {
                                       />
                                     </box>
                                   </button>
-                                  <revealer revealChild={menuOpen}>
-                                    <box
-                                      height_request={50}
-                                      hexpand
-                                      spacing={8}
-                                    >
+                                  <revealer revealChild={menuOpen} hexpand>
+                                    <box class="network-dropdown" hexpand>
                                       <button
-                                        hexpand
                                         class="network-connect-button"
+                                        hexpand
                                       >
                                         <label
                                           label={isActiveAp((a) =>
@@ -151,8 +154,8 @@ export default function Network() {
                                         />
                                       </button>
                                       <button
-                                        hexpand
                                         class="network-info-button"
+                                        hexpand
                                       >
                                         <label label="Info" />
                                       </button>
