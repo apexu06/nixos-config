@@ -154,7 +154,7 @@ function Player({ player }: { player: AstalMpris.Player }) {
   const activeProfile = createBinding(powerprofiles, "activeProfile");
 
   const title = createBinding(player, "title");
-  const artist = createBinding(player, "artist");
+  const artist = createBinding(player, "artist")((a) => (a === null ? "" : a));
   const progress = createBinding(player, "position");
   const length = createBinding(player, "length");
   const cover = createBinding(player, "coverArt");
@@ -239,7 +239,6 @@ function Player({ player }: { player: AstalMpris.Player }) {
               orientation={Gtk.Orientation.HORIZONTAL}
               spacing={12}
               visible={artist((p) => p !== null)}
-              valign={Gtk.Align.CENTER}
             >
               <image valign={Gtk.Align.CENTER} file={cover} pixelSize={72} />
 
@@ -264,7 +263,7 @@ function Player({ player }: { player: AstalMpris.Player }) {
                     />
                     <label
                       visible={artist((a) => a !== null)}
-                      label={title}
+                      label={artist}
                       halign={Gtk.Align.START}
                       max_width_chars={17}
                       ellipsize={Pango.EllipsizeMode.END}
@@ -334,7 +333,7 @@ function Player({ player }: { player: AstalMpris.Player }) {
                   </box>
                 </centerbox>
 
-                <box spacing={2}>
+                <box spacing={2} hexpand>
                   <button
                     onClicked={() => player.previous()}
                     visible={createBinding(player, "canGoPrevious")}
@@ -359,20 +358,6 @@ function Player({ player }: { player: AstalMpris.Player }) {
                   </button>
                 </box>
               </box>
-
-              {/*
-                <slider
-                  css={"padding: 0px;"}
-                  min={0}
-                  max={1}
-                  visible={createBinding(player, "canGoNext")}
-                  value={createBinding(player, "volume")}
-                  hexpand
-                  onChangeValue={({ value }) => {
-                    player.set_volume(value);
-                  }}
-                />
-*/}
             </box>
           </box>
         </overlay>

@@ -1,7 +1,6 @@
 import { Gtk } from "ags/gtk4";
 import { subprocess } from "ags/process";
 import Wp from "gi://AstalWp?version=0.1";
-import Gio from "gi://Gio?version=2.0";
 import { createBinding } from "gnim";
 
 const VOLUME_SCROLL_STEP = 0.01;
@@ -157,7 +156,10 @@ export default function Volume() {
                         strings: m.map((d) => d.description),
                       });
                       self.set_model(store);
-                      self.set_selected(m.findIndex((m) => m.isDefault));
+
+                      const idx = m.findIndex((m) => m.isDefault);
+                      if (idx > 0)
+                        self.set_selected(m.findIndex((m) => m.isDefault));
                     }
                     microphones.subscribe(updateDevices);
 

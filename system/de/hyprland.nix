@@ -25,7 +25,6 @@ in
       };
     };
     hyprlock.enable = true;
-    nm-applet.enable = true;
     gnome-disks.enable = true;
   };
 

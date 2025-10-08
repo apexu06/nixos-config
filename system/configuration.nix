@@ -96,6 +96,10 @@
     protonmail-bridge.enable = true;
     gvfs.enable = true;
     upower.enable = true;
+    udisks2 = {
+      enable = true;
+      mountOnMedia = true;
+    };
   };
 
   systemd.services.fprintd = {

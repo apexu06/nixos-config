@@ -9,6 +9,10 @@
     inputs.ags.homeManagerModules.default
   ];
 
+  home.packages = with pkgs; [
+    networkmanagerapplet
+  ];
+
   programs.ags = {
     enable = true;
     configDir = ./ags-bar;
@@ -31,12 +35,12 @@
 
   systemd.user.services.ags = {
     unit = {
-      description = "aylur's gtk shell bar";
+      description = "ags-bar";
       after = [ "graphical-session.target" ];
       partof = [ "graphical-session.target" ];
     };
     service = {
-      execstart = "${pkgs.ags}/bin/ags";
+      execstart = "${pkgs.ags}/bin/ags run";
       restart = "always";
     };
     install = {

@@ -4,29 +4,25 @@ window.Bar {
   background: transparent;
   color: c.$fg;
   font-weight: 400;
+  margin: 4px;
 
   .main {
     background: c.$bar_bg;
-    border-radius: 0px;
+    border-radius: 12px;
     padding: 6px 12px 6px 6px;
+    border: 1px solid c.$border;
 
-    .workspace-container {
-      background-color: c.$bar_bg;
-      padding: 12px;
-      border-radius: 16px;
+    .workspace-button {
+      background-color: c.$fg;
+      border-radius: 100%;
 
-      .workspace-button {
-        background-color: c.$fg;
-        border-radius: 100%;
-      }
-
-      .workspace-button.focused {
+      &.focused {
         background-color: c.$accent;
         min-width: 24px;
         border-radius: 12px;
       }
 
-      .workspace-button.urgent {
+      &.urgent {
         background-color: c.$destructive;
       }
     }
@@ -116,15 +112,18 @@ window.Bar {
       color: c.$success_bg;
     }
 
-    .network-button.active {
-      background: red;
-    }
-
     .network-button {
       padding: 10px;
       border-radius: 8px;
+      border: 2px solid transparent;
+      transition: 200ms;
 
-      .active {
+      &.active {
+        background: c.$lightest_bg;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border: solid c.$border;
+        border-width: 2px 2px 0px 2px;
       }
 
       &:hover {
@@ -133,15 +132,43 @@ window.Bar {
     }
 
     .network-dropdown {
-      padding: 4px;
-      background: c.$lighter_bg;
+      padding: 0px 8px 8px 8px;
+      background: c.$lightest_bg;
+      border: solid c.$border;
+      border-width: 0px 2px 2px 2px;
       border-radius: 0 0 8px 8px;
 
-      .network-info-button {
+      .info-button {
         color: c.$accent;
         border: 2px solid c.$accent;
         padding: 4px;
         border-radius: 100px;
+
+        &:hover {
+          background-color: c.$accent;
+          color: c.$accent_fg;
+        }
+      }
+
+      .connect-button {
+        border: 2px solid c.$fg;
+        padding: 4px;
+        border-radius: 100px;
+
+        &:hover {
+          background-color: c.$fg;
+          color: c.$accent_fg;
+        }
+
+        &.disconnect {
+          border-color: c.$destructive;
+          color: c.$destructive;
+
+          &:hover {
+            background-color: c.$destructive;
+            color: c.$accent_fg;
+          }
+        }
       }
     }
 
@@ -150,6 +177,7 @@ window.Bar {
       transition: 200ms;
       padding: 0px 12px 0px 12px;
       background: c.$bar_bg;
+      border: 1px solid c.$border;
     }
 
     levelbar {

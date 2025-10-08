@@ -6,6 +6,7 @@
   background-color: c.$lightest_bg;
   border-radius: 16px;
   padding: 12px;
+  border: 1px solid c.$border;
 }
 
 scale trough highlight {
@@ -19,9 +20,10 @@ levelbar trough block.filled {
 popover > contents {
   background-color: c.$bg;
   padding: 12px;
+  border: 1px solid c.$border;
 }
 popover {
-  margin-top: 8px;
+  margin-top: 12px;
   margin-right: 4px;
 }
 

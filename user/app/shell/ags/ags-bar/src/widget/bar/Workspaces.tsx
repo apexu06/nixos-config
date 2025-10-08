@@ -98,7 +98,8 @@ export default function Workspaces() {
 
           return (
             <box
-              class="workspace-container"
+              class="module"
+              css={"padding: 12px;"}
               spacing={12}
               valign={Gtk.Align.CENTER}
               vexpand
