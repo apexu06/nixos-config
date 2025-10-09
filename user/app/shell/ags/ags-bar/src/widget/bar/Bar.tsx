@@ -6,7 +6,7 @@ import Clock from "./Clock";
 import Mpris from "./Mpris";
 import Battery from "./Battery";
 import Tray from "./Tray";
-import { onCleanup } from "gnim";
+import { onCleanup } from "ags";
 import Network from "./Network";
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {

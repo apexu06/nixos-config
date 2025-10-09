@@ -33,18 +33,16 @@
     ];
   };
 
-  systemd.user.services.ags = {
-    unit = {
-      description = "ags-bar";
-      after = [ "graphical-session.target" ];
-      partof = [ "graphical-session.target" ];
-    };
-    service = {
-      execstart = "${pkgs.ags}/bin/ags run";
-      restart = "always";
-    };
-    install = {
-      wantedby = [ "graphical-session.target" ];
-    };
-  };
+  # systemd.user.services = {
+  #   ags = {
+  #     Unit = {
+  #       Description = "ags-bar";
+  #       After = [ "graphical-session.target" ];
+  #     };
+  #     Service = {
+  #       ExecStart = "${pkgs.ags}/bin/ags run";
+  #     };
+  #   };
+  # };
+
 }

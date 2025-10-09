@@ -1,5 +1,5 @@
 import AstalTray from "gi://AstalTray?version=0.1";
-import { createBinding, For } from "gnim";
+import { createBinding, For } from "ags";
 
 export default function Tray() {
   const tray = AstalTray.get_default();

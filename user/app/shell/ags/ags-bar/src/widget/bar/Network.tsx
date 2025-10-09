@@ -1,14 +1,9 @@
 import { Gtk } from "ags/gtk4";
 import { exec, execAsync, subprocess } from "ags/process";
-import { timeout } from "ags/time";
 import AstalNetwork from "gi://AstalNetwork?version=0.1";
 import GLib from "gi://GLib?version=2.0";
 import NM from "gi://NM?version=1.0";
-import { Accessor, createBinding, createState, For, With } from "gnim";
-
-function deleteConnection(ssid: string) {
-  execAsync(["bash", "-c", `nmcli connection delete ${ssid}`]);
-}
+import { Accessor, createBinding, createState, For, With } from "ags";
 
 export default function Network() {
   const network = AstalNetwork.get_default();
@@ -196,6 +191,7 @@ function NetworkConnectivity({
       });
     });
   }
+  const test = createBinding(ap, "get_connections")((con) => con.length > 0);
 
   async function connect(password: string | null) {
     return new Promise((resolve, reject) => {
@@ -203,7 +199,6 @@ function NetworkConnectivity({
         try {
           resolve(ap.activate_finish(res));
         } catch (error) {
-          console.log("error in connect: ", error);
           reject(error);
         }
       });
@@ -219,6 +214,10 @@ function NetworkConnectivity({
     subprocess(["nm-connection-editor", "-e", uuid]);
   }
 
+  function deleteConnection(ssid: string) {
+    execAsync(["bash", "-c", `nmcli connection delete ${ssid}`]);
+  }
+
   return (
     <revealer revealChild={menuOpen} hexpand>
       <box class="network-dropdown" hexpand spacing={8}>
@@ -228,39 +227,45 @@ function NetworkConnectivity({
             transitionType={Gtk.RevealerTransitionType.SWING_RIGHT}
             width_request={0}
           >
-            <box hexpand homogeneous spacing={8}>
-              <button
-                cssClasses={isActiveAp((a) =>
-                  a ? ["disconnect", "connect-button"] : ["connect-button"],
-                )}
-                hexpand
-                onClicked={async () => {
-                  const active = isActiveAp.get();
-                  if (active) {
-                    await disconnect();
-                    return;
-                  }
+            <box hexpand spacing={8}>
+              <box hexpand homogeneous spacing={8}>
+                <button
+                  cssClasses={isActiveAp((a) =>
+                    a ? ["disconnect", "connect-button"] : ["connect-button"],
+                  )}
+                  hexpand
+                  onClicked={async () => {
+                    const active = isActiveAp.get();
+                    if (active) {
+                      await disconnect();
+                      return;
+                    }
 
-                  if (
-                    ap.requiresPassword &&
-                    ap.get_connections().length === 0
-                  ) {
-                    setShowPasswordInput(true);
-                    return;
-                  }
-                  try {
-                    await connect(null);
-                  } catch (error) {
-                    console.log(error);
-                  }
-                }}
-              >
-                <label
-                  label={isActiveAp((a) => (a ? "Disconnect" : "Connect"))}
-                />
-              </button>
-              <button class="info-button" hexpand onClicked={handleInfoClick}>
-                <label label="Info" />
+                    if (
+                      ap.requiresPassword &&
+                      ap.get_connections().length === 0
+                    ) {
+                      setShowPasswordInput(true);
+                      return;
+                    }
+                    try {
+                      await connect(null);
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }}
+                >
+                  <label
+                    label={isActiveAp((a) => (a ? "Disconnect" : "Connect"))}
+                  />
+                </button>
+                <button class="info-button" hexpand onClicked={handleInfoClick}>
+                  <label label="Info" />
+                </button>
+              </box>
+
+              <button visible={ap.get_connections().length > 0}>
+                <image iconName={"edit-delete"} />
               </button>
             </box>
           </revealer>
@@ -286,16 +291,9 @@ function NetworkConnectivity({
                 }
 
                 connect(password.get()).catch((e) => console.error(e));
-
-                const stateHandler = wifi.connect("notify::internet", () => {
-                  setShowPasswordInput(false);
-                  self.text = "";
-                  wifi.disconnect(stateHandler);
-                });
-
-                const errorHandler = wifi.connect(
+                const stateHandler = wifi.connect(
                   "state-changed",
-                  (_, _old, _new, reason) => {
+                  (_, _old, newState, reason) => {
                     if (reason === NM.DeviceStateReason.NO_SECRETS) {
                       self.add_css_class("error");
                       self.set_placeholder_text("Wrong password! Try again...");
@@ -308,7 +306,15 @@ function NetworkConnectivity({
                         return GLib.SOURCE_REMOVE;
                       });
 
-                      wifi.disconnect(errorHandler);
+                      wifi.disconnect(stateHandler);
+                      return;
+                    }
+
+                    if (newState === NM.DeviceState.SECONDARIES) {
+                      setShowPasswordInput(false);
+                      self.text = "";
+                      wifi.disconnect(stateHandler);
+                      return;
                     }
                   },
                 );

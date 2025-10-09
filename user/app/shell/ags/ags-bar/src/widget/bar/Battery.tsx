@@ -1,7 +1,7 @@
 import { Gtk } from "ags/gtk4";
 import AstalBattery from "gi://AstalBattery?version=0.1";
 import AstalPowerProfiles from "gi://AstalPowerProfiles?version=0.1";
-import { createBinding, createComputed, With } from "gnim";
+import { createBinding, createComputed, With } from "ags";
 
 export default function Battery() {
   const battery = AstalBattery.get_default();

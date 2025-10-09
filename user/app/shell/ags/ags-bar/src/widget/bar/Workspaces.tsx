@@ -1,6 +1,6 @@
 import { Gtk } from "ags/gtk4";
 import AstalHyprland from "gi://AstalHyprland?version=0.1";
-import { createState, With } from "gnim";
+import { createState, With } from "ags";
 
 const PERSISTENT_WORKSPACES = 4;
 

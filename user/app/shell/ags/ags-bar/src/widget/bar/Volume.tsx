@@ -1,7 +1,7 @@
 import { Gtk } from "ags/gtk4";
 import { subprocess } from "ags/process";
 import Wp from "gi://AstalWp?version=0.1";
-import { createBinding } from "gnim";
+import { createBinding } from "ags";
 
 const VOLUME_SCROLL_STEP = 0.01;
 
