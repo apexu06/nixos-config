@@ -46,5 +46,14 @@
     "$HOME/.nix-profile/share/applications"
   ];
 
+  systemd.user.services.nm-applet = {
+    Unit = {
+      Description = "Disabled nm-applet";
+    };
+    Install.WantedBy = [ ];
+    Service.ExecStart = "${pkgs.coreutils}/bin/true";
+  };
+
   programs.home-manager.enable = true;
+
 }
