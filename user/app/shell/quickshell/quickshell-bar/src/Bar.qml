@@ -1,38 +1,27 @@
 pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
-import QtQuick.Controls
 import "clock"
-import ".."
+import QtQuick.Effects
+import "./widgets"
 
-Scope {
-    Variants {
-        model: Quickshell.screens
-        PanelWindow {
+Rectangle {
+    anchors.fill: parent
+    color: "transparent"
 
-            required property var modelData
-            screen: modelData
+    Rectangle {
+        anchors.fill: parent
 
-            anchors {
-                top: true
-                left: true
-                right: true
-            }
+        color: Theme.base00
+        opacity: 0.2
+    }
 
-            implicitHeight: 40
-            color: "transparent"
+    StyledContainer {
+        anchors.centerIn: parent
 
-            Rectangle {
-                readonly property ColorGroup colors: Window.active ? palette.active : palette.inactive
-
-                color: Appearance
-
-                Text {
-                    text: "hello"
-                }
-            }
-
-            ClockWidget {}
-        }
+        // StyledText {
+        //     id: text
+        //     text: "Hello"
+        // }
     }
 }

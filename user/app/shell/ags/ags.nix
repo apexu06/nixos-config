@@ -9,13 +9,10 @@
     inputs.ags.homeManagerModules.default
   ];
 
-  home.packages = with pkgs; [
-    networkmanagerapplet
-  ];
-
   programs.ags = {
     enable = true;
     configDir = ./ags-bar;
+    # systemd.enable = true;
 
     extraPackages = with pkgs; [
       inputs.astal.packages.${pkgs.system}.battery
@@ -32,17 +29,4 @@
       fzf
     ];
   };
-
-  # systemd.user.services = {
-  #   ags = {
-  #     Unit = {
-  #       Description = "ags-bar";
-  #       After = [ "graphical-session.target" ];
-  #     };
-  #     Service = {
-  #       ExecStart = "${pkgs.ags}/bin/ags run";
-  #     };
-  #   };
-  # };
-
 }

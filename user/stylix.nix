@@ -43,9 +43,12 @@ in
     targets.neovim.enable = true;
 
     targets.qt.enable = true;
-    targets.qt.platform = lib.mkForce "qtct";
 
     targets.zen-browser.profileNames = [ "default" ];
+
+    targets.obsidian.vaultNames = [
+      "red-cross"
+    ];
 
     fonts = {
       serif = {

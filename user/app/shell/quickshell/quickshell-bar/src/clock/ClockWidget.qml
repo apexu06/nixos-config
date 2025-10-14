@@ -1,13 +1,6 @@
 import QtQuick
-import "../../"
+import "../widgets"
 
-Rectangle {
-
-    anchors.centerIn: parent
-    anchors.right: parent.left
-
-    Text {
-        color: Theme.text
-        text: Time.time
-    }
+StyledText {
+    text: Time.time
 }
