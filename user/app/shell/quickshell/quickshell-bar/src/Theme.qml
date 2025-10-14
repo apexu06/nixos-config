@@ -7,6 +7,10 @@ import QtQuick
 Singleton {
     id: root
 
+    function withAlpha(baseColor, alpha) {
+        return Qt.rgba(baseColor.r, baseColor.g, baseColor.b, alpha);
+    }
+
     readonly property color fg: json.base04 ? `#${json.base04}` : "#ff0000"
     readonly property color accent: json.base0D ? `#${json.base0D}` : "#ff0000"
     readonly property color layer0: json.base00 ? `#${json.base00}` : "#ff0000"
@@ -16,6 +20,8 @@ Singleton {
 
     readonly property color destructive: json.base08 ? `#${json.base08}` : "#ff0000"
     readonly property color warning: json.base09 ? `#${json.base09}` : "#ff0000"
+
+    readonly property color border: withAlpha(fg, 0.1)
 
     // Assign Properties from the read in palette.json (stylix generated file)
     readonly property color base00: json.base00 ? `#${json.base00}` : "#282c34"

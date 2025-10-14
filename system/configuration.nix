@@ -8,6 +8,7 @@
     ./virtualization.nix
     ./de/${settings.de}.nix
     ./steam.nix
+    ./pc.nix
   ];
 
   nix = {

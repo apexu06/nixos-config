@@ -1,27 +1,36 @@
 pragma ComponentBehavior: Bound
-import Quickshell
+import QtQuick.Layouts
 import QtQuick
-import "clock"
-import QtQuick.Effects
-import "./widgets"
+import "./components"
+import "./widgets/clock"
+import "./widgets/"
 
 Rectangle {
     anchors.fill: parent
-    color: "transparent"
-
-    Rectangle {
-        anchors.fill: parent
-
-        color: Theme.base00
-        opacity: 0.2
+    radius: 12
+    border {
+        color: Theme.border
+        width: 1
     }
+    color: Theme.withAlpha(Theme.base00, 0.5)
 
-    StyledContainer {
-        anchors.centerIn: parent
+    RowLayout {
+        anchors.fill: parent
+        anchors.leftMargin: 8
+        anchors.rightMargin: 8
 
-        // StyledText {
-        //     id: text
-        //     text: "Hello"
-        // }
+        Workspaces {}
+        Item {
+            Layout.fillWidth: true
+        }
+        ClockWidget {}
+
+        Item {
+            Layout.fillWidth: true
+        }
+
+        StyledContainer {
+            Volume {}
+        }
     }
 }

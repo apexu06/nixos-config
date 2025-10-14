@@ -7,7 +7,6 @@ Text {
     property real fontSize: 13
     property alias content: root.text
     property bool bold: false
-
     property alias customColor: root.color
 
     color: Theme.fg

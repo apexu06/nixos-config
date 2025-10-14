@@ -1,0 +1,65 @@
+import "../components/"
+import ".."
+import QtQuick.Layouts
+import Quickshell.Hyprland
+import QtQuick
+
+StyledContainer {
+    Layout.alignment: Qt.AlignLeft
+
+    RowLayout {
+        spacing: 0
+        anchors.centerIn: parent
+
+        Repeater {
+            model: 9
+            delegate: Item {
+                id: item
+                property int workspaceId: index + 1
+                readonly property bool isActive: workspaceId === Hyprland.focusedWorkspace.id
+                readonly property bool exists: Hyprland.workspaces.values.some(w => w.id === workspaceId)
+                readonly property bool isUrgent: {
+                    var ws = Hyprland.workspaces.values[index];
+                    return ws ? ws.urgent : false;
+                }
+
+                width: 24
+                height: 10
+
+                Rectangle {
+                    id: workspace
+                    radius: width / 2
+                    width: item.isActive ? 24 : 10
+                    height: 10
+
+                    anchors.centerIn: parent
+
+                    color: item.isActive ? Theme.accent : item.exists ? Theme.fg : Theme.layer1
+
+                    PropertyAnimation on color {
+                        loops: Animation.Infinite
+                        duration: 1200
+                        from: workspace.color
+                        to: Theme.destructive
+                        running: item.isUrgent
+                        easing.type: Easing.InOutQuad
+                    }
+
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: 200
+                            easing.type: Easing.InOutQuad
+                        }
+                    }
+
+                    Behavior on width {
+                        NumberAnimation {
+                            duration: 200
+                            easing.type: Easing.OutQuad
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
