@@ -16,7 +16,7 @@
     ./app/terminal/wezterm.nix
     ./app/git.nix
     ./app/thunderbird.nix
-    ./app/shell/ags/ags.nix
+    ./app/shell/quickshell/quickshell.nix
   ];
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";
@@ -26,6 +26,7 @@
     protonmail-desktop
     spotifywm
     vlc
+    obsidian
     vscode
     devenv
   ];
@@ -46,13 +47,13 @@
     "$HOME/.nix-profile/share/applications"
   ];
 
-  systemd.user.services.nm-applet = {
-    Unit = {
-      Description = "Disabled nm-applet";
-    };
-    Install.WantedBy = [ ];
-    Service.ExecStart = "${pkgs.coreutils}/bin/true";
-  };
+  # systemd.user.services.nm-applet = {
+  #   Unit = {
+  #     Description = "Disabled nm-applet";
+  #   };
+  #   Install.WantedBy = [ ];
+  #   Service.ExecStart = "${pkgs.coreutils}/bin/true";
+  # };
 
   programs.home-manager.enable = true;
 

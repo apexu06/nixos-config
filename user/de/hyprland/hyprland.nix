@@ -21,6 +21,7 @@
     wlogout
     nautilus
     eog
+    papers
     adwaita-icon-theme
     gnome-disk-utility
   ];

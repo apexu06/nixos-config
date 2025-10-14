@@ -8,7 +8,6 @@ config.font = wezterm.font("IosevkaTerm Nerd Font", { weight = "Medium", stretch
 config.font_size = 13.5
 config.cell_width = 1
 config.freetype_load_target = "HorizontalLcd"
-config.dpi = 384
 
 config.colors = {
 	-- background = "#16161E",

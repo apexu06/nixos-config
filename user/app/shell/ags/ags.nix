@@ -12,7 +12,7 @@
   programs.ags = {
     enable = true;
     configDir = ./ags-bar;
-    systemd.enable = true;
+    # systemd.enable = true;
 
     extraPackages = with pkgs; [
       inputs.astal.packages.${pkgs.system}.battery
