@@ -1,10 +1,14 @@
-import "../components/"
-import ".."
+pragma ComponentBehavior: Bound
+
+import qs.src.components
+import qs.src
 import QtQuick.Layouts
 import Quickshell.Widgets
 import QtQuick.Effects
 import QtQuick
 import Quickshell
+import Quickshell.Io
+import qs.src.services
 
 Item {
     id: icon
@@ -12,7 +16,6 @@ Item {
     implicitHeight: 16
 
     property bool popupOpen: false
-
     property int volumeLevel: 70  // 0-100
     property bool muted: false
 
@@ -54,25 +57,79 @@ Item {
         anchor {
             rect {
                 y: 40
-                x: -170
+                x: 0
             }
             item: icon
             edges: Edges.Bottom
             gravity: Edges.Bottom
         }
 
-        content: Item {
-            Column {
-                anchors.fill: parent
-                anchors.margins: 16
-                spacing: 12
+        content: ColumnLayout {
 
-                Text {
-                    text: "Volume Control"
-                    color: "#ffffff"
-                    font.pixelSize: 16
-                    font.bold: true
+            StyledContainer {
+                Layout.fillWidth: true
+                Layout.preferredWidth: 400
+                Layout.preferredHeight: 40
+                customRadius: 12
+
+                RowLayout {
+                    StyledText {
+                        content: "Audio"
+                    }
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Rectangle {
+                        implicitWidth: 24
+                        implicitHeight: 24
+                        color: Theme.layer3
+                        radius: width / 2
+
+                        Layout.topMargin: mouseArea.containsMouse ? -5 : 0
+
+                        Behavior on Layout.topMargin {
+                            NumberAnimation {
+                                duration: 150
+                                easing.type: Easing.OutQuad
+                            }
+                        }
+
+                        IconImage {
+                            id: amogus
+                            implicitWidth: 16
+                            implicitHeight: 16
+                            source: "image://icon/preferences-desktop-sound"
+                            y: mouseArea.containsMouse ? -2 : 0
+                            anchors.centerIn: parent
+
+                            Behavior on y {
+                                NumberAnimation {
+                                    duration: 150
+                                    easing.type: Easing.OutQuad
+                                }
+                            }
+                        }
+                        MouseArea {
+                            id: mouseArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onClicked: {
+                                pavucontrol.exec(["pavucontrol"]);
+                            }
+                        }
+
+                        Process {
+                            id: pavucontrol
+                        }
+                    }
                 }
+            }
+            StyledContainer {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 80
+
+                customRadius: 12
             }
         }
     }

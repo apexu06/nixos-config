@@ -16,7 +16,7 @@ StyledContainer {
             delegate: Item {
                 id: item
                 property int workspaceId: index + 1
-                readonly property bool isActive: workspaceId === Hyprland.focusedWorkspace.id
+                readonly property bool isActive: workspaceId === Hyprland.focusedWorkspace?.id
                 readonly property bool exists: Hyprland.workspaces.values.some(w => w.id === workspaceId)
                 readonly property bool isUrgent: {
                     var ws = Hyprland.workspaces.values[index];
