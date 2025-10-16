@@ -1,6 +1,5 @@
 import "../components/"
 import ".."
-import QtQuick.Layouts
 import Quickshell.Widgets
 import QtQuick.Effects
 import QtQuick
@@ -54,7 +53,7 @@ Item {
         anchor {
             rect {
                 y: 40
-                x: -170
+                x: -180
             }
             item: icon
             edges: Edges.Bottom
@@ -66,6 +65,11 @@ Item {
                 anchors.fill: parent
                 anchors.margins: 16
                 spacing: 12
+
+                Rectangle {
+                    implicitWidth: 20
+                    implicitHeight: 20
+                }
 
                 Text {
                     text: "Volume Control"
