@@ -1,6 +1,5 @@
-import ".."
-import Quickshell
 import QtQuick
+import qs.src
 
 Text {
     id: root

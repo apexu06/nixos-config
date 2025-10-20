@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
-import "src"
+import qs.src
 import Quickshell
 import QtQuick
 

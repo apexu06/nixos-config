@@ -4,45 +4,21 @@ import qs.src.components
 import qs.src
 import QtQuick.Layouts
 import Quickshell.Widgets
-import QtQuick.Effects
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import qs.src.services
 
 Item {
-    id: icon
+    id: root
     implicitWidth: 16
     implicitHeight: 16
 
     property bool popupOpen: false
-    property int volumeLevel: 70  // 0-100
-    property bool muted: false
 
-    function getVolumeIconName() {
-        if (muted || volumeLevel === 0) {
-            return "audio-volume-muted";
-        } else if (volumeLevel < 33) {
-            return "audio-volume-low";
-        } else if (volumeLevel < 66) {
-            return "audio-volume-medium";
-        } else {
-            return "audio-volume-high";
-        }
-    }
-
-    IconImage {
-        id: volumeIcon
+    StyledIcon {
+        iconName: Audio.getVolumeIconName()
+        size: 16
         anchors.centerIn: parent
-        width: 16
-        height: 16
-        source: "image://icon/" + icon.getVolumeIconName() + "-symbolic"
-    }
-    MultiEffect {
-        source: volumeIcon
-        anchors.fill: volumeIcon
-        colorization: 1
-        colorizationColor: Theme.fg
     }
 
     MouseArea {
@@ -54,82 +30,94 @@ Item {
 
     StyledPopup {
         id: volumePopup
+        visible: true
         anchor {
             rect {
                 y: 40
                 x: 0
             }
-            item: icon
+            item: root
             edges: Edges.Bottom
             gravity: Edges.Bottom
         }
 
         content: ColumnLayout {
+            spacing: 8
 
             StyledContainer {
                 Layout.fillWidth: true
                 Layout.preferredWidth: 400
-                Layout.preferredHeight: 40
+                Layout.preferredHeight: 50
                 customRadius: 12
+
+                color: Theme.layer1
 
                 RowLayout {
                     StyledText {
                         content: "Audio"
+                        bold: true
                     }
                     Item {
                         Layout.fillWidth: true
                     }
 
                     Rectangle {
-                        implicitWidth: 24
-                        implicitHeight: 24
-                        color: Theme.layer3
+                        implicitWidth: 36
+                        implicitHeight: 36
+                        color: mouseArea.containsMouse ? Theme.accent : Theme.layer2
                         radius: width / 2
 
-                        Layout.topMargin: mouseArea.containsMouse ? -5 : 0
-
-                        Behavior on Layout.topMargin {
-                            NumberAnimation {
-                                duration: 150
-                                easing.type: Easing.OutQuad
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: 200
+                                easing.type: Easing.InOutCubic
                             }
                         }
 
                         IconImage {
-                            id: amogus
                             implicitWidth: 16
                             implicitHeight: 16
                             source: "image://icon/preferences-desktop-sound"
-                            y: mouseArea.containsMouse ? -2 : 0
                             anchors.centerIn: parent
-
-                            Behavior on y {
-                                NumberAnimation {
-                                    duration: 150
-                                    easing.type: Easing.OutQuad
-                                }
-                            }
                         }
                         MouseArea {
                             id: mouseArea
                             anchors.fill: parent
                             hoverEnabled: true
                             onClicked: {
-                                pavucontrol.exec(["pavucontrol"]);
+                                process.exec(["pavucontrol"]);
                             }
-                        }
-
-                        Process {
-                            id: pavucontrol
+                            scale: mouseArea.containsMouse ? 1.4 : 1.0
                         }
                     }
                 }
             }
-            StyledContainer {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 80
 
-                customRadius: 12
+            ColumnLayout {
+                id: dropdowns
+
+                property var sinkDescriptions: Audio.sinks.map(s => s.description)
+                property var sourceDescriptions: Audio.sources.map(s => s.description)
+
+                StyledComboBox {
+                    modelData: dropdowns.sinkDescriptions
+                    defaultIndex: Audio.sinks.findIndex(s => s.id === Audio.sink?.id)
+                    onActivated: function (index) {
+                        Audio.setDefaultSink(Audio.sinks[index]);
+                    }
+                    iconName: "audio-headphones-symbolic"
+                    Layout.fillWidth: true
+                }
+
+                StyledComboBox {
+                    modelData: dropdowns.sourceDescriptions
+                    defaultIndex: Audio.sources.findIndex(s => s.id === Audio.source?.id)
+                    onActivated: function (index) {
+                        Audio.setDefaultSink(Audio.sinks[index]);
+                    }
+                    iconName: "audio-input-microphone"
+                    Layout.fillWidth: true
+                }
             }
         }
     }

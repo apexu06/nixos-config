@@ -3,7 +3,7 @@ return {
 		"folke/tokyonight.nvim",
 		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
-			local transparent = true
+			local transparent = false
 
 			require("tokyonight").setup({
 				style = "night",
