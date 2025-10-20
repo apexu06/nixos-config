@@ -17,6 +17,7 @@
         buildInputs = with pkgs; [
           kdePackages.qtdeclarative
           kdePackages.qtbase
+          pantheon.elementary-iconbrowser
         ];
       };
     };

@@ -1,54 +1,64 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import Quickshell
+import qs.src
 
 PopupWindow {
     id: root
     color: "transparent"
 
-    property int animationDuration: 300
+    property int animationDuration: 150
     property alias width: root.implicitWidth
     property alias height: root.implicitHeight
     required property Component content
+    property bool closeOnOutsideClick: false
+    property bool isClosing: false
 
     implicitWidth: popupContent.implicitWidth
     implicitHeight: popupContent.implicitHeight
 
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-        onExited: {
-            root.visible = false;
+    function close() {
+        root.visible = false;
+    }
+
+    property var overlayWindow: closeOnOutsideClick ? overlayComponent.createObject(root) : null
+
+    Component {
+        id: overlayComponent
+        PanelWindow {
+            visible: root.visible
+            color: "transparent"
+            anchors {
+                top: true
+                bottom: true
+                left: true
+                right: true
+            }
+            exclusionMode: ExclusionMode.Ignore
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: root.close()
+            }
         }
     }
 
     StyledContainer {
         id: popupContent
         radius: 16
+        y: root.visible ? 0 : -150
+        margin: 8
 
-        scale: root.visible ? 1.0 : 0.7
-        opacity: root.visible ? 1.0 : 0.0
-        transformOrigin: Item.Top
-        topMargin: 8
-        leftMargin: 8
-        rightMargin: 8
-        bottomMargin: 8
-
-        Behavior on scale {
+        Behavior on y {
             NumberAnimation {
-                duration: root.animationDuration
+                duration: 200
                 easing.type: Easing.OutBack
                 easing.overshoot: 1.5
             }
         }
 
-        Behavior on opacity {
-            NumberAnimation {
-                duration: root.animationDuration
-                easing.type: Easing.OutCubic
-            }
-        }
-
-        Loader {
+        child: Loader {
             id: loader
             active: root.visible
             sourceComponent: root.content
@@ -56,5 +66,12 @@ PopupWindow {
 
         implicitWidth: loader.item ? loader.item.implicitWidth : 0
         implicitHeight: loader.item ? loader.item.implicitHeight + 3 * margin : 0
+
+        // Block clicks from reaching the overlay
+        MouseArea {
+            anchors.fill: parent
+            onClicked: mouse.accepted = true
+            onPressed: mouse.accepted = true
+        }
     }
 }

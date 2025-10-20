@@ -1,5 +1,5 @@
-import "../components/"
-import ".."
+import qs.src.components
+import qs.src
 import QtQuick.Layouts
 import Quickshell.Hyprland
 import QtQuick
@@ -12,7 +12,7 @@ StyledContainer {
         anchors.centerIn: parent
 
         Repeater {
-            model: 9
+            model: 6
             delegate: Item {
                 id: item
                 property int workspaceId: index + 1
@@ -34,7 +34,7 @@ StyledContainer {
 
                     anchors.centerIn: parent
 
-                    color: item.isActive ? Theme.accent : item.exists ? Theme.fg : Theme.layer1
+                    color: item.isActive ? Theme.accent : item.exists ? Theme.fg : Theme.layer2
 
                     PropertyAnimation on color {
                         loops: Animation.Infinite

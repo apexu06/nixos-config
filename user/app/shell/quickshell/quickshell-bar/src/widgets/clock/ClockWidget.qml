@@ -3,17 +3,15 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import "../../components"
-import "../.."
+import qs.src.components
+import qs.src
 
 StyledContainer {
-    Layout.alignment: Qt.AlignCenter
-
     RowLayout {
         spacing: 1
         Item {
-            implicitWidth: textMetrics.width - 4
-            implicitHeight: parent.implicitHeight - 2
+            implicitWidth: textMetrics.width
+            Layout.alignment: Qt.AlignVCenter
 
             TextMetrics {
                 id: textMetrics
@@ -21,22 +19,22 @@ StyledContainer {
             }
 
             StyledText {
-                Layout.alignment: Qt.AlignVCenter
+                anchors.centerIn: parent
                 text: Time.time
             }
         }
 
         ToolSeparator {
-            implicitHeight: parent.height
+            implicitHeight: parent.height - 6
 
             contentItem: Rectangle {
                 implicitWidth: 1
-                implicitHeight: parent.implicitHeight
                 color: Theme.layer3
             }
         }
 
         StyledText {
+            Layout.alignment: Qt.AlignVCenter
             text: Time.date
             color: Theme.withAlpha(Theme.fg, 0.5)
         }

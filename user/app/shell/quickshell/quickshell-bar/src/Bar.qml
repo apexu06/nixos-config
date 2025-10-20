@@ -1,9 +1,11 @@
 pragma ComponentBehavior: Bound
 import QtQuick.Layouts
 import QtQuick
-import "./components"
-import "./widgets/clock"
-import "./widgets/"
+import Quickshell.Io
+import qs.src.components
+import qs.src
+import qs.src.widgets
+import qs.src.widgets.clock
 
 Rectangle {
     anchors.fill: parent
@@ -16,8 +18,7 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        anchors.leftMargin: 8
-        anchors.rightMargin: 8
+        anchors.margins: 6
 
         Workspaces {}
         Item {
@@ -32,5 +33,9 @@ Rectangle {
         StyledContainer {
             Volume {}
         }
+    }
+
+    Process {
+        id: process
     }
 }

@@ -1,6 +1,7 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell.Widgets
-import ".."
+import qs.src
 
 WrapperRectangle {
     id: root
@@ -9,15 +10,20 @@ WrapperRectangle {
     property alias customRadius: root.radius
     property alias customOpacity: root.opacity
 
-    implicitHeight: parent.height - 12
-    margin: 6
+    Layout.fillHeight: true
     leftMargin: 12
     rightMargin: 12
     border.width: 1
     border.color: Theme.border
 
-    color: Theme.withAlpha(Theme.layer0, 0.4)
+    color: Theme.layer0
     radius: 100000
+
+    Behavior on color {
+        ColorAnimation {
+            duration: 150
+        }
+    }
 }
 
 // }

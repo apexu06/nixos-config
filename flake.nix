@@ -50,6 +50,7 @@
         de = "hyprland";
         theme = "tokyo-night-terminal-dark";
         launcher = "tofi";
+        de-shell = "quickshell";
       };
     in
     {
