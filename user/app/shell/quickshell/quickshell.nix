@@ -6,9 +6,9 @@
 }:
 
 {
-  # home.packages = with pkgs; [
-  #   quickshell
-  # ];
+  home.packages = with pkgs; [
+    material-symbols
+  ];
 
   programs.quickshell = {
     enable = settings.de-shell == "quickshell";

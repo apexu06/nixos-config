@@ -1,22 +1,29 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Effects
 import qs.src
+import Quickshell.Widgets
 
 Item {
     id: root
     required property string iconName
-    required property real size
+    property real size: 22
+    signal clicked
 
     implicitWidth: size
     implicitHeight: size
 
-    Image {
+    Text {
         id: icon
         anchors.centerIn: parent
-        source: "image://icon/" + root.iconName
-        sourceSize.width: root.size / 2
-        sourceSize.height: root.size / 2
-        scale: mouseArea.containsMouse ? 1.25 : 1.0
+        font {
+            family: "Material Symbols Rounded"
+            pixelSize: root.size
+        }
+        renderType: Text.QtRendering
+        color: mouseArea.containsMouse ? Theme.accent : Theme.fg
+        scale: mouseArea.containsMouse ? 1.2 : 1.0
+        text: root.iconName
 
         Behavior on scale {
             NumberAnimation {
@@ -26,7 +33,7 @@ Item {
             }
         }
 
-        Behavior on source {
+        Behavior on text {
             SequentialAnimation {
                 NumberAnimation {
                     target: icon
@@ -47,24 +54,10 @@ Item {
         }
     }
 
-    MultiEffect {
-        anchors.fill: icon
-        source: icon
-        colorization: 1.0
-        colorizationColor: mouseArea.containsMouse ? Theme.accent : Theme.fg
-        scale: icon.scale
-
-        Behavior on colorizationColor {
-            ColorAnimation {
-                duration: 200
-                easing.type: Easing.InOutQuad
-            }
-        }
-    }
-
     MouseArea {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
+        onClicked: root.clicked()
     }
 }

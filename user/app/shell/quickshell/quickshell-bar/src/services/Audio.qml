@@ -30,29 +30,34 @@ Singleton {
     }
 
     function getVolumeIconName(): string {
-        const muted = sink.audio.muted;
-        const volume = sink.audio.volume;
+        const muted = sink?.audio.muted;
+        const volume = sink?.audio.volume;
         if (muted || volume === 0) {
-            return "audio-volume-muted-symbolic";
+            return "volume_off";
         } else if (volume < 0.33) {
-            return "audio-volume-low-symbolic";
+            return "volume_mute";
         } else if (volume < 0.66) {
-            return "audio-volume-medium-symbolic";
+            return "volume_down";
         } else {
-            return "audio-volume-high-symbolic";
+            return "volume_up";
         }
     }
 
-    function setDefaultSink(id: int) {
-        const sink = sinks.find(s => s.id === id);
-        if (!sink)
-            return;
-        Pipewire.preferredDefaultAudioSink = sink;
+    function toggleSinkMute() {
+        sink.audio.muted = !sink.audio.muted;
     }
 
-    function setDefaultSource(id: int) {
-        const source = sources.find(s => s.id === id);
-        if (!source)
+    function toggleSourceMute() {
+        source.audio.muted = !source.audio.muted;
+    }
+
+    function setDefaultSink(sink: PwNode) {
+        if (!source.isSink)
+            Pipewire.preferredDefaultAudioSink = sink;
+    }
+
+    function setDefaultSource(source: PwNode) {
+        if (source.isSink)
             return;
 
         Pipewire.preferredDefaultAudioSource = source;
