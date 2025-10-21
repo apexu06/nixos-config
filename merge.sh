@@ -1,4 +1,4 @@
 git fetch --all
 git add .
 git commit -m "sync"
-git merge origin/pc
+git merge origin/main
