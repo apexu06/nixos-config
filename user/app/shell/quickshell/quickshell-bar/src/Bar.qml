@@ -20,7 +20,7 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: 6
 
-        Workspaces {}
+        WorkspaceWidget {}
         Item {
             Layout.fillWidth: true
         }
@@ -31,11 +31,12 @@ Rectangle {
         }
 
         StyledContainer {
-            Volume {}
-        }
-    }
+            RowLayout {
+                spacing: 8
 
-    Process {
-        id: process
+                NetworkWidget {}
+                VolumeWidget {}
+            }
+        }
     }
 }

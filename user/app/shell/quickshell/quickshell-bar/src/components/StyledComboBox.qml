@@ -11,6 +11,7 @@ Item {
     id: root
     required property var modelData
     required property int defaultIndex
+    property Component icon
     property string iconName: ""
     signal activated(int index)
 
@@ -23,7 +24,7 @@ Item {
     StyledContainer {
         id: box
         anchors.fill: parent
-        backgroundColor: mouseArea.containsMouse ? Theme.layer2 : Theme.layer1
+        backgroundColor: mouseArea.containsMouse ? Theme.tlayer2 : Theme.tlayer1
         margin: 8
         radius: 12
         clip: true
@@ -41,11 +42,8 @@ Item {
                     width: parent.width
 
                     Loader {
-                        active: root.iconName !== ""
-                        sourceComponent: StyledIcon {
-                            iconName: root.iconName
-                            size: 20
-                        }
+                        active: root.icon !== null
+                        sourceComponent: root.icon
                     }
 
                     Item {

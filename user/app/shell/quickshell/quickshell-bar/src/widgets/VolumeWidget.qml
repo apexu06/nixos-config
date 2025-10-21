@@ -10,8 +10,7 @@ import qs.src.services
 
 Item {
     id: root
-    implicitWidth: 16
-    implicitHeight: 16
+    implicitWidth: 22
 
     property bool popupOpen: false
 
@@ -19,19 +18,14 @@ Item {
         iconName: Audio.getVolumeIconName()
         size: 22
         anchors.centerIn: parent
+        onClicked: volumePopup.opened = !volumePopup.opened
     }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            volumePopup.opened = !volumePopup.opened;
-        }
-    }
     StyledPopup {
         id: volumePopup
         anchor {
             rect {
-                y: 40
+                y: 25
                 x: 0
             }
             item: root
@@ -45,10 +39,8 @@ Item {
             StyledContainer {
                 Layout.fillWidth: true
                 Layout.preferredWidth: 400
-                Layout.preferredHeight: 45
+                Layout.preferredHeight: 50
                 customRadius: 12
-
-                color: Theme.layer1
 
                 RowLayout {
                     StyledText {
@@ -82,7 +74,7 @@ Item {
                             anchors.fill: parent
                             hoverEnabled: true
                             onClicked: {
-                                process.exec(["pavucontrol"]);
+                                Quickshell.execDetached("pavucontrol");
                             }
                             scale: mouseArea.containsMouse ? 1.4 : 1.0
                         }
@@ -124,7 +116,6 @@ Item {
 
                 StyledContainer {
                     Layout.fillWidth: true
-                    backgroundColor: Theme.layer1
                     margin: 8
                     radius: 12
 
@@ -165,7 +156,6 @@ Item {
 
                 StyledContainer {
                     Layout.fillWidth: true
-                    backgroundColor: Theme.layer1
                     margin: 8
                     radius: 12
 
