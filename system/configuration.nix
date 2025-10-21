@@ -1,6 +1,8 @@
-{ pkgs, settings, ... }:
-
 {
+  pkgs,
+  settings,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./stylix.nix
@@ -22,6 +24,7 @@
         "apexu"
       ];
     };
+    package = pkgs.lixPackageSets.stable.lix;
   };
   system.stateVersion = "25.05";
 
@@ -66,7 +69,21 @@
     dconf.enable = true;
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      (final: prev: {
+        inherit
+          (prev.lixPackageSets.stable)
+          nixpkgs-review
+          nix-eval-jobs
+          nix-fast-build
+          colmena
+          ;
+      })
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     vim
     wget
@@ -102,7 +119,7 @@
   };
 
   systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     serviceConfig.Type = "simple";
   };
 

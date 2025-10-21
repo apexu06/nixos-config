@@ -11,6 +11,7 @@ WrapperRectangle {
     property alias customOpacity: root.opacity
 
     Layout.fillHeight: true
+
     leftMargin: 12
     rightMargin: 12
     border.width: 1

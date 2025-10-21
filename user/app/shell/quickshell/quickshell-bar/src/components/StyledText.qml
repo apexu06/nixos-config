@@ -12,4 +12,10 @@ Text {
     text: ""
     font.pointSize: root.fontSize
     font.bold: root.bold
+
+    Behavior on color {
+        ColorAnimation {
+            duration: 100
+        }
+    }
 }

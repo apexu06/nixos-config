@@ -25,7 +25,20 @@ Singleton {
     property int networkStrength
     property string materialSymbol: ethernet ? "lan" : !wifiEnabled ? "signal_wifi_off" : wifiStatus === "connecting" ? "signal_wifi_statusbar_not_connected" : wifiStatus === "disconnected" ? "wifi_find" : wifiStatus === "disabled" ? "signal_wifi_off" : wifi ? (networkStrength > 83 ? "signal_wifi_4_bar" : networkStrength > 67 ? "network_wifi" : networkStrength > 50 ? "network_wifi_3_bar" : networkStrength > 33 ? "network_wifi_2_bar" : networkStrength > 17 ? "network_wifi_1_bar" : "signal_wifi_0_bar") : "signal_wifi_bad"
 
-    // Control
+    function getStrengthIcon(strength: int): string {
+        if (strength > 83)
+            return "signal_wifi_4_bar";
+        if (strength > 67)
+            return "network_wifi";
+        if (strength > 50)
+            return "network_wifi_3_bar";
+        if (strength > 33)
+            return "network_wifi_2_bar";
+        if (strength > 17)
+            return "network_wifi_1_bar";
+        return "signal_wifi_0_bar";
+    }
+
     function enableWifi(enabled = true): void {
         const cmd = enabled ? "on" : "off";
         enableWifiProc.exec(["nmcli", "radio", "wifi", cmd]);

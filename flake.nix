@@ -39,50 +39,47 @@
     };
   };
 
-  outputs =
-    inputs@{
-      nixpkgs,
-      home-manager,
-      apple-fonts,
-      ...
-    }:
-    let
-      lib = nixpkgs.lib;
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+  outputs = inputs @ {
+    nixpkgs,
+    home-manager,
+    apple-fonts,
+    ...
+  }: let
+    lib = nixpkgs.lib;
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
 
-      settings = {
-        de = "hyprland";
-        theme = "tokyo-night-terminal-dark";
-        launcher = "tofi";
-        de-shell = "quickshell";
-      };
-    in
-    {
-      nixosConfigurations = {
-        iusenixbtw = lib.nixosSystem {
-          specialArgs = {
-            inherit system;
-            inherit inputs;
-            inherit settings;
-          };
-          modules = [
-            ./system/configuration.nix
-          ];
+    settings = {
+      de = "hyprland";
+      theme = "tokyo-night-terminal-dark";
+      launcher = "tofi";
+      de-shell = "quickshell";
+    };
+  in {
+    nixosConfigurations = {
+      iusenixbtw = lib.nixosSystem {
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+          inherit settings;
         };
-      };
-      homeConfigurations = {
-        apexu = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {
-            inherit apple-fonts;
-            inherit inputs;
-            inherit settings;
-          };
-          modules = [
-            ./user/home.nix
-          ];
-        };
+        modules = [
+          ./system/configuration.nix
+        ];
       };
     };
+    homeConfigurations = {
+      apexu = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          inherit apple-fonts;
+          inherit inputs;
+          inherit settings;
+        };
+        modules = [
+          ./user/home.nix
+        ];
+      };
+    };
+  };
 }

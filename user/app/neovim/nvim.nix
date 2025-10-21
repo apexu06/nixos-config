@@ -17,7 +17,7 @@
     prettier
     prettierd
     stylua
-    nixfmt
+    alejandra
     ruff
   ];
 

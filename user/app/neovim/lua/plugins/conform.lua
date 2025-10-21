@@ -20,6 +20,7 @@ return { -- Autoformat
 			markdown = { "prettierd" },
 			python = { "ruff" },
 			html = { "prettierd" },
+			nix = { "alejandra" },
 			-- Conform can also run multiple formatters sequentially
 			-- python = { "isort", "black" },
 			--

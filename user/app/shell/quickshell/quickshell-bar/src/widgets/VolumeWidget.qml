@@ -95,7 +95,11 @@ Item {
                     onActivated: function (index) {
                         Audio.setDefaultSink(Audio.sinks[index]);
                     }
-                    iconName: "headphones"
+
+                    icon: StyledIcon {
+                        iconName: "headphones"
+                        size: 22
+                    }
                     Layout.fillWidth: true
                 }
 
@@ -105,7 +109,10 @@ Item {
                     onActivated: function (index) {
                         Audio.setDefaultSource(Audio.sources[index]);
                     }
-                    iconName: "mic"
+                    icon: StyledIcon {
+                        iconName: "mic"
+                        size: 22
+                    }
                     Layout.fillWidth: true
                 }
             }
