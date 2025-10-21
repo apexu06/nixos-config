@@ -2,57 +2,72 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import qs.src
 
 PopupWindow {
     id: root
     color: "transparent"
 
-    property int animationDuration: 150
+    property int animationDuration: 400
     property alias width: root.implicitWidth
     property alias height: root.implicitHeight
     required property Component content
     property bool closeOnOutsideClick: false
-    property bool isClosing: false
+    property bool opened: false
 
     implicitWidth: popupContent.implicitWidth
-    implicitHeight: popupContent.implicitHeight
+    implicitHeight: popupContent.implicitHeight + 20
 
-    function close() {
-        root.visible = false;
-    }
-
-    property var overlayWindow: closeOnOutsideClick ? overlayComponent.createObject(root) : null
-
-    Component {
-        id: overlayComponent
-        PanelWindow {
-            visible: root.visible
-            color: "transparent"
-            anchors {
-                top: true
-                bottom: true
-                left: true
-                right: true
-            }
-            exclusionMode: ExclusionMode.Ignore
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: root.close()
-            }
-        }
+    HyprlandFocusGrab {
+        active: root.opened
+        windows: [root]
+        onCleared: root.opened = false
     }
 
     StyledContainer {
         id: popupContent
         radius: 16
-        y: root.visible ? 0 : -150
+        y: -460
         margin: 8
+        leftMargin: 6
+        rightMargin: 6
+
+        states: State {
+            name: "opened"
+            when: root.opened
+            PropertyChanges {
+                popupContent {
+                    y: 0
+                }
+            }
+        }
+
+        transitions: [
+            Transition {
+                from: ""
+                to: "opened"
+                ScriptAction {
+                    script: root.visible = true
+                }
+            },
+            Transition {
+                from: "opened"
+                to: ""
+                SequentialAnimation {
+                    PauseAnimation {
+                        duration: root.animationDuration
+                    }
+                    ScriptAction {
+                        script: root.visible = false
+                    }
+                }
+            }
+        ]
 
         Behavior on y {
             NumberAnimation {
-                duration: 200
+                duration: root.animationDuration
                 easing.type: Easing.OutBack
                 easing.overshoot: 1.5
             }
@@ -64,14 +79,13 @@ PopupWindow {
             sourceComponent: root.content
         }
 
-        implicitWidth: loader.item ? loader.item.implicitWidth : 0
-        implicitHeight: loader.item ? loader.item.implicitHeight + 3 * margin : 0
+        implicitWidth: loader.sourceComponent ? loader.sourceComponent.width : 0
+        implicitHeight: loader.sourceComponent ? loader.sourceComponent.height : 0
 
-        // Block clicks from reaching the overlay
         MouseArea {
             anchors.fill: parent
-            onClicked: mouse.accepted = true
-            onPressed: mouse.accepted = true
+            onClicked: mouseX.accepted = true
+            onPressed: mouseX.accepted = true
         }
     }
 }

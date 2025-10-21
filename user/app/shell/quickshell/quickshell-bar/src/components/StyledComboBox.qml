@@ -43,9 +43,8 @@ Item {
                     Loader {
                         active: root.iconName !== ""
                         sourceComponent: StyledIcon {
-                            Layout.fillWidth: true
                             iconName: root.iconName
-                            size: 16
+                            size: 20
                         }
                     }
 
@@ -54,7 +53,7 @@ Item {
                     }
                     StyledText {
                         id: label
-                        text: root.modelData.length > 0 ? root.modelData[root.index === -1 ? root.defaultIndex : root.index] : ""
+                        text: root.modelData.length > 0 ? root.modelData[root.index === -1 ? root.defaultIndex : root.index] ?? "" : ""
                         elide: Text.ElideRight
                         Layout.fillWidth: true
                     }
@@ -62,9 +61,9 @@ Item {
                         Layout.fillWidth: true
                     }
                     StyledIcon {
-                        iconName: "go-down-symbolic"
-                        size: 16
+                        iconName: "keyboard_arrow_down"
                         rotation: root.open ? 180 : 0
+                        onClicked: root.open = !root.open
                         Behavior on rotation {
                             NumberAnimation {
                                 duration: 150
@@ -91,13 +90,14 @@ Item {
                     id: content
                     width: parent.width
                     color: "transparent"
-                    y: root.open ? 0 : +root.targetContentHeight
+                    y: root.open ? 0 : -root.targetContentHeight
                     opacity: root.open ? 1 : 0
 
                     Behavior on y {
-                        SmoothedAnimation {
-                            velocity: 100
-                            easing.type: Easing.OutQuad
+                        NumberAnimation {
+                            duration: 400
+                            easing.type: Easing.OutBack
+                            easing.overshoot: 1.5
                         }
                     }
 
@@ -122,7 +122,7 @@ Item {
                                 width: parent.width
                                 height: container.implicitHeight
 
-                                property bool isCurrent: root.index === -1 ? true : root.index === index
+                                property bool isCurrent: root.index === -1 ? root.defaultIndex === index : root.index === index
 
                                 StyledContainer {
                                     id: container

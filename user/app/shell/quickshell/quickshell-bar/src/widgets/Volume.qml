@@ -3,9 +3,9 @@ pragma ComponentBehavior: Bound
 import qs.src.components
 import qs.src
 import QtQuick.Layouts
-import Quickshell.Widgets
 import QtQuick
 import Quickshell
+import Quickshell.Widgets
 import qs.src.services
 
 Item {
@@ -17,20 +17,18 @@ Item {
 
     StyledIcon {
         iconName: Audio.getVolumeIconName()
-        size: 16
+        size: 22
         anchors.centerIn: parent
     }
 
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            volumePopup.visible = !volumePopup.visible;
+            volumePopup.opened = !volumePopup.opened;
         }
     }
-
     StyledPopup {
         id: volumePopup
-        visible: true
         anchor {
             rect {
                 y: 40
@@ -47,7 +45,7 @@ Item {
             StyledContainer {
                 Layout.fillWidth: true
                 Layout.preferredWidth: 400
-                Layout.preferredHeight: 50
+                Layout.preferredHeight: 45
                 customRadius: 12
 
                 color: Theme.layer1
@@ -74,10 +72,9 @@ Item {
                             }
                         }
 
-                        IconImage {
-                            implicitWidth: 16
-                            implicitHeight: 16
-                            source: "image://icon/preferences-desktop-sound"
+                        StyledIcon {
+                            iconName: "graphic_eq"
+                            size: 24
                             anchors.centerIn: parent
                         }
                         MouseArea {
@@ -95,6 +92,7 @@ Item {
 
             ColumnLayout {
                 id: dropdowns
+                spacing: 4
 
                 property var sinkDescriptions: Audio.sinks.map(s => s.description)
                 property var sourceDescriptions: Audio.sources.map(s => s.description)
@@ -105,7 +103,7 @@ Item {
                     onActivated: function (index) {
                         Audio.setDefaultSink(Audio.sinks[index]);
                     }
-                    iconName: "audio-headphones-symbolic"
+                    iconName: "headphones"
                     Layout.fillWidth: true
                 }
 
@@ -113,10 +111,96 @@ Item {
                     modelData: dropdowns.sourceDescriptions
                     defaultIndex: Audio.sources.findIndex(s => s.id === Audio.source?.id)
                     onActivated: function (index) {
-                        Audio.setDefaultSink(Audio.sinks[index]);
+                        Audio.setDefaultSource(Audio.sources[index]);
                     }
-                    iconName: "audio-input-microphone"
+                    iconName: "mic"
                     Layout.fillWidth: true
+                }
+            }
+
+            ColumnLayout {
+                id: sliders
+                spacing: 4
+
+                StyledContainer {
+                    Layout.fillWidth: true
+                    backgroundColor: Theme.layer1
+                    margin: 8
+                    radius: 12
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 8
+
+                        StyledIcon {
+                            iconName: Audio.sink.audio.muted ? "headset_off" : "headphones"
+                            size: 20
+                            onClicked: Audio.toggleSinkMute()
+                        }
+
+                        StyledSlider {
+                            id: sinkControl
+                            value: Audio.sink.audio.volume
+                            to: 1.5
+                            onMoved: {
+                                Audio.sink.audio.volume = sinkControl.value;
+                            }
+                        }
+
+                        Item {
+                            implicitWidth: metric.width
+                            Layout.alignment: Qt.AlignVCenter
+                            TextMetrics {
+                                id: metric
+                                text: "100%"
+                            }
+
+                            StyledText {
+                                anchors.centerIn: parent
+                                text: Math.round(sinkControl.value * 100, 0) + "%"
+                            }
+                        }
+                    }
+                }
+
+                StyledContainer {
+                    Layout.fillWidth: true
+                    backgroundColor: Theme.layer1
+                    margin: 8
+                    radius: 12
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: 8
+
+                        WrapperMouseArea {
+                            onClicked: Audio.toggleSourceMute()
+                            StyledIcon {
+                                iconName: Audio.source.audio.muted ? "mic_off" : "mic"
+                                onClicked: Audio.toggleSourceMute()
+                                size: 20
+                            }
+                        }
+
+                        StyledSlider {
+                            id: sourceControl
+                            value: Audio.source.audio.volume
+                            to: 1.5
+                            onMoved: {
+                                Audio.source.audio.volume = sourceControl.value;
+                            }
+                        }
+
+                        Item {
+                            implicitWidth: metric.width
+                            Layout.alignment: Qt.AlignVCenter
+
+                            StyledText {
+                                anchors.centerIn: parent
+                                text: Math.round(sourceControl.value * 100, 0) + "%"
+                            }
+                        }
+                    }
                 }
             }
         }
