@@ -6,6 +6,7 @@ import QtQuick
 
 StyledContainer {
     Layout.alignment: Qt.AlignLeft
+    backgroundColor: Theme.tlayer0
 
     RowLayout {
         spacing: 0
@@ -37,7 +38,7 @@ StyledContainer {
 
                     anchors.centerIn: parent
 
-                    color: item.isActive ? Theme.accent : item.exists ? Theme.fg : Theme.layer2
+                    color: item.isActive ? Theme.accent : item.exists ? Theme.fg : Theme.layer3
 
                     PropertyAnimation on color {
                         loops: Animation.Infinite

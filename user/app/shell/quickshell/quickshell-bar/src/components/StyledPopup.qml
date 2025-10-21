@@ -32,6 +32,7 @@ PopupWindow {
         margin: 8
         leftMargin: 6
         rightMargin: 6
+        backgroundColor: Theme.tlayer0
 
         states: State {
             name: "opened"

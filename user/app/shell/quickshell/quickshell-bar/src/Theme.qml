@@ -18,6 +18,11 @@ Singleton {
     readonly property color layer2: json.base02 ? `#${json.base02}` : "#ff0000"
     readonly property color layer3: json.base03 ? `#${json.base03}` : "#ff0000"
 
+    readonly property color tlayer0: withAlpha(layer0, 0.6)
+    readonly property color tlayer1: withAlpha(layer1, 0.4)
+    readonly property color tlayer2: withAlpha(layer2, 0.4)
+    readonly property color tlayer3: withAlpha(layer3, 0.4)
+
     readonly property color destructive: json.base08 ? `#${json.base08}` : "#ff0000"
     readonly property color warning: json.base09 ? `#${json.base09}` : "#ff0000"
 

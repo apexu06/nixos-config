@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import QtQuick.Effects
+import QtQuick.Layouts
 import qs.src
 import Quickshell.Widgets
 
@@ -10,10 +10,11 @@ Item {
     property real size: 22
     signal clicked
 
-    implicitWidth: size
-    implicitHeight: size
+    implicitWidth: size + 10
+    implicitHeight: size + 10
 
     Text {
+
         id: icon
         anchors.centerIn: parent
         font {
