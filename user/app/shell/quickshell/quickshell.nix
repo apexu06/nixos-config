@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   settings,
   ...
 }:
@@ -12,7 +11,7 @@
 
   programs.quickshell = {
     enable = settings.de-shell == "quickshell";
-    systemd.enable = true;
+    systemd.enable = false;
     configs = {
       bar = ./quickshell-bar;
     };

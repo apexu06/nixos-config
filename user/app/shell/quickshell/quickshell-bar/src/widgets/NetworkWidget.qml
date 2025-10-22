@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Widgets
+import Quickshell
 import qs.src.components
 import qs.src.services
 import qs.src
@@ -11,6 +12,8 @@ import qs.src
 Item {
     id: root
     implicitWidth: 22
+
+    property int currentOpen: -1
 
     StyledIcon {
         iconName: Network.materialSymbol
@@ -31,8 +34,23 @@ Item {
             item: root
         }
         onOpenedChanged: {
-            if (opened)
+            if (opened) {
                 Network.rescanWifi();
+                rescanTimer.start();
+            } else {
+                rescanTimer.stop();
+            }
+        }
+
+        Timer {
+            id: rescanTimer
+            interval: 5000
+            repeat: true
+            onTriggered: {
+                if (networkPopup.opened) {
+                    Network.rescanWifi();
+                }
+            }
         }
 
         content: ColumnLayout {
@@ -47,6 +65,7 @@ Item {
                     StyledText {
                         content: "Wifi"
                         bold: true
+                        color: Network.wifiScanning && "#ff0000"
                     }
                     Item {
                         Layout.fillWidth: true
@@ -83,14 +102,18 @@ Item {
                             id: container
                             required property string modelData
                             required property int index
-                            property bool expanded: false
+                            property bool expanded: root.currentOpen === index
+                            onExpandedChanged: {
+                                root.currentOpen = index;
+                            }
+
                             property bool isCurrent: modelData === Network.active?.ssid
 
                             margin: 4
                             topMargin: 6
                             bottomMargin: 6
                             customRadius: 12
-                            color: hover.hovered ? Theme.layer2 : Theme.tlayer1
+                            color: hover.hovered ? Theme.tlayer2 : Theme.tlayer1
                             clip: true
                             Layout.fillWidth: true
 
@@ -102,12 +125,6 @@ Item {
                             HoverHandler {
                                 id: hover
                                 enabled: !container.expanded
-                            }
-
-                            Behavior on height {
-                                NumberAnimation {
-                                    duration: 200
-                                }
                             }
 
                             Column {
@@ -125,6 +142,14 @@ Item {
 
                                     StyledText {
                                         text: container.modelData
+                                    }
+
+                                    Loader {
+                                        active: container.isCurrent
+                                        sourceComponent: StyledIcon {
+                                            iconName: "check"
+                                            size: 18
+                                        }
                                     }
 
                                     Item {
@@ -152,13 +177,21 @@ Item {
 
                                     WrapperRectangle {
                                         property color buttonColor: container.isCurrent ? Theme.destructive : Theme.accent
+                                        y: container.expanded ? 0 : -(contentColumn.height)
+                                        opacity: container.expanded ? 1 : 0
 
-                                        y: container.expanded ? 0 : contentColumn.height
                                         Behavior on y {
                                             NumberAnimation {
                                                 duration: 400
                                                 easing.overshoot: 1.5
                                                 easing.type: Easing.OutBack
+                                            }
+                                        }
+
+                                        Behavior on opacity {
+                                            NumberAnimation {
+                                                duration: 400
+                                                easing.type: Easing.OutQuad
                                             }
                                         }
 
@@ -183,6 +216,16 @@ Item {
                                         HoverHandler {
                                             id: itemHover
                                             target: parent
+                                        }
+
+                                        TapHandler {
+                                            onTapped: {
+                                                if (container.isCurrent) {
+                                                    Network.disconnectWifiNetwork();
+                                                } else {
+                                                    Network.connectToWifiNetwork(Network.wifiNetworks[container.index]);
+                                                }
+                                            }
                                         }
 
                                         StyledText {
