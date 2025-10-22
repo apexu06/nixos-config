@@ -21,7 +21,7 @@ Slider {
         x: control.leftPadding
         y: control.topPadding + control.availableHeight / 2 - height / 2
         width: control.availableWidth
-        height: hover.hovered ? 8 : 6
+        height: hover.hovered ? 10 : 8
         color: Theme.layer2
         radius: width / 2
 
@@ -45,6 +45,6 @@ Slider {
         implicitWidth: 16
         implicitHeight: 16
         radius: width / 2
-        color: Theme.accent
+        color: "transparent"
     }
 }

@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Widgets
+import Quickshell
 import qs.src.components
 import qs.src.services
 import qs.src
@@ -12,6 +13,10 @@ Item {
     id: root
     implicitWidth: 22
 
+    required property var screen
+    property int currentOpen: -1
+    property bool showPasswordDialog: false
+
     StyledIcon {
         iconName: Network.materialSymbol
         size: 22
@@ -19,9 +24,22 @@ Item {
         onClicked: networkPopup.opened = !networkPopup.opened
     }
 
+    // Binding {
+    //     target: passwordOverlay
+    //     property: "opened"
+    //     value: Network.wifiConnectTarget.askingPassword
+    //     when: Network.wifiConnectTarget
+    // }
+    //
+    // StyledPrompt {
+    //     id: passwordOverlay
+    //     content: StyledText {
+    //         text: "hello"
+    //     }
+    // }
+
     StyledPopup {
         id: networkPopup
-        opened: true
 
         anchor {
             rect {
@@ -31,8 +49,23 @@ Item {
             item: root
         }
         onOpenedChanged: {
-            if (opened)
+            if (opened) {
                 Network.rescanWifi();
+                rescanTimer.start();
+            } else {
+                rescanTimer.stop();
+            }
+        }
+
+        Timer {
+            id: rescanTimer
+            interval: 5000
+            repeat: true
+            onTriggered: {
+                if (networkPopup.opened) {
+                    Network.rescanWifi();
+                }
+            }
         }
 
         content: ColumnLayout {
@@ -83,20 +116,22 @@ Item {
                             id: container
                             required property string modelData
                             required property int index
-                            property bool expanded: false
+                            property bool expanded: root.currentOpen === index
                             property bool isCurrent: modelData === Network.active?.ssid
+                            property bool passwordPending: Network.wifiConnectTarget?.askingPassword ?? false
 
                             margin: 4
                             topMargin: 6
                             bottomMargin: 6
                             customRadius: 12
-                            color: hover.hovered ? Theme.layer2 : Theme.tlayer1
+                            color: hover.hovered ? Theme.tlayer2 : Theme.tlayer1
                             clip: true
+                            border.color: expanded ? Theme.border : "transparent"
                             Layout.fillWidth: true
 
                             TapHandler {
                                 enabled: !container.expanded
-                                onTapped: container.expanded = true
+                                onTapped: root.currentOpen = container.index
                             }
 
                             HoverHandler {
@@ -104,10 +139,13 @@ Item {
                                 enabled: !container.expanded
                             }
 
-                            Behavior on height {
-                                NumberAnimation {
-                                    duration: 200
-                                }
+                            function toggle() {
+                                Network.wifiConnectTarget = null;
+                                root.currentOpen = container.expanded ? -1 : container.index;
+                            }
+
+                            function connectToTargetNetwork(password: string) {
+                                Network.changePassword(Network.wifiConnectTarget, password);
                             }
 
                             Column {
@@ -118,13 +156,28 @@ Item {
                                 RowLayout {
                                     width: parent.width
 
+                                    TapHandler {
+                                        enabled: true
+                                        onTapped: container.toggle()
+                                    }
+
                                     StyledIcon {
                                         iconName: Network.getStrengthIcon(Network.wifiNetworks[container.index]?.strength)
+                                        hoverEnabled: false
                                         size: 18
                                     }
 
                                     StyledText {
                                         text: container.modelData
+                                    }
+
+                                    Loader {
+                                        active: container.isCurrent
+                                        sourceComponent: StyledIcon {
+                                            iconName: "check"
+                                            hoverEnabled: false
+                                            size: 18
+                                        }
                                     }
 
                                     Item {
@@ -134,7 +187,7 @@ Item {
                                     StyledIcon {
                                         iconName: "keyboard_arrow_down"
                                         rotation: container.expanded ? 180 : 0
-                                        onClicked: container.expanded = !container.expanded
+                                        onClicked: container.toggle()
                                         Behavior on rotation {
                                             NumberAnimation {
                                                 duration: 150
@@ -149,11 +202,57 @@ Item {
                                     visible: container.expanded
                                     Layout.fillWidth: true
                                     width: parent.width
+                                    spacing: 8
+
+                                    Row {
+                                        visible: container.expanded && container.passwordPending
+                                        width: parent.width
+                                        spacing: 8
+
+                                        StyledInput {
+                                            id: input
+                                            y: container.passwordPending ? 0 : contentColumn.height
+                                            width: parent.width - confirmButton.width - parent.spacing
+
+                                            onAccepted: container.connectToTargetNetwork(input.text)
+
+                                            Behavior on y {
+                                                NumberAnimation {
+                                                    duration: 400
+                                                    easing.overshoot: 1.5
+                                                    easing.type: Easing.OutBack
+                                                }
+                                            }
+                                        }
+
+                                        StyledContainer {
+                                            id: confirmButton
+                                            height: parent.height
+                                            implicitWidth: height
+
+                                            y: container.passwordPending ? 0 : contentColumn.height
+                                            Behavior on y {
+                                                NumberAnimation {
+                                                    duration: 500
+                                                    easing.overshoot: 1.5
+                                                    easing.type: Easing.OutBack
+                                                }
+                                            }
+                                            StyledIcon {
+                                                iconName: "check"
+                                                onClicked: container.connectToTargetNetwork(input.text)
+                                            }
+                                        }
+                                    }
 
                                     WrapperRectangle {
-                                        property color buttonColor: container.isCurrent ? Theme.destructive : Theme.accent
+                                        id: connect
+                                        property color buttonColor: Network.wifiConnecting ? Theme.layer3 : container.isCurrent ? Theme.warning : Theme.accent
+                                        visible: container.expanded
+                                        y: container.expanded ? 0 : -(contentColumn.height)
+                                        x: container.passwordPending ? contentColumn.width + 50 : 0
+                                        opacity: container.expanded ? 1 : 0
 
-                                        y: container.expanded ? 0 : contentColumn.height
                                         Behavior on y {
                                             NumberAnimation {
                                                 duration: 400
@@ -162,13 +261,29 @@ Item {
                                             }
                                         }
 
+                                        Behavior on x {
+                                            NumberAnimation {
+                                                duration: 500
+                                                easing.overshoot: 1.5
+                                                easing.type: Easing.OutBack
+                                            }
+                                        }
+
+                                        Behavior on opacity {
+                                            NumberAnimation {
+                                                duration: 400
+                                                easing.type: Easing.OutQuad
+                                            }
+                                        }
+
                                         margin: 4
                                         leftMargin: 8
                                         rightMargin: 8
                                         radius: width / 2
+                                        // width: parent.width / 2 - parent.spacing / 2
                                         width: parent.width
                                         Layout.fillWidth: true
-                                        color: itemHover.hovered ? buttonColor : "transparent"
+                                        color: connectHover.hovered ? buttonColor : "transparent"
                                         border {
                                             width: 2
                                             color: buttonColor
@@ -181,54 +296,107 @@ Item {
                                         }
 
                                         HoverHandler {
-                                            id: itemHover
+                                            id: connectHover
                                             target: parent
                                         }
 
+                                        TapHandler {
+                                            onTapped: {
+                                                if (Network.wifiConnecting)
+                                                    return;
+                                                if (container.isCurrent) {
+                                                    Network.disconnectWifiNetwork();
+                                                } else {
+                                                    Network.connectToWifiNetwork(Network.wifiNetworks[container.index]);
+                                                }
+                                            }
+                                        }
+
                                         StyledText {
-                                            text: container.isCurrent ? "Disconnect" : "Connect"
-                                            color: itemHover.hovered ? Theme.layer0 : parent.buttonColor
+                                            text: container.isCurrent ? "Disconnect" : Network.wifiConnecting ? "Connecting..." : "Connect"
+                                            color: connectHover.hovered ? Theme.layer0 : connect.buttonColor
                                             horizontalAlignment: Text.AlignHCenter
                                         }
                                     }
+
+                                    // WrapperRectangle {
+                                    //     id: remove
+                                    //     property color buttonColor: Theme.destructive
+                                    //     visible: container.expanded && !Network.wifiNetworks[container.index]?.askingPassword
+                                    //     y: container.expanded ? 0 : -(contentColumn.height)
+                                    //     x: container.passwordPending ? contentColumn.width + 50 : 0
+                                    //     opacity: container.expanded ? 1 : 0
+                                    //
+                                    //     Behavior on y {
+                                    //         NumberAnimation {
+                                    //             duration: 400
+                                    //             easing.overshoot: 1.5
+                                    //             easing.type: Easing.OutBack
+                                    //         }
+                                    //     }
+                                    //
+                                    //     Behavior on x {
+                                    //         NumberAnimation {
+                                    //             duration: 500
+                                    //             easing.overshoot: 1.5
+                                    //             easing.type: Easing.OutBack
+                                    //         }
+                                    //     }
+                                    //
+                                    //     Behavior on opacity {
+                                    //         NumberAnimation {
+                                    //             duration: 400
+                                    //             easing.type: Easing.OutQuad
+                                    //         }
+                                    //     }
+                                    //
+                                    //     margin: 4
+                                    //     leftMargin: 8
+                                    //     rightMargin: 8
+                                    //     radius: width / 2
+                                    //     width: parent.width / 2 - parent.spacing / 2
+                                    //     Layout.fillWidth: true
+                                    //     color: removeHover.hovered ? buttonColor : "transparent"
+                                    //     border {
+                                    //         width: 2
+                                    //         color: buttonColor
+                                    //     }
+                                    //
+                                    //     Behavior on color {
+                                    //         ColorAnimation {
+                                    //             duration: 100
+                                    //         }
+                                    //     }
+                                    //
+                                    //     HoverHandler {
+                                    //         id: removeHover
+                                    //         target: parent
+                                    //     }
+                                    //
+                                    //     TapHandler {
+                                    //         onTapped: {
+                                    //             if (Network.wifiConnecting)
+                                    //                 return;
+                                    //             if (container.isCurrent) {
+                                    //                 Network.disconnectWifiNetwork();
+                                    //             } else {
+                                    //                 Network.connectToWifiNetwork(Network.wifiNetworks[container.index]);
+                                    //             }
+                                    //         }
+                                    //     }
+                                    //
+                                    //     StyledText {
+                                    //         text: "Remove"
+                                    //         color: removeHover.hovered ? Theme.layer0 : remove.buttonColor
+                                    //         horizontalAlignment: Text.AlignHCenter
+                                    //     }
+                                    // }
                                 }
                             }
                         }
                     }
                 }
             }
-
-            // StyledComboBox {
-            //     visible: Network.wifiEnabled
-            //     modelData: Array.from(Network.wifiNetworks).map(n => n.ssid)
-            //     defaultIndex: Array.from(Network.wifiNetworks).findIndex(n => n.ssid === Network.active?.ssid)
-            //     icon: StyledIcon {
-            //         iconName: Network.wifiScanning ? "progress_activity" : Network.wifiStatus === "disconnected" ? "wifi_off" : "wifi"
-            //         size: 22
-            //         rotation: !Network.wifiScanning && 0
-            //         onClicked: !Network.wifiScanning && Network.rescanWifi()
-            //
-            //         PropertyAnimation on rotation {
-            //             loops: Animation.Infinite
-            //             duration: 1200
-            //             from: 0
-            //             to: 360
-            //             running: Network.wifiScanning
-            //         }
-            //     }
-            //
-            //     onActivated: idx => {
-            //         const activeIndex = Array.from(Network.wifiNetworks).findIndex(n => n.ssid === Network.active?.ssid);
-            //         if (idx === activeIndex) {
-            //             Network.disconnectWifiNetwork();
-            //             index = -1;
-            //         } else {
-            //             Network.connectToWifiNetwork(Network.wifiNetworks[idx]);
-            //         }
-            //     }
-            //
-            //     Layout.fillWidth: true
-            // }
         }
     }
 }
