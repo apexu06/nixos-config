@@ -4,6 +4,7 @@ import QtQuick.Controls
 
 Switch {
     id: control
+    padding: 0
 
     indicator: Rectangle {
         implicitWidth: 48

@@ -98,6 +98,7 @@ Item {
 
                     icon: StyledIcon {
                         iconName: "headphones"
+                        hoverEnabled: false
                         size: 22
                     }
                     Layout.fillWidth: true
@@ -111,6 +112,7 @@ Item {
                     }
                     icon: StyledIcon {
                         iconName: "mic"
+                        hoverEnabled: false
                         size: 22
                     }
                     Layout.fillWidth: true
@@ -132,7 +134,7 @@ Item {
 
                         StyledIcon {
                             iconName: Audio.sink.audio.muted ? "headset_off" : "headphones"
-                            size: 20
+                            size: 22
                             onClicked: Audio.toggleSinkMute()
                         }
 
@@ -175,7 +177,7 @@ Item {
                             StyledIcon {
                                 iconName: Audio.source.audio.muted ? "mic_off" : "mic"
                                 onClicked: Audio.toggleSourceMute()
-                                size: 20
+                                size: 22
                             }
                         }
 

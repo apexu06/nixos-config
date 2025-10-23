@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import qs.src
+import qs.src.components
 import Quickshell
 import QtQuick
 
@@ -28,7 +29,9 @@ Scope {
             color: "transparent"
             implicitHeight: 48
 
-            Bar {}
+            Bar {
+                screen: toplevel.modelData
+            }
         }
     }
 }

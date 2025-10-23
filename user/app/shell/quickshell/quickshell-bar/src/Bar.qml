@@ -8,6 +8,9 @@ import qs.src.widgets
 import qs.src.widgets.clock
 
 Rectangle {
+    id: root
+    required property var screen
+
     anchors.fill: parent
     radius: 12
     border {
@@ -34,7 +37,9 @@ Rectangle {
             RowLayout {
                 spacing: 8
 
-                NetworkWidget {}
+                NetworkWidget {
+                    screen: root
+                }
                 VolumeWidget {}
             }
         }

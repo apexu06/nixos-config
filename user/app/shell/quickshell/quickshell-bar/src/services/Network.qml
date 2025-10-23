@@ -80,6 +80,19 @@ Singleton {
         });
     }
 
+    function connectionExists(accessPoint: WifiAccessPoint): bool {
+        if (!accessPoint?.ssid)
+            return false;
+
+        let exists = false;
+        checkConnectionProc.exec({
+            command: ["bash", "-c", `nmcli -g UUID connection show id "${accessPoint.ssid}" 2>/dev/null`],
+            onExited: (exitCode, exitStatus) => {
+                exists = exitCode === 0;
+            }
+        });
+    }
+
     Process {
         id: enableWifiProc
     }
@@ -98,16 +111,23 @@ Singleton {
         }
         stderr: SplitParser {
             onRead: line => {
-                // print("err:", line)
+                // print("err:", line);
                 if (line.includes("Secrets were required")) {
                     root.wifiConnectTarget.askingPassword = true;
                 }
             }
         }
-        onExited: (exitCode, exitStatus) => {
-            root.wifiConnectTarget.askingPassword = (exitCode !== 0);
-            root.wifiConnectTarget = null;
-        }
+        // onExited: (exitCode, exitStatus) => {
+        //     root.wifiConnectTarget.askingPassword = (exitCode !== 0);
+        // }
+    }
+
+    Process {
+        id: checkConnectionProc
+    }
+
+    Process {
+        id: removeConnectionProc
     }
 
     Process {

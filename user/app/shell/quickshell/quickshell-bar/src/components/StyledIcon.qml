@@ -7,19 +7,29 @@ import Quickshell.Widgets
 Item {
     id: root
     required property string iconName
+    property real fill: 0
+    property int grad: 0
     property real size: 22
+    property bool hoverEnabled: true
     signal clicked
 
     implicitWidth: size + 10
     implicitHeight: size + 10
 
     Text {
-
         id: icon
         anchors.centerIn: parent
         font {
             family: "Material Symbols Rounded"
             pixelSize: root.size
+            hintingPreference: Font.PreferFullHinting
+
+            variableAxes: {
+                "FILL": root.fill,
+                "opsz": icon.fontInfo.pixelSize,
+                "GRAD": root.grad,
+                "wght": icon.fontInfo.weight
+            }
         }
         renderType: Text.QtRendering
         color: mouseArea.containsMouse ? Theme.accent : Theme.fg
@@ -58,7 +68,7 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        hoverEnabled: true
+        hoverEnabled: root.hoverEnabled
         onClicked: root.clicked()
     }
 }
