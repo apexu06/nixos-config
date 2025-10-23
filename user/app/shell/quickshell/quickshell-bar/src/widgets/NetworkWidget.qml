@@ -38,6 +38,7 @@ Item {
                 }
                 item: root
             }
+
             onOpenedChanged: {
                 if (opened) {
                     Network.rescanWifi();
@@ -69,6 +70,7 @@ Item {
                     RowLayout {
                         StyledText {
                             content: "Wifi"
+                            color: Network.wifiScanning ? Theme.accent : Theme.fg
                             bold: true
                         }
                         Item {
@@ -77,12 +79,7 @@ Item {
 
                         StyledSwitch {
                             checked: Network.wifiEnabled
-                            onClicked: {
-                                Network.toggleWifi();
-                                if (Network.wifiEnabled) {
-                                    Network.rescanWifi();
-                                }
-                            }
+                            onClicked: Network.toggleWifi()
                         }
                     }
                 }
@@ -208,10 +205,19 @@ Item {
                                                 width: parent.width
                                                 spacing: 8
 
+                                                onVisibleChanged: {
+                                                    if (visible) {
+                                                        rescanTimer.stop();
+                                                    } else {
+                                                        rescanTimer.start();
+                                                    }
+                                                }
+
                                                 StyledInput {
                                                     id: input
                                                     y: container.passwordPending ? 0 : contentColumn.height
                                                     width: parent.width - confirmButton.width - parent.spacing
+                                                    isPassword: true
 
                                                     onAccepted: {
                                                         container.connectToTargetNetwork(input.text);
@@ -249,6 +255,7 @@ Item {
                                             WrapperRectangle {
                                                 id: connect
                                                 property color buttonColor: Network.wifiConnecting ? Theme.layer3 : container.isCurrent ? Theme.warning : Theme.accent
+                                                visible: container.expanded
                                                 y: container.expanded ? 0 : -(contentColumn.height)
                                                 x: container.passwordPending ? contentColumn.width + 50 : 0
                                                 opacity: container.expanded ? 1 : 0
@@ -280,9 +287,9 @@ Item {
                                                 leftMargin: 8
                                                 rightMargin: 8
                                                 radius: width / 2
-                                                width: removeButton.visible ? (parent.width / 2 - parent.spacing / 2) : parent.width
+                                                width: removeButton.visible ? parent.width / 2 - parent.spacing / 2 : parent.width
                                                 Layout.fillWidth: true
-                                                color: connectHover.hovered ? buttonColor : "transparent"
+                                                color: Network.wifiConnecting || connectHover.hovered ? buttonColor : "transparent"
                                                 border {
                                                     width: 2
                                                     color: buttonColor
@@ -295,7 +302,7 @@ Item {
                                                 }
 
                                                 Behavior on width {
-                                                    enabled: removeButton.visible
+                                                    // enabled: removeButton.visible
                                                     NumberAnimation {
                                                         duration: 200
                                                         easing.type: Easing.OutQuad
@@ -329,7 +336,7 @@ Item {
                                             WrapperRectangle {
                                                 id: removeButton
                                                 property color buttonColor: Theme.destructive
-                                                visible: container.expanded && (container.currentNetwork?.known ?? false)
+                                                visible: container.expanded && (container.currentNetwork?.known ?? false) && !Network.wifiConnecting
                                                 y: container.expanded ? 0 : -(contentColumn.height)
                                                 x: container.passwordPending ? contentColumn.width + 50 : 0
                                                 opacity: container.expanded ? 1 : 0

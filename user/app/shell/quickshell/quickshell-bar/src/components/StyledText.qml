@@ -15,7 +15,7 @@ Text {
 
     Behavior on color {
         ColorAnimation {
-            duration: 100
+            duration: 150
         }
     }
 }

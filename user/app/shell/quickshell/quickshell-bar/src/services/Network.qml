@@ -54,7 +54,6 @@ Singleton {
     }
 
     function connectToWifiNetwork(accessPoint: WifiAccessPoint): void {
-        accessPoint.askingPassword = false;
         root.wifiConnectTarget = accessPoint;
         // We use this instead of `nmcli connection up SSID` because this also creates a connection profile
         connectProc.exec(["nmcli", "dev", "wifi", "connect", accessPoint.ssid]);
@@ -72,15 +71,8 @@ Singleton {
     function changePassword(network: WifiAccessPoint, password: string, username = ""): void {
         // TODO: enterprise wifi with username
         //
-        print(password);
-        print(network.ssid);
         network.askingPassword = false;
-        changePasswordProc.exec({
-            "environment": {
-                "PASSWORD": password
-            },
-            "command": ["bash", "-c", `nmcli connection modify ${network.ssid} wifi-sec.psk "$PASSWORD"`]
-        });
+        changePasswordProc.exec(["nmcli", "connection", "modify", network.ssid, "wifi-sec.psk", password]);
     }
 
     function removeConnection(network: WifiAccessPoint) {
@@ -108,13 +100,13 @@ Singleton {
             })
         stdout: SplitParser {
             onRead: line => {
-                // print(line)
+                root.wifiConnectTarget.askingPassword = false;
                 getNetworks.running = true;
             }
         }
         stderr: SplitParser {
             onRead: line => {
-                print("err:", line);
+                // print("err:", line);
                 if (line.includes("Secrets were required")) {
                     root.wifiConnectTarget.askingPassword = true;
                 }
