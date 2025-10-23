@@ -49,8 +49,18 @@ PopupWindow {
             Transition {
                 from: ""
                 to: "opened"
-                ScriptAction {
-                    script: root.visible = true
+                SequentialAnimation {
+                    ScriptAction {
+                        script: root.visible = true
+                    }
+
+                    NumberAnimation {
+                        target: popupContent
+                        property: "opacity"
+                        from: 0
+                        to: 1
+                        duration: root.animationDuration
+                    }
                 }
             },
             Transition {

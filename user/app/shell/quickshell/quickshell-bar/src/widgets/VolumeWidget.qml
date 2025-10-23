@@ -18,73 +18,70 @@ Item {
         iconName: Audio.getVolumeIconName()
         size: 22
         anchors.centerIn: parent
-        onClicked: popupLoader.item.opened = !popupLoader.item.opened
+        onClicked: volumePopup.active = !volumePopup.active
     }
 
-    LazyLoader {
-        id: popupLoader
-        loading: true
+    StyledPopupLazy {
+        id: volumePopup
 
-        StyledPopup {
-            id: volumePopup
-            anchor {
-                rect {
-                    y: 25
-                    x: 0
-                }
-                item: root
-                edges: Edges.Bottom
-                gravity: Edges.Bottom
-            }
+        anchorItem: root
+        anchorX: 0
+        anchorY: 30
 
-            content: ColumnLayout {
-                spacing: 8
+        content: ColumnLayout {
+            spacing: 4
 
-                StyledContainer {
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 400
-                    Layout.preferredHeight: 50
-                    customRadius: 12
+            StyledContainer {
+                Layout.fillWidth: true
+                Layout.preferredWidth: 400
+                Layout.preferredHeight: 50
+                customRadius: 12
 
-                    RowLayout {
-                        StyledText {
-                            content: "Audio"
-                            bold: true
+                RowLayout {
+                    StyledText {
+                        content: "Audio"
+                        bold: true
+                    }
+                    Item {
+                        Layout.fillWidth: true
+                    }
+
+                    Rectangle {
+                        implicitWidth: 36
+                        implicitHeight: 36
+                        color: mouseArea.containsMouse ? Theme.accent : Theme.layer2
+                        radius: width / 2
+
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: 200
+                                easing.type: Easing.InOutCubic
+                            }
                         }
-                        Item {
-                            Layout.fillWidth: true
+
+                        StyledIcon {
+                            iconName: "graphic_eq"
+                            size: 24
+                            anchors.centerIn: parent
                         }
-
-                        Rectangle {
-                            implicitWidth: 36
-                            implicitHeight: 36
-                            color: mouseArea.containsMouse ? Theme.accent : Theme.layer2
-                            radius: width / 2
-
-                            Behavior on color {
-                                ColorAnimation {
-                                    duration: 200
-                                    easing.type: Easing.InOutCubic
-                                }
+                        MouseArea {
+                            id: mouseArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onClicked: {
+                                Quickshell.execDetached("pavucontrol");
                             }
-
-                            StyledIcon {
-                                iconName: "graphic_eq"
-                                size: 24
-                                anchors.centerIn: parent
-                            }
-                            MouseArea {
-                                id: mouseArea
-                                anchors.fill: parent
-                                hoverEnabled: true
-                                onClicked: {
-                                    Quickshell.execDetached("pavucontrol");
-                                }
-                                scale: mouseArea.containsMouse ? 1.4 : 1.0
-                            }
+                            scale: mouseArea.containsMouse ? 1.4 : 1.0
                         }
                     }
                 }
+            }
+
+            StyledContainer {
+                Layout.fillWidth: true
+                radius: 12
+                topMargin: dropdowns.spacing + sinks.margins
+                bottomMargin: dropdowns.spacing + sinks.margins
 
                 ColumnLayout {
                     id: dropdowns
@@ -94,6 +91,7 @@ Item {
                     property var sourceDescriptions: Audio.sources.map(s => s.description)
 
                     StyledComboBox {
+                        id: sinks
                         modelData: dropdowns.sinkDescriptions
                         defaultIndex: Audio.sinks.findIndex(s => s.id === Audio.sink?.id)
                         onActivated: function (index) {
@@ -122,15 +120,30 @@ Item {
                         Layout.fillWidth: true
                     }
                 }
+            }
+
+            StyledContainer {
+                Layout.fillWidth: true
+                radius: 12
+                margin: 4
+                topMargin: sliders.spacing + container.margin
+                bottomMargin: sliders.spacing + container.margin
 
                 ColumnLayout {
                     id: sliders
                     spacing: 4
 
                     StyledContainer {
+                        id: container
                         Layout.fillWidth: true
                         margin: 8
                         radius: 12
+                        border.color: headphoneHover.hovered ? Theme.border : "transparent"
+
+                        HoverHandler {
+                            id: headphoneHover
+                            enabled: true
+                        }
 
                         RowLayout {
                             Layout.fillWidth: true
@@ -171,6 +184,12 @@ Item {
                         Layout.fillWidth: true
                         margin: 8
                         radius: 12
+                        border.color: micHover.hovered ? Theme.border : "transparent"
+
+                        HoverHandler {
+                            id: micHover
+                            enabled: true
+                        }
 
                         RowLayout {
                             Layout.fillWidth: true

@@ -37,11 +37,11 @@ Rectangle {
             RowLayout {
                 spacing: 8
 
-                NetworkWidget {
-                    screen: root
-                }
+                NetworkWidget {}
                 VolumeWidget {}
             }
         }
+
+        TrayWidget {}
     }
 }
