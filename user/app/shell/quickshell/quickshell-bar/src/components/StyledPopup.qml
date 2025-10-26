@@ -78,10 +78,9 @@ PopupWindow {
         ]
 
         Behavior on y {
-            NumberAnimation {
-                duration: root.animationDuration
-                easing.type: Easing.OutBack
-                easing.overshoot: 1.5
+            SpringAnimation {
+                spring: 4
+                damping: 0.3
             }
         }
 

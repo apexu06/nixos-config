@@ -39,6 +39,7 @@ Rectangle {
 
                 NetworkWidget {}
                 VolumeWidget {}
+                BatteryWidget {}
             }
         }
 

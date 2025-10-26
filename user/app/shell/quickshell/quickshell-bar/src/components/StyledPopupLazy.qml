@@ -14,7 +14,6 @@ LazyLoader {
     required property int anchorX
     required property int anchorY
     property bool closeOnOutsideClick: false
-    property bool opened: fals
 
     PopupWindow {
         id: root
@@ -69,9 +68,9 @@ LazyLoader {
                         PauseAnimation {
                             duration: loader.animationDuration
                         }
-                        // ScriptAction {
-                        //     script: loader.active = false
-                        // }
+                        ScriptAction {
+                            script: loader.active = false
+                        }
                     }
                 }
             ]
