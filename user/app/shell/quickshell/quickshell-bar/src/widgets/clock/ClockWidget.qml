@@ -9,10 +9,11 @@ import qs.src
 StyledContainer {
     backgroundColor: Theme.tlayer0
     RowLayout {
-        spacing: 1
+        spacing: -1
+        Layout.fillWidth: true
+        Layout.fillHeight: true
         Item {
             implicitWidth: textMetrics.width
-            Layout.alignment: Qt.AlignVCenter
 
             TextMetrics {
                 id: textMetrics
@@ -20,13 +21,13 @@ StyledContainer {
             }
 
             StyledText {
-                anchors.centerIn: parent
+                anchors.fill: parent
                 text: Time.time
             }
         }
 
         ToolSeparator {
-            implicitHeight: parent.height - 6
+            implicitHeight: parent.height - 8
 
             contentItem: Rectangle {
                 implicitWidth: 1

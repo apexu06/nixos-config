@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     waybar
   ];
@@ -7,7 +6,7 @@
   programs.waybar = {
     enable = true;
     systemd = {
-      enable = true;
+      enable = false;
       target = "graphical-session.target";
     };
 
@@ -19,7 +18,6 @@
         "hyprland/workspaces"
       ];
       modules-center = [
-
       ];
       modules-right = [
         "tray"
@@ -363,5 +361,4 @@
       }
     '';
   };
-
 }
