@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import qs.src
+import qs.src.services
 import Quickshell.Widgets
 
 Item {

@@ -54,7 +54,6 @@ Singleton {
     }
 
     function connectToWifiNetwork(accessPoint: WifiAccessPoint): void {
-        accessPoint.askingPassword = false;
         root.wifiConnectTarget = accessPoint;
         // We use this instead of `nmcli connection up SSID` because this also creates a connection profile
         connectProc.exec(["nmcli", "dev", "wifi", "connect", accessPoint.ssid]);
@@ -71,30 +70,26 @@ Singleton {
 
     function changePassword(network: WifiAccessPoint, password: string, username = ""): void {
         // TODO: enterprise wifi with username
+        //
         network.askingPassword = false;
-        changePasswordProc.exec({
-            "environment": {
-                "PASSWORD": password
-            },
-            "command": ["bash", "-c", `nmcli connection modify ${network.ssid} wifi-sec.psk "$PASSWORD"`]
-        });
+        changePasswordProc.exec(["nmcli", "connection", "modify", network.ssid, "wifi-sec.psk", password]);
     }
 
-    function connectionExists(accessPoint: WifiAccessPoint): bool {
-        if (!accessPoint?.ssid)
-            return false;
+    function removeConnection(network: WifiAccessPoint) {
+        removeConnectionProc.exec(["nmcli", "connection", "delete", network.ssid]);
+    }
 
-        let exists = false;
-        checkConnectionProc.exec({
-            command: ["bash", "-c", `nmcli -g UUID connection show id "${accessPoint.ssid}" 2>/dev/null`],
-            onExited: (exitCode, exitStatus) => {
-                exists = exitCode === 0;
-            }
-        });
+    Process {
+        id: removeConnectionProc
+
+        stdout: SplitParser {
+            onRead: getNetworks.running = true
+        }
     }
 
     Process {
         id: enableWifiProc
+        command: [""]
     }
 
     Process {
@@ -105,7 +100,7 @@ Singleton {
             })
         stdout: SplitParser {
             onRead: line => {
-                // print(line)
+                root.wifiConnectTarget.askingPassword = false;
                 getNetworks.running = true;
             }
         }
@@ -120,14 +115,6 @@ Singleton {
         // onExited: (exitCode, exitStatus) => {
         //     root.wifiConnectTarget.askingPassword = (exitCode !== 0);
         // }
-    }
-
-    Process {
-        id: checkConnectionProc
-    }
-
-    Process {
-        id: removeConnectionProc
     }
 
     Process {
@@ -261,7 +248,7 @@ Singleton {
     Process {
         id: getNetworks
         running: true
-        command: ["nmcli", "-g", "ACTIVE,SIGNAL,FREQ,SSID,BSSID,SECURITY", "d", "w"]
+        command: ["sh", "-c", "nmcli -g ACTIVE,SIGNAL,FREQ,SSID,BSSID,SECURITY d w && echo '---SEPARATOR---' && nmcli -g NAME connection show"]
         environment: ({
                 LANG: "C",
                 LC_ALL: "C"
@@ -272,19 +259,24 @@ Singleton {
                 const rep = new RegExp("\\\\:", "g");
                 const rep2 = new RegExp(PLACEHOLDER, "g");
 
-                const allNetworks = text.trim().split("\n").map(n => {
+                const parts = text.split('---SEPARATOR---');
+                const networksText = parts[0].trim();
+                const knownConnections = parts[1] ? parts[1].trim().split("\n").filter(n => n.length > 0) : [];
+
+                const allNetworks = networksText.split("\n").map(n => {
                     const net = n.replace(rep, PLACEHOLDER).split(":");
+                    const ssid = net[3];
                     return {
                         active: net[0] === "yes",
                         strength: parseInt(net[1]),
                         frequency: parseInt(net[2]),
-                        ssid: net[3],
+                        ssid: ssid,
                         bssid: net[4]?.replace(rep2, ":") ?? "",
-                        security: net[5] || ""
+                        security: net[5] || "",
+                        known: knownConnections.includes(ssid)
                     };
                 }).filter(n => n.ssid && n.ssid.length > 0);
 
-                // Group networks by SSID and prioritize connected ones
                 const networkMap = new Map();
                 for (const network of allNetworks) {
                     const existing = networkMap.get(network.ssid);
@@ -305,13 +297,10 @@ Singleton {
                 }
 
                 const wifiNetworks = Array.from(networkMap.values());
-
                 const rNetworks = root.wifiNetworks;
-
                 const destroyed = rNetworks.filter(rn => !wifiNetworks.find(n => n.frequency === rn.frequency && n.ssid === rn.ssid && n.bssid === rn.bssid));
                 for (const network of destroyed)
                     rNetworks.splice(rNetworks.indexOf(network), 1).forEach(n => n.destroy());
-
                 for (const network of wifiNetworks) {
                     const match = rNetworks.find(n => n.frequency === network.frequency && n.ssid === network.ssid && n.bssid === network.bssid);
                     if (match) {
@@ -335,6 +324,7 @@ Singleton {
         readonly property bool active: lastIpcObject.active
         readonly property string security: lastIpcObject.security
         readonly property bool isSecure: security.length > 0
+        readonly property bool known: lastIpcObject.known
 
         property bool askingPassword: false
     }

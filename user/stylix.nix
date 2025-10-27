@@ -5,19 +5,16 @@
   settings,
   lib,
   ...
-}:
-
-let
+}: let
   themeFile = builtins.toPath ../theme/${settings.theme}/theme.yaml;
-  wallpaperFile = builtins.replaceStrings [ "\r" ] [ "" ] (
+  wallpaperFile = builtins.replaceStrings ["\r"] [""] (
     builtins.readFile ../theme/${settings.theme}/wallpaper.txt
   );
   wallpaperLines = builtins.filter (x: x != "") (lib.splitString "\n" wallpaperFile);
 
   backgroundUrl = builtins.elemAt wallpaperLines 0;
   backgroundHash = builtins.elemAt wallpaperLines 1;
-in
-{
+in {
   imports = [
     inputs.stylix.homeModules.stylix
   ];
@@ -44,7 +41,7 @@ in
 
     targets.qt.enable = true;
 
-    targets.zen-browser.profileNames = [ "default" ];
+    targets.zen-browser.profileNames = ["default"];
 
     targets.obsidian.vaultNames = [
       "red-cross"
@@ -89,6 +86,5 @@ in
       package = pkgs.catppuccin-cursors.mochaDark;
       size = 32;
     };
-
   };
 }

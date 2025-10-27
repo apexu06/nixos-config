@@ -11,6 +11,7 @@ Item {
     id: root
     required property var modelData
     required property int defaultIndex
+    property alias margins: box.margin
     property Component icon
     property string iconName: ""
     signal activated(int index)
@@ -28,6 +29,7 @@ Item {
         margin: 8
         radius: 12
         clip: true
+        border.color: root.open ? Theme.border : "transparent"
 
         Column {
             spacing: 3
@@ -78,70 +80,75 @@ Item {
                 height: root.open ? 8 : 0
             }
 
-            Item {
-                id: contentWrapper
+            Loader {
+                active: root.open
+                height: contentWrapper.height
                 width: parent.width
-                height: root.open ? root.targetContentHeight : 0
-                clip: true
-
-                WrapperRectangle {
-                    id: content
+                Item {
+                    id: contentWrapper
                     width: parent.width
-                    color: "transparent"
-                    y: root.open ? 0 : -root.targetContentHeight
-                    opacity: root.open ? 1 : 0
+                    height: root.open ? root.targetContentHeight : 0
+                    clip: true
 
-                    Behavior on y {
-                        NumberAnimation {
-                            duration: 400
-                            easing.type: Easing.OutBack
-                            easing.overshoot: 1.5
-                        }
-                    }
-
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 400
-                            easing.type: Easing.OutQuad
-                        }
-                    }
-
-                    Column {
-                        id: contentColumn
-                        spacing: 4
+                    WrapperRectangle {
+                        id: content
                         width: parent.width
+                        color: "transparent"
+                        y: root.open ? 0 : -root.targetContentHeight
+                        opacity: root.open ? 1 : 0
 
-                        Repeater {
-                            model: root.modelData
-                            delegate: Item {
-                                id: delegate
-                                required property var modelData
-                                required property int index
-                                width: parent.width
-                                height: container.implicitHeight
+                        Behavior on y {
+                            NumberAnimation {
+                                duration: 400
+                                easing.type: Easing.OutBack
+                                easing.overshoot: 1.5
+                            }
+                        }
 
-                                property bool isCurrent: root.index === -1 ? root.defaultIndex === index : root.index === index
+                        Behavior on opacity {
+                            NumberAnimation {
+                                duration: 400
+                                easing.type: Easing.OutQuad
+                            }
+                        }
 
-                                StyledContainer {
-                                    id: container
-                                    color: itemMouseArea.containsMouse ? Theme.layer3 : delegate.isCurrent ? Theme.accent : Theme.layer2
+                        Column {
+                            id: contentColumn
+                            spacing: 4
+                            width: parent.width
+
+                            Repeater {
+                                model: root.modelData
+                                delegate: Item {
+                                    id: delegate
+                                    required property var modelData
+                                    required property int index
                                     width: parent.width
-                                    margin: 6
+                                    height: container.implicitHeight
 
-                                    StyledText {
-                                        text: delegate.modelData
-                                        elide: Text.ElideRight
-                                        color: itemMouseArea.containsMouse ? Theme.fg : delegate.isCurrent ? Theme.layer0 : Theme.fg
+                                    property bool isCurrent: root.index === -1 ? root.defaultIndex === index : root.index === index
+
+                                    StyledContainer {
+                                        id: container
+                                        color: itemMouseArea.containsMouse ? Theme.layer3 : delegate.isCurrent ? Theme.accent : Theme.layer2
+                                        width: parent.width
+                                        margin: 6
+
+                                        StyledText {
+                                            text: delegate.modelData
+                                            elide: Text.ElideRight
+                                            color: itemMouseArea.containsMouse ? Theme.fg : delegate.isCurrent ? Theme.layer0 : Theme.fg
+                                        }
                                     }
-                                }
-                                MouseArea {
-                                    id: itemMouseArea
-                                    hoverEnabled: true
-                                    anchors.fill: parent
-                                    onClicked: {
-                                        root.index = delegate.index;
-                                        root.activated(delegate.index);
-                                        root.open = false;
+                                    MouseArea {
+                                        id: itemMouseArea
+                                        hoverEnabled: true
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            root.index = delegate.index;
+                                            root.activated(delegate.index);
+                                            root.open = false;
+                                        }
                                     }
                                 }
                             }

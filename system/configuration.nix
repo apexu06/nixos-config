@@ -10,7 +10,7 @@
     ./virtualization.nix
     ./de/${settings.de}.nix
     ./steam.nix
-    ./pc.nix
+    ./lanzaboote.nix
   ];
 
   nix = {
@@ -90,6 +90,7 @@
     git
     wayland
     fish
+    ntfs3g
   ];
 
   services = {

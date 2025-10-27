@@ -49,8 +49,18 @@ PopupWindow {
             Transition {
                 from: ""
                 to: "opened"
-                ScriptAction {
-                    script: root.visible = true
+                SequentialAnimation {
+                    ScriptAction {
+                        script: root.visible = true
+                    }
+
+                    NumberAnimation {
+                        target: popupContent
+                        property: "opacity"
+                        from: 0
+                        to: 1
+                        duration: root.animationDuration
+                    }
                 }
             },
             Transition {
@@ -68,10 +78,9 @@ PopupWindow {
         ]
 
         Behavior on y {
-            NumberAnimation {
-                duration: root.animationDuration
-                easing.type: Easing.OutBack
-                easing.overshoot: 1.5
+            SpringAnimation {
+                spring: 4
+                damping: 0.3
             }
         }
 

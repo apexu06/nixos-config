@@ -25,6 +25,7 @@ Singleton {
 
     readonly property color destructive: json.base08 ? `#${json.base08}` : "#ff0000"
     readonly property color warning: json.base09 ? `#${json.base09}` : "#ff0000"
+    readonly property color success: json.base0B ? `#${json.base0B}` : "#ff0000"
 
     readonly property color border: withAlpha(fg, 0.1)
 

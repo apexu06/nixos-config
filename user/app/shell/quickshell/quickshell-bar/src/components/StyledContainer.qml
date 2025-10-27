@@ -18,13 +18,17 @@ WrapperRectangle {
     border.color: Theme.border
 
     color: Theme.tlayer1
-    radius: 100000
+    radius: width / 2
 
     Behavior on color {
         ColorAnimation {
             duration: 150
         }
     }
-}
 
-// }
+    Behavior on border.color {
+        ColorAnimation {
+            duration: 150
+        }
+    }
+}
