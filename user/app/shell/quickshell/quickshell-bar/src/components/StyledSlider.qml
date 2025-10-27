@@ -6,23 +6,20 @@ import qs.src
 
 Slider {
     id: control
+    hoverEnabled: true
+
     from: 0
     value: 0.5
     to: 1
     Layout.fillWidth: true
-
-    HoverHandler {
-        id: hover
-        target: control
-    }
 
     background: Rectangle {
         id: background
         x: control.leftPadding
         y: control.topPadding + control.availableHeight / 2 - height / 2
         width: control.availableWidth
-        height: hover.hovered ? 10 : 8
-        color: Theme.layer2
+        height: control.hovered ? control.height + 2 : control.height
+        color: Theme.tlayer3
         radius: width / 2
 
         Behavior on height {

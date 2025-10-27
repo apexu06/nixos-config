@@ -12,6 +12,8 @@ Text {
     text: ""
     font.pointSize: root.fontSize
     font.bold: root.bold
+    horizontalAlignment: Text.AlignHCenter
+    verticalAlignment: Text.AlignVCenter
 
     Behavior on color {
         ColorAnimation {

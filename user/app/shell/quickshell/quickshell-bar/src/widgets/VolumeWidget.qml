@@ -166,6 +166,7 @@ Item {
 
                                 StyledSlider {
                                     id: sinkControl
+                                    implicitHeight: 10
                                     value: Audio.sink.audio.volume
                                     to: 1.5
                                     onMoved: {
@@ -215,6 +216,7 @@ Item {
 
                                 StyledSlider {
                                     id: sourceControl
+                                    implicitHeight: 10
                                     value: Audio.source.audio.volume
                                     to: 1.5
                                     onMoved: {

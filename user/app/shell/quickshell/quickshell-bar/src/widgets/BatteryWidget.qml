@@ -25,11 +25,9 @@ Item {
     LazyLoader {
         id: popupLoader
         loading: true
-        active: true
 
         StyledPopup {
             id: batteryIcon
-            opened: true
 
             anchor {
                 rect {
@@ -114,6 +112,7 @@ Item {
                                 Layout.fillWidth: true
                                 radius: 12
                                 border.color: parent.activated ? parent.modelData.color : Theme.border
+                                border.width: 2
 
                                 child: Text {
                                     horizontalAlignment: Text.AlignHCenter
@@ -132,7 +131,7 @@ Item {
                                         NumberAnimation {
                                             duration: 200
                                             easing.type: Easing.OutBack
-                                            easing.overshoot: 1.2
+                                            easing.overshoot: 1.5
                                         }
                                     }
 
@@ -144,6 +143,36 @@ Item {
                                 }
                             }
                         }
+                    }
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                    implicitHeight: 20
+
+                    StyledSlider {
+                        anchors.fill: parent
+                        hoverEnabled: false
+                        value: Battery.percentage
+
+                        MouseArea {
+                            anchors.fill: parent
+                            enabled: true
+                            onClicked: function (mouse) {
+                                mouse.accepted = true;
+                            }
+                            onPressed: function (mouse) {
+                                mouse.accepted = true;
+                            }
+                            onReleased: function (mouse) {
+                                mouse.accepted = true;
+                            }
+                        }
+                    }
+
+                    StyledText {
+                        text: Math.round(Battery.percentage * 100, 0) + "%"
+                        anchors.fill: parent
                     }
                 }
             }
