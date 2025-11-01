@@ -19,7 +19,7 @@ Slider {
         y: control.topPadding + control.availableHeight / 2 - height / 2
         width: control.availableWidth
         height: control.hovered ? control.height + 2 : control.height
-        color: Theme.tlayer3
+        color: Theme.layer2
         radius: width / 2
 
         Behavior on height {
@@ -32,7 +32,7 @@ Slider {
             width: control.visualPosition * (parent.width)
             height: parent.height
             color: Theme.accent
-            radius: 8
+            radius: width / 2
         }
     }
 

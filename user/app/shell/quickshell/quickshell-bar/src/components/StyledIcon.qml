@@ -12,6 +12,7 @@ Item {
     property int grad: 0
     property real size: 22
     property bool hoverEnabled: true
+    property bool active: false
     signal clicked
 
     implicitWidth: size + 10
@@ -26,15 +27,15 @@ Item {
             hintingPreference: Font.PreferFullHinting
 
             variableAxes: {
-                "FILL": root.fill,
+                // "FILL": root.fill,
                 "opsz": icon.fontInfo.pixelSize,
                 "GRAD": root.grad,
                 "wght": icon.fontInfo.weight
             }
         }
         renderType: Text.QtRendering
-        color: mouseArea.containsMouse ? Theme.accent : Theme.fg
-        scale: mouseArea.containsMouse ? 1.2 : 1.0
+        color: mouseArea.containsMouse || root.active ? Theme.accent : Theme.fg
+        scale: mouseArea.containsMouse || root.active ? 1.2 : 1.0
         text: root.iconName
 
         Behavior on scale {

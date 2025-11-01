@@ -17,7 +17,7 @@ WrapperRectangle {
     border.width: 1
     border.color: Theme.border
 
-    color: Theme.tlayer1
+    color: Theme.layer1
     radius: width / 2
 
     Behavior on color {

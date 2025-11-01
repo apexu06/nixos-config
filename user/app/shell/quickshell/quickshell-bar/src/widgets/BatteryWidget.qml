@@ -20,6 +20,7 @@ Item {
         size: 22
         anchors.centerIn: parent
         onClicked: popupLoader.item.opened = !popupLoader.item.opened
+        active: popupLoader.item?.opened ?? false
     }
 
     LazyLoader {
@@ -31,7 +32,7 @@ Item {
 
             anchor {
                 rect {
-                    y: 25
+                    y: 30
                     x: -150
                 }
                 item: root

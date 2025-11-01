@@ -25,11 +25,11 @@ Item {
     StyledContainer {
         id: box
         anchors.fill: parent
-        backgroundColor: mouseArea.containsMouse ? Theme.tlayer2 : Theme.tlayer1
+        backgroundColor: mouseArea.containsMouse ? Theme.layer2 : Theme.layer1
         margin: 8
         radius: 12
         clip: true
-        border.color: root.open ? Theme.border : "transparent"
+        // border.color: root.open ? Theme.border : "transparent"
 
         Column {
             spacing: 3

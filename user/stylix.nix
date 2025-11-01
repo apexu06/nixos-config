@@ -49,13 +49,13 @@ in {
 
     fonts = {
       serif = {
-        package = apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
-        name = "SFProDisplay Nerd Font";
+        package = pkgs.rubik;
+        name = "Rubik";
       };
 
       sansSerif = {
-        package = apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
-        name = "SFProDisplay Nerd Font";
+        package = pkgs.rubik;
+        name = "Rubik";
       };
 
       monospace = {

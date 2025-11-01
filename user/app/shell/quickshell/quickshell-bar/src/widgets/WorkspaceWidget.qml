@@ -6,7 +6,6 @@ import QtQuick
 
 StyledContainer {
     Layout.alignment: Qt.AlignLeft
-    backgroundColor: Theme.tlayer0
 
     RowLayout {
         spacing: 0

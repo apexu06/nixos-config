@@ -23,15 +23,8 @@ Scope {
                 right: true
             }
 
-            margins {
-                left: 4
-                right: 4
-                top: 4
-                bottom: -2
-            }
-
             color: "transparent"
-            implicitHeight: 48
+            implicitHeight: 50
 
             Bar {
                 screen: toplevel.modelData

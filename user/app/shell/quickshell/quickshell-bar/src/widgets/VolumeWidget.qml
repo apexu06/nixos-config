@@ -29,7 +29,7 @@ Item {
             id: volumePopup
             anchor {
                 rect {
-                    y: 25
+                    y: 30
                     x: 0
                 }
                 item: root
@@ -38,7 +38,7 @@ Item {
             }
 
             content: ColumnLayout {
-                spacing: 4
+                spacing: 8
 
                 StyledContainer {
                     Layout.fillWidth: true
@@ -147,7 +147,6 @@ Item {
                             Layout.fillWidth: true
                             margin: 8
                             radius: 12
-                            border.color: headphoneHover.hovered ? Theme.border : "transparent"
 
                             HoverHandler {
                                 id: headphoneHover
@@ -159,7 +158,7 @@ Item {
                                 spacing: 8
 
                                 StyledIcon {
-                                    iconName: Audio.sink.audio.muted ? "headset_off" : "headphones"
+                                    iconName: Audio.sink.audio.muted ? "volume_off" : "volume_up"
                                     size: 22
                                     onClicked: Audio.toggleSinkMute()
                                 }
@@ -194,7 +193,7 @@ Item {
                             Layout.fillWidth: true
                             margin: 8
                             radius: 12
-                            border.color: micHover.hovered ? Theme.border : "transparent"
+                            // border.color: micHover.hovered ? Theme.border : "transparent"
 
                             HoverHandler {
                                 id: micHover

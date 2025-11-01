@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     fishPlugins.pure
     fishPlugins.fzf-fish
@@ -22,6 +20,7 @@
       bind --mode insert \cf forward-char
 
       tv init fish | source
+      zoxide init fish | source
     '';
     plugins = [
       {
@@ -31,14 +30,14 @@
     ];
     functions = {
       og.body = ''
-        	  set -l path (tv git-repos)
-        	  if test -z $path
-        	    return
-        	  end
-        	  
-        	  cd $path 
-        	  nvim .
-        	'';
+        set -l path (tv git-repos)
+        if test -z $path
+          return
+        end
+
+        cd $path
+        nvim .
+      '';
     };
   };
 

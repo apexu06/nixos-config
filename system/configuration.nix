@@ -86,7 +86,7 @@
 
   environment.systemPackages = with pkgs; [
     vim
-    wget
+    axel
     git
     wayland
     fish

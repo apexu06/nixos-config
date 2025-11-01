@@ -43,11 +43,10 @@ Singleton {
         if (percentage >= 0.2)
             return isCharging ? "battery_charging_20" : "battery_1_bar";
         if (!isCharging)
-            return "battery_0_bar";
+            return "battery_alert";
     }
 
     function getTimeRemainingText() {
-
     }
 
     onIsLowAndNotChargingChanged: {

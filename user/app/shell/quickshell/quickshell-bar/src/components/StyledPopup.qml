@@ -32,7 +32,7 @@ PopupWindow {
         margin: 8
         leftMargin: 8
         rightMargin: 8
-        backgroundColor: Theme.tlayer0
+        backgroundColor: Theme.layer0
         border.width: 0
 
         states: State {

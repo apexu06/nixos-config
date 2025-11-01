@@ -12,16 +12,16 @@ Rectangle {
     required property var screen
 
     anchors.fill: parent
-    radius: 12
-    border {
-        color: Theme.border
-        width: 1
-    }
-    color: Theme.withAlpha(Theme.base00, 0.5)
+
+    // border {
+    //     color: Theme.border
+    //     width: 1
+    // }
+    color: Theme.layer0
 
     RowLayout {
         anchors.fill: parent
-        anchors.margins: 6
+        anchors.margins: 8
 
         WorkspaceWidget {}
         Item {

@@ -19,6 +19,7 @@ Item {
         size: 22
         anchors.centerIn: parent
         onClicked: popupLoader.item.opened = !popupLoader.item.opened
+        active: popupLoader.item?.opened ?? false
     }
 
     LazyLoader {
@@ -30,7 +31,7 @@ Item {
 
             anchor {
                 rect {
-                    y: 25
+                    y: 30
                     x: -150
                 }
                 item: root
@@ -118,9 +119,8 @@ Item {
                                     topMargin: 6
                                     bottomMargin: 6
                                     customRadius: 12
-                                    color: hover.hovered ? Theme.tlayer2 : Theme.tlayer1
+                                    color: hover.hovered ? Theme.layer2 : Theme.layer1
                                     clip: true
-                                    border.color: expanded ? Theme.border : "transparent"
                                     Layout.fillWidth: true
 
                                     TapHandler {

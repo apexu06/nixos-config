@@ -7,7 +7,6 @@ import qs.src.components
 import qs.src
 
 StyledContainer {
-    backgroundColor: Theme.tlayer0
     RowLayout {
         spacing: -1
         Layout.fillWidth: true
