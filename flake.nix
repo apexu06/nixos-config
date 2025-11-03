@@ -8,11 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    apple-fonts = {
-      url = "github:Lyndeno/apple-fonts.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,18 +18,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ags = {
-      url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    astal = {
-      url = "github:aylur/astal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -42,7 +27,6 @@
   outputs = inputs @ {
     nixpkgs,
     home-manager,
-    apple-fonts,
     ...
   }: let
     lib = nixpkgs.lib;
@@ -52,7 +36,7 @@
     settings = {
       de = "hyprland";
       theme = "tokyo-night-terminal-dark";
-      launcher = "tofi";
+      launcher = "fuzzel";
       de-shell = "quickshell";
     };
   in {
@@ -72,7 +56,6 @@
       apexu = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
-          inherit apple-fonts;
           inherit inputs;
           inherit settings;
         };

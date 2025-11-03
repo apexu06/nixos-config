@@ -17,23 +17,4 @@ return {
 			vim.cmd.colorscheme("tokyonight")
 		end,
 	},
-	{
-		"rjshkhr/shadow.nvim",
-		priority = 1000,
-		config = function()
-			vim.opt.termguicolors = true
-		end,
-	},
-	{
-		"rebelot/kanagawa.nvim",
-		priority = 1000,
-		config = function() end,
-	},
-	{
-		"Skardyy/makurai-nvim",
-		priority = 1000,
-		config = function()
-			-- vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { bg = "#565A60" })
-		end,
-	},
 }

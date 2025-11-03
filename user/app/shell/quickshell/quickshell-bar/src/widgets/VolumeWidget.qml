@@ -18,7 +18,8 @@ Item {
         iconName: Audio.getVolumeIconName()
         size: 22
         anchors.centerIn: parent
-        onClicked: popupLoader.item.opened = !popupLoader.item.opened
+        onClicked: popupLoader.item.opened = !popupLoader.item?.opened
+        active: popupLoader.item?.opened ?? false
     }
 
     LazyLoader {

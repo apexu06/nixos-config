@@ -24,6 +24,19 @@ StyledContainer {
                 source: modelData.icon
                 implicitSize: 22
 
+                scale: hover.hovered ? 1.2 : 1
+                Behavior on scale {
+                    NumberAnimation {
+                        duration: 200
+                        easing.type: Easing.OutBack
+                        easing.overshoot: 1.2
+                    }
+                }
+
+                HoverHandler {
+                    id: hover
+                }
+
                 layer {
                     enabled: true
                     effect: MultiEffect {

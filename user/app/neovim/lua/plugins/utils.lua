@@ -29,26 +29,6 @@ return {
 			vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
 		end,
 	},
-	{
-		"lervag/vimtex",
-		lazy = false, -- we don't want to lazy load VimTeX
-		-- tag = "v2.15", -- uncomment to pin to a specific release
-		init = function()
-			vim.g.vimtex_view_method = "zathura"
-			vim.g.vimtex_quickfix_open_on_warning = 0
-			vim.g.vimtex_quickfix_open_on_error = 0
-			vim.g.vimtex_compiler_latexmk = {
-				options = {
-					"-pdf",
-					"-shell-escape",
-					"-verbose",
-					"-file-line-error",
-					"-synctex=1",
-					"-interaction=nonstopmode",
-				},
-			}
-		end,
-	},
 	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
 		"lewis6991/gitsigns.nvim",
 		opts = {

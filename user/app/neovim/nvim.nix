@@ -1,11 +1,8 @@
 {
-  config,
   pkgs,
   inputs,
   ...
-}:
-
-{
+}: {
   home.packages = with pkgs; [
     lua-language-server
     clang-tools
@@ -25,6 +22,7 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+    defaultEditor = true;
   };
 
   xdg.configFile."nvim".source = ./.;

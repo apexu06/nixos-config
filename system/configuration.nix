@@ -11,6 +11,7 @@
     ./de/${settings.de}.nix
     ./steam.nix
     ./lanzaboote.nix
+    ./pc.nix
   ];
 
   nix = {
@@ -60,6 +61,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
     shell = pkgs.fish;
   };
