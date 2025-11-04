@@ -2,14 +2,13 @@
   pkgs,
   settings,
   ...
-}:
-{
+}: {
   imports = [
     ./stylix.nix
     ./xdg.nix
     ./shells/fish.nix
     ./shells/cli-utils.nix
-    (if settings.de == "hyprland" then ./de/hyprland/hyprland.nix else { })
+    ./de/${settings.de}/${settings.de}.nix
     ./app/neovim/nvim.nix
     ./app/browser/zen.nix
     ./app/vesktop.nix
@@ -56,5 +55,4 @@
   # };
 
   programs.home-manager.enable = true;
-
 }

@@ -119,6 +119,11 @@
       enable = true;
       mountOnMedia = true;
     };
+
+    displayManager = {
+      enable = true;
+      gdm.enable = true;
+    };
   };
 
   systemd.services.fprintd = {

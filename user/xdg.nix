@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   xdg = {
     configFile."electron-flags.conf".text = ''
       --ozone-platform=wayland
@@ -10,6 +9,7 @@
       --ozone-platform=wayland
       --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer
     '';
+
     desktopEntries = {
       yazi = {
         name = "Yazi";
@@ -47,8 +47,10 @@
       enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal
       ];
     };
   };
-
 }

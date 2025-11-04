@@ -1,22 +1,12 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   isVM =
     (builtins.readFile (
-      pkgs.runCommand "detect-vm" { } ''
+      pkgs.runCommand "detect-vm" {} ''
         ${pkgs.systemd}/bin/systemd-detect-virt --vm > $out || echo "none" > $out
       ''
-    )) != "none\n";
-in
-{
-
-  services = {
-    displayManager = {
-      enable = true;
-      gdm.enable = true;
-    };
-  };
-
+    ))
+    != "none\n";
+in {
   programs = {
     hyprland = {
       enable = true;
@@ -29,7 +19,7 @@ in
   };
 
   security = {
-    pam.services.hyprlock = { };
+    pam.services.hyprlock = {};
     pam.services.hyprland.enable = true;
     pam.services.hyprland.enableGnomeKeyring = true;
   };
