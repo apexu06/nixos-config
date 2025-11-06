@@ -63,6 +63,14 @@ output "HDMI-A-1" {
     position x=-1920 y=-35
 }
 
+output "eDP-1" {
+    mode "2880x1920@120"
+    scale 1.5
+    transform "normal"
+    position x=0 y=0
+    focus-at-startup
+}
+
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
     gaps 8
@@ -151,6 +159,7 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Mod+P hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
+    Mod+Shift+M { spawn "wlogout"; }
     Mod+Shift+C { spawn-sh "hyprpicker -a"; }
     Mod+O repeat=false { toggle-overview; }
     Mod+BackSpace repeat=false { close-window; }

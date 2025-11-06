@@ -11,14 +11,14 @@
     ../hyprlock.nix
   ];
 
-  # home.file.".config/niri/config.kdl".text =
-  #   builtins.readFile ./config.kdl
-  #   + ''
-  #     cursor {
-  #       xcursor-theme "${config.stylix.cursor.name}"
-  #       xcursor-size "${toString config.stylix.cursor.size}"
-  #     }
-  #   '';
+  home.file.".config/niri/config.kdl".text =
+    builtins.readFile ./config.kdl
+    + ''
+      cursor {
+        xcursor-theme "Adwaita"
+        xcursor-size ${toString (config.stylix.cursor.size - 10)}
+      }
+    '';
 
   home.packages = with pkgs; [
     nwg-look

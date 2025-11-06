@@ -81,8 +81,8 @@ in {
     };
 
     cursor = {
-      name = "Catppuccin Mocha Dark";
-      package = pkgs.catppuccin-cursors.mochaDark;
+      name = "Catppuccin Mocha Light";
+      package = pkgs.catppuccin-cursors.mochaLight;
       size = 32;
     };
   };
