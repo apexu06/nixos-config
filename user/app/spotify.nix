@@ -1,6 +1,10 @@
-{
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    spotifywm
+  ];
+
   programs.spotify-player = {
-    enable = true;
+    enable = false;
     settings = {
       login_redirect_uri = "http://127.0.0.1:8989/login";
       client_port = 8080;
@@ -56,4 +60,13 @@
       };
     };
   };
+
+  # xdg.desktopEntries."spotify" = {
+  #   name = "Spotify";
+  #   genericName = "Spotify";
+  #   exec = "wezterm start spotify_player";
+  #   icon = "spotify";
+  #   terminal = true;
+  #   categories = ["AudioVideo" "Audio" "Music"];
+  # };
 }

@@ -11,28 +11,23 @@
     ./de/${settings.de}/${settings.de}.nix
     ./app/neovim/nvim.nix
     ./app/browser/zen.nix
-    ./app/vesktop.nix
     ./app/terminal/wezterm.nix
-    ./app/git.nix
-    ./app/thunderbird.nix
     ./app/shell/quickshell/quickshell.nix
+    ./app/desktop.nix
+    ./app/spotify.nix
   ];
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    protonmail-desktop
-    spotifywm
     vlc
     obsidian
-    vscode
-    devenv
   ];
 
   nixpkgs.config.allowUnfree = true;
 
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.stateVersion = "25.05";
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "fish";
@@ -45,14 +40,6 @@
     "$HOME/.nix-profile/bin"
     "$HOME/.nix-profile/share/applications"
   ];
-
-  # systemd.user.services.nm-applet = {
-  #   Unit = {
-  #     Description = "Disabled nm-applet";
-  #   };
-  #   Install.WantedBy = [ ];
-  #   Service.ExecStart = "${pkgs.coreutils}/bin/true";
-  # };
 
   programs.home-manager.enable = true;
 }

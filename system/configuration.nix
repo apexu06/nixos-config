@@ -9,9 +9,9 @@
     ./pipewire.nix
     ./virtualization.nix
     ./de/${settings.de}.nix
-    ./steam.nix
     ./lanzaboote.nix
     ./pc.nix
+    ./services.nix
   ];
 
   nix = {
@@ -27,17 +27,23 @@
     };
     package = pkgs.lixPackageSets.stable.lix;
   };
-  system.stateVersion = "25.05";
 
-  boot.loader.systemd-boot = {
-    enable = true;
-    configurationLimit = 5;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      (final: prev: {
+        inherit
+          (prev.lixPackageSets.stable)
+          nixpkgs-review
+          nix-eval-jobs
+          nix-fast-build
+          colmena
+          ;
+      })
+    ];
   };
 
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
+  system.stateVersion = "25.05";
   networking.hostName = "iusenixbtw"; # Define your hostname.
   networking.networkmanager.enable = true;
 
@@ -71,21 +77,6 @@
     dconf.enable = true;
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = [
-      (final: prev: {
-        inherit
-          (prev.lixPackageSets.stable)
-          nixpkgs-review
-          nix-eval-jobs
-          nix-fast-build
-          colmena
-          ;
-      })
-    ];
-  };
-
   environment.systemPackages = with pkgs; [
     vim
     axel
@@ -94,37 +85,6 @@
     fish
     ntfs3g
   ];
-
-  services = {
-    openssh.enable = true;
-
-    xserver = {
-      enable = true;
-      xkb = {
-        layout = "us";
-        variant = "";
-        options = "caps:escape";
-      };
-    };
-
-    locate.enable = true;
-    fprintd.enable = true;
-
-    power-profiles-daemon.enable = true;
-    gnome.gnome-keyring.enable = true;
-    protonmail-bridge.enable = true;
-    gvfs.enable = true;
-    upower.enable = true;
-    udisks2 = {
-      enable = true;
-      mountOnMedia = true;
-    };
-
-    displayManager = {
-      enable = true;
-      gdm.enable = true;
-    };
-  };
 
   systemd.services.fprintd = {
     wantedBy = ["multi-user.target"];

@@ -1,6 +1,5 @@
 {
   pkgs,
-  apple-fonts,
   inputs,
   settings,
   lib,

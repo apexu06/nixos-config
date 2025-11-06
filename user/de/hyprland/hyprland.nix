@@ -4,24 +4,19 @@
   ...
 }: {
   imports = [
-    ./waybar.nix
     (
       if settings.launcher == "tofi"
       then ../../app/launcher/tofi.nix
       else ../../app/launcher/fuzzel.nix
     )
-    ./hypridle.nix
-    ./hyprlock.nix
+    ../hypridle.nix
+    ../hyprlock.nix
     ./dunst.nix
   ];
 
   home.packages = with pkgs; [
-    polkit_gnome
     nwg-look
-    qt6Packages.qt6ct
     pavucontrol
-    hypridle
-    hyprlock
     hyprshot
     hyprpicker
     wlogout

@@ -1,7 +1,7 @@
 {
   programs.thunderbird = {
     enable = true;
-    profiles = { };
+    profiles = {};
   };
 
   accounts.email.accounts = {
@@ -10,5 +10,9 @@
       primary = true;
       thunderbird.enable = true;
     };
+  };
+
+  programs.vesktop = {
+    enable = true;
   };
 }

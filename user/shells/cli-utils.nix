@@ -13,9 +13,11 @@
     wl-clipboard
     rustup
     eza
+    devenv
     brightnessctl
     tree
     file
+    jq
   ];
 
   home.shellAliases = {
@@ -30,8 +32,8 @@
     gs = "git status";
     gp = "git push";
     gpl = "git pull";
-    hs = "home-manager switch --flake $HOME/.dotfiles";
-    ns = "sudo nixos-rebuild switch --flake $HOME/.dotfiles";
+    hms = "nh home switch";
+    nos = "nh os switch";
   };
 
   programs.bat.enable = true;
@@ -45,5 +47,17 @@
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/home/apexu/.dotfiles"; # sets NH_OS_FLAKE variable for you
+  };
+
+  programs.git = {
+    enable = true;
+    settings = {
+      user = {
+        name = "apexu";
+        email = "jj.zelger@proton.me";
+      };
+
+      init.defaultBranch = "main";
+    };
   };
 }

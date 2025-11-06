@@ -39,7 +39,7 @@
     pkgs = nixpkgs.legacyPackages.${system};
 
     settings = {
-      de = "hyprland";
+      de = "niri";
       theme = "tokyo-night-terminal-dark";
       launcher = "fuzzel";
       de-shell = "quickshell";
