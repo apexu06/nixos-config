@@ -23,6 +23,7 @@
   home.packages = with pkgs; [
     vlc
     obsidian
+    qbittorrent
   ];
 
   nixpkgs.config.allowUnfree = true;
