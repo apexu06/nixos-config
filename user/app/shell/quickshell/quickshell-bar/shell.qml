@@ -14,7 +14,7 @@ Scope {
         model: Quickshell.screens
         PanelWindow {
             id: toplevel
-            required property var modelData
+            required property ShellScreen modelData
             screen: modelData
 
             anchors {

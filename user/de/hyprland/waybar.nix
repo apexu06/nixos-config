@@ -6,7 +6,7 @@
   programs.waybar = {
     enable = true;
     systemd = {
-      enable = false;
+      enable = true;
       target = "graphical-session.target";
     };
 
@@ -15,7 +15,7 @@
       height = 10;
       position = "top";
       modules-left = [
-        "hyprland/workspaces"
+        "niri/workspaces"
       ];
       modules-center = [
       ];
@@ -26,27 +26,11 @@
         "battery"
         "clock"
       ];
-      "hyprland/workspaces" = {
-        disable-scroll = true;
-        all-outputs = true;
-        warp-on-scroll = false;
+      "niri/workspaces" = {
         format = "{icon}";
         format-icons = {
-          "1" = "1";
-          "2" = "2";
-          "3" = "3";
-          "4" = "4";
-          "5" = "5";
-          "6" = "6";
-          "7" = "7";
-          "8" = "8";
-          "9" = "9";
-          urgent = "";
-          focused = "";
-          default = " ";
-        };
-        persistent-workspaces = {
-          "*" = 3;
+          active = "";
+          default = "";
         };
       };
       "hyprland/window" = {

@@ -31,4 +31,10 @@ WrapperRectangle {
             duration: 150
         }
     }
+
+    Behavior on width {
+        NumberAnimation {
+            duration: 150
+        }
+    }
 }
