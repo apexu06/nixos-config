@@ -1,4 +1,5 @@
 import qs.src.components
+import qs.src.services
 import qs.src
 import QtQuick.Layouts
 import Quickshell.Hyprland
@@ -22,7 +23,7 @@ StyledContainer {
                 readonly property bool isActive: workspaceId === Hyprland.focusedWorkspace?.id
                 readonly property bool exists: Hyprland.workspaces.values.some(w => w.id === workspaceId)
                 readonly property bool isUrgent: {
-                    var ws = Hyprland.workspaces.values[workspaceId];
+                    var ws = Niri.workspaces.values[workspaceId];
                     return ws ? ws.urgent : false;
                 }
 

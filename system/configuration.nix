@@ -10,7 +10,6 @@
     ./virtualization.nix
     ./de/${settings.de}.nix
     ./lanzaboote.nix
-    ./pc.nix
     ./services.nix
   ];
 
