@@ -38,6 +38,10 @@
         cd $path
         nvim .
       '';
+      of.body = ''
+        set file (tv files)
+        test -n "$file"; and nvim $file
+      '';
     };
   };
 
