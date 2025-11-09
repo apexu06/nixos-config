@@ -9,6 +9,7 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
+import qs.src.components
 
 Scope {
     Variants {
