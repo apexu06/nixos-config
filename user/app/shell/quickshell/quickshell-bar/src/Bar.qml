@@ -11,7 +11,9 @@ import qs.src.widgets.clock
 Rectangle {
     id: root
     required property ShellScreen screen
-    anchors.fill: parent
+    implicitHeight: 50
+    anchors.left: parent.left
+    anchors.right: parent.right
     color: Theme.layer0
 
     RowLayout {

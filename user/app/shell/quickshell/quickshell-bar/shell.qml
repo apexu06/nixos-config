@@ -2,7 +2,6 @@
 //@ pragma UseQApplication
 
 pragma ComponentBehavior: Bound
-import Quickshell
 import QtQuick
 import qs.src
 import qs.src.components
@@ -28,6 +27,12 @@ Scope {
 
             Bar {
                 screen: toplevel.modelData
+            }
+
+            RoundCorner {
+                color: "#ff0000"
+                implicitSize: 18
+                corner: RoundCorner.CornerEnum.BottomRight
             }
         }
     }

@@ -2,101 +2,111 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import Quickshell
-import Quickshell.Hyprland
 import qs.src
 
-PopupWindow {
+LazyLoader {
     id: root
-    color: "transparent"
-
-    property int animationDuration: 400
-    property alias width: root.implicitWidth
-    property alias height: root.implicitHeight
     required property Component content
-    property bool closeOnOutsideClick: false
+    property int animationDuration: 200
     property bool opened: false
+    property bool horizontal: false
 
-    implicitWidth: popupContent.implicitWidth
-    implicitHeight: popupContent.implicitHeight + 20
+    property bool top: true
+    property bool left: false
+    property bool right: true
+    property bool bottom: false
 
-    HyprlandFocusGrab {
-        active: root.opened
-        windows: [root]
-        onCleared: root.opened = false
+    property int mLeft: 4
+    property int mRight: 4
+    property int mTop: 4
+    property int mBottom: 4
+
+    function toggle() {
+        if (!opened) {
+            active = true;
+            opened = true;
+        } else {
+            opened = false;
+        }
     }
 
-    StyledContainer {
-        id: popupContent
-        radius: 16
-        y: -460
-        margin: 8
-        leftMargin: 8
-        rightMargin: 8
-        backgroundColor: Theme.layer0
-        border.width: 0
+    PanelWindow {
+        id: popup
+        visible: true
+        color: "transparent"
 
-        states: State {
-            name: "opened"
-            when: root.opened
-            PropertyChanges {
-                popupContent {
-                    y: 0
-                }
-            }
+        implicitWidth: popupContent.implicitWidth
+        implicitHeight: popupContent.implicitHeight
+
+        anchors {
+            top: root.top
+            left: root.left
+            right: root.right
+            bottom: root.bottom
         }
 
-        transitions: [
-            Transition {
-                from: ""
-                to: "opened"
-                SequentialAnimation {
-                    ScriptAction {
-                        script: root.visible = true
-                    }
+        margins {
+            top: root.mTop
+            left: root.mLeft
+            right: root.mRight
+            bottom: root.mBottom
+        }
 
-                    NumberAnimation {
-                        target: popupContent
-                        property: "opacity"
-                        from: 0
-                        to: 1
-                        duration: root.animationDuration
-                    }
-                }
-            },
-            Transition {
-                from: "opened"
-                to: ""
-                SequentialAnimation {
-                    PauseAnimation {
-                        duration: root.animationDuration
-                    }
-                    ScriptAction {
-                        script: root.visible = false
+        StyledContainer {
+            id: popupContent
+            radius: 16
+            y: root.horizontal ? 0 : -500
+            x: root.horizontal ? 500 : 0
+            margin: 16
+            leftMargin: 16
+            rightMargin: 16
+            color: Theme.layer0
+
+            states: State {
+                name: "opened"
+                when: root.opened
+                PropertyChanges {
+                    popupContent {
+                        y: 0
+                        x: 0
                     }
                 }
             }
-        ]
 
-        Behavior on y {
-            SpringAnimation {
-                spring: 4
-                damping: 0.3
+            transitions: [
+                Transition {
+                    from: "opened"
+                    to: ""
+                    SequentialAnimation {
+                        PauseAnimation {
+                            duration: root.animationDuration
+                        }
+                        ScriptAction {
+                            script: root.active = false
+                        }
+                    }
+                }
+            ]
+
+            Behavior on y {
+                NumberAnimation {
+                    duration: root.animationDuration
+                    easing.type: Easing.OutQuad
+                }
             }
-        }
 
-        child: Loader {
-            id: loader
-            active: root.visible
-            sourceComponent: root.content
-        }
+            Behavior on x {
+                NumberAnimation {
+                    duration: root.animationDuration
+                    easing.type: Easing.OutQuad
+                }
+            }
 
-        implicitWidth: loader.sourceComponent ? loader.sourceComponent.width : 0
-        implicitHeight: loader.sourceComponent ? loader.sourceComponent.height : 0
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: mouseX.accepted = true
-            onPressed: mouseX.accepted = true
+            child: Loader {
+                id: loader
+                active: root.active
+                sourceComponent: root.content
+            }
         }
     }
 }
