@@ -6,7 +6,9 @@ import QtQuick
 import qs.src
 import qs.src.components
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
+import QtQuick.Layouts
 
 Scope {
     Variants {
@@ -23,16 +25,43 @@ Scope {
             }
 
             color: "transparent"
-            implicitHeight: 50
+            implicitHeight: 74
+            exclusiveZone: 50
+            WlrLayershell.layer: WlrLayer.Bottom
 
             Bar {
                 screen: toplevel.modelData
             }
 
-            RoundCorner {
-                color: "#ff0000"
-                implicitSize: 18
-                corner: RoundCorner.CornerEnum.BottomRight
+            RowLayout {
+                anchors.fill: parent
+
+                Rectangle {
+                    Layout.fillHeight: true
+
+                    RoundCorner {
+                        color: Theme.layer0
+                        implicitSize: 24
+                        corner: RoundCorner.CornerEnum.TopLeft
+                        anchors.bottom: parent.bottom
+                    }
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                }
+
+                Rectangle {
+                    Layout.fillHeight: true
+
+                    RoundCorner {
+                        color: Theme.layer0
+                        implicitSize: 24
+                        corner: RoundCorner.CornerEnum.TopRight
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                    }
+                }
             }
         }
     }
