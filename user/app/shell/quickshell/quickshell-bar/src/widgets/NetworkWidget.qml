@@ -291,7 +291,7 @@ Item {
                                                 }
 
                                                 Behavior on width {
-                                                    // enabled: removeButton.visible
+                                                    enabled: Network.wifiConnecting
                                                     NumberAnimation {
                                                         duration: 200
                                                         easing.type: Easing.OutQuad

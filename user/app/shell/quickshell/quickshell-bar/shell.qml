@@ -28,7 +28,6 @@ Scope {
             color: "transparent"
             implicitHeight: 74
             exclusiveZone: 50
-            WlrLayershell.layer: WlrLayer.Bottom
 
             Bar {
                 screen: toplevel.modelData
