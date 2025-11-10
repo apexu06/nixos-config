@@ -30,6 +30,8 @@ Rectangle {
                 screen: root.screen
             }
 
+            ActiveWindowWidget {}
+
             Item {
                 Layout.fillWidth: true
             }
@@ -56,6 +58,16 @@ Rectangle {
             }
 
             TrayWidget {}
+
+            StyledContainer {
+                leftMargin: 4
+                rightMargin: 4
+
+                StyledIcon {
+                    iconName: "power_settings_new"
+                    onClicked: Quickshell.execDetached("wlogout")
+                }
+            }
         }
     }
 }
