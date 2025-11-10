@@ -60,8 +60,9 @@ Singleton {
         if (event.WindowFocusChanged) {
             const id = event.WindowFocusChanged.id;
             const idx = root.windows.findIndex(w => w.id === id);
+            if (idx !== -1)
+                root.focusedWindow = root.windows[idx];
 
-            root.focusedWindow = root.windows[idx];
             root.windows.forEach(w => {
                 w.focused = (w.id === id);
             });

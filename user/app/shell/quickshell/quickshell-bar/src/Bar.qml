@@ -38,6 +38,7 @@ Rectangle {
         }
 
         ClockWidget {}
+        MprisWidget {}
 
         RowLayout {
             id: rightSide

@@ -27,6 +27,7 @@ Item {
         id: batteryIcon
 
         horizontal: true
+        anchorItem: root
 
         content: ColumnLayout {
             spacing: 8
