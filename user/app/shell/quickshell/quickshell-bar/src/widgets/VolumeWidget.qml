@@ -26,6 +26,7 @@ Item {
         id: volumePopup
 
         horizontal: true
+        anchorItem: root
 
         content: ColumnLayout {
             spacing: 16

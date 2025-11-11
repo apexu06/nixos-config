@@ -7,19 +7,10 @@ import qs.src
 LazyLoader {
     id: root
     required property Component content
+    required property var anchorItem
     property int animationDuration: 200
     property bool opened: false
     property bool horizontal: false
-
-    property bool top: true
-    property bool left: false
-    property bool right: true
-    property bool bottom: false
-
-    property int mLeft: 4
-    property int mRight: 4
-    property int mTop: 4
-    property int mBottom: 4
 
     function toggle() {
         if (!opened) {
@@ -30,7 +21,7 @@ LazyLoader {
         }
     }
 
-    PanelWindow {
+    PopupWindow {
         id: popup
         visible: true
         color: "transparent"
@@ -38,19 +29,9 @@ LazyLoader {
         implicitWidth: popupContent.implicitWidth
         implicitHeight: popupContent.implicitHeight
 
-        anchors {
-            top: root.top
-            left: root.left
-            right: root.right
-            bottom: root.bottom
-        }
-
-        margins {
-            top: root.mTop
-            left: root.mLeft
-            right: root.mRight
-            bottom: root.mBottom
-        }
+        anchor.item: root.anchorItem
+        anchor.rect.y: 30
+        anchor.rect.x: 0
 
         StyledContainer {
             id: popupContent

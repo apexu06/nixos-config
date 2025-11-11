@@ -37,6 +37,7 @@ Item {
         id: networkPopup
 
         horizontal: true
+        anchorItem: root
 
         onOpenedChanged: {
             if (opened) {

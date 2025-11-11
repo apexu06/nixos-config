@@ -47,22 +47,8 @@ Item {
         }
 
         Behavior on text {
-            SequentialAnimation {
-                NumberAnimation {
-                    target: icon
-                    property: "opacity"
-                    to: 0
-                    duration: 150
-                    easing.type: Easing.InCubic
-                }
-                PropertyAction {}
-                NumberAnimation {
-                    target: icon
-                    property: "opacity"
-                    to: 1
-                    duration: 150
-                    easing.type: Easing.OutCubic
-                }
+            FadeAnimation {
+                target: icon
             }
         }
     }
