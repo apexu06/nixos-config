@@ -1,6 +1,6 @@
 return {
 	{
-	  event = "VeryLazy",
+		event = "VeryLazy",
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
@@ -15,7 +15,7 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-	  event = "VeryLazy",
+		event = "VeryLazy",
 		after = "nvim-treesitter",
 		config = function()
 			require("treesitter-context").setup({

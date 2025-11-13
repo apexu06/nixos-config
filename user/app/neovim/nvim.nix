@@ -23,6 +23,7 @@
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
   };
 
   xdg.configFile."nvim".source = ./.;

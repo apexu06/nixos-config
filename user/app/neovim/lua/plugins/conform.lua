@@ -8,6 +8,7 @@ return { -- Autoformat
 		},
 		formatters_by_ft = {
 			lua = { "stylua" },
+			astro = { "prettier" },
 			typescript = { "prettier" },
 			typescriptreact = { "prettier" },
 			svelte = { "prettier" },

@@ -139,6 +139,27 @@
     "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
+          "neovim-nightly-overlay",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762980239,
+        "narHash": "sha256-8oNVE8TrD19ulHinjaqONf9QWCKK+w4url56cdStMpM=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "52a2caecc898d0b46b2b905f058ccc5081f842da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_3": {
+      "inputs": {
+        "nixpkgs-lib": [
           "stylix",
           "nixpkgs"
         ]
@@ -219,11 +240,19 @@
         ]
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1762787259,
         "narHash": "sha256-t2U/GLLXHa2+kJkwnFNRVc2fEJ/lUfyZXBE5iKzJdcs=",
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "37a3d97f2873e0f68711117c34d04b7c7ead8f4e",
+=======
+        "lastModified": 1762964643,
+        "narHash": "sha256-RYHN8O/Aja59XDji6WSJZPkJpYVUfpSkyH+PEupBJqM=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "827f2a23373a774a8805f84ca5344654c31f354b",
+>>>>>>> origin/pc
         "type": "github"
       },
       "original": {
@@ -279,6 +308,7 @@
         "type": "github"
       }
     },
+<<<<<<< HEAD
     "nixpkgs": {
       "locked": {
         "lastModified": 1762596750,
@@ -286,6 +316,67 @@
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "b6a8526db03f735b89dd5ff348f53f752e7ddc8e",
+=======
+    "neovim-nightly-overlay": {
+      "inputs": {
+        "flake-parts": "flake-parts_2",
+        "neovim-src": "neovim-src",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1762992291,
+        "narHash": "sha256-2YbtrpTS2YwxH+ZuKH+F9+bHdTetymcF2sbEy3rfqzg=",
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "rev": "8252d1519230c247b720a52ae25642ee1200c940",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "type": "github"
+      }
+    },
+    "neovim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762991150,
+        "narHash": "sha256-L9wWdIn9jBYbx+RhyPZwQ5bQx1bpOEYqkP8jMEdSiks=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "fbcdbd458f27e427800c8105ebc8697563fba1b0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1762604901,
+        "narHash": "sha256-Pr2jpryIaQr9Yx8p6QssS03wqB6UifnnLr3HJw9veDw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f6b44b2401525650256b977063dbcf830f762369",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1762844143,
+        "narHash": "sha256-SlybxLZ1/e4T2lb1czEtWVzDCVSTvk9WLwGhmxFmBxI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9da7f1cf7f8a6e2a7cb3001b048546c92a8258b4",
+>>>>>>> origin/pc
         "type": "github"
       },
       "original": {
@@ -350,7 +441,12 @@
       "inputs": {
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
+<<<<<<< HEAD
         "nixpkgs": "nixpkgs",
+=======
+        "neovim-nightly-overlay": "neovim-nightly-overlay",
+        "nixpkgs": "nixpkgs_2",
+>>>>>>> origin/pc
         "stylix": "stylix",
         "zen-browser": "zen-browser"
       }
@@ -383,7 +479,11 @@
         "base16-helix": "base16-helix",
         "base16-vim": "base16-vim",
         "firefox-gnome-theme": "firefox-gnome-theme",
+<<<<<<< HEAD
         "flake-parts": "flake-parts_2",
+=======
+        "flake-parts": "flake-parts_3",
+>>>>>>> origin/pc
         "gnome-shell": "gnome-shell",
         "nixpkgs": [
           "nixpkgs"
@@ -514,11 +614,19 @@
         ]
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1762835117,
         "narHash": "sha256-qwUWaKy+kmTBk6xxMI0yfkD5IU2gcxXOXNPJ2T+Enys=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
         "rev": "51f5194aff34d130d07f684df2a85b10a3933558",
+=======
+        "lastModified": 1762903129,
+        "narHash": "sha256-4vxtwKSBiiJ950ccLo8kQvBGwyNjhglOgWI5b/sjGXY=",
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
+        "rev": "d03a5917aef22219df1f97b6da6fe5b8039be8de",
+>>>>>>> origin/pc
         "type": "github"
       },
       "original": {

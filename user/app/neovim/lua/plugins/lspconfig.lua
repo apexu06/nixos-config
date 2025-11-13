@@ -63,6 +63,9 @@ return {
 			qmlls = {
 				cmd = { "qmlls", "-E" },
 			},
+			astro = {},
+			tailwindcss = {},
+			svelte = {},
 		}
 
 		if not is_nixos then
