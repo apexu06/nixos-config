@@ -41,6 +41,7 @@
   programs.yazi.enable = true;
 
   programs.zoxide.enable = true;
+  programs.bun.enable = true;
 
   programs.nh = {
     enable = true;

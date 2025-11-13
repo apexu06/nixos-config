@@ -11,8 +11,9 @@ import qs.src
 
 StyledContainer {
     id: root
-    property MprisPlayer player: Mpris.players.values[0]
-    property var entry: DesktopEntries.heuristicLookup(player.desktopEntry)
+    visible: player !== null
+    property MprisPlayer player: Mpris.players?.values[0] ?? null
+    property var entry: DesktopEntries.heuristicLookup(player?.desktopEntry)
     hoverEnabled: true
 
     TapHandler {
@@ -23,13 +24,13 @@ StyledContainer {
         width: parent.width
 
         IconImage {
-            source: Quickshell.iconPath(root.entry.icon)
+            source: Quickshell.iconPath(root.entry?.icon ?? "headphones")
             implicitSize: 20
         }
 
         StyledText {
             Layout.fillWidth: true
-            text: root.player.trackTitle
+            text: root.player?.trackTitle ?? ""
             elide: Text.ElideRight
         }
 
@@ -39,7 +40,7 @@ StyledContainer {
 
         StyledText {
             Layout.fillWidth: true
-            text: root.player.trackArtist
+            text: root.player?.trackArtist ?? ""
             color: Theme.withAlpha(Theme.fg, 0.5)
             elide: Text.ElideRight
         }
