@@ -30,7 +30,7 @@ vim.diagnostic.config({
 })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = { "*.md", "*.tex" },
+	pattern = { "*.md", "*.tex", "*.svx" },
 	callback = function()
 		vim.cmd("setlocal textwidth=80")
 		vim.cmd("setlocal colorcolumn=80")
@@ -42,4 +42,10 @@ vim.api.nvim_create_autocmd("User", {
 	callback = function(event)
 		Snacks.rename.on_rename_file(event.data.from, event.data.to)
 	end,
+})
+
+vim.filetype.add({
+	extension = {
+		svx = "markdown",
+	},
 })

@@ -11,6 +11,7 @@ import qs.src
 
 StyledContainer {
     id: root
+    visible: Mpris.players.values.length > 0
     property MprisPlayer player: Mpris.players.values[0]
     property var entry: DesktopEntries.heuristicLookup(player.desktopEntry)
     hoverEnabled: true
