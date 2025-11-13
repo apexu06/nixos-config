@@ -23,16 +23,16 @@ config.hide_tab_bar_if_only_one_tab = true
 config.scrollback_lines = 20000
 config.window_close_confirmation = "NeverPrompt"
 
-if wezterm.target_triple:find("windows") then
-	config.wsl_domains = {
-		{ name = "WSL:Arch", distribution = "Arch" },
-	}
-	config.default_domain = "WSL:Arch"
-	config.window_background_opacity = 1
-	config.win32_system_backdrop = "Disable"
-	config.allow_win32_input_mode = false
-	config.max_fps = 180
-end
+-- if wezterm.target_triple:find("windows") then
+-- 	config.wsl_domains = {
+-- 		{ name = "WSL:Arch", distribution = "Arch" },
+-- 	}
+-- 	config.default_domain = "WSL:Arch"
+-- 	config.window_background_opacity = 1
+-- 	config.win32_system_backdrop = "Disable"
+-- 	config.allow_win32_input_mode = false
+-- 	config.max_fps = 180
+-- end
 
 local function is_vim(pane)
 	return pane:get_user_vars().IS_NVIM == "true"

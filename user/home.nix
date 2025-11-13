@@ -25,6 +25,7 @@
     vlc
     obsidian
     qbittorrent
+    ungoogled-chromium
   ];
 
   nixpkgs.config.allowUnfree = true;
