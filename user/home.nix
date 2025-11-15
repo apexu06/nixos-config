@@ -26,6 +26,7 @@
     obsidian
     qbittorrent
     ungoogled-chromium
+    teamspeak6-client
   ];
 
   nixpkgs.config.allowUnfree = true;

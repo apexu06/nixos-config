@@ -47,7 +47,18 @@
     };
   in {
     nixosConfigurations = {
-      iusenixbtw = lib.nixosSystem {
+      pc = lib.nixosSystem {
+        specialArgs = {
+          inherit system;
+          inherit inputs;
+          inherit settings;
+        };
+        modules = [
+          ./system/configuration.nix
+          ./system/pc.nix
+        ];
+      };
+      laptop = lib.nixosSystem {
         specialArgs = {
           inherit system;
           inherit inputs;
@@ -58,6 +69,7 @@
         ];
       };
     };
+
     homeConfigurations = {
       apexu = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;

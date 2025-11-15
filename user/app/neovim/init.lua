@@ -129,11 +129,6 @@ require("nvim-treesitter.configs").setup({
 })
 
 require("mini.ai").setup({ n_lines = 500 })
-local statusline = require("mini.statusline")
-statusline.setup()
-statusline.section_location = function()
-	return "%2l:%-2v"
-end
 require("mini.comment").setup()
 require("mini.pairs").setup()
 require("mini.surround").setup()
@@ -273,7 +268,19 @@ require("conform").setup({
 -- 	end,
 -- })
 -- vim.cmd("set completeopt+=noselect")
-vim.lsp.enable({ "lua_ls", "rust_analyer", "gopls", "clangd", "ts_ls", "py_lsp", "astro", "tailwindcss", "svelte" })
+vim.lsp.enable({
+	"lua_ls",
+	"rust_analyer",
+	"gopls",
+	"clangd",
+	"ts_ls",
+	"py_lsp",
+	"astro",
+	"tailwindcss",
+	"svelte",
+	"nil_ls",
+	"qmlls",
+})
 
 vim.lsp.config("lua_ls", {
 	settings = {
