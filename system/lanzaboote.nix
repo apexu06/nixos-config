@@ -13,9 +13,10 @@
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.supportedFilesystems = ["ntfs"];
 
   boot.lanzaboote = {
     enable = true;

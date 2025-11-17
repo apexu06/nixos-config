@@ -12,9 +12,9 @@ StyledContainer {
     id: root
     visible: Niri.focusedWindow !== null
     property var entry: DesktopEntries.heuristicLookup(Niri.focusedWindow?.appId ?? "")
-    property var name: Niri.focusedWindow?.appId ?? ""
+    property var name: Niri.focusedWindow?.title ?? ""
 
-    implicitWidth: 150
+    implicitWidth: 230
 
     RowLayout {
         width: parent.width

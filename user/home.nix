@@ -26,6 +26,7 @@
     obsidian
     qbittorrent
     ungoogled-chromium
+    osu-lazer-bin
   ];
 
   nixpkgs.config.allowUnfree = true;
