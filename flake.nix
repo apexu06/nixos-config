@@ -71,7 +71,19 @@
     };
 
     homeConfigurations = {
-      apexu = home-manager.lib.homeManagerConfiguration {
+      pc = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          inherit inputs;
+          inherit settings;
+        };
+        modules = [
+          ./user/home.nix
+          ./user/pc.nix
+        ];
+      };
+
+      laptop = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
           inherit inputs;

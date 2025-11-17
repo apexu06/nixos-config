@@ -26,7 +26,7 @@
     obsidian
     qbittorrent
     ungoogled-chromium
-    teamspeak6-client
+    osu-lazer-bin
   ];
 
   nixpkgs.config.allowUnfree = true;
