@@ -2,6 +2,7 @@
   settings,
   pkgs,
   config,
+  inputs,
   lib,
   ...
 }: {
@@ -9,16 +10,22 @@
     ../../app/launcher/${settings.launcher}.nix
     ../hypridle.nix
     ../hyprlock.nix
+    inputs.niri.homeModules.niri
   ];
 
-  home.file.".config/niri/config.kdl".text =
-    builtins.readFile ./config.kdl
-    + ''
-      cursor {
-        xcursor-theme "Adwaita"
-        xcursor-size ${toString (config.stylix.cursor.size - 10)}
-      }
-    '';
+  programs.niri = {
+    config = builtins.readFile ./config.kdl;
+    package = pkgs.niri;
+  };
+
+  # home.file.".config/niri/config.kdl".text =
+  #   builtins.readFile ./config.kdl
+  #   + ''
+  #     cursor {
+  #       xcursor-theme "Adwaita"
+  #       xcursor-size ${toString (config.stylix.cursor.size - 10)}
+  #     }
+  #   '';
 
   home.packages = with pkgs; [
     nwg-look

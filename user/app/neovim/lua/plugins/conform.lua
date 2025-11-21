@@ -11,7 +11,7 @@ return { -- Autoformat
 			astro = { "prettier" },
 			typescript = { "prettier" },
 			typescriptreact = { "prettier" },
-			svelte = { "prettier" },
+			svelte = { "prettierd" },
 			javascript = { "prettierd" },
 			json = { "prettierd" },
 			jsonc = { "prettierd" },
