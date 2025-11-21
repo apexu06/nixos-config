@@ -26,7 +26,6 @@ Item {
     StyledPopup {
         id: batteryIcon
 
-        horizontal: true
         anchorItem: root
 
         content: ColumnLayout {

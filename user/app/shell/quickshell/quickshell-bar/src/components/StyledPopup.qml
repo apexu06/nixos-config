@@ -2,15 +2,18 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import Quickshell
+import Quickshell.Wayland
 import qs.src
 
 LazyLoader {
     id: root
     required property Component content
     required property var anchorItem
-    property int animationDuration: 200
+    property int animationDuration: 500
     property bool opened: false
-    property bool horizontal: false
+
+    property list<real> enterCurve: [0.38, 1.21, 0.22, 1, 1, 1]
+    property list<real> exitCurve: [0.05, 0, 2 / 15, 0.06, 1 / 6, 0.4, 5 / 24, 0.82, 0.25, 1, 1, 1]
 
     function toggle() {
         if (!opened) {
@@ -21,7 +24,7 @@ LazyLoader {
         }
     }
 
-    PopupWindow {
+    PanelWindow {
         id: popup
         visible: true
         color: "transparent"
@@ -29,27 +32,80 @@ LazyLoader {
         implicitWidth: popupContent.implicitWidth
         implicitHeight: popupContent.implicitHeight
 
-        anchor.item: root.anchorItem
-        anchor.rect.y: 30
-        anchor.rect.x: 0
+        anchors {
+            left: true
+            top: true
+            bottom: true
+            right: true
+        }
+
+        WlrLayershell.exclusiveZone: -1
+
+        mask: Region {
+            item: Rectangle {
+                x: 0
+                y: 0
+                width: popup.width
+                height: popup.height
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            z: -1
+            enabled: root.opened
+            acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+
+            onClicked: mouse => {
+                // Calculate popup content position and bounds
+                const contentX = popupContent.x;
+                const contentY = popupContent.y;
+                const clickX = mouse.x;
+                const clickY = mouse.y;
+
+                const outsideContent = clickX < contentX || clickX > contentX + popupContent.width || clickY < contentY || clickY > contentY + popupContent.height;
+
+                if (outsideContent) {
+                    root.toggle();
+                }
+            }
+        }
 
         StyledContainer {
             id: popupContent
             radius: 16
-            y: root.horizontal ? 0 : -500
-            x: root.horizontal ? 500 : 0
+            scale: 0.90
+            opacity: 0
             margin: 16
             leftMargin: 16
             rightMargin: 16
             color: Theme.layer0
+
+            x: {
+                if (!root.anchorItem)
+                    return 100;
+
+                // Get the anchor item's position in screen coordinates
+                const itemPos = root.anchorItem.mapToItem(null, 0, 0);
+                return itemPos.x - width / 2;
+            }
+
+            y: {
+                if (!root.anchorItem)
+                    return 100;
+
+                // Get the anchor item's position in screen coordinates
+                const itemPos = root.anchorItem.mapToItem(null, 0, 0);
+                return itemPos.y + 85; // 30px offset like your original anchor.rect.y
+            }
 
             states: State {
                 name: "opened"
                 when: root.opened
                 PropertyChanges {
                     popupContent {
-                        y: 0
-                        x: 0
+                        scale: 1
+                        opacity: 1
                     }
                 }
             }
@@ -69,17 +125,20 @@ LazyLoader {
                 }
             ]
 
-            Behavior on y {
+            Behavior on opacity {
+                enabled: root.opened
                 NumberAnimation {
                     duration: root.animationDuration
-                    easing.type: Easing.OutQuad
+                    easing.type: Easing.BezierSpline
+                    easing.bezierCurve: root.opened ? root.enterCurve : root.exitCurve
                 }
             }
 
-            Behavior on x {
+            Behavior on scale {
                 NumberAnimation {
                     duration: root.animationDuration
-                    easing.type: Easing.OutQuad
+                    easing.type: Easing.BezierSpline
+                    easing.bezierCurve: root.opened ? root.enterCurve : root.exitCurve
                 }
             }
 
@@ -87,6 +146,15 @@ LazyLoader {
                 id: loader
                 active: root.active
                 sourceComponent: root.content
+                opacity: root.opened ? 1 : 0
+
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: root.animationDuration
+                        easing.type: Easing.BezierSpline
+                        easing.bezierCurve: root.opened ? root.enterCurve : root.exitCurve
+                    }
+                }
             }
         }
     }

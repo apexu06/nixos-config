@@ -22,8 +22,8 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
-    defaultEditor = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    # defaultEditor = true;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   xdg.configFile."nvim".source = ./.;

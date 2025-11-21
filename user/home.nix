@@ -1,7 +1,6 @@
 {
   pkgs,
   settings,
-  inputs,
   ...
 }: {
   imports = [
@@ -13,7 +12,7 @@
     ./app/neovim/nvim.nix
     ./app/browser/zen.nix
     ./app/terminal/wezterm.nix
-    ./app/shell/quickshell/quickshell.nix
+    ./app/shell/${settings.de-shell}/${settings.de-shell}.nix
     ./app/desktop.nix
     ./app/spotify.nix
   ];

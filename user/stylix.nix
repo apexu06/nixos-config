@@ -16,6 +16,7 @@
 in {
   imports = [
     inputs.stylix.homeModules.stylix
+    inputs.niri.homeModules.stylix
   ];
 
   stylix = {

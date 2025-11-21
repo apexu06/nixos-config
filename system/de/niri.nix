@@ -1,9 +1,16 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  nixpkgs.overlays = [inputs.niri.overlays.niri];
+
   environment.systemPackages = with pkgs; [
     xwayland-satellite
   ];
 
   programs = {
+    niri.enable = true;
     gnome-disks.enable = true;
   };
 

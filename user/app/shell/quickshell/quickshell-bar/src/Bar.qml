@@ -7,6 +7,7 @@ import Quickshell.Wayland
 import qs.src.components
 import qs.src
 import qs.src.widgets
+import qs.src.widgets
 import qs.src.widgets.clock
 
 Rectangle {
@@ -16,6 +17,8 @@ Rectangle {
     anchors.left: parent.left
     anchors.right: parent.right
     color: Theme.layer0
+
+    NotificationWidget {}
 
     RowLayout {
         anchors.fill: parent

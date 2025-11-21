@@ -24,8 +24,6 @@ Item {
 
     StyledPopup {
         id: volumePopup
-
-        horizontal: true
         anchorItem: root
 
         content: ColumnLayout {
