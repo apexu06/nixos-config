@@ -24,6 +24,12 @@ vim.diagnostic.config({
 	signs = true,
 })
 
+vim.filetype.add({
+	extension = {
+		svx = "svelte",
+	},
+})
+
 local map = vim.keymap.set
 
 vim.pack.add({

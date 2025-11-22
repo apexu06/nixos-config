@@ -9,7 +9,7 @@ LazyLoader {
     id: root
     required property Component content
     required property var anchorItem
-    property int animationDuration: 500
+    property int animationDuration: 200
     property bool opened: false
 
     property list<real> enterCurve: [0.38, 1.21, 0.22, 1, 1, 1]
@@ -40,6 +40,7 @@ LazyLoader {
         }
 
         WlrLayershell.exclusiveZone: -1
+        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
         mask: Region {
             item: Rectangle {
@@ -87,6 +88,9 @@ LazyLoader {
 
                 // Get the anchor item's position in screen coordinates
                 const itemPos = root.anchorItem.mapToItem(null, 0, 0);
+                if (itemPos.x + width / 2 > popup.width)
+                    return popup.width - width - 8;
+
                 return itemPos.x - width / 2;
             }
 
@@ -96,7 +100,7 @@ LazyLoader {
 
                 // Get the anchor item's position in screen coordinates
                 const itemPos = root.anchorItem.mapToItem(null, 0, 0);
-                return itemPos.y + 85; // 30px offset like your original anchor.rect.y
+                return itemPos.y + 30; // 30px offset like your original anchor.rect.y
             }
 
             states: State {
