@@ -4,14 +4,15 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import qs.src
-import qs.src.components
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 import qs.src.components
+import qs.src.widgets
 
 Scope {
+    NotificationOverlay {}
     Variants {
         model: Quickshell.screens
         PanelWindow {

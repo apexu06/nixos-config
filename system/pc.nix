@@ -35,9 +35,24 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
+    extraPackages = with pkgs; [
+      xorg.libXcursor
+      xorg.libXi
+      xorg.libXinerama
+      xorg.libXScrnSaver
+      libpng
+      libpulseaudio
+      libvorbis
+      stdenv.cc.cc.lib
+      libkrb5
+      keyutils
+    ];
   };
 
-  programs.gamemode.enable = true;
+  programs.gpu-screen-recorder.enable = false;
 
   hardware.graphics = {
     enable = true;

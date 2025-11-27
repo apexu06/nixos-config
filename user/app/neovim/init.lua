@@ -18,6 +18,14 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = " "
 
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { "*.md", "*.tex" },
+	callback = function()
+		vim.cmd("setlocal textwidth=100")
+		vim.cmd("setlocal colorcolumn=100")
+	end,
+})
+
 vim.diagnostic.config({
 	virtual_text = false,
 	underline = true,
@@ -284,15 +292,6 @@ require("conform").setup({
 })
 
 --- lsp
--- vim.api.nvim_create_autocmd("LspAttach", {
--- 	callback = function(ev)
--- 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
--- 		if client:supports_method("textDocument/completion") then
--- 			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
--- 		end
--- 	end,
--- })
--- vim.cmd("set completeopt+=noselect")
 vim.lsp.enable({
 	"lua_ls",
 	"rust_analyer",

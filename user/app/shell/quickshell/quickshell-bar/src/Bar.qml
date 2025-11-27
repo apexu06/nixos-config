@@ -18,8 +18,6 @@ Rectangle {
     anchors.right: parent.right
     color: Theme.layer0
 
-    NotificationWidget {}
-
     RowLayout {
         anchors.fill: parent
         anchors.margins: 8
