@@ -11,6 +11,7 @@ import qs.src
 Item {
     id: root
     implicitWidth: 22
+    implicitHeight: parent.height
 
     property int currentOpen: -1
 

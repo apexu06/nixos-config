@@ -1,3 +1,4 @@
+---@diagnostic disable: deprecated
 vim.opt.number = true
 vim.opt.undofile = true
 vim.opt.relativenumber = true
@@ -209,7 +210,7 @@ map("n", "<leader>o", "<CMD>Oil<CR>")
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { noremap = true, silent = true })
-map("n", "pe", vim.diagnostic.goto_prev)
+map("n", "nE", vim.diagnostic.goto_prev)
 map("n", "ne", vim.diagnostic.goto_next)
 map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "<leader>q", vim.diagnostic.setloclist)

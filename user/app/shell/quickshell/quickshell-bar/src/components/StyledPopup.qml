@@ -58,7 +58,6 @@ LazyLoader {
             acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
 
             onClicked: mouse => {
-                // Calculate popup content position and bounds
                 const contentX = popupContent.x;
                 const contentY = popupContent.y;
                 const clickX = mouse.x;
@@ -86,21 +85,21 @@ LazyLoader {
                 if (!root.anchorItem)
                     return 100;
 
-                // Get the anchor item's position in screen coordinates
                 const itemPos = root.anchorItem.mapToItem(null, 0, 0);
-                if (itemPos.x + width / 2 > popup.width)
-                    return popup.width - width - 8;
+                const itemCenter = itemPos.x + root.anchorItem.width / 2;
 
-                return itemPos.x - width / 2;
+                if (itemPos.x + width / 2 > popup.width)
+                    return popup.width - width - 16;
+
+                return itemCenter - width / 2;
             }
 
             y: {
                 if (!root.anchorItem)
                     return 100;
 
-                // Get the anchor item's position in screen coordinates
                 const itemPos = root.anchorItem.mapToItem(null, 0, 0);
-                return itemPos.y + 30; // 30px offset like your original anchor.rect.y
+                return itemPos.y + root.anchorItem.height + 12;
             }
 
             states: State {

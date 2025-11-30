@@ -11,6 +11,7 @@ import qs.src.services
 Item {
     id: root
     implicitWidth: 22
+    implicitHeight: parent.height
 
     property bool popupOpen: false
 

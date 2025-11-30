@@ -87,15 +87,15 @@ LazyLoader {
                 }
 
                 function getIcon() {
-                    if (modelData.image !== "") {
+                    if (modelData?.image !== "") {
                         return modelData.image;
                     }
 
-                    if (!modelData.appIcon.startsWith("image://") && !modelData.appIcon.startsWith("file://")) {
-                        return Quickshell.iconPath(modelData.appIcon);
+                    if (!modelData?.appIcon.startsWith("image://") && !modelData?.appIcon.startsWith("file://")) {
+                        return Quickshell.iconPath(modelData?.appIcon);
                     }
 
-                    return modelData.appIcon;
+                    return modelData?.appIcon;
                 }
 
                 RowLayout {
@@ -105,8 +105,8 @@ LazyLoader {
 
                     Image {
                         id: image
-                        visible: notification.modelData.image !== "" || notification.modelData.appIcon !== ""
-                        source: notification.getIcon()
+                        visible: notification.modelData?.image !== "" || notification.modelData?.appIcon !== ""
+                        source: notification.getIcon() ?? ""
                         fillMode: Image.PreserveAspectCrop
 
                         Layout.fillHeight: true
@@ -142,7 +142,7 @@ LazyLoader {
                             spacing: 2
 
                             StyledText {
-                                text: notification.modelData.summary
+                                text: notification.modelData?.summary ?? ""
                                 elide: Text.ElideRight
                                 Layout.fillWidth: true
                                 horizontalAlignment: Text.AlignLeft
@@ -151,14 +151,14 @@ LazyLoader {
                             }
 
                             StyledText {
-                                text: notification.modelData.body
+                                text: notification.modelData?.body ?? ""
                                 Layout.fillWidth: true
                                 elide: Text.ElideRight
                                 horizontalAlignment: Text.AlignLeft
                             }
 
                             StyledText {
-                                text: notification.modelData.appName
+                                text: notification.modelData?.appName ?? ""
                                 Layout.fillWidth: true
                                 elide: Text.ElideRight
                                 color: Theme.withAlpha(Theme.fg, 0.5)
@@ -195,7 +195,7 @@ LazyLoader {
                 Timer {
                     id: autoDismiss
                     running: window.visible && !itemHover.hovered
-                    interval: (notification.modelData.expireTimeout > 0 ? notification.modelData.expireTimeout : 5) * 1000
+                    interval: (notification.modelData?.expireTimeout > 0 ? notification.modelData?.expireTimeout : 5) * 1000
                     onTriggered: {
                         notification.dismiss();
                     }

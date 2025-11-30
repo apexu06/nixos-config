@@ -143,9 +143,9 @@
         };
 
         focus-ring = {
-          enable = false;
+          enable = true;
           width = 2;
-          active.color = "#7AA2F7";
+          active.color = config.lib.stylix.colors.base0D;
         };
 
         shadow = {
@@ -188,12 +188,12 @@
           };
           clip-to-geometry = true;
         }
-        {
-          matches = [
-            {is-active = false;}
-          ];
-          opacity = 0.98;
-        }
+        # {
+        #   matches = [
+        #     {is-active = false;}
+        #   ];
+        #   opacity = 0.98;
+        # }
       ];
 
       # Layer rules

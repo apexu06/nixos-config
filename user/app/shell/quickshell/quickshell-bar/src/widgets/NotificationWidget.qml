@@ -13,11 +13,25 @@ Item {
     id: root
     implicitWidth: 22
 
-    StyledIcon {
-        iconName: "notifications"
-        size: 22
-        anchors.centerIn: parent
-        onClicked: notifPopup.toggle()
+    RowLayout {
+        width: parent.implicitWidth
+
+        StyledIcon {
+            Layout.fillWidth: true
+            iconName: "notifications"
+            size: 22
+            onClicked: notifPopup.toggle()
+            active: notifPopup.opened
+        }
+
+        StyledText {
+            visible: Notifications.allNotifs.length >= 1
+            clip: true
+            text: Notifications.allNotifs.length
+            horizontalAlignment: Text.AlignRight
+            Layout.leftMargin: 0
+            Layout.topMargin: -10
+        }
     }
 
     Timer {
@@ -138,13 +152,13 @@ Item {
                     }
 
                     function getIcon() {
-                        if (modelData.image !== "") {
-                            return modelData.image;
+                        if (modelData?.image !== "") {
+                            return modelData?.image;
                         }
-                        if (!modelData.appIcon.startsWith("image://") && !modelData.appIcon.startsWith("file://")) {
-                            return Quickshell.iconPath(modelData.appIcon);
+                        if (!modelData?.appIcon.startsWith("image://") && !modelData?.appIcon.startsWith("file://")) {
+                            return Quickshell.iconPath(modelData?.appIcon);
                         }
-                        return modelData.appIcon;
+                        return modelData?.appIcon;
                     }
 
                     ColumnLayout {
@@ -154,11 +168,11 @@ Item {
                         RowLayout {
                             Layout.alignment: Qt.AlignTop
                             IconImage {
-                                source: notification.getIcon()
+                                source: notification.getIcon() ?? ""
                                 implicitSize: 22
                             }
                             StyledText {
-                                text: notification.modelData.appName
+                                text: notification.modelData?.appName ?? ""
                                 elide: Text.ElideRight
                                 color: Theme.darkText
                             }
@@ -203,7 +217,7 @@ Item {
                         }
 
                         StyledText {
-                            text: notification.modelData.summary
+                            text: notification.modelData?.summary ?? ""
                             bold: true
                             elide: Text.ElideRight
                             horizontalAlignment: Text.AlignLeft
@@ -213,7 +227,7 @@ Item {
 
                         StyledText {
                             id: bodyText
-                            text: notification.modelData.body
+                            text: notification.modelData?.body ?? ""
                             fontSize: 11
                             elide: Text.ElideRight
                             wrapMode: Text.Wrap

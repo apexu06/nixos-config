@@ -12,6 +12,7 @@ import Quickshell.Widgets
 Item {
     id: root
     implicitWidth: 22
+    implicitHeight: parent.height
     visible: Battery.available
 
     StyledIcon {
