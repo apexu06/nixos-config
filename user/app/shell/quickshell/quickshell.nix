@@ -5,6 +5,8 @@
 }: {
   home.packages = with pkgs; [
     material-symbols
+    cava
+    libnotify
   ];
 
   programs.quickshell = {

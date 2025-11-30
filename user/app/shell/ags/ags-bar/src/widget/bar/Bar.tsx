@@ -30,8 +30,6 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       height_request={46}
     >
       <centerbox class="main">
-        <Workspaces $type="start" />
-
         <box spacing={8} $type="center">
           <Mpris />
           <Clock />

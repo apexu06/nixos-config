@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 import qs.src
@@ -11,6 +12,8 @@ LazyLoader {
     required property var anchorItem
     property int animationDuration: 200
     property bool opened: false
+    property real margin: 16
+    property color backgroundColor: Theme.layer0
 
     property list<real> enterCurve: [0.38, 1.21, 0.22, 1, 1, 1]
     property list<real> exitCurve: [0.05, 0, 2 / 15, 0.06, 1 / 6, 0.4, 5 / 24, 0.82, 0.25, 1, 1, 1]
@@ -76,10 +79,20 @@ LazyLoader {
             radius: 16
             scale: 0.90
             opacity: 0
-            margin: 16
-            leftMargin: 16
-            rightMargin: 16
-            color: Theme.layer0
+            margin: root.margin
+            leftMargin: root.margin
+            rightMargin: root.margin
+            color: root.backgroundColor
+
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                shadowEnabled: true
+                shadowColor: "#80000000"  // Semi-transparent black
+                shadowBlur: 0.8           // Shadow blur amount (0.0-1.0)
+                shadowHorizontalOffset: 0
+                shadowVerticalOffset: 4   // Offset downward
+                shadowScale: 1.0
+            }
 
             x: {
                 if (!root.anchorItem)

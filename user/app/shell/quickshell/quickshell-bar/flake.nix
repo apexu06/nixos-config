@@ -14,6 +14,7 @@
       buildInputs = with pkgs; [
         kdePackages.qtdeclarative
         libnotify
+        cava
       ];
     };
   };
