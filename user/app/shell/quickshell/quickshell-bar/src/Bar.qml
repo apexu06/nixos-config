@@ -52,6 +52,12 @@ Rectangle {
 
             StyledContainer {
                 RowLayout {
+                    NotificationWidget {}
+                }
+            }
+
+            StyledContainer {
+                RowLayout {
                     spacing: 8
                     NetworkWidget {}
                     VolumeWidget {}

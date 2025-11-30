@@ -60,7 +60,7 @@ Item {
                     StyledText {
                         content: "Wifi"
                         color: Network.wifiScanning ? Theme.accent : Theme.fg
-                        bold: true
+                        font.pointSize: 18
                     }
                     Item {
                         Layout.fillWidth: true
@@ -106,7 +106,8 @@ Item {
                                 topMargin: 8
                                 bottomMargin: 8
                                 customRadius: 12
-                                color: hover.hovered ? Theme.layer2 : Theme.layer1
+                                color: container.expanded ? Theme.layer1 : Theme.layer2
+                                border.color: container.expanded ? Theme.border : "transparent"
                                 clip: true
                                 Layout.fillWidth: true
 

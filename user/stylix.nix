@@ -36,8 +36,15 @@ in {
     targets.waybar.font = "serif";
     targets.fish.enable = false;
 
-    targets.neovim.plugin = "mini.base16";
-    targets.neovim.enable = true;
+    targets.neovim = {
+      plugin = "mini.base16";
+      enable = false;
+      transparentBackground = {
+        numberLine = true;
+        main = true;
+        signColumn = true;
+      };
+    };
 
     targets.qt.enable = true;
 

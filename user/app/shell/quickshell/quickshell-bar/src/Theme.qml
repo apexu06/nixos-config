@@ -28,6 +28,7 @@ Singleton {
     readonly property color success: json.base0B ? `#${json.base0B}` : "#ff0000"
 
     readonly property color border: withAlpha(fg, 0.1)
+    readonly property color darkText: withAlpha(fg, 0.5)
 
     // Assign Properties from the read in palette.json (stylix generated file)
     readonly property color base00: json.base00 ? `#${json.base00}` : "#282c34"

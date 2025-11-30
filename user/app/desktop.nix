@@ -15,4 +15,6 @@
   programs.vesktop = {
     enable = true;
   };
+
+  programs.zathura.enable = true;
 }

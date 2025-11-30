@@ -16,7 +16,7 @@ WrapperRectangle {
     leftMargin: 12
     rightMargin: 12
     border.width: 1
-    border.color: Theme.border
+    border.color: "transparent"
 
     color: hover.hovered ? Theme.layer2 : Theme.layer1
     radius: width / 2

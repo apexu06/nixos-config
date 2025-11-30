@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   users.users.apexu.extraGroups = ["libvirtd"];
   environment.systemPackages = with pkgs; [
-    virt-manager
     virt-viewer
     spice
     spice-gtk
@@ -9,6 +8,8 @@
     virtio-win
     win-spice
   ];
+
+  programs.virt-manager.enable = true;
 
   virtualisation = {
     libvirtd = {

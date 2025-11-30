@@ -64,7 +64,7 @@
 
     settings = {
       de = "niri";
-      theme = "tokyo-night-terminal-dark";
+      theme = "tokyonight";
       launcher = "fuzzel";
       de-shell = "quickshell";
     };

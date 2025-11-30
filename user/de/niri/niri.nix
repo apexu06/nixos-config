@@ -20,7 +20,6 @@
     wlogout
     nautilus
     eog
-    papers
     adwaita-icon-theme
     gnome-disk-utility
   ];
@@ -41,7 +40,8 @@
     ${pkgs.swww}/bin/swww img "${config.stylix.image}" \
       --transition-type grow \
       --transition-angle 45 \
-      --transition-duration 1
+      --transition-duration 1;
+    ${pkgs.systemd}/bin/systemctl --user restart quickshell.service
   '';
 
   programs.niri = {

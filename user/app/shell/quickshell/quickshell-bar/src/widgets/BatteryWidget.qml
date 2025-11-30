@@ -40,7 +40,7 @@ Item {
                 RowLayout {
                     StyledText {
                         content: "Battery"
-                        bold: true
+                        font.pointSize: 18
                     }
                     Item {
                         Layout.fillWidth: true

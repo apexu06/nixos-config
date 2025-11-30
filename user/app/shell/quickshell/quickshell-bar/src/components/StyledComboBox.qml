@@ -25,11 +25,12 @@ Item {
     StyledContainer {
         id: box
         anchors.fill: parent
-        backgroundColor: mouseArea.containsMouse ? Theme.layer2 : Theme.layer1
+        backgroundColor: mouseArea.containsMouse || !root.open ? Theme.layer2 : Theme.layer1
         margin: 8
         radius: 12
         clip: true
-        // border.color: root.open ? Theme.border : "transparent"
+        border.color: root.open ? Theme.border : "transparent"
+        border.width: 1
 
         Column {
             spacing: 3
@@ -55,6 +56,7 @@ Item {
                         id: label
                         text: root.modelData.length > 0 ? root.modelData[root.index === -1 ? root.defaultIndex : root.index] ?? "" : ""
                         elide: Text.ElideRight
+                        horizontalAlignment: Text.AlignLeft
                         Layout.fillWidth: true
                     }
                     Item {

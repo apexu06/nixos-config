@@ -32,7 +32,7 @@ LazyLoader {
         mask: Region {
             item: listView
         }
-        implicitWidth: 380
+        implicitWidth: 450
         implicitHeight: Math.min(600, listView.contentHeight + 80)
 
         ListView {
@@ -86,6 +86,18 @@ LazyLoader {
                     });
                 }
 
+                function getIcon() {
+                    if (modelData.image !== "") {
+                        return modelData.image;
+                    }
+
+                    if (!modelData.appIcon.startsWith("image://") && !modelData.appIcon.startsWith("file://")) {
+                        return Quickshell.iconPath(modelData.appIcon);
+                    }
+
+                    return modelData.appIcon;
+                }
+
                 RowLayout {
                     width: parent.width
                     height: parent.height
@@ -93,7 +105,8 @@ LazyLoader {
 
                     Image {
                         id: image
-                        source: notification.modelData.image === "" ? notification.modelData.appIcon : notification.modelData.image
+                        visible: notification.modelData.image !== "" || notification.modelData.appIcon !== ""
+                        source: notification.getIcon()
                         fillMode: Image.PreserveAspectCrop
 
                         Layout.fillHeight: true

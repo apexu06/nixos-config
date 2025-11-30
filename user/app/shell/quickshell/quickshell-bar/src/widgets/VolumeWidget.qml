@@ -38,7 +38,7 @@ Item {
                 RowLayout {
                     StyledText {
                         content: "Audio"
-                        bold: true
+                        font.pointSize: 18
                     }
                     Item {
                         Layout.fillWidth: true
@@ -148,13 +148,13 @@ Item {
 
                             StyledIcon {
                                 iconName: Audio.sink.audio.muted ? "volume_off" : "volume_up"
-                                size: 22
+                                size: 24
                                 onClicked: Audio.toggleSinkMute()
                             }
 
                             StyledSlider {
                                 id: sinkControl
-                                implicitHeight: 10
+                                implicitHeight: 20
                                 value: Audio.sink.audio.volume
                                 to: 1.5
                                 onMoved: {
@@ -198,13 +198,13 @@ Item {
                                 StyledIcon {
                                     iconName: Audio.source.audio.muted ? "mic_off" : "mic"
                                     onClicked: Audio.toggleSourceMute()
-                                    size: 22
+                                    size: 24
                                 }
                             }
 
                             StyledSlider {
                                 id: sourceControl
-                                implicitHeight: 10
+                                implicitHeight: 20
                                 value: Audio.source.audio.volume
                                 to: 1.5
                                 onMoved: {

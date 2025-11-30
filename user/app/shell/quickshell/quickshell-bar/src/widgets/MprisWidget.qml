@@ -29,7 +29,7 @@ StyledContainer {
         }
 
         StyledText {
-            Layout.fillWidth: true
+            Layout.maximumWidth: 200
             text: root.player?.trackTitle ?? ""
             elide: Text.ElideRight
         }
@@ -41,8 +41,7 @@ StyledContainer {
         StyledText {
             Layout.fillWidth: true
             text: root.player?.trackArtist ?? ""
-            color: Theme.withAlpha(Theme.fg, 0.5)
-            elide: Text.ElideRight
+            color: Theme.darkText
         }
     }
 
