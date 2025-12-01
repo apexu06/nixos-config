@@ -77,6 +77,7 @@
           inherit settings;
         };
         modules = [
+          ./system/pc-hardware-configuration.nix
           ./system/configuration.nix
           ./system/pc.nix
         ];
@@ -88,6 +89,7 @@
           inherit settings;
         };
         modules = [
+          ./system/laptop-hardware-configuration.nix
           ./system/configuration.nix
         ];
       };

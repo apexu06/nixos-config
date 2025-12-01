@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
     ./stylix.nix
     ./pipewire.nix
     ./virtualization.nix
