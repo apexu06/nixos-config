@@ -298,7 +298,6 @@ vim.lsp.enable({
 	"lua_ls",
 	"rust_analyer",
 	"gopls",
-	"clangd",
 	"ts_ls",
 	"py_lsp",
 	"astro",
@@ -306,6 +305,7 @@ vim.lsp.enable({
 	"svelte",
 	"nil_ls",
 	"qmlls",
+	"ccls",
 })
 
 vim.lsp.config("lua_ls", {

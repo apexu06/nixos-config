@@ -12,10 +12,11 @@
     ./app/neovim/nvim.nix
     ./app/browser/zen.nix
     ./app/terminal/wezterm.nix
-    ./app/shell/${settings.de-shell}/${settings.de-shell}.nix
+    ./app/de-shell/${settings.de-shell}/${settings.de-shell}.nix
     ./app/desktop.nix
     ./app/spotify.nix
   ];
+
   home.username = "apexu";
   home.homeDirectory = "/home/apexu";
 
