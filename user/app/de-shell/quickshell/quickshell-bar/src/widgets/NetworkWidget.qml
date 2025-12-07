@@ -85,7 +85,7 @@ Item {
                     anchors.margins: 16
                     clip: true
                     contentHeight: content.height
-                    implicitHeight: 250
+                    implicitHeight: Math.min(content.height, 400)
 
                     ColumnLayout {
                         id: content
@@ -107,7 +107,7 @@ Item {
                                 topMargin: 8
                                 bottomMargin: 8
                                 customRadius: 12
-                                color: container.expanded ? Theme.layer1 : Theme.layer2
+                                color: container.expanded ? Theme.layer1 : currentNetwork.active ? Theme.withAlpha(Theme.accent, 0.7) : Theme.layer2
                                 border.color: container.expanded ? Theme.border : "transparent"
                                 clip: true
                                 Layout.fillWidth: true

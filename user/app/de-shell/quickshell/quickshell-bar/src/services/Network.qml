@@ -275,7 +275,15 @@ Singleton {
                         security: net[5] || "",
                         known: knownConnections.includes(ssid)
                     };
-                }).filter(n => n.ssid && n.ssid.length > 0);
+                }).filter(n => n.ssid && n.ssid.length > 0).sort((a, b) => {
+                    // Active networks first
+                    if (a.active && !b.active)
+                        return -1;
+                    if (!a.active && b.active)
+                        return 1;
+                    // Then by signal strength
+                    return b.strength - a.strength;
+                });
 
                 const networkMap = new Map();
                 for (const network of allNetworks) {

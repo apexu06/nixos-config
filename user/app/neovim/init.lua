@@ -158,6 +158,13 @@ require("mini.surround").setup()
 require("mini.git").setup()
 require("mini.icons").setup()
 
+local hipatterns = require("mini.hipatterns")
+hipatterns.setup({
+	highlighters = {
+		hex_color = hipatterns.gen_highlighter.hex_color(),
+	},
+})
+
 require("oil").setup({
 	columns = {
 		"icon",

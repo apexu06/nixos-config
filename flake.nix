@@ -2,6 +2,7 @@
   description = "first flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -56,6 +57,7 @@
   outputs = inputs @ {
     nixpkgs,
     home-manager,
+    nixos-hardware,
     ...
   }: let
     lib = nixpkgs.lib;
@@ -89,6 +91,7 @@
           inherit settings;
         };
         modules = [
+          nixos-hardware.nixosModules.framework-13-7040-amd
           ./system/laptop-hardware-configuration.nix
           ./system/configuration.nix
         ];

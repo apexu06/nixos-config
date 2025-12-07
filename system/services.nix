@@ -15,6 +15,7 @@
     fprintd.enable = true;
 
     power-profiles-daemon.enable = true;
+    fwupd.enable = true;
     gnome.gnome-keyring.enable = true;
     protonmail-bridge.enable = true;
     gvfs.enable = true;
