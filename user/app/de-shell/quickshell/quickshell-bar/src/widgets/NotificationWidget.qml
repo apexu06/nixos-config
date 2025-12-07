@@ -88,7 +88,7 @@ Item {
                 reuseItems: false
 
                 model: ScriptModel {
-                    values: [...Notifications.allNotifs.filter(a => !a.transient)].reverse()
+                    values: [...Notifications.allNotifs].reverse()
                 }
 
                 removeDisplaced: Transition {
