@@ -312,7 +312,7 @@ vim.lsp.enable({
 	"svelte",
 	"nil_ls",
 	"qmlls",
-	"ccls",
+	"clangd",
 })
 
 vim.lsp.config("lua_ls", {

@@ -214,7 +214,12 @@ LazyLoader {
                 }
 
                 TapHandler {
-                    onTapped: notification.dismiss()
+                    onTapped: {
+                        if (notification.modelData.actions.values.length > 0) {
+                            notification.modelData.actions[0].invoke();
+                        }
+                        notification.dismiss();
+                    }
                 }
             }
         }

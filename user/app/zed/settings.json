@@ -1,0 +1,79 @@
+{
+  "file_finder": {
+    "file_icons": true
+  },
+  "scrollbar": {
+    "cursors": true
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "notification_panel": {
+    "button": true
+  },
+  "agent": {
+    "button": false,
+    "model_parameters": []
+  },
+  "search": {
+    "button": false
+  },
+  "status_bar": {
+    "cursor_position_button": true
+  },
+  "terminal": {
+    "button": true
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "diagnostics": {
+    "button": true,
+    "inline": {
+      "enabled": false
+    }
+  },
+  "project_panel": {
+    "folder_icons": false,
+    "file_icons": true,
+    "dock": "left",
+    "button": true
+  },
+  "preview_tabs": {
+    "enabled": true
+  },
+  "bottom_dock_layout": "contained",
+  "inline_code_actions": true,
+  "use_system_window_tabs": true,
+  "window_decorations": "client",
+  "title_bar": {
+    "show_project_items": true,
+    "show_branch_icon": true,
+    "show_onboarding_banner": true,
+    "show_user_picture": true,
+    "show_sign_in": false,
+    "show_menus": false,
+    "show_branch_name": true
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": true,
+    "show": false
+  },
+  "enable_language_server": true,
+  "disable_ai": true,
+  "buffer_line_height": "standard",
+  "buffer_font_weight": 400.0,
+  "vim_mode": true,
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
+  },
+  "base_keymap": "VSCode",
+  "buffer_font_family": "IosevkaTerm Nerd Font Mono",
+  "buffer_font_size": 17.333333333333332,
+  "theme": "Kanagawa Wave",
+  "ui_font_family": "Rubik",
+  "ui_font_size": 17.333333333333332
+}

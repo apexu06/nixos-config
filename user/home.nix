@@ -10,6 +10,7 @@
     ./shells/cli-utils.nix
     ./de/${settings.de}/${settings.de}.nix
     ./app/neovim/nvim.nix
+    ./app/zed/zed.nix
     ./app/browser/zen.nix
     ./app/terminal/wezterm.nix
     ./app/de-shell/${settings.de-shell}/${settings.de-shell}.nix

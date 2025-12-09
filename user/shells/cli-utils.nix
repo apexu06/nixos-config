@@ -21,6 +21,7 @@
   ];
 
   home.shellAliases = {
+    cd = "z";
     cat = "bat";
     shit = "shutdown";
     ls = "eza --color=always --all --group-directories-first --long --icons --no-permissions --git";
