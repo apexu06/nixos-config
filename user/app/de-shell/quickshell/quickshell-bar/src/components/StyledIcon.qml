@@ -13,6 +13,8 @@ Item {
     property real size: 22
     property bool hoverEnabled: true
     property bool active: false
+    property color color: Theme.fg
+    property color hoverColor: Theme.accent
     signal clicked
 
     implicitWidth: size + 10
@@ -34,7 +36,7 @@ Item {
             }
         }
         renderType: Text.QtRendering
-        color: mouseArea.containsMouse || root.active ? Theme.accent : Theme.fg
+        color: mouseArea.containsMouse || root.active ? root.hoverColor : root.color
         scale: mouseArea.containsMouse || root.active ? 1.2 : 1.0
         text: root.iconName
 

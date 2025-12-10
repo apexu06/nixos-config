@@ -103,11 +103,13 @@ Item {
                                 property bool passwordPending: Network.wifiConnectTarget?.askingPassword ?? false
                                 property var currentNetwork: Network.wifiNetworks[index]
 
+                                property var textColor: container.expanded ? Theme.fg : currentNetwork.active ? Theme.layer0 : Theme.fg
+
                                 margin: 4
                                 topMargin: 8
                                 bottomMargin: 8
                                 customRadius: 12
-                                color: container.expanded ? Theme.layer1 : currentNetwork.active ? Theme.withAlpha(Theme.accent, 0.7) : Theme.layer2
+                                color: container.expanded ? Theme.layer1 : currentNetwork.active ? Theme.accent : Theme.layer2
                                 border.color: container.expanded ? Theme.border : "transparent"
                                 clip: true
                                 Layout.fillWidth: true
@@ -148,10 +150,12 @@ Item {
                                             iconName: Network.getStrengthIcon(container.currentNetwork?.strength)
                                             hoverEnabled: false
                                             size: 18
+                                            color: container.textColor
                                         }
 
                                         StyledText {
                                             text: container.modelData
+                                            color: container.textColor
                                         }
 
                                         Loader {
@@ -160,6 +164,7 @@ Item {
                                                 iconName: "check"
                                                 hoverEnabled: false
                                                 size: 18
+                                                color: container.textColor
                                             }
                                         }
 
@@ -171,6 +176,8 @@ Item {
                                             iconName: "keyboard_arrow_down"
                                             rotation: container.expanded ? 180 : 0
                                             onClicked: container.toggle()
+                                            color: container.textColor
+                                            hoverColor: container.expanded ? Theme.accent : container.currentNetwork.active ? Theme.layer0 : Theme.accent
                                             Behavior on rotation {
                                                 NumberAnimation {
                                                     duration: 150
