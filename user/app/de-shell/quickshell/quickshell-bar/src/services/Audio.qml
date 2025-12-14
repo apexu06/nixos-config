@@ -29,9 +29,7 @@ Singleton {
         objects: [...root.sinks, ...root.sources]
     }
 
-    function getVolumeIconName(): string {
-        const muted = sink?.audio.muted;
-        const volume = sink?.audio.volume;
+    function getVolumeIconName(volume, muted): string {
         if (muted || volume === 0) {
             return "volume_off";
         } else if (volume < 0.33) {

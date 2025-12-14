@@ -12,6 +12,7 @@ Text {
     text: ""
     font.pointSize: root.fontSize
     font.bold: root.bold
+    renderType: Text.QtRendering
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter
 

@@ -16,7 +16,7 @@ Item {
     property bool popupOpen: false
 
     StyledIcon {
-        iconName: Audio.getVolumeIconName()
+        iconName: Audio.getVolumeIconName(Audio.sink.audio?.volume, Audio.sink.audio?.muted)
         size: 22
         anchors.centerIn: parent
         onClicked: volumePopup.toggle()

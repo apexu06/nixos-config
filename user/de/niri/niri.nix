@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    ../../app/launcher/${settings.launcher}.nix
+    ../../launcher/launcher.nix
     ../hypridle.nix
     ../hyprlock.nix
     inputs.niri.homeModules.niri
@@ -211,7 +211,7 @@
         "Mod+Shift+Slash".action = show-hotkey-overlay;
 
         "Mod+Return".action = spawn "wezterm";
-        "Mod+P".action = spawn "fuzzel";
+        "Mod+P".action = spawn config.app.launcher.command;
         "Mod+Alt+L".action = spawn "hyprlock";
         "Mod+Shift+M".action = spawn "wlogout";
         "Mod+Shift+C".action = spawn "sh" "-c" "hyprpicker -a";

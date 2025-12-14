@@ -35,6 +35,7 @@ in {
 
     targets.waybar.font = "serif";
     targets.fish.enable = false;
+    targets.zed.enable = false;
 
     targets.neovim = {
       plugin = "mini.base16";

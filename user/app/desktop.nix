@@ -14,6 +14,35 @@
 
   programs.vesktop = {
     enable = true;
+    settings = {
+      staticTitle = true;
+      clickTrayToShowHide = true;
+    };
+    vencord.settings = {
+      notifications = {
+        useNative = "always";
+      };
+      cloud = {
+        authenticated = true;
+        url = "https://api.vencord.dev/";
+        settingsSync = true;
+      };
+      plugins = {
+        AnonymiseFileNames.enabled = true;
+        CallTimer.enabled = true;
+        FixCodeBlockGap.enabled = true;
+        FixYoutubeEmbeds.enabled = true;
+        GameActivityToggle.enabled = true;
+        IrcColors.enabled = true;
+        OpenInApp.enabled = true;
+        MessageClickActions.enabled = true;
+        CrashHandler.enabled = true;
+        WebKeybinds.enabled = true;
+        SpotifyControls.enabled = true;
+        SpotifyCrack.enabled = true;
+        WebScreenShareFixes.enabled = true;
+      };
+    };
   };
 
   programs.zathura.enable = true;

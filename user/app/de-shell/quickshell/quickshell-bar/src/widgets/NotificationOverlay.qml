@@ -32,7 +32,7 @@ LazyLoader {
         mask: Region {
             item: listView
         }
-        implicitWidth: 450
+        implicitWidth: 500
         implicitHeight: Math.min(600, listView.contentHeight + 80)
 
         ListView {

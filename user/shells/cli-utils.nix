@@ -7,10 +7,12 @@
     killall
     btop
     fastfetch
+    gdu
     fzf
     gh
     xdg-utils
     wl-clipboard
+    gdb
     rustup
     eza
     devenv

@@ -36,8 +36,8 @@ Item {
             }
         }
         renderType: Text.QtRendering
-        color: mouseArea.containsMouse || root.active ? root.hoverColor : root.color
-        scale: mouseArea.containsMouse || root.active ? 1.2 : 1.0
+        color: mouseArea.containsMouse && root.hoverEnabled || root.active ? root.hoverColor : root.color
+        scale: mouseArea.containsMouse && root.hoverEnabled || root.active ? 1.2 : 1.0
         text: root.iconName
 
         Behavior on scale {

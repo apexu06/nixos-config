@@ -6,7 +6,7 @@
   imports = [
     inputs.mango.hmModules.mango
 
-    ../../app/launcher/${settings.launcher}.nix
+    ../../launcher/${settings.launcher}.nix
   ];
 
   wayland.windowManager.mango = {

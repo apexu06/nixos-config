@@ -88,7 +88,7 @@ Item {
                 reuseItems: false
 
                 model: ScriptModel {
-                    values: [...Notifications.allNotifs].reverse()
+                    values: [...Notifications.allNotifs.filter(a => !a.transient)].reverse()
                 }
 
                 removeDisplaced: Transition {
@@ -131,6 +131,14 @@ Item {
                         target: timestampRefreshTimer
                         function onTriggered() {
                             notification.timeText = notification.getTime();
+                        }
+                    }
+
+                    TapHandler {
+                        onTapped: {
+                            if (notification.modelData.actions.values.length > 0) {
+                                notification.modelData.actions[0].invoke();
+                            }
                         }
                     }
 

@@ -8,17 +8,12 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vicinae.url = "github:vicinaehq/vicinae";
 
     dgop = {
       url = "github:AvengeMedia/dgop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # dankMaterialShell = {
-    #   url = "github:AvengeMedia/DankMaterialShell";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.dgop.follows = "dgop";
-    # };
 
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -46,11 +41,13 @@
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://niri.cachix.org"
+      "https://vicinae.cachix.org"
     ];
 
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
+      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
     ];
   };
 
@@ -67,7 +64,7 @@
     settings = {
       de = "niri";
       theme = "tokyonight";
-      launcher = "fuzzel";
+      launcher = "vicinae";
       de-shell = "quickshell";
     };
   in {

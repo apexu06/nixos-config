@@ -45,12 +45,6 @@ StyledContainer {
         }
     }
 
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-        onClicked: console.log("hello")
-    }
-
     child: RowLayout {
 
         IconImage {
@@ -96,8 +90,8 @@ StyledContainer {
         backgroundColor: "transparent"
 
         content: Item {
-            implicitWidth: 450
-            implicitHeight: 135
+            implicitWidth: 600
+            implicitHeight: 140
             clip: true
             layer.enabled: true
             layer.smooth: true
@@ -119,14 +113,7 @@ StyledContainer {
                 anchors.fill: parent
                 source: root.player.trackArtUrl
                 fillMode: Image.PreserveAspectCrop
-
-                layer.enabled: true
-                layer.smooth: true
-                layer.effect: MultiEffect {
-                    blurEnabled: false
-                    blurMax: 24
-                    blur: 1
-                }
+                z: -10
             }
 
             Rectangle {
@@ -269,6 +256,28 @@ StyledContainer {
                                 text: root.formatTime(root.player.length)
                                 font.pointSize: 11
                             }
+                        }
+                    }
+                    ColumnLayout {
+                        visible: root.player.volumeSupported
+                        StyledSlider {
+                            Layout.alignment: Qt.AlignHCenter
+                            orientation: Qt.Vertical
+                            implicitHeight: 8
+                            value: root.player.volume
+                            onValueChanged: {
+                                root.player.volume = value;
+                            }
+                            from: 1
+                            to: 0
+                        }
+
+                        StyledIcon {
+                            Layout.alignment: Qt.Center
+                            iconName: Audio.getVolumeIconName(root.player.volume, root.player.volume == 0)
+                            implicitWidth: size
+                            implicitHeight: size
+                            hoverEnabled: false
                         }
                     }
                 }

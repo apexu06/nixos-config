@@ -4,11 +4,7 @@
   ...
 }: {
   imports = [
-    (
-      if settings.launcher == "tofi"
-      then ../../app/launcher/tofi.nix
-      else ../../app/launcher/fuzzel.nix
-    )
+    ../../launcher/${settings.launcher}.nix
     ../hypridle.nix
     ../hyprlock.nix
     ./dunst.nix
