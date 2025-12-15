@@ -48,7 +48,7 @@ StyledContainer {
     child: RowLayout {
 
         IconImage {
-            source: Quickshell.iconPath(root.entry?.icon ?? "headphones")
+            source: Quickshell.iconPath(root.entry.icon, "headphones")
             implicitSize: 20
         }
 
@@ -273,7 +273,6 @@ StyledContainer {
                         }
 
                         StyledIcon {
-                            Layout.alignment: Qt.Center
                             iconName: Audio.getVolumeIconName(root.player.volume, root.player.volume == 0)
                             implicitWidth: size
                             implicitHeight: size

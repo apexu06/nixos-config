@@ -13,7 +13,6 @@ StyledContainer {
     visible: Niri.focusedWindow !== null
     property var entry: DesktopEntries.heuristicLookup(Niri.focusedWindow?.appId ?? "")
     property var name: Niri.focusedWindow?.title ?? ""
-
     implicitWidth: 230
 
     RowLayout {
@@ -21,7 +20,7 @@ StyledContainer {
 
         IconImage {
             id: icon
-            source: Quickshell.iconPath(root.entry.icon)
+            source: Quickshell.iconPath(root.entry.icon, "application-x-executable")
             implicitSize: 22
 
             Behavior on source {

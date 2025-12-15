@@ -12,12 +12,15 @@ import Quickshell.Services.Notifications
 Item {
     id: root
     implicitWidth: 22
+    implicitHeight: 22
 
     RowLayout {
         width: parent.implicitWidth
+        height: parent.implicitHeight
 
         StyledIcon {
             Layout.fillWidth: true
+            Layout.fillHeight: true
             iconName: "notifications"
             size: 22
             onClicked: notifPopup.toggle()
@@ -235,6 +238,7 @@ Item {
 
                         StyledText {
                             id: bodyText
+                            visible: !!notification.modelData.body
                             text: notification.modelData?.body ?? ""
                             fontSize: 11
                             elide: Text.ElideRight

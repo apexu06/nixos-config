@@ -76,6 +76,9 @@ LazyLoader {
                 opacity: 0
                 scale: 0.8
 
+                backgroundColor: Theme.layer0
+                hoverColor: Theme.layer1
+
                 Component.onCompleted: {
                     opacity = 1;
                     scale = 1;
@@ -130,7 +133,7 @@ LazyLoader {
                         radius: 8
                         Layout.fillWidth: true
                         Layout.preferredHeight: notification.height - 20
-                        color: Theme.layer2
+                        color: Theme.layer1
                         leftMargin: 8
                         topMargin: 8
                         bottomMargin: 8

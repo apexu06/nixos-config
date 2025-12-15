@@ -17,4 +17,12 @@
     };
     activeConfig = "bar";
   };
+
+  systemd.user.services.quickshell = {
+    Service = {
+      Environment = [
+        "SHELL=/run/current-system/sw/bin/fish"
+      ];
+    };
+  };
 }

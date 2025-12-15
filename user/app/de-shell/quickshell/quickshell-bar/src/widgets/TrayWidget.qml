@@ -21,7 +21,7 @@ StyledContainer {
                 required property SystemTrayItem modelData
                 required property int index
 
-                source: modelData.icon
+                source: modelData?.icon ?? "placeholder"
                 implicitSize: 22
 
                 scale: hover.hovered ? 1.2 : 1
@@ -62,7 +62,7 @@ StyledContainer {
                 QsMenuAnchor {
                     id: anchor
                     anchor.item: root
-                    menu: delegate.modelData.menu
+                    menu: delegate.modelData?.menu
                     anchor.margins.top: 32
                 }
             }

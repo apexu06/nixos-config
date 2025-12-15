@@ -7,7 +7,8 @@ WrapperRectangle {
     id: root
 
     property bool hoverEnabled: false
-    property alias backgroundColor: root.color
+    property color backgroundColor: Theme.layer1
+    property color hoverColor: Theme.layer2
     property alias customRadius: root.radius
     property alias customOpacity: root.opacity
 
@@ -18,7 +19,7 @@ WrapperRectangle {
     border.width: 1
     border.color: "transparent"
 
-    color: hover.hovered ? Theme.layer2 : Theme.layer1
+    color: hover.hovered ? root.hoverColor : root.backgroundColor
     radius: width / 2
 
     HoverHandler {

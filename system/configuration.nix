@@ -1,7 +1,6 @@
 {
   pkgs,
   settings,
-  inputs,
   ...
 }: {
   imports = [
@@ -50,7 +49,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   system.stateVersion = "25.05";
-  networking.hostName = "iusenixbtw"; # Define your hostname.
+  networking.hostName = "iusenixbtw";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Vienna";
@@ -74,6 +73,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "video"
     ];
     shell = pkgs.fish;
   };

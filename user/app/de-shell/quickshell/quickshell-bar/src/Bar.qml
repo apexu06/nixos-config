@@ -51,7 +51,12 @@ Rectangle {
             }
 
             StyledContainer {
-                NotificationWidget {}
+                RowLayout {
+                    spacing: 8
+                    height: parent.height
+                    RecorderWidget {}
+                    NotificationWidget {}
+                }
             }
 
             StyledContainer {

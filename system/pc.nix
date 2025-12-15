@@ -1,6 +1,8 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     ntfs3g
+    gpu-screen-recorder
+    gpu-screen-recorder-gtk
     sbctl
   ];
 
@@ -51,8 +53,6 @@
       keyutils
     ];
   };
-
-  programs.gpu-screen-recorder.enable = false;
 
   hardware.graphics = {
     enable = true;

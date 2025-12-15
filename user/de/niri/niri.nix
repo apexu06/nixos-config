@@ -222,6 +222,8 @@
         "Alt+Print".action.screenshot-window = [];
         "Mod+Shift+Q".action = quit;
         "Ctrl+Alt+Delete".action = quit;
+        "Mod+Shift+S".action = spawn "qs" "-c" "bar" "ipc" "call" "recorder" "ipcSaveReplay";
+        "Mod+Shift+U".action = spawn "qs" "-c" "bar" "ipc" "call" "recorder" "ipcToggleReplay";
 
         # Audio controls
         "XF86AudioRaiseVolume" = {
@@ -326,7 +328,7 @@
         # Move workspace
         "Mod+Shift+Page_Down".action = move-workspace-down;
         "Mod+Shift+Page_Up".action = move-workspace-up;
-        "Mod+Shift+U".action = move-workspace-down;
+        # "Mod+Shift+U".action = move-workspace-down;
         "Mod+Shift+I".action = move-workspace-up;
 
         # Wheel scroll bindings
