@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   xdg = {
+    autostart.enable = true;
     configFile."electron-flags.conf".text = ''
       --ozone-platform=wayland
       --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer

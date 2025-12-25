@@ -19,7 +19,6 @@
       fish_vi_key_bindings
       bind --mode insert \cf forward-char
 
-      tv init fish | source
       zoxide init fish | source
     '';
     plugins = [

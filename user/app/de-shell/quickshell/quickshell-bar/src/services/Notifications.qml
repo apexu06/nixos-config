@@ -13,7 +13,9 @@ Singleton {
     property bool notifOverlayOpen: false
 
     function onNewNotif(notif) {
-        allNotifs = [notif, ...allNotifs];
+        if (!notif.transient && !allNotifs.includes(notif)) {
+            allNotifs = [notif, ...allNotifs];
+        }
 
         // if (notif.lastGeneration)
         //     return;

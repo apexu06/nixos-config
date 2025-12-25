@@ -25,13 +25,23 @@
     playerctl
   ];
 
+  hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true; # if you're okay with unfree firmware
+  hardware.firmware = [pkgs.linux-firmware];
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
     settings = {
       General = {
         Enable = "Source,Sink,Media,Socket";
+        ControllerMode = "dual";
+        FastConnectable = true;
         Experimental = true;
+      };
+
+      Policy = {
+        AutoEnable = true;
       };
     };
   };
