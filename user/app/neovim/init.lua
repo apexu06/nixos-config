@@ -315,6 +315,10 @@ vim.lsp.enable({
 	"clangd",
 })
 
+vim.lsp.config("ccls", {
+	cmd = { "ccls", '--init={"clang": {"extraArgs": ["-std=c++23", "-Wall", "-Wextra", "-Iinclude"]}}' },
+})
+
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {

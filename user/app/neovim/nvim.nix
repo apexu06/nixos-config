@@ -26,7 +26,4 @@
     extraLuaConfig = builtins.readFile ./init.lua;
     package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
-
-  # xdg.configFile."nvim".source = ./.;
-  # xdg.configFile."nvim".recursive = true;
 }
