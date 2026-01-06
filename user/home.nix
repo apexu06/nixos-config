@@ -23,12 +23,19 @@
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    vlc
-    obsidian
     qbittorrent
-    ungoogled-chromium
     osu-lazer-bin
+    filezilla
+    (discord.override {
+      withVencord = true;
+    })
   ];
+
+  programs = {
+    chromium.enable = true;
+    obsidian.enable = true;
+    mpv.enable = true;
+  };
 
   nixpkgs.config.allowUnfree = true;
 

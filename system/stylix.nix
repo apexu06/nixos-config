@@ -7,7 +7,8 @@
     inputs.stylix.nixosModules.stylix
   ];
 
-  stylix.autoEnable = false;
+  stylix.enable = true;
+  stylix.autoEnable = true;
   stylix.targets.console.enable = true;
   stylix.targets.gnome.enable = true;
   stylix.targets.qt.enable = true;

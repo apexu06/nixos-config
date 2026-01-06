@@ -30,12 +30,14 @@ in {
     enable = true;
     autoEnable = true;
 
-    targets.font-packages.enable = true;
-    targets.fontconfig.enable = true;
-
     targets.waybar.font = "serif";
     targets.fish.enable = false;
     targets.zed.enable = false;
+
+    targets.qt = {
+      enable = true;
+      standardDialogs = "xdgdesktopportal";
+    };
 
     targets.neovim = {
       plugin = "mini.base16";
@@ -46,8 +48,6 @@ in {
         signColumn = true;
       };
     };
-
-    targets.qt.enable = true;
 
     targets.zen-browser.profileNames = ["default"];
 

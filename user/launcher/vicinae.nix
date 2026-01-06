@@ -33,7 +33,7 @@
         };
       };
       launcher_window = {
-        opacity = 1;
+        opacity = lib.mkForce 1;
       };
       providers = {
         applications = {

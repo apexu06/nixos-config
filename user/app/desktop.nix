@@ -13,7 +13,7 @@
   };
 
   programs.vesktop = {
-    enable = true;
+    enable = false;
     settings = {
       staticTitle = true;
       clickTrayToShowHide = true;
