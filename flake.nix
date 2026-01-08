@@ -39,6 +39,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -69,7 +73,7 @@
       de = "niri";
       theme = "tokyonight";
       launcher = "vicinae";
-      de-shell = "quickshell";
+      de-shell = "noctalia";
     };
   in {
     nixosConfigurations = {

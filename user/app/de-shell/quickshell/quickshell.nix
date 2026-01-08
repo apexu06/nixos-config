@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   settings,
   ...
 }: {
@@ -17,6 +18,10 @@
     };
     activeConfig = "bar";
   };
+
+  home.activation.wallpaper = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ${pkgs.systemd}/bin/systemctl --user restart quickshell.service
+  '';
 
   systemd.user.services.quickshell = {
     Service = {
