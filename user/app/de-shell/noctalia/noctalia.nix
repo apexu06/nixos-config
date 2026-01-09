@@ -557,7 +557,7 @@ in {
         place-within-backdrop = true;
       }
     ];
-    binds = with config.lib.niri.actions; {
+    binds = {
       "Mod+Alt+L".action =
         lib.mkForce {spawn = noctalia "lockScreen lock";};
 
@@ -566,6 +566,9 @@ in {
 
       "Mod+Shift+M".action =
         lib.mkForce {spawn = noctalia "sessionMenu toggle";};
+
+      "Mod+Shift+W".action =
+        lib.mkForce {spawn = noctalia "wallpaper toggle";};
     };
   };
 }
