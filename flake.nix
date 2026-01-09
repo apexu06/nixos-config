@@ -72,6 +72,7 @@
     settings = {
       de = "niri";
       theme = "tokyonight";
+      useWallpaper = false;
       launcher = "vicinae";
       de-shell = "noctalia";
     };
