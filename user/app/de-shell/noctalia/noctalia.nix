@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  config,
   inputs,
   ...
 }: let
@@ -15,7 +14,6 @@
 in {
   imports = [
     inputs.noctalia.homeModules.default
-    # inputs.niri.homeModules.niri
   ];
 
   programs.noctalia-shell = {
@@ -547,6 +545,26 @@ in {
   };
 
   services.swww.enable = lib.mkForce false;
+
+  services.hypridle.settings = {
+    general = {
+      lock_cmd = lib.mkForce "pidof qs || noctalia-shell ipc call lockScreen lock";
+      before_sleep_cmd = lib.mkForce "noctalia-shell ipc call lockScreen lock";
+      after_sleep_cmd = lib.mkForce "niri msg action power-on-monitors";
+    };
+
+    listener = [
+      {
+        timeout = 300; # 5min
+        on-timeout = lib.mkForce "noctalia-shell ipc call lockScreen lock";
+      }
+      {
+        timeout = 330; # 5.5min
+        on-timeout = lib.mkForce "niri msg action power-off-monitors"; # screen off when timeout has passed
+        on-resume = lib.mkForce "niri msg action power-on-monitors";
+      }
+    ];
+  };
 
   programs.niri.settings = {
     layer-rules = [

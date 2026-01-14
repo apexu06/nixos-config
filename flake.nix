@@ -73,7 +73,7 @@
       de = "niri";
       theme = "tokyonight";
       useWallpaper = false;
-      launcher = "vicinae";
+      launcher = "noctalia";
       de-shell = "noctalia";
     };
   in {

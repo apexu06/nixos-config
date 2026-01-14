@@ -9,10 +9,10 @@
   imports =
     [
       inputs.niri.homeModules.niri
+      ../hypridle.nix
     ]
     ++ lib.optionals (settings.de-shell != "noctalia")
     [
-      ../hypridle.nix
       ../hyprlock.nix
     ]
     ++ lib.optionals (settings.launcher != "noctalia")

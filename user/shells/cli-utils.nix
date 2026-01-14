@@ -40,7 +40,7 @@
   };
 
   programs.bat.enable = true;
-  # programs.television.enable = true;
+  programs.television.enable = true;
   programs.yazi.enable = true;
   programs.zoxide.enable = true;
   programs.bun.enable = true;

@@ -22,10 +22,6 @@ in {
 
   stylix =
     {
-      image = pkgs.fetchurl {
-        url = backgroundUrl;
-        hash = backgroundHash;
-      };
       polarity = "dark";
 
       enable = true;
@@ -98,5 +94,11 @@ in {
     }
     // lib.optionalAttrs (!settings.useWallpaper) {
       base16Scheme = themeFile;
+    }
+    // lib.optionalAttrs (settings.useWallpaper) {
+      image = pkgs.fetchurl {
+        url = backgroundUrl;
+        hash = backgroundHash;
+      };
     };
 }
