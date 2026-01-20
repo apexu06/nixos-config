@@ -26,6 +26,9 @@
     qbittorrent
     osu-lazer-bin
     filezilla
+    wine
+    winetricks
+    lutris
     (discord.override {
       withVencord = true;
     })
