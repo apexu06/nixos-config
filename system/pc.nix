@@ -4,6 +4,7 @@
     gpu-screen-recorder
     gpu-screen-recorder-gtk
     sbctl
+    android-tools
   ];
 
   fileSystems."/mnt/nvme0" = {
@@ -58,5 +59,6 @@
     enable = true;
     enable32Bit = true;
   };
+
   hardware.amdgpu.initrd.enable = true;
 }

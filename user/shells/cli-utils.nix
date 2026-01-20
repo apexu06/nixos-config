@@ -4,6 +4,7 @@
     ripgrep
     findutils
     unzip
+    pciutils
     killall
     btop
     fastfetch
