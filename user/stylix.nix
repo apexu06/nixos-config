@@ -50,6 +50,7 @@ in {
 
       targets.obsidian.vaultNames = [
         "red-cross"
+        "personal"
       ];
 
       fonts = {
