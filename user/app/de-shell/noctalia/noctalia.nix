@@ -19,6 +19,9 @@ in {
   programs.noctalia-shell = {
     enable = true;
     systemd.enable = true;
+    package = inputs.noctalia.packages.${pkgs.system}.default.override {
+      calendarSupport = true;
+    };
 
     settings = {
       appLauncher = {

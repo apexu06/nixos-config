@@ -219,6 +219,7 @@ map("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { noremap = true, silent = true })
 map("n", "nE", vim.diagnostic.goto_prev)
 map("n", "ne", vim.diagnostic.goto_next)
+map("n", "<leader>mr", ":make run<CR>")
 map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "<leader>q", vim.diagnostic.setloclist)
 map("n", "L", ":bnext<CR>", { noremap = true, silent = true })
@@ -312,7 +313,7 @@ vim.lsp.enable({
 	"svelte",
 	"nil_ls",
 	"qmlls",
-	"ccls",
+	"clangd",
 })
 
 vim.lsp.config("ccls", {

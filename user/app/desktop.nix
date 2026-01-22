@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  home.packages = with pkgs; [
+    protonvpn-gui
+  ];
+
   programs.thunderbird = {
     enable = true;
     profiles = {};
