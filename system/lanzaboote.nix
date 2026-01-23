@@ -13,7 +13,7 @@
   ];
 
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.supportedFilesystems = ["ntfs"];
