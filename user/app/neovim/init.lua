@@ -16,6 +16,8 @@ vim.opt.smartindent = true
 vim.opt.pumheight = 10
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
+vim.opt.scrolloff = 5
+vim.opt.inccommand = "split"
 vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = " "
@@ -57,6 +59,15 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
+	{ src = "https://github.com/MunifTanjim/nui.nvim" },
+	{ src = "https://github.com/saxon1964/neovim-tips" },
+})
+
+require("neovim_tips").setup({
+	user_file = vim.fn.stdpath("config") .. "/neovim_tips/user_tips.md",
+	user_tip_prefix = "[User] ",
+	warn_on_conflicts = true,
+	daily_tip = 0,
 })
 
 require("lualine").setup({
@@ -224,6 +235,8 @@ map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "<leader>q", vim.diagnostic.setloclist)
 map("n", "L", ":bnext<CR>", { noremap = true, silent = true })
 map("n", "H", ":bprev<CR>", { noremap = true, silent = true })
+map("n", "<leader>tt", ":NeovimTips<CR>")
+map("n", "<leader>tb", ":NeovimTipsBookmarks<CR>")
 map("n", "<leader>sf", function()
 	Snacks.picker.files()
 end)
