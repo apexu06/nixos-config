@@ -23,7 +23,7 @@
     viAlias = true;
     vimAlias = true;
     # defaultEditor = true;
-    extraLuaConfig = builtins.readFile ./init.lua;
+    initLua = builtins.readFile ./init.lua;
     package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 }

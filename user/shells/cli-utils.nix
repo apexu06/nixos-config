@@ -11,6 +11,7 @@
     gdu
     fzf
     gh
+    glab
     xdg-utils
     wl-clipboard
     gdb
