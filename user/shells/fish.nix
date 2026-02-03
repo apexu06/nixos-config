@@ -3,6 +3,7 @@
     fishPlugins.pure
     fishPlugins.fzf-fish
     fishPlugins.done
+    nix-your-shell
   ];
 
   programs.fish = {
@@ -20,6 +21,7 @@
       bind --mode insert \cf forward-char
 
       zoxide init fish | source
+      nix-your-shell fish | source
     '';
     plugins = [
       {

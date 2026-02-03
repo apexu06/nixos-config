@@ -23,6 +23,23 @@ in {
       calendarSupport = true;
     };
 
+    plugins = {
+      sources = [
+        {
+          enabled = true;
+          name = "Official Noctalia Plugins";
+          url = "https://github.com/noctalia-dev/noctalia-plugins";
+        }
+      ];
+      states = {
+        pomodoro = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
+      };
+      version = 1;
+    };
+
     settings = {
       appLauncher = {
         autoPasteClipboard = false;
@@ -32,7 +49,7 @@ in {
         enableClipboardHistory = false;
         iconMode = "tabler";
         ignoreMouseInput = false;
-        pinnedExecs = [];
+        pinnedApps = ["zen-twilight" "spotify" "discord"];
         position = "center";
         screenshotAnnotationTool = "";
         showCategories = true;
@@ -41,27 +58,38 @@ in {
         terminalCommand = "xterm -e";
         useApp2Unit = false;
         viewMode = "list";
+        enableSettingsSearch = true;
+        enableWindowsSearch = true;
       };
       audio = {
         cavaFrameRate = 30;
-        externalMixer = "pwvucontrol || pavucontrol";
         mprisBlacklist = [];
         preferredPlayer = "";
         visualizerType = "linear";
         volumeOverdrive = false;
+        volumeFeedback = false;
         volumeStep = 5;
       };
       bar = {
         density = "comfortable";
-        exclusive = true;
+        displayMode = "always_visible";
+        autoHideDelay = 500;
+        autoShowDelay = 150;
+        backgroundOpacity = 1.0;
+        capsuleOpacity = 1.0;
+        barType = "framed";
+        frameRadius = 12;
+        frameThickness = 8;
+        hideOnOverview = true;
         floating = false;
-        marginHorizontal = 0.25;
-        marginVertical = 0.25;
+        marginHorizontal = 5;
+        marginVertical = 5;
         monitors = [];
         outerCorners = true;
         position = "top";
         showCapsule = true;
         showOutline = false;
+        screenOverrides = [];
         useSeparateOpacity = false;
         widgets = {
           center = [
@@ -120,7 +148,15 @@ in {
           ];
           right = [
             {
-              id = "ScreenRecorder";
+              id = "plugin:pomodoro";
+              defaultSettings = {
+                autoStartBreaks = false;
+                autoStartWork = false;
+                longBreakDuration = 15;
+                sessionsBeforeLongBreak = 4;
+                shortBreakDuration = 5;
+                workDuration = 25;
+              };
             }
             {
               hideWhenZero = false;
@@ -142,10 +178,13 @@ in {
               showNoctaliaPerformance = false;
               showPowerProfiles = true;
               warningThreshold = 30;
+              hideIfIdle = false;
+              deviceNativePath = "__default__";
             }
             {
               displayMode = "onhover";
               id = "Volume";
+              middleClickCommand = "pwvucontrol || pavucontrol";
             }
             {
               displayMode = "onhover";
@@ -285,6 +324,10 @@ in {
         size = 1;
       };
       general = {
+        allowPasswordWithFprintd = true;
+        autStartAuth = true;
+        enableLockScreenCountdown = true;
+        lockScreenCountdownDuration = 10000;
         allowPanelsOnScreenWithoutBar = true;
         animationDisabled = false;
         animationSpeed = 1;
