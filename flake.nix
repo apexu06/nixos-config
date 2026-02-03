@@ -71,8 +71,8 @@
 
     settings = {
       de = "niri";
-      theme = "tokyonight";
-      useWallpaper = false;
+      theme = "gruvbox-material";
+      useWallpaper = true;
       launcher = "noctalia";
       de-shell = "noctalia";
     };

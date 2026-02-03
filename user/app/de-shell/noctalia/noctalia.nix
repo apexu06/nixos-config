@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  settings,
   ...
 }: let
   noctalia = cmd:
@@ -558,7 +559,7 @@ in {
       wallpaper = {
         directory = "/home/apexu/Pictures/Wallpapers";
         enableMultiMonitorDirectories = false;
-        enabled = true;
+        enabled = !settings.useWallpaper;
         fillColor = "#000000";
         fillMode = "crop";
         hideWallpaperFilenames = false;
@@ -590,7 +591,7 @@ in {
     };
   };
 
-  services.swww.enable = lib.mkForce false;
+  services.hyprpaper.enable = lib.mkForce settings.useWallpaper;
 
   services.hypridle.settings = {
     general = {

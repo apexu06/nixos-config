@@ -42,7 +42,7 @@
       automount = true;
     };
 
-    swww = {
+    hyprpaper = {
       enable = true;
     };
   };
@@ -204,7 +204,7 @@
       layer-rules = [
         {
           matches = [
-            {namespace = "^swww-daemon$";}
+            {namespace = "^hyprpaper$";}
             {namespace = "^noctalia-overview*";}
           ];
           place-within-backdrop = true;

@@ -22,10 +22,10 @@ in {
 
   stylix =
     {
-      polarity = "dark";
-
       enable = true;
       autoEnable = true;
+
+      base16Scheme = themeFile;
 
       targets.waybar.font = "serif";
       targets.fish.enable = false;
@@ -92,9 +92,6 @@ in {
         package = pkgs.catppuccin-cursors.mochaLight;
         size = 32;
       };
-    }
-    // lib.optionalAttrs (!settings.useWallpaper) {
-      base16Scheme = themeFile;
     }
     // lib.optionalAttrs (settings.useWallpaper) {
       image = pkgs.fetchurl {
