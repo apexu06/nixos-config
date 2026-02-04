@@ -22,6 +22,7 @@
     tree
     file
     jq
+    felix-fm
   ];
 
   home.shellAliases = {

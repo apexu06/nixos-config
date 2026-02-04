@@ -50,6 +50,10 @@
       "--when-focus-on var:IS_NVIM alt+k" = "";
       "--when-focus-on var:IS_NVIM alt+h" = "";
       "--when-focus-on var:IS_NVIM alt+l" = "";
+      "--when-focus-on var:IS_NVIM ctrl+j" = "";
+      "--when-focus-on var:IS_NVIM ctrl+k" = "";
+      "--when-focus-on var:IS_NVIM ctrl+h" = "";
+      "--when-focus-on var:IS_NVIM ctrl+l" = "";
     };
 
     settings = {
@@ -59,7 +63,8 @@
       window_padding_width = 5;
 
       tab_bar_edge = "top";
-      tab_bar_style = "slant";
+      tab_bar_margin_width = 2;
+      tab_bar_style = "powerline";
       tab_title_max_length = 10;
       tab_title_template = "{index}:{title}";
 
