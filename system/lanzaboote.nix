@@ -12,15 +12,21 @@
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
+  boot = {
+    plymouth = {
+      enable = true;
+    };
 
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.supportedFilesystems = ["ntfs"];
-  boot.kernelModules = ["btusb"];
+    loader.efi.canTouchEfiVariables = true;
+    kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/var/lib/sbctl";
+    loader.systemd-boot.enable = lib.mkForce false;
+    supportedFilesystems = ["ntfs"];
+    kernelModules = ["btusb"];
+
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+    };
   };
 }
