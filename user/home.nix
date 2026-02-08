@@ -11,7 +11,7 @@
     ./de/${settings.de}/${settings.de}.nix
     ./app/neovim/nvim.nix
     ./app/zed/zed.nix
-    ./app/browser/zen.nix
+    ./app/browser/firefox.nix
     ./app/terminal/wezterm/wezterm.nix
     ./app/de-shell/${settings.de-shell}/${settings.de-shell}.nix
     ./app/desktop.nix

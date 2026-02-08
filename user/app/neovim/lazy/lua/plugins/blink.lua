@@ -1,0 +1,49 @@
+return {
+	"saghen/blink.cmp",
+	event = "VeryLazy",
+	version = "1.*",
+	---@module 'blink.cmp'
+	---@type blink.cmp.Config
+	opts = {
+		keymap = {
+			preset = "default",
+			["<Tab>"] = {
+				function(cmp)
+					cmp.accept()
+				end,
+			},
+			["K"] = {
+				function(cmp)
+					cmp.show_documentation()
+				end,
+			},
+		},
+
+		fuzzy = {
+			implementation = "rust",
+		},
+		appearance = {
+			use_nvim_cmp_as_default = false,
+			nerd_font_variant = "mono",
+		},
+		completion = {
+			ghost_text = {
+				enabled = true,
+			},
+			menu = {
+				auto_show = true,
+				winblend = 0,
+				scrollbar = false,
+				border = "none",
+				draw = {
+					padding = 2,
+					columns = { { "kind_icon" }, { "label", "label_description" } },
+				},
+			},
+			documentation = {
+				auto_show_delay_ms = 0,
+			},
+		},
+	},
+	opts_extend = { "sources.default" },
+}

@@ -47,6 +47,11 @@ in {
       };
 
       targets.zen-browser.profileNames = ["default"];
+      targets.firefox = {
+        enable = true;
+        colorTheme.enable = true;
+        profileNames = ["apexu"];
+      };
 
       targets.obsidian.vaultNames = [
         "red-cross"

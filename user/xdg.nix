@@ -1,12 +1,11 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   xdg = {
     autostart.enable = true;
     configFile."electron-flags.conf".text = ''
-      --ozone-platform=wayland
-      --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer
-    '';
-
-    configFile."spotify-flags.conf".text = ''
       --ozone-platform=wayland
       --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer
     '';
@@ -50,8 +49,6 @@
       extraPortals = with pkgs; [
         xdg-desktop-portal-gnome
         xdg-desktop-portal-gtk
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal
       ];
     };
   };

@@ -1,7 +1,0 @@
-{
-    "diagnostics.globals": [
-        "setup_listeners",
-        "setup_go",
-        "setColorscheme"
-    ]
-}

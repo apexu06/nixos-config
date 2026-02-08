@@ -50,7 +50,7 @@ in {
         enableClipboardHistory = false;
         iconMode = "tabler";
         ignoreMouseInput = false;
-        pinnedApps = ["zen-twilight" "spotify" "discord"];
+        pinnedApps = ["zen-twilight" "spotify" "discord" "firefox"];
         position = "center";
         screenshotAnnotationTool = "";
         showCategories = true;

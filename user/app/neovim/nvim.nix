@@ -17,16 +17,20 @@
     stylua
     alejandra
     ruff
+    tree-sitter
   ];
 
   programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
-    # defaultEditor = true;
-    initLua = builtins.readFile ./init.lua;
+    defaultEditor = true;
+    # initLua = builtins.readFile ./init.lua;
     package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   home.file.".config/nvim/colorscheme.txt".text = settings.theme;
+
+  home.file.".config/nvim".source = ./lazy;
+  home.file.".config/nvim".recursive = true;
 }

@@ -17,6 +17,11 @@ in {
     ];
   };
 
+  xdg.configFile."spotify-flags.conf".text = ''
+    --ozone-platform=wayland
+    --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer
+  '';
+
   programs.spotify-player = {
     enable = false;
     settings = {
