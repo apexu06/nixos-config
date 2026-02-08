@@ -7,6 +7,31 @@
     nerd-fonts.iosevka-term
   ];
 
+  # home.file.".config/kitty/neighboring_window.py" = {
+  #   source = "./neighboring_window.py";
+  #   executable = true;
+  # };
+  # home.file.".config/kitty/relative_resize.py" = {
+  #   source = "./relative_resize.py";
+  #   executable = true;
+  # };
+  # home.file.".config/kitty/split_window.py" = {
+  #   source = "./split_window.py";
+  #   executable = true;
+  # };
+  home.file.".config/kitty/neighboring_window.py" = {
+    source = "${pkgs.vimPlugins.smart-splits-nvim}/kitty/neighboring_window.py";
+    executable = true;
+  };
+  home.file.".config/kitty/relative_resize.py" = {
+    source = "${pkgs.vimPlugins.smart-splits-nvim}/kitty/relative_resize.py";
+    executable = true;
+  };
+  home.file.".config/kitty/split_window.py" = {
+    source = "${pkgs.vimPlugins.smart-splits-nvim}/kitty/split_window.py";
+    executable = true;
+  };
+
   home.file.".config/kitty/relative_resize.py".text = builtins.readFile ./relative_resize.py;
   home.file.".config/kitty/split_window.py".text = builtins.readFile ./split_window.py;
   home.file.".config/kitty/neighboring_window.py".text = builtins.readFile ./neighboring_window.py;
@@ -26,6 +51,11 @@
       "ctrl+h" = "neighboring_window left";
       "ctrl+l" = "neighboring_window right";
 
+      "alt+j" = "kitten relative_resize.py down 3";
+      "alt+k" = "kitten relative_resize.py up 3";
+      "alt+h" = "kitten relative_resize.py left 3";
+      "alt+l" = "kitten relative_resize.py right 3";
+
       "ctrl+space>enter" = "new_tab_with_cwd";
       "ctrl+space>e" = "close_window";
       "ctrl+space>v" = "launch --location=hsplit --cwd=current";
@@ -40,23 +70,10 @@
       "ctrl+space>7" = "goto_tab 7";
       "ctrl+space>8" = "goto_tab 8";
       "ctrl+space>9" = "goto_tab 9";
-
-      "alt+j" = "kitten relative_resize.py down 3";
-      "alt+k" = "kitten relative_resize.py up 3";
-      "alt+h" = "kitten relative_resize.py left 3";
-      "alt+l" = "kitten relative_resize.py right 3";
-
-      "--when-focus-on var:IS_NVIM alt+j" = "";
-      "--when-focus-on var:IS_NVIM alt+k" = "";
-      "--when-focus-on var:IS_NVIM alt+h" = "";
-      "--when-focus-on var:IS_NVIM alt+l" = "";
-      "--when-focus-on var:IS_NVIM ctrl+j" = "";
-      "--when-focus-on var:IS_NVIM ctrl+k" = "";
-      "--when-focus-on var:IS_NVIM ctrl+h" = "";
-      "--when-focus-on var:IS_NVIM ctrl+l" = "";
     };
 
     settings = {
+      shell = "fish";
       enabled_layouts = "splits";
       scrollback_lines = 80000;
       modify_font = "cell_width 100%";
@@ -74,5 +91,18 @@
       # cursor_trail = 1;
       # cursor_trail_decay = "0.1 0.2";
     };
+
+    extraConfig = ''
+      map --when-focus-on var:IS_NVIM ctrl+j
+      map --when-focus-on var:IS_NVIM ctrl+k
+      map --when-focus-on var:IS_NVIM ctrl+h
+      map --when-focus-on var:IS_NVIM ctrl+l
+
+      map --when-focus-on var:IS_NVIM alt+j
+      map --when-focus-on var:IS_NVIM alt+k
+      map --when-focus-on var:IS_NVIM alt+h
+      map --when-focus-on var:IS_NVIM alt+l
+
+    '';
   };
 }

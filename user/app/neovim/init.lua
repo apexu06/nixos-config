@@ -21,6 +21,7 @@ vim.opt.inccommand = "split"
 vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = { "*.md", "*.tex" },
@@ -59,7 +60,7 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
-	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
+	{ src = "https://github.com/MagicDuck/grug-far.nvim" },
 })
 
 require("lualine").setup({
@@ -112,7 +113,7 @@ require("blink.cmp").setup({
 				cmp.accept()
 			end,
 		},
-		["<C-k>"] = {
+		["K"] = {
 			function(cmp)
 				cmp.show_documentation()
 			end,
@@ -221,6 +222,7 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { noremap = true, silent = true })
 map("n", "nE", vim.diagnostic.goto_prev)
+map("n", "<leader>q", ":copen<CR>")
 map("n", "ne", vim.diagnostic.goto_next)
 map("n", "<leader>mr", ":make run<CR>")
 map("n", "<leader>e", vim.diagnostic.open_float)

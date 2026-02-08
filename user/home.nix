@@ -12,7 +12,7 @@
     ./app/neovim/nvim.nix
     ./app/zed/zed.nix
     ./app/browser/zen.nix
-    ./app/terminal/kitty/kitty.nix
+    ./app/terminal/wezterm/wezterm.nix
     ./app/de-shell/${settings.de-shell}/${settings.de-shell}.nix
     ./app/desktop.nix
     ./app/spotify.nix
