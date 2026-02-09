@@ -90,6 +90,7 @@
           inherit settings;
         };
         modules = [
+          ./system/boot/lanzaboote.nix
           ./system/pc-hardware-configuration.nix
           ./system/configuration.nix
           ./system/pc.nix
@@ -103,6 +104,7 @@
         };
         modules = [
           nixos-hardware.nixosModules.framework-13-7040-amd
+          ./system/boot/grub.nix
           ./system/laptop-hardware-configuration.nix
           ./system/configuration.nix
         ];

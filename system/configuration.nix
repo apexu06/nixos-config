@@ -8,7 +8,6 @@
     ./pipewire.nix
     ./virtualization.nix
     ./de/${settings.de}.nix
-    ./lanzaboote.nix
     ./services.nix
   ];
 
