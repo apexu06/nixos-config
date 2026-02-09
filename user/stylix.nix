@@ -49,7 +49,7 @@ in {
       targets.zen-browser.profileNames = ["default"];
       targets.firefox = {
         enable = true;
-        colorTheme.enable = true;
+        firefoxGnomeTheme.enable = true;
         profileNames = ["apexu"];
       };
 

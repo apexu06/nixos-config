@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   settings,
   ...
 }: {
@@ -26,7 +25,6 @@
     vimAlias = true;
     defaultEditor = true;
     # initLua = builtins.readFile ./init.lua;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   home.file.".config/nvim/colorscheme.txt".text = settings.theme;
