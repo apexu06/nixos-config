@@ -31,6 +31,15 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	end,
 })
 
+vim.api.nvim_create_autocmd("User", {
+	pattern = "OilActionsPost",
+	callback = function(event)
+		if event.data.actions[1].type == "move" then
+			Snacks.rename.on_rename_file(event.data.actions[1].src_url, event.data.actions[1].dest_url)
+		end
+	end,
+})
+
 function setColorscheme()
 	local file_path = vim.fn.stdpath("config") .. "/colorscheme.txt"
 	local f = assert(io.open(file_path, "rb"))
@@ -65,9 +74,8 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { noremap = true, silent = true })
 
-map("n", "nE", vim.diagnostic.goto_prev)
 map("n", "<leader>q", ":copen<CR>")
-map("n", "ne", vim.diagnostic.goto_next)
+map("n", "ge", vim.diagnostic.goto_next)
 map("n", "<leader>mr", ":make run<CR>")
 map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "<leader>q", vim.diagnostic.setloclist)
@@ -109,4 +117,7 @@ map("n", "<leader>gy", function()
 end)
 map("n", "<leader>b", function()
 	Snacks.bufdelete()
+end)
+map("n", "<leader>lg", function()
+	Snacks.lazygit()
 end)

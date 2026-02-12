@@ -165,7 +165,7 @@ in {
               showUnreadBadge = true;
             }
             {
-              displayMode = "onhover";
+              displayMode = "alwaysShow";
               id = "Network";
             }
             {
@@ -183,7 +183,7 @@ in {
               deviceNativePath = "__default__";
             }
             {
-              displayMode = "onhover";
+              displayMode = "alwaysShow";
               id = "Volume";
               middleClickCommand = "pwvucontrol || pavucontrol";
             }
@@ -192,9 +192,9 @@ in {
               id = "Brightness";
             }
             {
-              blacklist = [];
+              blacklist = ["blueman-applet" "udiskie" "blueman-tray"];
               colorizeIcons = false;
-              drawerEnabled = true;
+              drawerEnabled = false;
               hidePassive = false;
               id = "Tray";
               pinned = [];
@@ -546,9 +546,7 @@ in {
         bluetoothDetailsViewMode = "grid";
         bluetoothHideUnnamedDevices = false;
         boxBorderEnabled = true;
-        fontDefault = "Rubik";
         fontDefaultScale = 1.05;
-        fontFixed = "JetbrainsMono Nerd Font";
         fontFixedScale = 1;
         networkPanelView = "wifi";
         panelsAttachedToBar = true;

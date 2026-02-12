@@ -17,6 +17,7 @@
     alejandra
     ruff
     tree-sitter
+    lazygit
   ];
 
   programs.neovim = {

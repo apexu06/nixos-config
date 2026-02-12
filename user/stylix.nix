@@ -60,18 +60,18 @@ in {
 
       fonts = {
         serif = {
-          package = pkgs.rubik;
-          name = "Rubik";
+          package = pkgs.adwaita-fonts;
+          name = "Adwaita Sans";
         };
 
         sansSerif = {
-          package = pkgs.rubik;
-          name = "Rubik";
+          package = pkgs.adwaita-fonts;
+          name = "Adwaita Sans";
         };
 
         monospace = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetbrainsMono Nerd Font";
+          package = pkgs.adwaita-fonts;
+          name = "Adwaita Mono";
         };
 
         emoji = {

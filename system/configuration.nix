@@ -69,6 +69,7 @@
       "wheel"
       "docker"
       "video"
+      "i2c"
     ];
     shell = pkgs.fish;
   };

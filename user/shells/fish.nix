@@ -3,6 +3,7 @@
     fishPlugins.pure
     fishPlugins.fzf-fish
     fishPlugins.done
+    fishPlugins.async-prompt
     nix-your-shell
   ];
 
@@ -15,7 +16,9 @@
       set -U pure_enable_single_line_prompt true
       set -U pure_sow_subsecond_command_duration true
       set -U pure_shorten_prompt_current_directory_length 1
+      set -U pure_enable_nixdevshell true
       set -U __done_min_cmd_duration 10000
+      set -g async_prompt_functions _pure_prompt_git
 
       fish_vi_key_bindings
       bind --mode insert \cf forward-char
@@ -42,6 +45,10 @@
       of.body = ''
         set file (tv files)
         test -n "$file"; and nvim $file
+      '';
+      off.body = ''
+        set folder (tv dirs)
+        test -n "$folders"; and nvim $folders
       '';
     };
   };

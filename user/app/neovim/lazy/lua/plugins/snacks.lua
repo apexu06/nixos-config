@@ -17,5 +17,7 @@ return {
 		quickfile = { enabled = true },
 		terminal = { enabled = false, win = { position = "float" } },
 		rename = { enabled = true },
+		lazygit = { enabled = true },
+		scope = { enabled = true },
 	},
 }

@@ -68,7 +68,7 @@
     settings = {
       de = "niri";
       theme = "gruvbox-material";
-      useWallpaper = true;
+      useWallpaper = false;
       launcher = "noctalia";
       de-shell = "noctalia";
     };
