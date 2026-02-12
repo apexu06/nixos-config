@@ -169,6 +169,11 @@ in {
               id = "Network";
             }
             {
+              displayMode = "alwaysShow";
+              id = "Volume";
+              middleClickCommand = "pwvucontrol || pavucontrol";
+            }
+            {
               displayMode = "onhover";
               id = "Bluetooth";
             }
@@ -181,11 +186,6 @@ in {
               warningThreshold = 30;
               hideIfIdle = false;
               deviceNativePath = "__default__";
-            }
-            {
-              displayMode = "alwaysShow";
-              id = "Volume";
-              middleClickCommand = "pwvucontrol || pavucontrol";
             }
             {
               displayMode = "onhover";
