@@ -9,13 +9,21 @@
       enable = true;
     };
 
-    loader.systemd-boot.enable = lib.mkForce false;
-    loader.grub.enable = true;
-    loader.grub.device = "nodev";
-    loader.grub.useOSProber = true;
-    loader.grub.efiSupport = true;
-    loader.efi.canTouchEfiVariables = true;
-    loader.efi.efiSysMountPoint = "/boot";
+    loader = {
+      systemd-boot.enable = lib.mkForce false;
+
+      grub = {
+        enable = true;
+        device = "nodev";
+        fontSize = 28;
+        font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
+        useOSProber = true;
+        efiSupport = true;
+      };
+      efi.canTouchEfiVariables = true;
+      efi.efiSysMountPoint = "/boot";
+    };
+
     kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 
     kernelModules = ["btusb"];
