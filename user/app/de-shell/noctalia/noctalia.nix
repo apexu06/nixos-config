@@ -59,7 +59,7 @@ in {
         terminalCommand = "xterm -e";
         useApp2Unit = false;
         viewMode = "list";
-        enableSettingsSearch = true;
+        enableSettingsSearch = false;
         enableWindowsSearch = true;
       };
       audio = {
@@ -325,6 +325,10 @@ in {
         size = 1;
       };
       general = {
+        keybinds = {
+          keyDown = "Ctrl+N";
+          keyUp = "Ctrl+P";
+        };
         allowPasswordWithFprintd = true;
         autStartAuth = true;
         enableLockScreenCountdown = true;

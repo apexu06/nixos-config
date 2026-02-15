@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
     fd
     ripgrep
@@ -22,6 +26,7 @@
     file
     jq
     felix-fm
+    inputs.systemd-manager-tui.packages.x86_64-linux.default
   ];
 
   home.shellAliases = {
