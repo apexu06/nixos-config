@@ -31,6 +31,8 @@ in {
       targets.fish.enable = false;
       targets.zed.enable = false;
 
+      targets.foot.fonts.enable = false;
+
       targets.qt = {
         enable = true;
         standardDialogs = "xdgdesktopportal";

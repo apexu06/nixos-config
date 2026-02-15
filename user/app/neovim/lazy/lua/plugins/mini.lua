@@ -1,5 +1,6 @@
 return {
 	"nvim-mini/mini.nvim",
+	event = "VeryLazy",
 	version = "*",
 	config = function()
 		require("mini.ai").setup({ n_lines = 500 })

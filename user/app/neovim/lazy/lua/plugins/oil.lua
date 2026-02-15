@@ -13,6 +13,8 @@ return {
 		keymaps = {
 			["<C-c>"] = { "actions.parent", mode = "n" },
 			["q"] = { "actions.close", mode = "n" },
+			["<C-l>"] = false,
+			["<C-h>"] = false,
 		},
 	},
 	lazy = false,

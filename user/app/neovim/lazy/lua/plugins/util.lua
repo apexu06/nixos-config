@@ -1,6 +1,7 @@
 return {
 	{
 		"j-hui/fidget.nvim",
+		event = "VeryLazy",
 		opts = {
 			progress = {
 				suppress_on_insert = true,
@@ -32,8 +33,15 @@ return {
 	},
 	{
 		"mrjones2014/smart-splits.nvim",
-		lazy = false,
+		lazy = true,
+		event = "VeryLazy",
 	},
-	{ "lewis6991/gitsigns.nvim" },
-	{ "tpope/vim-sleuth" },
+	{
+		event = "VeryLazy",
+		"lewis6991/gitsigns.nvim",
+	},
+	{
+		event = "VeryLazy",
+		"tpope/vim-sleuth",
+	},
 }

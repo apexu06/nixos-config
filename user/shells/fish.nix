@@ -10,6 +10,10 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
+      if not set -q TMUX; and test "$TERM" = "foot"
+          exec tmux new-session
+      end
+
       set fish_greeting
 
       set -U pure_check_for_new_release false

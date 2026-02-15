@@ -8,14 +8,15 @@
     ./xdg.nix
     ./shells/fish.nix
     ./shells/cli-utils.nix
-    ./de/${settings.de}/${settings.de}.nix
     ./app/neovim/nvim.nix
     ./app/zed/zed.nix
     ./app/browser/firefox.nix
-    ./app/terminal/wezterm/wezterm.nix
-    ./app/de-shell/${settings.de-shell}/${settings.de-shell}.nix
     ./app/desktop.nix
     ./app/spotify.nix
+
+    ./de/${settings.de}/${settings.de}.nix
+    ./app/terminal/${settings.terminal}/${settings.terminal}.nix
+    ./app/de-shell/${settings.de-shell}/${settings.de-shell}.nix
   ];
 
   home.username = "apexu";

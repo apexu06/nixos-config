@@ -4,6 +4,8 @@ require("config.lazy")
 vim.opt.number = true
 vim.opt.undofile = true
 vim.opt.relativenumber = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 vim.opt.wrap = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -50,6 +52,23 @@ function setColorscheme()
 end
 
 setColorscheme()
+
+local function open_file_picker_in_split(direction)
+	require("snacks").picker.files({
+		confirm = function(picker, item)
+			picker:close()
+			if item then
+				if direction == "horizontal" then
+					vim.cmd("split " .. item.file)
+				else
+					vim.cmd("vsplit " .. item.file)
+				end
+			end
+		end,
+	})
+end
+
+-- Keymaps
 
 vim.diagnostic.config({
 	virtual_text = false,
@@ -121,3 +140,11 @@ end)
 map("n", "<leader>lg", function()
 	Snacks.lazygit()
 end)
+
+map("n", "<leader>v", function()
+	open_file_picker_in_split("vertical")
+end, { desc = "Pick file in vertical split" })
+
+map("n", "<leader>h", function()
+	open_file_picker_in_split("horizontal")
+end, { desc = "Pick file in horizontal split" })

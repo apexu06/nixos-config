@@ -217,7 +217,7 @@
           {
             "Mod+Shift+Slash".action = show-hotkey-overlay;
 
-            "Mod+Return".action = spawn "wezterm";
+            "Mod+Return".action = spawn settings.terminal;
 
             "Mod+Alt+L".action = spawn "hyprlock";
             "Mod+Shift+M".action = spawn "wlogout";
