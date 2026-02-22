@@ -6,7 +6,6 @@
     unzip
     pciutils
     killall
-    btop
     fastfetch
     gdu
     fzf
@@ -43,6 +42,7 @@
   };
 
   programs.bat.enable = true;
+  programs.btop.enable = true;
   programs.television.enable = true;
   programs.yazi = {
     enable = true;

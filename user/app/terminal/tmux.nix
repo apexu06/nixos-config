@@ -51,9 +51,9 @@ in {
       bind-key 'C-l' select-pane -R
       bind-key 'C-\' select-pane -l
 
-      bind Enter new-window
-      bind v split-window -h    # vertical divider → left/right panes
-      bind h split-window -v    # horizontal divider → top/bottom panes
+      bind Enter new-window -c "#{pane_current_path}"
+      bind v split-window -h -c "#{pane_current_path}"
+      bind h split-window -v -c "#{pane_current_path}"
       bind e kill-pane
       bind m new-session -A -s main
       bind s choose-session
@@ -66,8 +66,10 @@ in {
       set-hook -g window-layout-changed 'if "[ #{session_windows} -lt 2 ]" "set status off"'
 
       set-option -g renumber-windows on
-      set -g base-index 1
-      setw -g pane-base-index 1
+      set -g base-index 0
+      setw -g pane-base-index 0
+
+      set -g mouse on
     '';
   };
 }
