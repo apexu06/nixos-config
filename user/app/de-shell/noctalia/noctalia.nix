@@ -400,7 +400,7 @@ in {
         criticalUrgencyDuration = 15;
         enableKeyboardLayoutToast = true;
         enabled = true;
-        location = "bottom_right";
+        location = "top_center";
         lowUrgencyDuration = 3;
         monitors = [];
         normalUrgencyDuration = 8;

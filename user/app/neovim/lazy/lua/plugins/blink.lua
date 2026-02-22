@@ -12,11 +12,7 @@ return {
 					cmp.accept()
 				end,
 			},
-			["K"] = {
-				function(cmp)
-					cmp.show_documentation()
-				end,
-			},
+			["<C-k>"] = { "show", "show_documentation", "hide_documentation" },
 		},
 
 		fuzzy = {

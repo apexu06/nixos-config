@@ -2,8 +2,6 @@
   home.packages = with pkgs; [
     fishPlugins.pure
     fishPlugins.fzf-fish
-    fishPlugins.done
-    fishPlugins.async-prompt
     nix-your-shell
   ];
 
@@ -22,7 +20,7 @@
       set -U pure_shorten_prompt_current_directory_length 1
       set -U pure_enable_nixdevshell true
       set -U __done_min_cmd_duration 10000
-      set -g async_prompt_functions _pure_prompt_git
+      # set -g async_prompt_functions _pure_prompt_git
 
       fish_vi_key_bindings
       bind --mode insert \cf forward-char
@@ -34,6 +32,10 @@
       {
         name = "pure";
         src = pkgs.fishPlugins.pure.src;
+      }
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
       }
     ];
     functions = {

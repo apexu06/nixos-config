@@ -76,7 +76,7 @@
       };
 
       cursor = {
-        theme = "Adwaita";
+        theme = config.stylix.cursor.name;
         size = config.stylix.cursor.size - 10;
       };
 

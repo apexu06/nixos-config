@@ -13,10 +13,10 @@
 
   programs.foot = {
     enable = true;
-
     settings = {
       main = {
-        font = lib.mkForce "IosevkaTerm Nerd Font:size=13";
+        font = lib.mkForce "IosevkaTerm Nerd Font:size=13.5:weight=Medium";
+        font-bold = lib.mkForce "IosevkaTerm Nerd Font:size=13.5:weight=SemiBold";
         pad = "8x8";
       };
       scrollback = {

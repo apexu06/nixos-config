@@ -95,8 +95,8 @@ in {
       };
 
       cursor = {
-        name = "Catppuccin Mocha Light";
-        package = pkgs.catppuccin-cursors.mochaLight;
+        name = "Bibata-Modern-Classic";
+        package = pkgs.bibata-cursors;
         size = 32;
       };
     }
