@@ -184,6 +184,17 @@
           default-column-width = {proportion = 0.5;};
         }
         {
+          matches = [
+            {app-id = "steam";}
+            {title = "^notificationtoasts_\\d+_desktop$";}
+          ];
+          default-floating-position = {
+            x = 10;
+            y = 10;
+            relative-to = "bottom-right";
+          };
+        }
+        {
           geometry-corner-radius = {
             bottom-left = 12.0;
             bottom-right = 12.0;
@@ -210,6 +221,12 @@
           place-within-backdrop = true;
         }
       ];
+
+      gestures = {
+        hot-corners = {
+          enable = false;
+        };
+      };
 
       # Keybindings
       binds = with config.lib.niri.actions;
