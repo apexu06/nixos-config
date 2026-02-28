@@ -34,6 +34,7 @@
     (discord.override {
       withVencord = true;
     })
+    nix-update
   ];
 
   programs = {

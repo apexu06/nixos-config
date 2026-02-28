@@ -7,6 +7,7 @@
     spice-protocol
     virtio-win
     win-spice
+    distrobox
   ];
 
   programs.virt-manager.enable = true;

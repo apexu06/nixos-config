@@ -1,30 +1,41 @@
 {
   pkgs,
   settings,
+  lib,
   ...
 }: {
-  imports = [
-    ../../launcher/${settings.launcher}.nix
-    ../hypridle.nix
-    ../hyprlock.nix
-    ./dunst.nix
-  ];
+  imports =
+    [
+      ../hypridle.nix
+    ]
+    ++ lib.optionals (settings.de-shell != "noctalia")
+    [
+      ../hyprlock.nix
+    ]
+    ++ lib.optionals (settings.launcher != "noctalia")
+    [
+      ../../launcher/launcher.nix
+    ];
 
-  home.packages = with pkgs; [
-    nwg-look
-    pavucontrol
-    hyprshot
-    hyprpicker
-    wlogout
-    nautilus
-    eog
-    papers
-    adwaita-icon-theme
-    gnome-disk-utility
-  ];
+  home.packages = with pkgs;
+    [
+      nwg-look
+      pavucontrol
+      hyprshot
+      hyprpicker
+      nautilus
+      eog
+      adwaita-icon-theme
+      gnome-disk-utility
+    ]
+    ++ lib.optionals (settings.de-shell != "noctalia")
+    [
+      wlogout
+    ];
 
   wayland.windowManager.hyprland = {
     enable = true;
+    xwayland.enable = true;
     systemd.variables = ["--all"];
     extraConfig =
       ''

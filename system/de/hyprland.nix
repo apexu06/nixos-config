@@ -1,35 +1,24 @@
-{pkgs, ...}: let
-  isVM =
-    (builtins.readFile (
-      pkgs.runCommand "detect-vm" {} ''
-        ${pkgs.systemd}/bin/systemd-detect-virt --vm > $out || echo "none" > $out
-      ''
-    ))
-    != "none\n";
-in {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   programs = {
     hyprland = {
       enable = true;
       xwayland = {
         enable = true;
       };
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
-    hyprlock.enable = true;
     gnome-disks.enable = true;
   };
 
   security = {
+    polkit.enable = true;
     pam.services.hyprlock = {};
     pam.services.hyprland.enable = true;
     pam.services.hyprland.enableGnomeKeyring = true;
   };
-
-  # environment.sessionVariables =
-  #   if isVM then
-  #     {
-  #       LIBGL_ALWAYS_SOFTWARE = "1";
-  #       WLR_NO_HARDWARE_CURSORS = "1";
-  #     }
-  #   else
-  #     { };
 }

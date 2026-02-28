@@ -77,6 +77,9 @@
   programs = {
     fish.enable = true;
     dconf.enable = true;
+    nix-ld = {
+      enable = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [

@@ -40,6 +40,7 @@
       NIX_CFLAGS_COMPILE = ["-fno-fast-math"];
     });
   };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -49,10 +50,10 @@
       proton-ge-bin
     ];
     extraPackages = with pkgs; [
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXinerama
-      xorg.libXScrnSaver
+      libXcursor
+      libXi
+      libXinerama
+      libXScrnSaver
       libpng
       libpulseaudio
       libvorbis

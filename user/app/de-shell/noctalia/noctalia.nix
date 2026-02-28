@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   settings,
+  config,
   ...
 }: let
   noctalia = cmd:
@@ -15,6 +16,7 @@
 in {
   imports = [
     inputs.noctalia.homeModules.default
+    inputs.niri.homeModules.niri
   ];
 
   programs.noctalia-shell = {
@@ -691,7 +693,7 @@ in {
     ];
   };
 
-  programs.niri.settings = {
+  programs.niri.settings = lib.mkIf (lib.hasAttr "niri" (config.programs or {})) {
     layer-rules = [
       {
         matches = [

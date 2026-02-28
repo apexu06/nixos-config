@@ -26,6 +26,7 @@
     file
     jq
     felix-fm
+    chafa
     inputs.systemd-manager-tui.packages.x86_64-linux.default
   ];
 
@@ -44,6 +45,7 @@
     gpl = "git pull";
     hms = "nh home switch";
     nos = "nh os switch";
+    stm = "systemd-manager-tui";
   };
 
   programs.bat.enable = true;
