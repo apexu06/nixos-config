@@ -1,7 +1,5 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    fishPlugins.pure
-    fishPlugins.fzf-fish
     nix-your-shell
   ];
 
@@ -34,8 +32,16 @@
         src = pkgs.fishPlugins.pure.src;
       }
       {
-        name = "done";
-        src = pkgs.fishPlugins.done.src;
+        name = "bass";
+        src = pkgs.fishPlugins.bass.src;
+      }
+      {
+        name = "pisces";
+        src = pkgs.fishPlugins.pisces.src;
+      }
+      {
+        name = "fzf-fish";
+        src = pkgs.fishPlugins.fzf-fish.src;
       }
     ];
     functions = {

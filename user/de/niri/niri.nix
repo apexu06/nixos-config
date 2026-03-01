@@ -9,10 +9,10 @@
   imports =
     [
       inputs.niri.homeModules.niri
-      ../hypridle.nix
     ]
     ++ lib.optionals (settings.de-shell != "noctalia")
     [
+      ../hypridle.nix
       ../hyprlock.nix
     ]
     ++ lib.optionals (settings.launcher != "noctalia")
@@ -134,6 +134,7 @@
           {proportion = 0.33333;}
           {proportion = 0.5;}
           {proportion = 0.66667;}
+          {proportion = 1.0;}
           {fixed = 1920;}
         ];
 
@@ -165,10 +166,14 @@
       };
 
       # Startup commands
-      spawn-at-startup = [
-        {command = ["sh" "-c" "wl-paste --type text --watch cliphist store"];}
-        {command = ["sh" "-c" "wl-paste --type image --watch cliphist store"];}
-      ];
+      spawn-at-startup =
+        [
+          {command = ["sh" "-c" "wl-paste --type text --watch cliphist store"];}
+          {command = ["sh" "-c" "wl-paste --type image --watch cliphist store"];}
+        ]
+        ++ lib.optionals (settings.de-shell == "noctalia") [
+          {command = ["noctalia-shell"];}
+        ];
 
       # General settings
       hotkey-overlay.skip-at-startup = true;

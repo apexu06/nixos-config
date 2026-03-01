@@ -83,7 +83,7 @@
     pkgs = nixpkgs.legacyPackages.${system};
 
     settings = {
-      de = "hyprland";
+      de = "niri";
       theme = "tokyonight";
       useWallpaper = false;
       launcher = "noctalia";

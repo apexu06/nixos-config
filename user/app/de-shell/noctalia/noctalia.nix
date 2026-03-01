@@ -3,7 +3,6 @@
   pkgs,
   inputs,
   settings,
-  config,
   ...
 }: let
   noctalia = cmd:
@@ -16,12 +15,10 @@
 in {
   imports = [
     inputs.noctalia.homeModules.default
-    inputs.niri.homeModules.niri
   ];
 
   programs.noctalia-shell = {
     enable = true;
-    systemd.enable = true;
     package = inputs.noctalia.packages.${pkgs.system}.default.override {
       calendarSupport = true;
     };
@@ -58,14 +55,19 @@ in {
         density = "default";
         enableClipPreview = true;
         enableClipboardHistory = false;
-        enableSessionSearch = true;
+        enableSessionSearch = false;
         enableSettingsSearch = false;
         enableWindowsSearch = true;
         iconMode = "tabler";
         ignoreMouseInput = false;
         overviewLayer = false;
-        pinnedApps = ["zen-twilight" "spotify" "discord" "firefox"];
-        position = "center";
+        pinnedApps = [
+          "zen-twilight"
+          "spotify"
+          "discord"
+          "firefox"
+        ];
+        position = "top_center";
         screenshotAnnotationTool = "";
         showCategories = true;
         showIconBackground = false;
@@ -74,26 +76,30 @@ in {
         useApp2Unit = false;
         viewMode = "list";
       };
+
       audio = {
         cavaFrameRate = 30;
         mprisBlacklist = [];
         preferredPlayer = "";
         visualizerType = "linear";
-        volumeOverdrive = false;
         volumeFeedback = false;
+        volumeFeedbackSoundFile = "";
+        volumeOverdrive = false;
         volumeStep = 5;
       };
+
       bar = {
-        density = "comfortable";
-        displayMode = "always_visible";
         autoHideDelay = 500;
         autoShowDelay = 150;
-        backgroundOpacity = 1.0;
+        backgroundOpacity = 1.0; # Converted to float
         barType = "simple";
         capsuleColorKey = "none";
-        capsuleOpacity = 1.0;
+        capsuleOpacity = 1.0; # Converted to float
+        contentPadding = 2;
+        density = "comfortable";
+        displayMode = "always_visible";
         floating = false;
-        fontScale = 1;
+        fontScale = 1.0; # Converted to float
         frameRadius = 12;
         frameThickness = 8;
         hideOnOverview = true;
@@ -102,7 +108,6 @@ in {
         monitors = [];
         outerCorners = true;
         position = "top";
-        screenOverrides = [];
         showCapsule = true;
         showOnWorkspaceSwitch = true;
         showOutline = false;
@@ -147,7 +152,7 @@ in {
               enableScrollWheel = true;
               focusedColor = "primary";
               followFocusedScreen = false;
-              groupedBorderOpacity = 1.0;
+              groupedBorderOpacity = 1.0; # Converted to float
               hideUnoccupied = false;
               iconScale = 0.8;
               id = "Workspace";
@@ -157,7 +162,7 @@ in {
               showApplications = false;
               showBadge = true;
               showLabelsOnlyWhenOccupied = true;
-              unfocusedIconsOpacity = 1.0;
+              unfocusedIconsOpacity = 1.0; # Converted to float
             }
             {
               colorizeIcons = false;
@@ -246,11 +251,14 @@ in {
           ];
         };
       };
+
       brightness = {
+        backlightDeviceMappings = [];
         brightnessStep = 5;
-        enableDdcSupport = false;
+        enableDdcSupport = true;
         enforceMinimum = true;
       };
+
       calendar = {
         cards = [
           {
@@ -263,14 +271,11 @@ in {
           }
           {
             enabled = true;
-            id = "timer-card";
-          }
-          {
-            enabled = true;
             id = "weather-card";
           }
         ];
       };
+
       colorSchemes = {
         darkMode = true;
         generationMethod = "tonal-spot";
@@ -281,6 +286,7 @@ in {
         schedulingMode = "off";
         useWallpaperColors = false;
       };
+
       controlCenter = {
         cards = [
           {
@@ -312,15 +318,9 @@ in {
         position = "close_to_bar_button";
         shortcuts = {
           left = [
-            {
-              id = "Network";
-            }
-            {
-              id = "Bluetooth";
-            }
-            {
-              id = "WallpaperSelector";
-            }
+            {id = "Network";}
+            {id = "Bluetooth";}
+            {id = "WallpaperSelector";}
             {
               id = "plugin:screen-recorder";
               defaultSettings = {
@@ -342,36 +342,30 @@ in {
             }
           ];
           right = [
-            {
-              id = "Notifications";
-            }
-            {
-              id = "PowerProfile";
-            }
-            {
-              id = "KeepAwake";
-            }
-            {
-              id = "NightLight";
-            }
+            {id = "Notifications";}
+            {id = "PowerProfile";}
+            {id = "KeepAwake";}
+            {id = "NightLight";}
           ];
         };
       };
+
       desktopWidgets = {
         enabled = false;
         gridSnap = false;
         monitorWidgets = [];
         overviewEnabled = true;
       };
+
       dock = {
-        animationSpeed = 1;
+        animationSpeed = 1.0;
         backgroundOpacity = 1.0;
         colorizeIcons = false;
         deadOpacity = 0.6;
         displayMode = "auto_hide";
         dockType = "floating";
         enabled = true;
-        floatingRatio = 1;
+        floatingRatio = 1.0;
         groupApps = false;
         groupClickAction = "cycle";
         groupContextMenuMode = "extended";
@@ -387,24 +381,26 @@ in {
         showFrameIndicator = true;
         showLauncherIcon = false;
         sitOnFrame = false;
-        size = 1;
+        size = 1.0;
       };
+
       general = {
         allowPanelsOnScreenWithoutBar = true;
         allowPasswordWithFprintd = true;
         animationDisabled = false;
-        animationSpeed = 1;
+        animationSpeed = 1.0;
         autoStartAuth = false;
         avatarImage = "/home/apexu/.face";
-        boxRadiusRatio = 1;
+        boxRadiusRatio = 1.0;
         clockFormat = "hh\\nmm";
         clockStyle = "custom";
         compactLockScreen = false;
         dimmerOpacity = 0.2;
         enableLockScreenCountdown = true;
+        enableLockScreenMediaControls = false;
         enableShadows = true;
         forceBlackScreenCorners = false;
-        iRadiusRatio = 1;
+        iRadiusRatio = 1.0;
         keybinds = {
           keyDown = ["Ctrl+N"];
           keyEnter = ["Return"];
@@ -417,24 +413,25 @@ in {
         language = "";
         lockOnSuspend = true;
         lockScreenAnimations = false;
-        lockScreenBlur = 0;
+        lockScreenBlur = 0.0;
         lockScreenCountdownDuration = 10000;
         lockScreenMonitors = [];
-        lockScreenTint = 0;
+        lockScreenTint = 0.0;
         passwordChars = false;
-        radiusRatio = 1;
+        radiusRatio = 1.0;
         reverseScroll = false;
-        scaleRatio = 1;
-        screenRadiusRatio = 1;
+        scaleRatio = 1.0;
+        screenRadiusRatio = 1.0;
         shadowDirection = "center";
-        shadowOffsetX = 0;
-        shadowOffsetY = 0;
+        shadowOffsetX = 0.0;
+        shadowOffsetY = 0.0;
         showChangelogOnStartup = true;
         showHibernateOnLockScreen = false;
         showScreenCorners = true;
         showSessionButtonsOnLockScreen = false;
         telemetryEnabled = false;
       };
+
       hooks = {
         darkModeChange = "";
         enabled = false;
@@ -446,6 +443,16 @@ in {
         startup = "";
         wallpaperChange = "";
       };
+
+      idle = {
+        customCommands = "[{\"timeout\":150,\"command\":\"brightnessctl -s set 10\"}]";
+        enabled = true;
+        fadeDuration = 5;
+        lockTimeout = 300;
+        screenOffTimeout = 330;
+        suspendTimeout = 1800;
+      };
+
       location = {
         analogClockInCalendar = false;
         firstDayOfWeek = -1;
@@ -460,6 +467,7 @@ in {
         weatherEnabled = true;
         weatherShowEffects = true;
       };
+
       network = {
         airplaneModeEnabled = false;
         bluetoothDetailsViewMode = "grid";
@@ -467,18 +475,21 @@ in {
         bluetoothRssiPollIntervalMs = 10000;
         bluetoothRssiPollingEnabled = false;
         disableDiscoverability = false;
+        networkPanelView = "wifi";
         wifiDetailsViewMode = "grid";
         wifiEnabled = false;
       };
+
       nightLight = {
         autoSchedule = true;
         dayTemp = "6500";
-        enabled = false;
+        enabled = true;
         forced = false;
-        manualSunrise = "06:30";
-        manualSunset = "18:30";
-        nightTemp = "4000";
+        manualSunrise = "08:00";
+        manualSunset = "15:00";
+        nightTemp = "4646";
       };
+
       notifications = {
         backgroundOpacity = 1.0;
         clearDismissed = true;
@@ -510,23 +521,21 @@ in {
           volume = 0.5;
         };
       };
+
       osd = {
         autoHideMs = 2000;
         backgroundOpacity = 1.0;
         enabled = true;
-        enabledTypes = [
-          0
-          1
-          2
-          null
-        ];
+        enabledTypes = [0 1 2];
         location = "bottom";
         monitors = [];
         overlayLayer = true;
       };
+
       plugins = {
         autoUpdate = false;
       };
+
       sessionMenu = {
         countdownDuration = 10000;
         enableCountdown = true;
@@ -587,7 +596,9 @@ in {
         showHeader = true;
         showKeybinds = true;
       };
+
       settingsVersion = 53;
+
       systemMonitor = {
         batteryCriticalThreshold = 5;
         batteryWarningThreshold = 20;
@@ -611,30 +622,30 @@ in {
         useCustomColors = false;
         warningColor = "";
       };
+
       templates = {
         activeTemplates = [];
         enableUserTheming = false;
       };
+
       ui = {
-        bluetoothDetailsViewMode = "grid";
-        bluetoothHideUnnamedDevices = false;
         boxBorderEnabled = true;
         fontDefault = "Adwaita Sans";
         fontDefaultScale = 1.05;
         fontFixed = "Adwaita Mono";
-        fontFixedScale = 1;
-        networkPanelView = "wifi";
+        fontFixedScale = 1.0;
         panelBackgroundOpacity = 1.0;
         panelsAttachedToBar = true;
         settingsPanelMode = "attached";
+        settingsPanelSideBarCardStyle = false;
         tooltipsEnabled = true;
-        wifiDetailsViewMode = "grid";
       };
+
       wallpaper = {
         automationEnabled = false;
         directory = "/home/apexu/Pictures/Wallpapers";
         enableMultiMonitorDirectories = false;
-        enabled = !settings.useWallpaper;
+        enabled = true;
         favorites = [];
         fillColor = "#000000";
         fillMode = "crop";
@@ -647,7 +658,7 @@ in {
         randomIntervalSec = 300;
         setWallpaperOnAllMonitors = true;
         showHiddenFiles = false;
-        skipStartupTransition = false;
+        skipStartupTransition = true;
         solidColor = "#1a1a2e";
         sortOrder = "name";
         transitionDuration = 1500;
@@ -656,17 +667,6 @@ in {
         useSolidColor = false;
         useWallhaven = false;
         viewMode = "single";
-        wallhavenApiKey = "";
-        wallhavenCategories = "111";
-        wallhavenOrder = "desc";
-        wallhavenPurity = "100";
-        wallhavenQuery = "";
-        wallhavenRatios = "";
-        wallhavenResolutionHeight = "";
-        wallhavenResolutionMode = "atleast";
-        wallhavenResolutionWidth = "";
-        wallhavenSorting = "relevance";
-        wallpaperChangeMode = "random";
       };
     };
   };
@@ -693,7 +693,7 @@ in {
     ];
   };
 
-  programs.niri.settings = lib.mkIf (lib.hasAttr "niri" (config.programs or {})) {
+  programs.niri.settings = {
     layer-rules = [
       {
         matches = [
