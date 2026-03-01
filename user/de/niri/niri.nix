@@ -240,7 +240,7 @@
             "Mod+Shift+Slash".action = show-hotkey-overlay;
 
             "Mod+Return".action = spawn settings.terminal;
-            "Mod+Shift+Return".action = spawn settings.terminal "-e" "fx";
+            "Mod+Shift+Return".action = spawn settings.terminal "-e" "yazi";
 
             "Mod+Alt+L".action = spawn "hyprlock";
             "Mod+Shift+M".action = spawn "wlogout";

@@ -1,12 +1,12 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     ntfs3g
-    gpu-screen-recorder
-    gpu-screen-recorder-gtk
     sbctl
     android-tools
     ddcutil
   ];
+
+  programs.gpu-screen-recorder.enable = true;
 
   fileSystems."/mnt/nvme0" = {
     device = "/dev/disk/by-uuid/8A7AECD97AECC355";

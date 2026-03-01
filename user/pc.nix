@@ -21,18 +21,13 @@
       )
     );
 in {
+  imports = [
+    ./app/gpu-screen-recorder/gpu-screen-recorder.nix
+  ];
+
   home.packages = [
     pkgs.signal-desktop-bin
     pkgs.prismlauncher
     krisp-patcher
   ];
-  #
-  # xdg.desktopEntries."steam" = {
-  #   name = "Steam";
-  #   genericName = "Steam";
-  #   exec = "steam -silent";
-  #   icon = "steam";
-  #   terminal = false;
-  #   categories = ["Game"];
-  # };
 }

@@ -89,9 +89,9 @@ in {
 
       icons = {
         enable = true;
-        package = pkgs.morewaita-icon-theme;
-        dark = "MoreWaita";
-        light = "MoreWaita";
+        package = pkgs.papirus-icon-theme;
+        dark = "Papirus";
+        light = "Papirus";
       };
 
       cursor = {

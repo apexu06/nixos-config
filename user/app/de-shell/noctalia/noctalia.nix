@@ -17,6 +17,10 @@ in {
     inputs.noctalia.homeModules.default
   ];
 
+  home.packages = with pkgs; [
+    adwaita-icon-theme
+  ];
+
   programs.noctalia-shell = {
     enable = true;
     package = inputs.noctalia.packages.${pkgs.system}.default.override {
