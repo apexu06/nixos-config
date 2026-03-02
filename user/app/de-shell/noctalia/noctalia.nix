@@ -13,13 +13,19 @@
     ]
     ++ (pkgs.lib.splitString " " cmd);
 in {
+  home.packages = with pkgs; [
+    gpu-screen-recorder
+    adwaita-icon-theme
+  ];
+
   imports = [
     inputs.noctalia.homeModules.default
   ];
 
-  home.packages = with pkgs; [
-    adwaita-icon-theme
-  ];
+  home.file.".config/noctalia/pam/password.conf".text = ''
+    auth sufficient pam_fprintd.so max-tries=1
+    auth required pam_unix.so
+  '';
 
   programs.noctalia-shell = {
     enable = true;
@@ -393,7 +399,7 @@ in {
         allowPasswordWithFprintd = true;
         animationDisabled = false;
         animationSpeed = 1.0;
-        autoStartAuth = false;
+        autoStartAuth = true;
         avatarImage = "/home/apexu/.face";
         boxRadiusRatio = 1.0;
         clockFormat = "hh\\nmm";
@@ -401,7 +407,7 @@ in {
         compactLockScreen = false;
         dimmerOpacity = 0.2;
         enableLockScreenCountdown = true;
-        enableLockScreenMediaControls = false;
+        enableLockScreenMediaControls = true;
         enableShadows = true;
         forceBlackScreenCorners = false;
         iRadiusRatio = 1.0;
@@ -416,7 +422,7 @@ in {
         };
         language = "";
         lockOnSuspend = true;
-        lockScreenAnimations = false;
+        lockScreenAnimations = true;
         lockScreenBlur = 0.0;
         lockScreenCountdownDuration = 10000;
         lockScreenMonitors = [];

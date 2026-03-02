@@ -25,7 +25,7 @@ in {
       autoEnable = false;
 
       targets = {
-        console.enable = true;
+        gtk.enable = true;
       };
 
       base16Scheme = themeFile;
