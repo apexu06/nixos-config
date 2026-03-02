@@ -50,6 +50,14 @@ in {
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
         };
+        battery-actions = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
+        privacy-indicator = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
       };
       version = 1;
     };
@@ -101,15 +109,15 @@ in {
       bar = {
         autoHideDelay = 500;
         autoShowDelay = 150;
-        backgroundOpacity = 1.0; # Converted to float
+        backgroundOpacity = 1.0;
         barType = "simple";
         capsuleColorKey = "none";
-        capsuleOpacity = 1.0; # Converted to float
+        capsuleOpacity = 1.0;
         contentPadding = 2;
         density = "comfortable";
         displayMode = "always_visible";
         floating = false;
-        fontScale = 1.0; # Converted to float
+        fontScale = 1.0;
         frameRadius = 12;
         frameThickness = 8;
         hideOnOverview = true;
@@ -118,6 +126,7 @@ in {
         monitors = [];
         outerCorners = true;
         position = "top";
+        screenOverrides = [];
         showCapsule = true;
         showOnWorkspaceSwitch = true;
         showOutline = false;
@@ -153,6 +162,18 @@ in {
               useFixedWidth = false;
               visualizerType = "linear";
             }
+            {
+              id = "plugin:privacy-indicator";
+              defaultSettings = {
+                activeColor = "primary";
+                enableToast = true;
+                hideInactive = false;
+                iconSpacing = 4;
+                inactiveColor = "none";
+                micFilterRegex = "";
+                removeMargins = false;
+              };
+            }
           ];
           left = [
             {
@@ -162,7 +183,7 @@ in {
               enableScrollWheel = true;
               focusedColor = "primary";
               followFocusedScreen = false;
-              groupedBorderOpacity = 1.0; # Converted to float
+              groupedBorderOpacity = 1.0;
               hideUnoccupied = false;
               iconScale = 0.8;
               id = "Workspace";
@@ -172,7 +193,7 @@ in {
               showApplications = false;
               showBadge = true;
               showLabelsOnlyWhenOccupied = true;
-              unfocusedIconsOpacity = 1.0; # Converted to float
+              unfocusedIconsOpacity = 1.0;
             }
             {
               colorizeIcons = false;
@@ -258,6 +279,7 @@ in {
               id = "ControlCenter";
               useDistroLogo = true;
             }
+            {id = "plugin:privacy-indicator";}
           ];
         };
       };
@@ -455,7 +477,7 @@ in {
       };
 
       idle = {
-        customCommands = "[{\"timeout\":150,\"command\":\"brightnessctl -s set 10\"}]";
+        customCommands = "";
         enabled = true;
         fadeDuration = 5;
         lockTimeout = 300;
@@ -487,7 +509,7 @@ in {
         disableDiscoverability = false;
         networkPanelView = "wifi";
         wifiDetailsViewMode = "grid";
-        wifiEnabled = false;
+        wifiEnabled = true;
       };
 
       nightLight = {
@@ -543,7 +565,7 @@ in {
       };
 
       plugins = {
-        autoUpdate = false;
+        autoUpdate = true;
       };
 
       sessionMenu = {
@@ -677,6 +699,17 @@ in {
         useSolidColor = false;
         useWallhaven = false;
         viewMode = "single";
+        wallhavenApiKey = "";
+        wallhavenCategories = "111";
+        wallhavenOrder = "desc";
+        wallhavenPurity = "100";
+        wallhavenQuery = "";
+        wallhavenRatios = "";
+        wallhavenResolutionHeight = "";
+        wallhavenResolutionMode = "atleast";
+        wallhavenResolutionWidth = "";
+        wallhavenSorting = "relevance";
+        wallpaperChangeMode = "random";
       };
     };
   };
