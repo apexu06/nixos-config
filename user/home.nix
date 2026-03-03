@@ -27,6 +27,7 @@
   home.packages = with pkgs; [
     qbittorrent
     osu-lazer-bin
+    jetbrains.rider
     filezilla
     wine
     winetricks

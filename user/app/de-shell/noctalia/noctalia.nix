@@ -491,7 +491,7 @@ in {
         forced = false;
         manualSunrise = "08:00";
         manualSunset = "15:00";
-        nightTemp = "4646";
+        nightTemp = "4000";
       };
 
       notifications = {
