@@ -9,7 +9,7 @@
     ./shells/fish.nix
     ./shells/cli-utils.nix
     ./app/neovim/nvim.nix
-    ./app/zed/zed.nix
+    ./app/rider/rider.nix
     ./app/browser/firefox.nix
     ./app/desktop.nix
     ./app/spotify.nix
@@ -28,7 +28,6 @@
   home.packages = with pkgs; [
     qbittorrent
     osu-lazer-bin
-    jetbrains.rider
     filezilla
     wine
     winetricks

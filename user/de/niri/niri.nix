@@ -184,6 +184,20 @@
       window-rules = [
         {
           matches = [
+            {title = "(unset)";}
+            {app-id = "^jetbrains-.*";}
+            {is-floating = true;}
+          ];
+          default-floating-position = {
+            relative-to = "top";
+            x = 0;
+            y = 100;
+          };
+          default-window-height = {proportion = 0.4;};
+          default-column-width = {proportion = 0.3;};
+        }
+        {
+          matches = [
             {app-id = "^org\\.wezfurlong\\.wezterm$";}
           ];
           default-column-width = {proportion = 0.5;};

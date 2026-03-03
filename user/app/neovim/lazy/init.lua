@@ -87,7 +87,7 @@ vim.filetype.add({
 local map = vim.keymap.set
 
 map("n", "<leader>w", ":write<CR>")
-map("n", "<leader>s", ":update<CR> :source<CR>")
+-- map("n", "<leader>s", ":update<CR> :source<CR>")
 map("n", "<leader>o", "<CMD>Oil<CR>")
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true })
