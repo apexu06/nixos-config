@@ -35,6 +35,7 @@
     cat = "bat";
     shit = "shutdown";
     ls = "eza --color=always --all --group-directories-first --long --icons --no-permissions --git";
+    lg = "lazygit";
     xo = "xdg-open";
     n = "nvim";
     e = "exit";
@@ -51,6 +52,7 @@
   programs.bat.enable = true;
   programs.btop.enable = true;
   programs.television.enable = true;
+  programs.lazygit.enable = true;
   programs.yazi = {
     enable = true;
     shellWrapperName = "y";

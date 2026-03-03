@@ -14,6 +14,7 @@
     ./app/desktop.nix
     ./app/spotify.nix
     ./app/terminal/wezterm/wezterm.nix
+    ./virtualisation.nix
 
     ./de/${settings.de}/${settings.de}.nix
     ./app/terminal/${settings.terminal}/${settings.terminal}.nix

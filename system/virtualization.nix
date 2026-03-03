@@ -7,7 +7,8 @@
     spice-protocol
     virtio-win
     win-spice
-    distrobox
+    docker-compose
+    podman-tui
   ];
 
   programs.virt-manager.enable = true;
@@ -22,8 +23,10 @@
       };
     };
 
-    docker = {
+    podman = {
       enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
     };
 
     spiceUSBRedirection.enable = true;
