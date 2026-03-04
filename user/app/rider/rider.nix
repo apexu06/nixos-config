@@ -6,6 +6,8 @@
   rider-picker = pkgs.writeShellScriptBin "rider-picker" ''
     SELECTION=$(${pkgs.fd}/bin/fd --extension sln . $HOME/coding | ${pkgs.fzf}/bin/fzf --prompt="Select Solution > ")
 
+    # WINDOW_ID=$(niri msg focused-window | head -1 | cut -d':' -f1 | awk {'print $3'})
+
     if [ -n "$SELECTION" ]; then
         PROJECT_DIR=$(dirname "$SELECTION")
         cd "$PROJECT_DIR" || exit
@@ -17,13 +19,13 @@
         if [ -f "flake.nix" ]; then
             # We use 'nix develop --command' so Rider inherits the project-specific SDK
             # 'rider' must be in your system path or added to packages below
-            nix develop --command sh -c "rider \"$SELECTION\""
+            nix develop --command sh -c "setsid rider \"$SELECTION\" &"
         else
-            rider "$SELECTION"
+            setsid rider "$SELECTION" &
         fi
 
-        sleep 5
-        exit
+        sleep 2
+        exit 0
     fi
   '';
 in {
@@ -42,7 +44,6 @@ in {
     set incsearch
 
     map <leader>e <Action>(ShowErrorDescription)
-    map <Esc> :nohlsearch<CR>
     map <C-k> <Action>(ShowHoverInfo)
     map <leader>sf <Action>(GotoFile)
     map <leader>sg <Action>(TextSearchAction)
