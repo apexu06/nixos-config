@@ -29,6 +29,33 @@ in {
       };
 
       base16Scheme = themeFile;
+
+      fonts = {
+        serif = {
+          package = pkgs.adwaita-fonts;
+          name = "Adwaita Sans";
+        };
+
+        sansSerif = {
+          package = pkgs.adwaita-fonts;
+          name = "Adwaita Sans";
+        };
+
+        monospace = {
+          package = pkgs.adwaita-fonts;
+          name = "Adwaita Mono";
+        };
+
+        emoji = {
+          package = pkgs.noto-fonts-color-emoji;
+          name = "Noto Color Emoji";
+        };
+
+        sizes = {
+          applications = 13;
+          desktop = 14;
+        };
+      };
     }
     // lib.optionalAttrs (settings.useWallpaper) {
       image = pkgs.fetchurl {

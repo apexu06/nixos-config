@@ -1,11 +1,17 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: let
+  sddm-astronaut = pkgs.sddm-astronaut.override {
+    embeddedTheme = "astronaut";
+  };
+in {
+  environment.systemPackages = [sddm-astronaut];
+
   services = {
     flatpak.enable = true;
     openssh.enable = true;
-
-    greetd = {
-      enable = true;
-    };
 
     xserver = {
       enable = true;
@@ -46,10 +52,28 @@
       mountOnMedia = true;
     };
 
-    # displayManager = {
-    #   enable = true;
-    #   gdm.enable = true;
-    # };
+    displayManager = {
+      enable = true;
+      sddm = {
+        enable = true;
+        package = pkgs.kdePackages.sddm;
+
+        wayland.enable = true;
+        enableHidpi = true;
+
+        settings = {
+          Theme = {
+            Current = "sddm-astronaut-theme";
+          };
+          Fonts = {
+            Font = config.stylix.fonts.serif.name;
+            BoldFont = config.stylix.fonts.serif.name;
+          };
+        };
+        theme = "sddm-astronaut-theme";
+        extraPackages = [sddm-astronaut];
+      };
+    };
 
     avahi = {
       enable = true;
@@ -57,5 +81,4 @@
       nssmdns6 = true;
     };
   };
-  programs.regreet.enable = true;
 }
