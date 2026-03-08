@@ -23,6 +23,7 @@ return { -- Autoformat
 			python = { "ruff" },
 			html = { "prettierd" },
 			nix = { "alejandra" },
+			typst = { "typstyle" },
 		},
 	},
 }

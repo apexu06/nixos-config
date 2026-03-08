@@ -62,6 +62,8 @@ in {
       version = 1;
     };
 
+    # Noctalia NixOS Configuration
+    # Settings Version: 57
     settings = {
       appLauncher = {
         autoPasteClipboard = false;
@@ -96,9 +98,9 @@ in {
       };
 
       audio = {
-        cavaFrameRate = 30;
         mprisBlacklist = [];
         preferredPlayer = "";
+        spectrumFrameRate = 30;
         visualizerType = "linear";
         volumeFeedback = false;
         volumeFeedbackSoundFile = "";
@@ -123,9 +125,18 @@ in {
         hideOnOverview = true;
         marginHorizontal = 5;
         marginVertical = 5;
+        middleClickAction = "none";
+        middleClickCommand = "";
+        middleClickFollowMouse = false;
         monitors = [];
+        mouseWheelAction = "none";
+        mouseWheelWrap = true;
         outerCorners = true;
         position = "top";
+        reverseScroll = false;
+        rightClickAction = "controlCenter";
+        rightClickCommand = "";
+        rightClickFollowMouse = true;
         screenOverrides = [];
         showCapsule = true;
         showOnWorkspaceSwitch = true;
@@ -144,15 +155,11 @@ in {
               useCustomFont = false;
             }
             {
-              compactMode = false;
-              compactShowAlbumArt = true;
-              compactShowVisualizer = false;
               hideMode = "hidden";
               hideWhenIdle = false;
               id = "MediaMini";
               maxWidth = 300;
               panelShowAlbumArt = true;
-              panelShowVisualizer = true;
               scrollingMode = "hover";
               showAlbumArt = true;
               showArtistFirst = true;
@@ -183,6 +190,7 @@ in {
               enableScrollWheel = true;
               focusedColor = "primary";
               followFocusedScreen = false;
+              fontWeight = "bold";
               groupedBorderOpacity = 1.0;
               hideUnoccupied = false;
               iconScale = 0.8;
@@ -383,9 +391,53 @@ in {
       };
 
       desktopWidgets = {
-        enabled = false;
-        gridSnap = false;
-        monitorWidgets = [];
+        enabled = true;
+        gridSnap = true;
+        monitorWidgets = [
+          {
+            name = "DP-3";
+            widgets = [];
+          }
+          {
+            name = "HDMI-A-1";
+            widgets = [
+              {
+                hideMode = "visible";
+                id = "MediaPlayer";
+                roundedCorners = true;
+                scale = 1.0;
+                showAlbumArt = true;
+                showBackground = true;
+                showButtons = true;
+                showVisualizer = true;
+                visualizerType = "linear";
+                x = 40;
+                y = 80;
+              }
+              {
+                id = "Weather";
+                roundedCorners = true;
+                scale = 1.0;
+                showBackground = false;
+                x = 1600;
+                y = 900;
+              }
+              {
+                clockColor = "none";
+                clockStyle = "analog";
+                customFont = "";
+                format = "HH:mm\\nd MMMM yyyy";
+                id = "Clock";
+                roundedCorners = true;
+                scale = 1.0;
+                showBackground = false;
+                useCustomFont = false;
+                x = 1680;
+                y = 700;
+              }
+            ];
+          }
+        ];
         overviewEnabled = true;
       };
 
@@ -403,6 +455,9 @@ in {
         groupContextMenuMode = "extended";
         groupIndicatorStyle = "dots";
         inactiveIndicators = false;
+        indicatorColor = "primary";
+        indicatorOpacity = 0.6;
+        indicatorThickness = 3;
         launcherIconColor = "none";
         launcherPosition = "end";
         monitors = [];
@@ -410,7 +465,7 @@ in {
         pinnedApps = [];
         pinnedStatic = false;
         position = "bottom";
-        showFrameIndicator = true;
+        showDockIndicator = false;
         showLauncherIcon = false;
         sitOnFrame = false;
         size = 1.0;
@@ -428,6 +483,7 @@ in {
         clockStyle = "custom";
         compactLockScreen = false;
         dimmerOpacity = 0.2;
+        enableBlurBehind = true;
         enableLockScreenCountdown = true;
         enableLockScreenMediaControls = true;
         enableShadows = true;
@@ -435,7 +491,7 @@ in {
         iRadiusRatio = 1.0;
         keybinds = {
           keyDown = ["Ctrl+N"];
-          keyEnter = ["Return"];
+          keyEnter = ["Return" "Enter"];
           keyEscape = ["Esc"];
           keyLeft = ["Left"];
           keyRemove = ["Del"];
@@ -480,8 +536,14 @@ in {
         customCommands = "";
         enabled = true;
         fadeDuration = 5;
+        lockCommand = "";
         lockTimeout = 300;
+        resumeLockCommand = "";
+        resumeScreenOffCommand = "";
+        resumeSuspendCommand = "";
+        screenOffCommand = "";
         screenOffTimeout = 330;
+        suspendCommand = "";
         suspendTimeout = 1800;
       };
 
@@ -502,6 +564,7 @@ in {
 
       network = {
         airplaneModeEnabled = false;
+        bluetoothAutoConnect = true;
         bluetoothDetailsViewMode = "grid";
         bluetoothHideUnnamedDevices = false;
         bluetoothRssiPollIntervalMs = 10000;
@@ -522,6 +585,11 @@ in {
         nightTemp = "4000";
       };
 
+      noctaliaPerformance = {
+        disableDesktopWidgets = true;
+        disableWallpaper = true;
+      };
+
       notifications = {
         backgroundOpacity = 1.0;
         clearDismissed = true;
@@ -532,7 +600,7 @@ in {
         enableMarkdown = false;
         enableMediaToast = false;
         enabled = true;
-        location = "top_center";
+        location = "top";
         lowUrgencyDuration = 3;
         monitors = [];
         normalUrgencyDuration = 8;
@@ -622,6 +690,13 @@ in {
             command = "";
             countdownEnabled = true;
             enabled = true;
+            keybind = "7";
+          }
+          {
+            action = "userspaceReboot";
+            command = "";
+            countdownEnabled = true;
+            enabled = false;
             keybind = "";
           }
         ];
@@ -629,7 +704,7 @@ in {
         showKeybinds = true;
       };
 
-      settingsVersion = 53;
+      settingsVersion = 57;
 
       systemMonitor = {
         batteryCriticalThreshold = 5;

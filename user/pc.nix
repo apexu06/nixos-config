@@ -26,7 +26,7 @@ in {
   ];
 
   home.packages = [
-    pkgs.signal-desktop-bin
+    pkgs.signal-desktop
     pkgs.prismlauncher
     krisp-patcher
   ];

@@ -14,6 +14,7 @@ return {
 			"nil_ls",
 			"qmlls",
 			"clangd",
+			"tinymist",
 		})
 
 		vim.lsp.config("ccls", {

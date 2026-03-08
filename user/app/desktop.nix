@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     protonvpn-gui
+    libreoffice-fresh
   ];
 
   programs.thunderbird = {
