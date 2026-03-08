@@ -5,7 +5,6 @@
 }: {
   home.packages = with pkgs; [
     lua-language-server
-    clang-tools
     nil
     typescript-language-server
     stdenv.cc

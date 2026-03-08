@@ -356,7 +356,7 @@ vim.lsp.enable({
 	"svelte",
 	"nil_ls",
 	"qmlls",
-	"clangd",
+	"ccls",
 })
 
 vim.lsp.config("ccls", {

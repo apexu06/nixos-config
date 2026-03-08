@@ -15,8 +15,8 @@
     enable = true;
     settings = {
       main = {
-        font = lib.mkForce "IosevkaTerm Nerd Font:size=13.5:weight=Medium";
-        font-bold = lib.mkForce "IosevkaTerm Nerd Font:size=13.5:weight=SemiBold";
+        font = lib.mkForce "IosevkaTerm Nerd Font:size=13:weight=Medium";
+        font-bold = lib.mkForce "IosevkaTerm Nerd Font:size=13:weight=SemiBold";
         pad = "8x8";
       };
       scrollback = {
