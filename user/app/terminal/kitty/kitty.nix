@@ -40,7 +40,6 @@
     enable = true;
     font = {
       name = lib.mkForce "IosevkaTerm Nerd Font Mono";
-      size = lib.mkForce 13.5;
     };
     enableGitIntegration = true;
     shellIntegration.enableFishIntegration = true;

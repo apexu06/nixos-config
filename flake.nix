@@ -88,7 +88,7 @@
       useWallpaper = false;
       launcher = "noctalia";
       de-shell = "noctalia";
-      terminal = "foot";
+      terminal = "kitty";
     };
   in {
     nixosConfigurations = {
