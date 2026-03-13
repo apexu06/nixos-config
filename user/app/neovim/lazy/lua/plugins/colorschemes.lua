@@ -1,10 +1,15 @@
+local status, active_theme = pcall(require, "../theme_choice")
+if not status then
+	active_theme = "tokyonight"
+end
+
 return {
 	{
 		"folke/tokyonight.nvim",
-		priority = 1000, -- make sure to load this before all the other start plugins
+		priority = 1000,
+		enabled = active_theme == "tokyonight",
 		config = function()
 			local transparent = true
-
 			require("tokyonight").setup({
 				style = "night",
 				transparent = transparent,
@@ -13,26 +18,32 @@ return {
 					floats = transparent and "transparent" or "dark",
 				},
 			})
+			vim.cmd.colorscheme("tokyonight")
 		end,
 	},
 	{
 		"f4z3r/gruvbox-material.nvim",
 		name = "gruvbox-material",
-		lazy = false,
 		priority = 1000,
-		opts = {
-			contrast = "hard",
-			background = {
-				transparent = true,
-			},
-		},
+		enabled = active_theme == "gruvbox-material",
+		config = function()
+			require("gruvbox-material").setup({
+				contrast = "hard",
+				background = { transparent = true },
+			})
+			vim.cmd.colorscheme("gruvbox-material")
+		end,
 	},
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
 		priority = 1000,
-		opts = {
-			transparent_background = true,
-		},
+		enabled = active_theme == "catppuccin",
+		config = function()
+			require("catppuccin").setup({
+				transparent_background = true,
+			})
+			vim.cmd.colorscheme("catppuccin")
+		end,
 	},
 }

@@ -42,17 +42,6 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
-function setColorscheme()
-	local file_path = vim.fn.stdpath("config") .. "/colorscheme.txt"
-	local f = assert(io.open(file_path, "rb"))
-	local content = f:read("*all")
-	f:close()
-
-	vim.cmd.colorscheme(vim.trim(content))
-end
-
-setColorscheme()
-
 local function open_file_picker_in_split(direction)
 	require("snacks").picker.files({
 		confirm = function(picker, item)

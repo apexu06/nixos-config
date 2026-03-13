@@ -1,7 +1,7 @@
 return {
 	{
 		"j-hui/fidget.nvim",
-		event = "VeryLazy",
+		event = "BufReadPost *.*",
 		opts = {
 			progress = {
 				suppress_on_insert = true,
@@ -19,9 +19,9 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "VeryLazy",
 		build = ":TSUpdate",
 		branch = "master",
+		event = "BufReadPost *.*",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "bash", "c", "html", "lua", "markdown", "svelte", "typescript", "javascript" },
@@ -37,11 +37,11 @@ return {
 		event = "VeryLazy",
 	},
 	{
-		event = "VeryLazy",
+		event = "BufReadPost *.*",
 		"lewis6991/gitsigns.nvim",
 	},
 	{
-		event = "VeryLazy",
+		event = "InsertEnter",
 		"tpope/vim-sleuth",
 	},
 }

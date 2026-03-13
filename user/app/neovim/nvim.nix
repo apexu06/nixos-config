@@ -1,6 +1,7 @@
 {
   pkgs,
   settings,
+  inputs,
   ...
 }: {
   home.packages = with pkgs; [
@@ -23,10 +24,11 @@
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
     # initLua = builtins.readFile ./init.lua;
   };
 
-  home.file.".config/nvim/colorscheme.txt".text = settings.theme;
+  home.file.".config/nvim/theme_choice.lua".text = "return " + settings.theme;
 
   home.file.".config/nvim".source = ./lazy;
   home.file.".config/nvim".recursive = true;
