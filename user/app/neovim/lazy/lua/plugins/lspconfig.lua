@@ -4,7 +4,7 @@ return {
 	config = function()
 		vim.lsp.enable({
 			"lua_ls",
-			"rust_analyer",
+			"rust_analyzer",
 			"gopls",
 			"ts_ls",
 			"py_lsp",

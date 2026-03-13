@@ -5,6 +5,7 @@
 }: {
   home.packages = with pkgs; [
     fd
+    devenv
     ripgrep
     findutils
     unzip
