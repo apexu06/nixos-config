@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   krisp-patcher =
     pkgs.writers.writePython3Bin "krisp-patcher"
     {
@@ -30,4 +34,14 @@ in {
     pkgs.prismlauncher
     krisp-patcher
   ];
+
+  programs.foot = {
+    settings = {
+      main = {
+        font = lib.mkForce "IosevkaTerm Nerd Font:size=13.5:weight=Medium";
+        font-bold = lib.mkForce "IosevkaTerm Nerd Font:size=13.5:weight=SemiBold";
+        pad = "8x8";
+      };
+    };
+  };
 }
