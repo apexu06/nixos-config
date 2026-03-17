@@ -84,11 +84,11 @@ map("n", "<leader>ca", vim.lsp.buf.code_action, { noremap = true, silent = true 
 
 map("n", "<leader>q", ":copen<CR>")
 map("n", "ge", vim.diagnostic.goto_next)
-map("n", "<leader>mr", ":make run<CR>")
 map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "<leader>q", vim.diagnostic.setloclist)
 map("n", "L", ":bnext<CR>", { noremap = true, silent = true })
 map("n", "H", ":bprev<CR>", { noremap = true, silent = true })
+map("n", "<leader>mr", ":below Recompile<CR>")
 map("n", "<A-h>", require("smart-splits").resize_left)
 map("n", "<A-j>", require("smart-splits").resize_down)
 map("n", "<A-k>", require("smart-splits").resize_up)

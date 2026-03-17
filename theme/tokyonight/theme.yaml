@@ -3,19 +3,37 @@ name: "Tokyo Night Terminal Dark"
 author: "Michaël Ball"
 variant: "dark"
 palette:
-  base00: "#16161E"
-  base01: "#1A1B26"
-  base02: "#2F3549"
-  base03: "#444B6A"
-  base04: "#C0CAF5"
-  base05: "#C0CAF5"
-  base06: "#CBCCD1"
-  base07: "#D5D6DB"
-  base08: "#F7768E"
-  base09: "#FF9E64"
-  base0A: "#E0AF68"
-  base0B: "#41A6B5"
-  base0C: "#7DCFFF"
-  base0D: "#7AA2F7"
-  base0E: "#BB9AF7"
-  base0F: "#D18616"
+  base00: "#1a1b26" # Editor Background (Night)
+  base01: "#24283b" # Editor Background (Storm)
+  base02: "#414868" # Terminal Black
+  base03: "#565f89" # Comments
+  base04: "#9aa5ce" # Markdown Text / HTML Text
+  base05: "#a9b1d6" # Editor Foreground
+  base06: "#c0caf5" # Variables, Class names, Terminal White
+  base07: "#cfc9c2" # Parameters inside functions
+  base08: "#f7768e" # This keyword, Terminal Red
+  base09: "#ff9e64" # Number and Boolean constants
+  base0A: "#e0af68" # Function parameters, Terminal Yellow
+  base0B: "#9ece6a" # Strings, CSS class names
+  base0C: "#7dcfff" # Terminal Cyan, Regex quantifiers
+  base0D: "#7aa2f7" # Function names, Terminal Blue
+  base0E: "#bb9af7" # Control Keywords, Terminal Magenta
+  base0F: "#b4f9f8" # Regex literal strings
+
+
+  # base00: "#16161E"
+  # base01: "#1A1B26"
+  # base02: "#2F3549"
+  # base03: "#444B6A"
+  # base04: "#C0CAF5"
+  # base05: "#C0CAF5"
+  # base06: "#CBCCD1"
+  # base07: "#D5D6DB"
+  # base08: "#F7768E"
+  # base09: "#FF9E64"
+  # base0A: "#E0AF68"
+  # base0B: "#41A6B5"
+  # base0C: "#7DCFFF"
+  # base0D: "#7AA2F7"
+  # base0E: "#BB9AF7"
+  # base0F: "#D18616"
