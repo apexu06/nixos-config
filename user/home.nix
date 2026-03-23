@@ -13,7 +13,6 @@
     ./app/browser/firefox.nix
     ./app/desktop.nix
     ./app/spotify.nix
-    ./app/terminal/wezterm/wezterm.nix
     ./virtualisation.nix
 
     ./de/${settings.de}/${settings.de}.nix
