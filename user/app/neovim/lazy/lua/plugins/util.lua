@@ -20,14 +20,43 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		branch = "master",
-		event = "BufReadPost *.*",
+		lazy = false,
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "bash", "c", "html", "lua", "markdown", "svelte", "typescript", "javascript" },
-				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
+			local parsers = {
+				"bash",
+				"c",
+				"html",
+				"lua",
+				"markdown",
+				"svelte",
+				"typescript",
+				"javascript",
+				"nix",
+				"json",
+				"rust",
+				"cpp",
+				"go",
+				"gitcommit",
+				"gitignore",
+				"kdl",
+				"yaml",
+				"qmljs",
+				"c_sharp",
+				"typst",
+				"vim",
+				"bash",
+				"fish",
+				"make",
+				"cmake",
+			}
+			require("nvim-treesitter").install(parsers)
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = parsers,
+				callback = function()
+					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					vim.treesitter.start()
+				end,
 			})
 		end,
 	},

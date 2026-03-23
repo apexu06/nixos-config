@@ -8,7 +8,6 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # vicinae.url = "github:vicinaehq/vicinae";
 
     niri = {
       url = "github:sodiboo/niri-flake";

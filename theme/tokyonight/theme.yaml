@@ -8,7 +8,7 @@ palette:
   base02: "#414868" # Terminal Black
   base03: "#565f89" # Comments
   base04: "#9aa5ce" # Markdown Text / HTML Text
-  base05: "#C0CAF5" # Editor Foreground
+  base05: "#c0caf5" # Editor Foreground
   base06: "#c0caf5" # Variables, Class names, Terminal White
   base07: "#cfc9c2" # Parameters inside functions
   base08: "#f7768e" # This keyword, Terminal Red

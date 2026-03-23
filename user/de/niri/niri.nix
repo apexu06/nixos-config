@@ -205,7 +205,7 @@
         {
           matches = [
             {app-id = "steam";}
-            {title = "^notificationtoasts_\\d+_desktop$";}
+            {title = ''r#"^notificationtoasts_\d+_desktop$"#'';}
           ];
           default-floating-position = {
             x = 10;

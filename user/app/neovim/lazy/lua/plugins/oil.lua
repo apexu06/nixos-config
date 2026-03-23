@@ -1,5 +1,4 @@
 return {
-	priority = 1000,
 	"stevearc/oil.nvim",
 	--@module 'oil'
 	--@type oil.SetupOpts
@@ -18,5 +17,4 @@ return {
 			["<C-h>"] = false,
 		},
 	},
-	lazy = false,
 }
