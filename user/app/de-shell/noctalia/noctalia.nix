@@ -424,7 +424,7 @@ in {
       };
 
       idle = {
-        customCommands = "[{\"timeout\":150,\"command\":\"brightnessctl -s set 10\"}]";
+        customCommands = "[{\"name\":\"Dim screen\",\"timeout\":150,\"command\":\"brightnessctl -s set 10\",\"resumeCommand\":\"brightnessctl -r\"}]";
         enabled = true;
         fadeDuration = 5;
         lockCommand = "";

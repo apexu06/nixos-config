@@ -35,7 +35,8 @@
     cd = "z";
     cat = "bat";
     shit = "shutdown";
-    ls = "eza --color=always --all --group-directories-first --long --icons --no-permissions --git";
+    ls = "eza --color=always --group-directories-first --icons";
+    lsa = "eza --color=always --all --group-directories-first --long --icons --no-permissions --git";
     lg = "lazygit";
     xo = "xdg-open";
     n = "nvim";
