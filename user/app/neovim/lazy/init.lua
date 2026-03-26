@@ -26,7 +26,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = { "*.md", "*.tex" },
+	pattern = { "*.md", "*.tex", "*.typ" },
 	callback = function()
 		vim.cmd("setlocal textwidth=100")
 		vim.cmd("setlocal colorcolumn=100")
@@ -71,12 +71,9 @@ vim.filetype.add({
 	},
 })
 
--- require("nvim-treesitter").install({ "rust", "javascript", "zig", "cpp", "nix", "typescript", "html" })
-
 local map = vim.keymap.set
 
 map("n", "<leader>w", ":write<CR>")
--- map("n", "<leader>s", ":update<CR> :source<CR>")
 map("n", "<leader>o", "<CMD>Oil<CR>")
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")
 map("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true })
@@ -89,6 +86,11 @@ map("n", "<leader>q", vim.diagnostic.setloclist)
 map("n", "L", ":bnext<CR>", { noremap = true, silent = true })
 map("n", "H", ":bprev<CR>", { noremap = true, silent = true })
 map("n", "<leader>mr", ":below Recompile<CR>")
+
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "<leader>rp", "[[:%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gl<Left><Left><Left>]]")
+
 map("n", "<A-h>", require("smart-splits").resize_left)
 map("n", "<A-j>", require("smart-splits").resize_down)
 map("n", "<A-k>", require("smart-splits").resize_up)

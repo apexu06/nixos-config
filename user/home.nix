@@ -30,7 +30,6 @@
     filezilla
     wine
     winetricks
-    lutris
     (discord.override {
       withVencord = true;
     })

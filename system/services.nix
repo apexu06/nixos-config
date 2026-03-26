@@ -26,13 +26,6 @@ in {
       port = 9666;
     };
 
-    # printing = {
-    #   enable = true;
-    #   drivers = [
-    #     pkgs.canon-cups-ufr2
-    #   ];
-    # };
-
     locate.enable = true;
     fprintd.enable = true;
 

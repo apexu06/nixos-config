@@ -32,6 +32,7 @@ in {
   home.packages = [
     pkgs.signal-desktop
     pkgs.prismlauncher
+    pkgs.lutris
     krisp-patcher
   ];
 
