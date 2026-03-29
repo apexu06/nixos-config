@@ -46,10 +46,20 @@ in {
       mountOnMedia = true;
     };
 
-    displayManager = {
+    greetd = {
       enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --cmd niri-session";
+          user = "greeter";
+        };
+      };
+    };
+
+    displayManager = {
+      enable = false;
       sddm = {
-        enable = true;
+        enable = false;
         package = pkgs.kdePackages.sddm;
 
         wayland.enable = true;
