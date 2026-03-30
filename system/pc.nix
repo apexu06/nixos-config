@@ -1,10 +1,28 @@
 {pkgs, ...}: {
+  imports = [
+    ./services.nix
+    ./virtualization.nix
+    ./podman.nix
+    ./hardware/pc-hardware-configuration.nix
+    ./boot/lanzaboote.nix
+  ];
   environment.systemPackages = with pkgs; [
     ntfs3g
     sbctl
     android-tools
     ddcutil
+
+    virt-viewer
+    spice
+    spice-gtk
+    spice-protocol
+    virtio-win
+    win-spice
+    docker-compose
+    podman-tui
   ];
+
+  networking.hostName = "nixp";
 
   programs.gpu-screen-recorder.enable = true;
 
@@ -69,4 +87,29 @@
   };
   hardware.amdgpu.initrd.enable = true;
   hardware.i2c.enable = true;
+
+  users.users.apexu.extraGroups = ["libvirtd"];
+  programs.virt-manager.enable = true;
+
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+      };
+    };
+
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+
+    spiceUSBRedirection.enable = true;
+    vmware.guest.enable = true;
+  };
+
+  services.spice-vdagentd.enable = true;
 }

@@ -81,27 +81,15 @@
     lib = nixpkgs.lib;
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-
-    settings = {
-      de = "niri";
-      theme = "tokyonight";
-      useWallpaper = false;
-      launcher = "noctalia";
-      de-shell = "noctalia";
-      terminal = "kitty";
-    };
   in {
     nixosConfigurations = {
       pc = lib.nixosSystem {
         specialArgs = {
           inherit system;
           inherit inputs;
-          inherit settings;
         };
         modules = [
-          ./system/boot/lanzaboote.nix
-          ./system/pc-hardware-configuration.nix
-          ./system/configuration.nix
+          ./modules/settings.nix
           ./system/pc.nix
         ];
       };
@@ -109,13 +97,11 @@
         specialArgs = {
           inherit system;
           inherit inputs;
-          inherit settings;
         };
         modules = [
+          ./modules/settings.nix
+          ./system/laptop.nix
           nixos-hardware.nixosModules.framework-13-7040-amd
-          ./system/boot/systemd-boot.nix
-          ./system/laptop-hardware-configuration.nix
-          ./system/configuration.nix
         ];
       };
     };
@@ -125,10 +111,9 @@
         inherit pkgs;
         extraSpecialArgs = {
           inherit inputs;
-          inherit settings;
         };
         modules = [
-          ./user/home.nix
+          ./modules/settings.nix
           ./user/pc.nix
         ];
       };
@@ -137,10 +122,10 @@
         inherit pkgs;
         extraSpecialArgs = {
           inherit inputs;
-          inherit settings;
         };
         modules = [
-          ./user/home.nix
+          ./modules/settings.nix
+          ./user/laptop.nix
         ];
       };
     };

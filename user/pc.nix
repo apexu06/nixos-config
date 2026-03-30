@@ -27,6 +27,7 @@
 in {
   imports = [
     ./app/gpu-screen-recorder/gpu-screen-recorder.nix
+    ./home.nix
   ];
 
   home.packages = [

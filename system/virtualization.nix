@@ -7,8 +7,6 @@
     spice-protocol
     virtio-win
     win-spice
-    docker-compose
-    podman-tui
   ];
 
   programs.virt-manager.enable = true;
@@ -22,13 +20,6 @@
         swtpm.enable = true;
       };
     };
-
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
-
     spiceUSBRedirection.enable = true;
     vmware.guest.enable = true;
   };
