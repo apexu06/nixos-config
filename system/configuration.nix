@@ -6,9 +6,7 @@
   imports = [
     ./stylix.nix
     ./pipewire.nix
-    ./virtualization.nix
     ./de/${settings.de}.nix
-    ./services.nix
   ];
 
   nix = {
@@ -44,7 +42,6 @@
   };
 
   system.stateVersion = "25.05";
-  networking.hostName = "iusenixbtw";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Vienna";
@@ -76,24 +73,6 @@
 
   programs = {
     fish.enable = true;
-    dconf.enable = true;
-    nix-ld = {
-      enable = true;
-    };
-  };
-
-  environment.systemPackages = with pkgs; [
-    vim
-    axel
-    git
-    wayland
-    fish
-    ntfs3g
-  ];
-
-  systemd.services.fprintd = {
-    wantedBy = ["multi-user.target"];
-    serviceConfig.Type = "simple";
   };
 
   security = {

@@ -13,15 +13,12 @@
     ./app/browser/firefox.nix
     ./app/desktop.nix
     ./app/spotify.nix
-    ./virtualisation.nix
+    ./distrobox.nix
 
     ./de/${settings.de}/${settings.de}.nix
     ./app/terminal/${settings.terminal}/${settings.terminal}.nix
     ./app/de-shell/${settings.de-shell}/${settings.de-shell}.nix
   ];
-
-  home.username = "apexu";
-  home.homeDirectory = "/home/apexu";
 
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
@@ -42,9 +39,6 @@
     mpv.enable = true;
   };
 
-  nixpkgs.config.allowUnfree = true;
-
-  home.stateVersion = "25.05";
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "fish";
@@ -58,5 +52,12 @@
     "$HOME/.nix-profile/share/applications"
   ];
 
+  home = {
+    username = "apexu";
+    homeDirectory = "/home/apexu";
+    stateVersion = "25.05";
+  };
+
+  nixpkgs.config.allowUnfree = true;
   programs.home-manager.enable = true;
 }
