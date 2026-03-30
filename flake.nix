@@ -113,7 +113,7 @@
         };
         modules = [
           nixos-hardware.nixosModules.framework-13-7040-amd
-          ./system/boot/grub.nix
+          ./system/boot/systemd-boot.nix
           ./system/laptop-hardware-configuration.nix
           ./system/configuration.nix
         ];
