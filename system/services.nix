@@ -1,4 +1,12 @@
 {pkgs, ...}: {
+  xdg.portal = {
+    enable = true;
+    config.common.default = ["gnome"];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome
+      xdg-desktop-portal-gtk
+    ];
+  };
   services = {
     flatpak.enable = true;
     openssh.enable = true;
