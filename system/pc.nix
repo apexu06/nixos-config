@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   imports = [
     ./configuration.nix
     ./services.nix
@@ -88,4 +93,7 @@
   };
   hardware.amdgpu.initrd.enable = true;
   hardware.i2c.enable = true;
+
+  nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
+  boot.kernelPackages = lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 }

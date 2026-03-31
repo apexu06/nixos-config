@@ -1,10 +1,13 @@
 {...}: {
   settings = {
-    de = "niri";
+    de = {
+      name = "niri";
+      launcher = "noctalia";
+      shell = "noctalia";
+      useWallpaper = false;
+    };
+
     theme = "tokyonight";
-    useWallpaper = false;
-    launcher = "noctalia";
-    de-shell = "noctalia";
     terminal = {
       emulator = "kitty";
       useTmux = false;

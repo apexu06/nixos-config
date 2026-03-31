@@ -1,4 +1,5 @@
 {lib, ...}: {
+  imports = [./default-settings.nix];
   options.settings = {
     de = lib.mkOption {
       type = lib.types.submodule {
