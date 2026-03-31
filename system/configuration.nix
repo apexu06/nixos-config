@@ -1,12 +1,14 @@
 {
   pkgs,
-  settings,
+  config,
   ...
 }: {
   imports = [
     ./stylix.nix
     ./pipewire.nix
-    ./de/${settings.de}.nix
+    ./de/hyprland.nix
+    ./de/niri.nix
+    ./de/gnome.nix
   ];
 
   nix = {

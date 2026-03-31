@@ -27,11 +27,9 @@
 in {
   imports = [
     ./app/gpu-screen-recorder/gpu-screen-recorder.nix
-    ./home.nix
   ];
 
   home.packages = [
-    pkgs.signal-desktop
     pkgs.prismlauncher
     pkgs.lutris
     krisp-patcher

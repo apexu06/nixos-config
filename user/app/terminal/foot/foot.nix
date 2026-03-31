@@ -1,26 +1,29 @@
 {
   lib,
+  config,
   pkgs,
   ...
 }: {
-  home.packages = with pkgs; [
-    nerd-fonts.iosevka-term
-  ];
+  config = lib.mkIf (config.settings.terminal == "foot") {
+    home.packages = with pkgs; [
+      nerd-fonts.iosevka-term
+    ];
 
-  imports = [
-    ../tmux.nix
-  ];
+    imports = [
+      ../tmux.nix
+    ];
 
-  programs.foot = {
-    enable = true;
-    settings = {
-      main = {
-        font = lib.mkDefault "IosevkaTerm Nerd Font:size=13:weight=Medium";
-        font-bold = lib.mkDefault "IosevkaTerm Nerd Font:size=13:weight=SemiBold";
-        pad = "8x8";
-      };
-      scrollback = {
-        lines = 80000;
+    programs.foot = {
+      enable = true;
+      settings = {
+        main = {
+          font = lib.mkDefault "IosevkaTerm Nerd Font:size=13:weight=Medium";
+          font-bold = lib.mkDefault "IosevkaTerm Nerd Font:size=13:weight=SemiBold";
+          pad = "8x8";
+        };
+        scrollback = {
+          lines = 80000;
+        };
       };
     };
   };

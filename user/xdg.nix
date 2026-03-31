@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   xdg = {
     autostart.enable = true;
     configFile."electron-flags.conf".text = ''

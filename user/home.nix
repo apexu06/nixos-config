@@ -1,8 +1,4 @@
-{
-  pkgs,
-  settings,
-  ...
-}: {
+{...}: {
   imports = [
     ./stylix.nix
     ./xdg.nix
@@ -11,33 +7,25 @@
     ./app/neovim/nvim.nix
     ./app/rider/rider.nix
     ./app/browser/firefox.nix
-    ./app/desktop.nix
+    ./app/apps.nix
     ./app/spotify.nix
     ./distrobox.nix
 
-    ./de/${settings.de}/${settings.de}.nix
-    ./app/terminal/${settings.terminal}/${settings.terminal}.nix
-    ./app/de-shell/${settings.de-shell}/${settings.de-shell}.nix
+    ./de/hyprland/hyprland.nix
+    ./de/niri/niri.nix
+    ./de/mangowc/mangowc.nix
+
+    ./app/terminal/foot/foot.nix
+    ./app/terminal/wezterm/wezterm.nix
+    ./app/terminal/kitty/kitty.nix
+
+    ./app/de-shell/noctalia/noctalia.nix
+    ./app/de-shell/dms/dms.nix
+    ./app/de-shell/quickshell/quickshell.nix
+    ./app/de-shell/ags/ags.nix
   ];
 
   fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    qbittorrent
-    osu-lazer-bin
-    filezilla
-    wine
-    winetricks
-    (discord.override {
-      withVencord = true;
-    })
-    nix-update
-  ];
-
-  programs = {
-    chromium.enable = true;
-    obsidian.enable = true;
-    mpv.enable = true;
-  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
