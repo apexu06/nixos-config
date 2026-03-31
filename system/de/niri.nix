@@ -1,23 +1,27 @@
 {
   pkgs,
   inputs,
+  lib,
+  config,
   ...
 }: {
-  nixpkgs.overlays = [inputs.niri.overlays.niri];
+  config = lib.mkIf (config.settings.de == "niri") {
+    nixpkgs.overlays = [inputs.niri.overlays.niri];
 
-  environment.systemPackages = with pkgs; [
-    xwayland-satellite
-  ];
+    environment.systemPackages = with pkgs; [
+      xwayland-satellite
+    ];
 
-  programs = {
-    niri.enable = true;
-    gnome-disks.enable = true;
+    programs = {
+      niri.enable = true;
+      gnome-disks.enable = true;
+    };
+
+    security = {
+      polkit.enable = true;
+      pam.services.hyprlock = {};
+    };
+
+    services.gnome.gnome-keyring.enable = true;
   };
-
-  security = {
-    polkit.enable = true;
-    pam.services.hyprlock = {};
-  };
-
-  services.gnome.gnome-keyring.enable = true;
 }

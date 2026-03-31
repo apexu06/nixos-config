@@ -1,7 +1,7 @@
 {lib, ...}: {
   options.settings = {
     de = lib.mkOption {
-      type = lib.types.enum ["niri" "hyprland" "gnome"];
+      type = lib.types.enum ["niri" "hyprland" "gnome" "mango"];
       default = "niri";
     };
     theme = lib.mkOption {

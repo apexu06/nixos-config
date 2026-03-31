@@ -4,6 +4,7 @@
     ./hardware/laptop-hardware-configuration.nix
     ./podman.nix
     ./boot/systemd-boot.nix
+    ./services.nix
   ];
   networking.hostName = "nixl";
 
