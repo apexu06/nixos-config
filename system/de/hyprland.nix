@@ -5,7 +5,7 @@
   lib,
   ...
 }: {
-  config = lib.mkIf (config.settings.de == "hyprland") {
+  config = lib.mkIf (config.settings.de.name == "hyprland") {
     programs = {
       hyprland = {
         enable = true;
