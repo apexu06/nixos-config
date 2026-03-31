@@ -5,11 +5,11 @@
   config,
   ...
 }: {
-  config = lib.mkIf (config.settings.de-shell == "ags") {
-    imports = [
-      inputs.ags.homeManagerModules.default
-    ];
+  imports = [
+    inputs.ags.homeManagerModules.default
+  ];
 
+  config = lib.mkIf (config.settings.de.shell == "ags") {
     programs.ags = {
       enable = true;
       configDir = ./ags-bar;

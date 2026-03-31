@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  config = lib.mkIf (config.settings.terminal == "wezterm") {
+  config = lib.mkIf (config.settings.terminal.emulator == "wezterm") {
     home.packages = with pkgs; [
       wezterm
       nerd-fonts.iosevka-term

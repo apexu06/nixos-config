@@ -13,14 +13,14 @@
     ]
     ++ (pkgs.lib.splitString " " cmd);
 in {
-  config = lib.mkIf (config.settings.de-shell == "noctalia") {
+  imports = [
+    inputs.noctalia.homeModules.default
+  ];
+
+  config = lib.mkIf (config.settings.de.shell == "noctalia") {
     home.packages = with pkgs; [
       gpu-screen-recorder
       adwaita-icon-theme
-    ];
-
-    imports = [
-      inputs.noctalia.homeModules.default
     ];
 
     home.file.".config/noctalia/pam/password.conf".text = ''
@@ -681,7 +681,7 @@ in {
       };
     };
 
-    services.hyprpaper.enable = lib.mkForce config.settings.useWallpaper;
+    services.hyprpaper.enable = lib.mkForce config.settings.de.useWallpaper;
 
     services.hypridle.settings = {
       general = {

@@ -1,6 +1,6 @@
 {
   pkgs,
-  settings,
+  config,
   inputs,
   ...
 }: {
@@ -28,7 +28,7 @@
     # initLua = builtins.readFile ./init.lua;
   };
 
-  home.file.".config/nvim/lua/theme_choice.lua".text = ''return "${settings.theme}"'';
+  home.file.".config/nvim/lua/theme_choice.lua".text = ''return "${config.settings.theme}"'';
 
   home.file.".config/nvim".source = ./lazy;
   home.file.".config/nvim".recursive = true;

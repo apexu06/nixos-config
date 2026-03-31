@@ -1,26 +1,17 @@
 {
-  settings,
   pkgs,
   config,
   inputs,
   lib,
   ...
 }: {
-  config = lib.mkIf (config.settings.de == "niri") {
-    imports =
-      [
-        inputs.niri.homeModules.niri
-      ]
-      ++ lib.optionals (config.settings.de-shell != "noctalia")
-      [
-        ../hypridle.nix
-        ../hyprlock.nix
-      ]
-      ++ lib.optionals (config.settings.launcher != "noctalia")
-      [
-        ../../launcher/launcher.nix
-      ];
-
+  imports = [
+    inputs.niri.homeModules.niri
+    ../hypridle.nix
+    ../hyprlock.nix
+    ../../launcher/launcher.nix
+  ];
+  config = lib.mkIf (config.settings.de.name == "niri") {
     home.packages = with pkgs;
       [
         nwg-look
@@ -31,7 +22,7 @@
         adwaita-icon-theme
         gnome-disk-utility
       ]
-      ++ lib.optionals (config.settings.de-shell != "noctalia")
+      ++ lib.optionals (config.settings.de.shell != "noctalia")
       [
         wlogout
       ];
@@ -172,7 +163,7 @@
             {command = ["sh" "-c" "wl-paste --type text --watch cliphist store"];}
             {command = ["sh" "-c" "wl-paste --type image --watch cliphist store"];}
           ]
-          ++ lib.optionals (config.settings.de-shell == "noctalia") [
+          ++ lib.optionals (config.settings.de.shell == "noctalia") [
             {command = ["noctalia-shell"];}
           ];
 
@@ -254,8 +245,8 @@
             {
               "Mod+Shift+Slash".action = show-hotkey-overlay;
 
-              "Mod+Return".action = spawn config.settings.terminal;
-              "Mod+Shift+Return".action = spawn config.settings.terminal "-e" "yazi";
+              "Mod+Return".action = spawn config.settings.terminal.emulator;
+              "Mod+Shift+Return".action = spawn config.settings.terminal.emulator "-e" "yazi";
 
               "Mod+Alt+L".action = spawn "hyprlock";
               "Mod+Shift+M".action = spawn "wlogout";
@@ -466,7 +457,7 @@
               };
             }
 
-            (lib.mkIf (config.settings.launcher != "noctalia") {
+            (lib.mkIf (config.settings.de.launcher != "noctalia") {
               "Mod+P".action = spawn config.app.launcher.command;
             })
           ];

@@ -26,6 +26,7 @@
     );
 in {
   imports = [
+    ./home.nix
     ./app/gpu-screen-recorder/gpu-screen-recorder.nix
   ];
 
@@ -35,19 +36,5 @@ in {
     krisp-patcher
   ];
 
-  programs.foot = {
-    settings = {
-      main = {
-        font = lib.mkForce "IosevkaTerm Nerd Font:size=13.5:weight=Medium";
-        font-bold = lib.mkForce "IosevkaTerm Nerd Font:size=13.5:weight=SemiBold";
-        pad = "8x8";
-      };
-    };
-  };
-
-  programs.kitty = {
-    font = {
-      size = lib.mkForce 13.5;
-    };
-  };
+  stylix.fonts.sizes.terminal = lib.mkForce 13.5;
 }

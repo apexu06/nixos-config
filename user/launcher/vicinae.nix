@@ -1,5 +1,5 @@
 {
-  pkgs,
+  config,
   inputs,
   lib,
   ...
@@ -8,82 +8,84 @@
     inputs.vicinae.homeManagerModules.default
   ];
 
-  services.vicinae = {
-    enable = true;
-    systemd = {
+  config = lib.mkIf (config.settings.de.launcher == "vicinae") {
+    services.vicinae = {
       enable = true;
-      autoStart = true; # default: false
-      environment = {
-        USE_LAYER_SHELL = 1;
-      };
-    };
-    settings = {
-      close_on_focus_loss = true;
-      keybinding = "emacs";
-      search_files_in_root = true;
-      font = {
-        normal = {
-          size = 12;
+      systemd = {
+        enable = true;
+        autoStart = true; # default: false
+        environment = {
+          USE_LAYER_SHELL = 1;
         };
       };
-      theme = {
-        dark = {
-          name = "stylix";
-          icon_theme = "auto";
-        };
-      };
-      launcher_window = {
-        opacity = lib.mkForce 1;
-      };
-      providers = {
-        applications = {
-          entrypoints = {
-            "ARC Raiders" = {
-              enabled = false;
-            };
-            Absolum = {
-              enabled = false;
-            };
-            kvantummanager = {
-              enabled = false;
-            };
-            nixos-manual = {
-              enabled = false;
-            };
-            vicinae = {
-              enabled = false;
-            };
-            xterm = {
-              enabled = false;
-            };
-          };
-        };
-        core = {
-          enabled = false;
-        };
-        developer = {
-          enabled = false;
-        };
-        files = {
-          entrypoints = {
-            search = {
-              alias = "f";
-            };
-          };
-        };
+      settings = {
+        close_on_focus_loss = true;
+        keybinding = "emacs";
+        search_files_in_root = true;
         font = {
-          enabled = false;
-        };
-        raycast-compat = {
-          enabled = false;
+          normal = {
+            size = 12;
+          };
         };
         theme = {
-          enabled = false;
+          dark = {
+            name = "stylix";
+            icon_theme = "auto";
+          };
         };
-        wm = {
-          entrypoints = {
-            switch-windows = {
-              alias = "w";
+        launcher_window = {
+          opacity = lib.mkForce 1;
+        };
+        providers = {
+          applications = {
+            entrypoints = {
+              "ARC Raiders" = {
+                enabled = false;
+              };
+              Absolum = {
+                enabled = false;
+              };
+              kvantummanager = {
+                enabled = false;
+              };
+              nixos-manual = {
+                enabled = false;
+              };
+              vicinae = {
+                enabled = false;
+              };
+              xterm = {
+                enabled = false;
+              };
+            };
+          };
+          core = {
+            enabled = false;
+          };
+          developer = {
+            enabled = false;
+          };
+          files = {
+            entrypoints = {
+              search = {
+                alias = "f";
+              };
+            };
+          };
+          font = {
+            enabled = false;
+          };
+          raycast-compat = {
+            enabled = false;
+          };
+          theme = {
+            enabled = false;
+          };
+          wm = {
+            entrypoints = {
+              switch-windows = {
+                alias = "w";
+              };
             };
           };
         };

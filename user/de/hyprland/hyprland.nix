@@ -1,25 +1,16 @@
 {
   pkgs,
-  settings,
   lib,
   inputs,
   config,
   ...
 }: {
-  config = lib.mkIf (config.settings.de == "hyprland") {
-    imports =
-      [
-        ../hypridle.nix
-      ]
-      ++ lib.optionals (config.settings.de-shell != "noctalia")
-      [
-        ../hyprlock.nix
-      ]
-      ++ lib.optionals (config.settings.launcher != "noctalia")
-      [
-        ../../launcher/launcher.nix
-      ];
-
+  imports = [
+    ../hypridle.nix
+    ../../launcher/launcher.nix
+    ../hyprlock.nix
+  ];
+  config = lib.mkIf (config.settings.de.name == "hyprland") {
     home.packages = with pkgs;
       [
         nwg-look
@@ -31,7 +22,7 @@
         adwaita-icon-theme
         gnome-disk-utility
       ]
-      ++ lib.optionals (settings.de-shell != "noctalia")
+      ++ lib.optionals (config.settings.de-shell != "noctalia")
       [
         wlogout
       ];
@@ -45,7 +36,7 @@
       extraConfig =
         ''
           $drun = ${
-            if settings.launcher == "tofi"
+            if config.settings.launcher == "tofi"
             then "tofi-drun --drun-launch=true"
             else "noctalia-shell ipc call launcher toggle"
           }

@@ -1,6 +1,6 @@
 {
   lib,
-  settings,
+  config,
   ...
 }: let
   commandFor = backend:
@@ -15,13 +15,16 @@
     else throw "Unknown launcher backend: ${backend}";
 in {
   imports = [
-    ./${settings.launcher}.nix
+    ./anyrun.nix
+    ./fuzzel.nix
+    ./tofi.nix
+    ./vicinae.nix
   ];
 
   options.app.launcher = {
     command = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = commandFor settings.launcher;
+      default = commandFor config.settings.launcher;
       description = "Launcher command used by configs.";
     };
   };

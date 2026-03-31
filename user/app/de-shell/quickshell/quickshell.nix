@@ -2,10 +2,9 @@
   pkgs,
   lib,
   config,
-  settings,
   ...
 }: {
-  config = lib.mkIf (config.settings.de-shell == "quickshell") {
+  config = lib.mkIf (config.settings.de.shell == "quickshell") {
     home.packages = with pkgs; [
       material-symbols
       cava
@@ -13,7 +12,7 @@
     ];
 
     programs.quickshell = {
-      enable = settings.de-shell == "quickshell";
+      enable = true;
       systemd.enable = true;
       configs = {
         bar = ./quickshell-bar;

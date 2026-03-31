@@ -4,12 +4,12 @@
   config,
   ...
 }: {
-  config = lib.mkIf (config.settings.de-shell == "dms") {
-    imports = [
-      inputs.dankMaterialShell.homeModules.dankMaterialShell.default
-      inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
-    ];
+  imports = [
+    inputs.dms.homeModules.dank-material-shell
+    inputs.dms.homeModules.niri
+  ];
 
+  config = lib.mkIf (config.settings.de.shell == "dms") {
     programs.dankMaterialShell = {
       enable = true;
       niri = {

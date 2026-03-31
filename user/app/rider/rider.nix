@@ -1,6 +1,6 @@
 {
   pkgs,
-  settings,
+  config,
   ...
 }: let
   rider-picker = pkgs.writeShellScriptBin "rider-picker" ''
@@ -74,7 +74,7 @@ in {
   xdg.desktopEntries.rider-picker = {
     name = "Rider Project Picker";
     genericName = "C# IDE Launcher";
-    exec = "${settings.terminal} --title=\"RiderPicker\" -e ${rider-picker}/bin/rider-picker";
+    exec = "${config.settings.terminal.emulator} --title=\"RiderPicker\" -e ${rider-picker}/bin/rider-picker";
     icon = "com.jetbrains.Rider";
     terminal = false;
     categories = ["Development" "IDE"];

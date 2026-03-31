@@ -5,6 +5,9 @@
     useWallpaper = false;
     launcher = "noctalia";
     de-shell = "noctalia";
-    terminal = "kitty";
+    terminal = {
+      emulator = "kitty";
+      useTmux = false;
+    };
   };
 }

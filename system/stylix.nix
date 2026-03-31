@@ -57,7 +57,7 @@ in {
         };
       };
     }
-    // lib.optionalAttrs (config.settings.useWallpaper) {
+    // lib.optionalAttrs (config.settings.de.useWallpaper) {
       image = pkgs.fetchurl {
         url = backgroundUrl;
         hash = backgroundHash;
