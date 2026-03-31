@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  config = lib.mkIf (config.settings.terminal == "kitty") {
+  config = lib.mkIf (config.settings.terminal.emulator == "kitty") {
     home.packages = with pkgs; [
       nerd-fonts.iosevka-term
     ];

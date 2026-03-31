@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    protonvpn
+    proton-vpn
     libreoffice-fresh
     signal-desktop
     qbittorrent

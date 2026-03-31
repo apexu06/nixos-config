@@ -1,17 +1,16 @@
 {
   inputs,
-  settings,
   lib,
   config,
   ...
 }: {
-  config = lib.mkIf (config.settings.de == "mango") {
-    imports = [
-      inputs.mango.hmModules.mango
+  imports = [
+    inputs.mango.hmModules.mango
 
-      ../../launcher/${settings.launcher}.nix
-    ];
+    ../../launcher/launcher.nix
+  ];
 
+  config = lib.mkIf (config.settings.de.name == "mango") {
     wayland.windowManager.mango = {
       enable = true;
       settings =

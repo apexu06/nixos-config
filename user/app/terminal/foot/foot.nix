@@ -4,13 +4,13 @@
   pkgs,
   ...
 }: {
-  config = lib.mkIf (config.settings.terminal == "foot") {
+  imports = [
+    ../tmux.nix
+  ];
+
+  config = lib.mkIf (config.settings.terminal.emulator == "foot") {
     home.packages = with pkgs; [
       nerd-fonts.iosevka-term
-    ];
-
-    imports = [
-      ../tmux.nix
     ];
 
     programs.foot = {
