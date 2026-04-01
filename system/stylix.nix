@@ -11,6 +11,8 @@
     builtins.readFile ../theme/${config.settings.theme}/wallpaper.txt
   );
   wallpaperLines = builtins.filter (x: x != "") (lib.splitString "\n" wallpaperFile);
+  localWallpaper = ../theme/${config.settings.theme}/wallpaper.jpg;
+  hasLocalWallpaper = builtins.pathExists localWallpaper;
 
   backgroundUrl = builtins.elemAt wallpaperLines 0;
   backgroundHash = builtins.elemAt wallpaperLines 1;
@@ -58,9 +60,13 @@ in {
       };
     }
     // lib.optionalAttrs (config.settings.de.useWallpaper) {
-      image = pkgs.fetchurl {
-        url = backgroundUrl;
-        hash = backgroundHash;
-      };
+      image =
+        if hasLocalWallpaper
+        then localWallpaper
+        else
+          pkgs.fetchurl {
+            url = backgroundUrl;
+            hash = backgroundHash;
+          };
     };
 }

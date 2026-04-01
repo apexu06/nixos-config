@@ -38,12 +38,22 @@ return {
 		"catppuccin/nvim",
 		name = "catppuccin",
 		priority = 1000,
-		enabled = active_theme == "catppuccin",
+		enabled = active_theme == "catppuccin-latte",
 		config = function()
 			require("catppuccin").setup({
 				transparent_background = true,
 			})
-			vim.cmd.colorscheme("catppuccin")
+			vim.cmd.colorscheme("catppuccin-latte")
+		end,
+	},
+	{
+		"Aejkatappaja/sora",
+		priority = 1000,
+		opts = {},
+		enabled = active_theme == "sora",
+		config = function(_, opts)
+			require("sora").setup(opts)
+			vim.cmd("colorscheme sora")
 		end,
 	},
 }

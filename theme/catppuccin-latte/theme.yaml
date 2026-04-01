@@ -1,21 +1,43 @@
+# system: "base16"
+# name: "Catppuccin Latte"
+# author: "https://github.com/catppuccin/catppuccin"
+# variant: "light"
+# palette:
+#   base00: "#eff1f5" # base
+#   base01: "#e6e9ef" # mantle
+#   base02: "#ccd0da" # surface0
+#   base03: "#bcc0cc" # surface1
+#   base04: "#acb0be" # surface2
+#   base05: "#4c4f69" # text
+#   base06: "#dc8a78" # rosewater
+#   base07: "#7287fd" # lavender
+#   base08: "#d20f39" # red
+#   base09: "#fe640b" # peach
+#   base0A: "#df8e1d" # yellow
+#   base0B: "#40a02b" # green
+#   base0C: "#179299" # teal
+#   base0D: "#1e66f5" # blue
+#   base0E: "#8839ef" # mauve
+#   base0F: "#dd7878" # flamingo
+
 system: "base16"
 name: "Catppuccin Latte"
-author: "https://github.com/catppuccin/catppuccin"
+author: "Catppuccin"
 variant: "light"
 palette:
-  base00: "#eff1f5" # base
-  base01: "#e6e9ef" # mantle
-  base02: "#ccd0da" # surface0
-  base03: "#bcc0cc" # surface1
-  base04: "#acb0be" # surface2
-  base05: "#4c4f69" # text
-  base06: "#dc8a78" # rosewater
-  base07: "#7287fd" # lavender
-  base08: "#d20f39" # red
-  base09: "#fe640b" # peach
-  base0A: "#df8e1d" # yellow
-  base0B: "#40a02b" # green
-  base0C: "#179299" # teal
-  base0D: "#1e66f5" # blue
-  base0E: "#8839ef" # mauve
-  base0F: "#dd7878" # flamingo
+  base00: "#eff1f5"  # Base      — background
+  base01: "#e6e9ef"  # Mantle    — slightly darker bg (status bars, etc.)
+  base02: "#ccd0da"  # Surface 0 — selection bg, line highlight
+  base03: "#acb0be"  # Surface 2 — comments, invisibles
+  base04: "#6c6f85"  # Subtext 0 — dark foreground (inactive UI)
+  base05: "#4c4f69"  # Text      — default foreground
+  base06: "#5c5f77"  # Subtext 1 — slightly lighter fg
+  base07: "#7c7f93"  # Overlay 2 — lightest fg (rarely used)
+  base08: "#d20f39"  # Red       — variables, errors
+  base09: "#fe640b"  # Peach     — integers, constants
+  base0A: "#df8e1d"  # Yellow    — classes, warnings
+  base0B: "#40a02b"  # Green     — strings, success
+  base0C: "#179299"  # Teal      — regex, escape chars
+  base0D: "#1e66f5"  # Blue      — functions, headings
+  base0E: "#8839ef"  # Mauve     — keywords
+  base0F: "#dc8a78"  # Rosewater — deprecated, special

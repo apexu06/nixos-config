@@ -1,0 +1,22 @@
+system: "base16"
+name: "Your Scheme Name"
+author: "Your Name"
+variant: "dark"
+palette:
+  base00: "#0e1018"  # Background
+  base01: "#161820"  # Slightly lighter bg (e.g. status bars)
+  base02: "#252836"  # Selection bg, line highlight
+  base03: "#3d4258"  # Comments, invisibles
+  base04: "#6a7290"  # Dark foreground (inactive UI)
+  base05: "#c8d0e0"  # Foreground (default text)
+  base06: "#dde3ee"  # Light foreground
+  base07: "#f0f3f8"  # Lightest foreground (rarely used)
+  base08: "#d0909c"  # Rose   → variables, errors
+  base09: "#d0a888"  # Peach  → integers, constants
+  base0A: "#d4b878"  # Gold   → classes, warnings
+  base0B: "#90c8a0"  # Sage   → strings, success
+  base0C: "#80c8e0"  # Cyan   → regex, escape chars (bold accent)
+  base0D: "#8898b8"  # Steel  → functions, headings
+  base0E: "#b0a0d8"  # Purple → keywords
+  base0F: "#78b8b0"  # Teal   → deprecated, special
+

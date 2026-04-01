@@ -1,10 +1,10 @@
-{...}: {
-  settings = {
+{lib, ...}: {
+  settings = lib.mkDefault {
     de = {
       name = "niri";
       launcher = "noctalia";
       shell = "noctalia";
-      useWallpaper = false;
+      useWallpaper = true;
     };
 
     theme = "tokyonight";
