@@ -42,6 +42,20 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("LspProgress", {
+	callback = function(ev)
+		local value = ev.data.params.value
+		vim.api.nvim_echo({ { value.message or "done" } }, false, {
+			id = "lsp." .. ev.data.client_id,
+			kind = "progress",
+			source = "vim.lsp",
+			title = value.title,
+			status = value.kind ~= "end" and "running" or "success",
+			percent = value.percentage,
+		})
+	end,
+})
+
 local function open_file_picker_in_split(direction)
 	require("snacks").picker.files({
 		confirm = function(picker, item)
@@ -86,6 +100,8 @@ map("n", "<leader>q", vim.diagnostic.setloclist)
 map("n", "L", ":bnext<CR>", { noremap = true, silent = true })
 map("n", "H", ":bprev<CR>", { noremap = true, silent = true })
 map("n", "<leader>mr", ":below Recompile<CR>")
+map("n", ";", "*``cgn", { noremap = true })
+map("n", ",", "#``cgN", { noremap = true })
 
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
@@ -135,10 +151,46 @@ map("n", "<leader>lg", function()
 	Snacks.lazygit()
 end)
 
-map("n", "<leader>v", function()
+map("n", "<leader>h", function()
 	open_file_picker_in_split("vertical")
 end, { desc = "Pick file in vertical split" })
 
-map("n", "<leader>h", function()
+map("n", "<leader>v", function()
 	open_file_picker_in_split("horizontal")
 end, { desc = "Pick file in horizontal split" })
+
+local parsers = {
+	"bash",
+	"c",
+	"html",
+	"lua",
+	"markdown",
+	"svelte",
+	"typescript",
+	"javascript",
+	"nix",
+	"json",
+	"rust",
+	"cpp",
+	"go",
+	"gitcommit",
+	"gitignore",
+	"kdl",
+	"yaml",
+	"qmljs",
+	"c_sharp",
+	"typst",
+	"vim",
+	"bash",
+	"fish",
+	"make",
+	"cmake",
+	"toml",
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = parsers,
+	callback = function()
+		vim.treesitter.start()
+	end,
+})

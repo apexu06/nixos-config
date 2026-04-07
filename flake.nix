@@ -53,7 +53,6 @@
       url = "github:matheus-git/systemd-manager-tui";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     astal = {
       url = "github:aylur/astal";

@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  inputs,
   ...
 }: {
   home.packages = with pkgs; [
@@ -24,8 +23,6 @@
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-    # initLua = builtins.readFile ./init.lua;
   };
 
   home.file.".config/nvim/lua/theme_choice.lua".text = ''return "${config.settings.theme}"'';
