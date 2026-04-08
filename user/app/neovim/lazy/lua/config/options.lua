@@ -1,0 +1,27 @@
+local opt = vim.opt
+
+opt.number = true
+opt.undofile = true
+opt.relativenumber = true
+opt.splitright = true
+opt.splitbelow = true
+opt.wrap = true
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.swapfile = false
+opt.breakindent = true
+opt.smartindent = true
+opt.autoindent = true
+opt.updatetime = 300
+opt.showmode = false
+opt.expandtab = true
+opt.pumheight = 10
+opt.termguicolors = true
+opt.signcolumn = "yes"
+opt.scrolloff = 5
+opt.inccommand = "split"
+opt.clipboard = "unnamedplus"
+opt.ignorecase = true -- Case insensitive search
+opt.smartcase = true -- Case sensitive if uppercase in search
+opt.hlsearch = false -- Don't highlight search results
+vim.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
