@@ -48,5 +48,18 @@
         xdg-desktop-portal-gtk
       ];
     };
+
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = "org.pwmt.zathura.desktop";
+      };
+      associations.removed = {
+        "image/png" = "chromium-browser.desktop";
+        "image/jpeg" = "chromium-browser.desktop";
+        "image/webp" = "chromium-browser.desktop";
+        "image/gif" = "chromium-browser.desktop";
+      };
+    };
   };
 }

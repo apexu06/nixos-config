@@ -29,10 +29,11 @@
   ];
 
   networking.hostName = "nixp";
-
   programs.gpu-screen-recorder.enable = true;
 
   fileSystems."/mnt/nvme0" = {
+    neededForBoot = false;
+    label = "Daten";
     device = "/dev/disk/by-uuid/8A7AECD97AECC355";
     fsType = "ntfs";
     options = [
@@ -46,6 +47,8 @@
   };
 
   fileSystems."/mnt/nvme1" = {
+    neededForBoot = false;
+    label = "Speed";
     device = "/dev/disk/by-uuid/2CDAE689DAE64F20";
     fsType = "ntfs";
     options = [
@@ -96,4 +99,29 @@
 
   nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
   boot.kernelPackages = lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+
+  services = {
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+
+    printing = {
+      enable = true;
+      drivers = with pkgs; [canon-cups-ufr2];
+    };
+  };
+
+  hardware.printers.ensurePrinters = [
+    {
+      name = "Canon_LBP622C";
+      location = "Home";
+      deviceUri = "dnssd://Canon%20LBP622C%2F623C%20(a0%3A59%3A30)%20(3)%20(a0%3A59%3A30)%20(2)%20(a0%20(a0%3A59%3A30)._ipp._tcp.local/?uuid=6d4ff0ce-6b11-11d8-8020-349f7ba233ec";
+      model = "CNRCUPSLBP622CZS.ppd";
+      ppdOptions = {
+        PageSize = "A4";
+      };
+    }
+  ];
 }
