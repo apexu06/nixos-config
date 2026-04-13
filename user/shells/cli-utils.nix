@@ -5,6 +5,7 @@
 }: {
   home.packages = with pkgs; [
     fd
+    cloc
     devenv
     ripgrep
     findutils

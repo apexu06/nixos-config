@@ -14,6 +14,7 @@
     ./de/hyprland/hyprland.nix
     ./de/niri/niri.nix
     ./de/mangowc/mangowc.nix
+    ./de/kde/kde.nix
 
     ./app/terminal/foot/foot.nix
     ./app/terminal/wezterm/wezterm.nix

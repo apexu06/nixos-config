@@ -6,6 +6,7 @@
     ./de/niri.nix
     ./de/gnome.nix
     ./de/mangowc.nix
+    ./de/kde.nix
   ];
 
   nix = {

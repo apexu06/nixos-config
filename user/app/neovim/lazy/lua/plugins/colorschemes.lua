@@ -51,8 +51,19 @@ return {
 		priority = 1000,
 		opts = {},
 		enabled = active_theme == "sora",
-		config = function(_, opts)
-			require("sora").setup(opts)
+		config = function(_, _)
+			require("sora").setup({
+				transparent = false,
+				italic_comments = true,
+
+				-- Q
+				on_highlights = function(hl, colors)
+					hl.SnacksPickerDir = { fg = colors.fg_comment }
+					hl.SnacksPickerBorder = { bg = colors.bg, fg = colors.border }
+					hl.NormalFloat = { bg = colors.bg }
+				end,
+			})
+
 			vim.cmd("colorscheme sora")
 		end,
 	},

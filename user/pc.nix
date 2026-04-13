@@ -37,5 +37,4 @@ in {
   ];
 
   stylix.fonts.sizes.terminal = lib.mkForce 13.5;
-  settings.theme = "sora";
 }

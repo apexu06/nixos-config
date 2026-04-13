@@ -81,6 +81,12 @@
     };
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   nixConfig = {
@@ -118,6 +124,7 @@
           inherit inputs;
         };
         modules = [
+          ./modules/pc-settings.nix
           ./modules/settings.nix
           ./system/pc.nix
         ];
@@ -128,6 +135,7 @@
           inherit inputs;
         };
         modules = [
+          ./modules/laptop-settings.nix
           ./modules/settings.nix
           ./system/laptop.nix
           nixos-hardware.nixosModules.framework-13-7040-amd
@@ -143,6 +151,7 @@
         };
         modules = [
           ./modules/settings.nix
+          ./modules/pc-settings.nix
           ./user/pc.nix
         ];
       };
@@ -154,6 +163,7 @@
         };
         modules = [
           ./modules/settings.nix
+          ./modules/laptop-settings.nix
           ./user/laptop.nix
         ];
       };

@@ -18,15 +18,5 @@
       enable = true;
       mountOnMedia = true;
     };
-
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --cmd niri-session";
-          user = "greeter";
-        };
-      };
-    };
   };
 }

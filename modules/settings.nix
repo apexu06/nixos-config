@@ -5,12 +5,12 @@
       type = lib.types.submodule {
         options = {
           name = lib.mkOption {
-            type = lib.types.enum ["niri" "hyprland" "gnome" "mango"];
+            type = lib.types.enum ["niri" "hyprland" "gnome" "mango" "kde"];
             default = "niri";
           };
 
           shell = lib.mkOption {
-            type = lib.types.enum ["noctalia" "dms" "quickshell" "ags"];
+            type = lib.types.enum ["noctalia" "dms" "quickshell" "ags" "none"];
             default = "noctalia";
           };
 
@@ -20,7 +20,7 @@
           };
 
           launcher = lib.mkOption {
-            type = lib.types.enum ["noctalia" "fuzzel" "anyrun" "vicinae" "tofi"];
+            type = lib.types.enum ["noctalia" "fuzzel" "anyrun" "vicinae" "tofi" "none"];
             default = "noctalia";
           };
         };
