@@ -53,39 +53,3 @@ vim.filetype.add({
 		["%.env%.[%w_.-]+"] = "dotenv",
 	},
 })
-
-local parsers = {
-	"bash",
-	"c",
-	"html",
-	"lua",
-	"markdown",
-	"svelte",
-	"typescript",
-	"javascript",
-	"nix",
-	"json",
-	"rust",
-	"cpp",
-	"go",
-	"gitcommit",
-	"gitignore",
-	"kdl",
-	"yaml",
-	"qmljs",
-	"c_sharp",
-	"typst",
-	"vim",
-	"bash",
-	"fish",
-	"make",
-	"cmake",
-	"toml",
-}
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = parsers,
-	callback = function()
-		vim.treesitter.start()
-	end,
-})

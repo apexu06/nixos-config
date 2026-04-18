@@ -44,7 +44,7 @@
   home = {
     username = "apexu";
     homeDirectory = "/home/apexu";
-    stateVersion = "25.05";
+    stateVersion = "26.05";
   };
 
   nixpkgs.config.allowUnfree = true;

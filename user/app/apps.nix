@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     proton-vpn
     libreoffice-fresh
+    brave
     signal-desktop
     qbittorrent
     osu-lazer-bin

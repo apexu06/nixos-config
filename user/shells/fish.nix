@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     nix-your-shell
+    python3
   ];
 
   programs.fish = {
@@ -60,7 +61,7 @@
       '';
       off.body = ''
         set folder (tv dirs)
-        test -n "$folders"; and nvim $folders
+        test -n "$folder"; and nvim $folder
       '';
     };
   };

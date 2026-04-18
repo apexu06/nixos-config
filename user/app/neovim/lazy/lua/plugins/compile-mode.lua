@@ -19,6 +19,8 @@ return {
 				rust = "cargo run",
 			},
 			recompile_no_fail = true,
+			ask_to_interrupt = false,
+			auto_jump_to_first_error = true,
 
 			-- to add ANSI escape code support, add:
 			-- baleia_setup = true,

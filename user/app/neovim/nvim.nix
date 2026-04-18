@@ -5,11 +5,13 @@
 }: {
   home.packages = with pkgs; [
     lua-language-server
-    nil
     typescript-language-server
-    stdenv.cc
+    tailwindcss-language-server
     python313Packages.python-lsp-server
     bash-language-server
+    nil
+
+    stdenv.cc
     prettier
     prettierd
     stylua

@@ -64,7 +64,7 @@ in {
       };
 
       # Noctalia NixOS Configuration
-      # Settings Version: 57
+      # Settings Version: 59
       settings = {
         appLauncher = {
           autoPasteClipboard = false;
@@ -75,7 +75,9 @@ in {
           customLaunchPrefixEnabled = false;
           density = "default";
           enableClipPreview = true;
+          enableClipboardChips = true; # New
           enableClipboardHistory = false;
+          enableClipboardSmartIcons = true; # New
           enableSessionSearch = false;
           enableSettingsSearch = false;
           enableWindowsSearch = true;
@@ -88,13 +90,12 @@ in {
             "discord"
             "firefox"
           ];
-          position = "follow_bar"; # [cite: 1]
+          position = "follow_bar";
           screenshotAnnotationTool = "";
           showCategories = true;
           showIconBackground = false;
           sortByMostUsed = true;
           terminalCommand = "xterm -e";
-          useApp2Unit = false;
           viewMode = "list";
         };
 
@@ -102,6 +103,7 @@ in {
           mprisBlacklist = [];
           preferredPlayer = "";
           spectrumFrameRate = 30;
+          spectrumMirrored = true; # New
           visualizerType = "linear";
           volumeFeedback = false;
           volumeFeedbackSoundFile = "";
@@ -112,28 +114,28 @@ in {
         bar = {
           autoHideDelay = 500;
           autoShowDelay = 150;
-          backgroundOpacity = 1.0; # [cite: 1]
+          backgroundOpacity = 1.0;
           barType = "simple";
           capsuleColorKey = "none";
-          capsuleOpacity = 1.0; # [cite: 1]
+          capsuleOpacity = 1.0;
           contentPadding = 2;
           density = "comfortable";
           displayMode = "always_visible";
-          floating = false;
-          fontScale = 1.0; # [cite: 1]
+          enableExclusionZoneInset = true; # New
+          fontScale = 1.0;
           frameRadius = 12;
           frameThickness = 8;
           hideOnOverview = true;
           marginHorizontal = 5;
           marginVertical = 5;
-          middleClickAction = "settings"; # [cite: 2]
+          middleClickAction = "settings";
           middleClickCommand = "";
-          middleClickFollowMouse = true; # [cite: 2]
+          middleClickFollowMouse = true;
           monitors = [];
-          mouseWheelAction = "workspace"; # [cite: 2]
+          mouseWheelAction = "workspace";
           mouseWheelWrap = true;
           outerCorners = true;
-          position = "left"; # [cite: 2]
+          position = "left";
           reverseScroll = false;
           rightClickAction = "controlCenter";
           rightClickCommand = "";
@@ -156,7 +158,7 @@ in {
                 useCustomFont = false;
               }
               {
-                compactMode = false; # [cite: 3]
+                compactMode = false;
                 hideMode = "hidden";
                 hideWhenIdle = false;
                 id = "MediaMini";
@@ -166,12 +168,11 @@ in {
                 showAlbumArt = true;
                 showArtistFirst = true;
                 showProgressRing = true;
-                showVisualizer = false; # [cite: 3]
+                showVisualizer = false;
                 textColor = "none";
                 useFixedWidth = false;
                 visualizerType = "linear";
               }
-              # Privacy Indicator plugin removed based on diff [cite: 4, 5, 9]
             ];
             left = [
               {
@@ -182,7 +183,7 @@ in {
                 focusedColor = "primary";
                 followFocusedScreen = false;
                 fontWeight = "bold";
-                groupedBorderOpacity = 1.0; # [cite: 6]
+                groupedBorderOpacity = 1.0;
                 hideUnoccupied = false;
                 iconScale = 0.8;
                 id = "Workspace";
@@ -190,9 +191,10 @@ in {
                 occupiedColor = "secondary";
                 pillSize = 0.6;
                 showApplications = false;
+                showApplicationsHover = false; # New
                 showBadge = true;
                 showLabelsOnlyWhenOccupied = true;
-                unfocusedIconsOpacity = 1.0; # [cite: 7]
+                unfocusedIconsOpacity = 1.0;
               }
               {
                 colorizeIcons = false;
@@ -201,6 +203,7 @@ in {
                 maxWidth = 145;
                 scrollingMode = "hover";
                 showIcon = true;
+                showText = true; # New
                 textColor = "none";
                 useFixedWidth = false;
               }
@@ -232,10 +235,10 @@ in {
                 textColor = "none";
               }
               {
-                displayMode = "onhover"; # [cite: 8]
+                displayMode = "onhover";
                 iconColor = "none";
                 id = "Volume";
-                middleClickCommand = "pwvucontrol || pavucontrol"; # [cite: 8, 9]
+                middleClickCommand = "pwvucontrol || pavucontrol";
                 textColor = "none";
               }
               {
@@ -282,9 +285,91 @@ in {
           };
         };
 
+        brightness = {
+          backlightDeviceMappings = [];
+          brightnessStep = 5;
+          enableDdcSupport = false;
+          enforceMinimum = true;
+        };
+
+        calendar = {
+          cards = [
+            {
+              enabled = true;
+              id = "calendar-header-card";
+            }
+            {
+              enabled = true;
+              id = "calendar-month-card";
+            }
+            {
+              enabled = true;
+              id = "weather-card";
+            }
+          ];
+        };
+
+        colorSchemes = {
+          darkMode = true;
+          generationMethod = "tonal-spot";
+          manualSunrise = "06:30";
+          manualSunset = "18:30";
+          monitorForColors = "";
+          predefinedScheme = "Noctalia (default)";
+          schedulingMode = "off";
+          syncGsettings = true;
+          useWallpaperColors = false;
+        };
+
+        controlCenter = {
+          cards = [
+            {
+              enabled = true;
+              id = "profile-card";
+            }
+            {
+              enabled = true;
+              id = "shortcuts-card";
+            }
+            {
+              enabled = true;
+              id = "audio-card";
+            }
+            {
+              enabled = false;
+              id = "brightness-card";
+            }
+            {
+              enabled = true;
+              id = "weather-card";
+            }
+            {
+              enabled = true;
+              id = "media-sysmon-card";
+            }
+          ];
+          diskPath = "/";
+          position = "close_to_bar_button";
+          shortcuts = {
+            left = [
+              {id = "Network";}
+              {id = "Bluetooth";}
+              {id = "WallpaperSelector";}
+              {id = "NoctaliaPerformance";}
+            ];
+            right = [
+              {id = "Notifications";}
+              {id = "PowerProfile";}
+              {id = "KeepAwake";}
+              {id = "NightLight";}
+            ];
+          };
+        };
+
         desktopWidgets = {
           enabled = true;
           gridSnap = true;
+          gridSnapScale = false; # New
           monitorWidgets = [
             {
               name = "DP-3";
@@ -297,19 +382,19 @@ in {
                   hideMode = "visible";
                   id = "MediaPlayer";
                   roundedCorners = true;
-                  scale = 1.0; # [cite: 10]
+                  scale = 1.0;
                   showAlbumArt = true;
                   showBackground = true;
-                  showButtons = true; # [cite: 11]
+                  showButtons = true;
                   showVisualizer = true;
                   visualizerType = "linear";
-                  x = 1440; # [cite: 11]
-                  y = 100; # [cite: 11]
+                  x = 1440;
+                  y = 100;
                 }
                 {
                   id = "Weather";
                   roundedCorners = true;
-                  scale = 1.0; # [cite: 12]
+                  scale = 1.0;
                   showBackground = false;
                   x = 1600;
                   y = 900;
@@ -321,10 +406,10 @@ in {
                   format = "HH:mm\\nd MMMM yyyy";
                   id = "Clock";
                   roundedCorners = true;
-                  scale = 1.0; # [cite: 13]
+                  scale = 1.0;
                   showBackground = false;
                   useCustomFont = false;
-                  x = 1680; # [cite: 14]
+                  x = 1680;
                   y = 700;
                 }
               ];
@@ -334,24 +419,26 @@ in {
         };
 
         dock = {
-          animationSpeed = 1.0; # [cite: 14]
-          backgroundOpacity = 1.0; # [cite: 14]
+          animationSpeed = 1.0;
+          backgroundOpacity = 1.0;
           colorizeIcons = false;
           deadOpacity = 0.6;
           displayMode = "auto_hide";
           dockType = "floating";
-          enabled = false; # [cite: 14]
-          floatingRatio = 1.0; # [cite: 14]
+          enabled = false;
+          floatingRatio = 1.0;
           groupApps = false;
-          groupClickAction = "cycle"; # [cite: 15]
+          groupClickAction = "cycle";
           groupContextMenuMode = "extended";
           groupIndicatorStyle = "dots";
           inactiveIndicators = false;
           indicatorColor = "primary";
           indicatorOpacity = 0.6;
           indicatorThickness = 3;
+          launcherIcon = "";
           launcherIconColor = "none";
           launcherPosition = "end";
+          launcherUseDistroLogo = false;
           monitors = [];
           onlySameOutput = true;
           pinnedApps = [];
@@ -360,18 +447,18 @@ in {
           showDockIndicator = false;
           showLauncherIcon = false;
           sitOnFrame = false;
-          size = 1.0; # [cite: 15]
+          size = 1.0;
         };
 
         general = {
           allowPanelsOnScreenWithoutBar = true;
           allowPasswordWithFprintd = true;
           animationDisabled = false;
-          animationSpeed = 1.3; # [cite: 15]
-          autoStartAuth = false;
+          animationSpeed = 1.3;
+          autoStartAuth = true; # Changed
           avatarImage = "/home/apexu/.face";
-          boxRadiusRatio = 1.0; # [cite: 15]
-          clockFormat = "hh\\nmm"; # [cite: 16]
+          boxRadiusRatio = 1.0;
+          clockFormat = "hh\\nmm";
           clockStyle = "custom";
           compactLockScreen = false;
           dimmerOpacity = 0.2;
@@ -380,7 +467,7 @@ in {
           enableLockScreenMediaControls = false;
           enableShadows = true;
           forceBlackScreenCorners = false;
-          iRadiusRatio = 1.0; # [cite: 16]
+          iRadiusRatio = 1.0;
           keybinds = {
             keyDown = ["Ctrl+N"];
             keyEnter = ["Return" "Enter"];
@@ -392,27 +479,29 @@ in {
           };
           language = "";
           lockOnSuspend = true;
-          lockScreenAnimations = false;
-          lockScreenBlur = 0.0; # [cite: 17]
+          lockScreenAnimations = true; # Changed
+          lockScreenBlur = 0.2; # Changed
           lockScreenCountdownDuration = 10000;
           lockScreenMonitors = [];
-          lockScreenTint = 0.0; # [cite: 17]
+          lockScreenTint = 0.2; # Changed
           passwordChars = false;
-          radiusRatio = 1.0; # [cite: 17]
+          radiusRatio = 1.0;
           reverseScroll = false;
-          scaleRatio = 1.0; # [cite: 17]
-          screenRadiusRatio = 1.0; # [cite: 17]
+          scaleRatio = 1.0;
+          screenRadiusRatio = 1.0;
           shadowDirection = "center";
-          shadowOffsetX = 0.0; # [cite: 17]
-          shadowOffsetY = 0.0; # [cite: 17]
+          shadowOffsetX = 0.0;
+          shadowOffsetY = 0.0;
           showChangelogOnStartup = true;
-          showHibernateOnLockScreen = false; # [cite: 18]
+          showHibernateOnLockScreen = false;
           showScreenCorners = true;
           showSessionButtonsOnLockScreen = false;
+          smoothScrollEnabled = true; # New
           telemetryEnabled = false;
         };
 
         hooks = {
+          colorGeneration = "";
           darkModeChange = "";
           enabled = false;
           performanceModeDisabled = "";
@@ -425,7 +514,7 @@ in {
         };
 
         idle = {
-          customCommands = "[{\"name\":\"Dim screen\",\"timeout\":150,\"command\":\"brightnessctl -s set 10\",\"resumeCommand\":\"brightnessctl -r\"}]";
+          customCommands = "[{\"name\":\"Brightness\",\"timeout\":150,\"command\":\"brightnessctl -s set 10\",\"resumeCommand\":\"brightnessctl -r\"}]";
           enabled = true;
           fadeDuration = 5;
           lockCommand = "";
@@ -441,21 +530,22 @@ in {
 
         location = {
           analogClockInCalendar = false;
+          autoLocate = false; # New
           firstDayOfWeek = -1;
           hideWeatherCityName = false;
           hideWeatherTimezone = false;
           name = "Straden";
           showCalendarEvents = true;
           showCalendarWeather = true;
-          showWeekNumberInCalendar = true; # [cite: 18]
+          showWeekNumberInCalendar = true;
           use12hourFormat = false;
           useFahrenheit = false;
           weatherEnabled = true;
           weatherShowEffects = true;
+          weatherTaliaMascotAlways = false; # New
         };
 
         network = {
-          airplaneModeEnabled = false;
           bluetoothAutoConnect = true;
           bluetoothDetailsViewMode = "grid";
           bluetoothHideUnnamedDevices = false;
@@ -464,11 +554,10 @@ in {
           disableDiscoverability = false;
           networkPanelView = "wifi";
           wifiDetailsViewMode = "grid";
-          wifiEnabled = false; # [cite: 18]
         };
 
         nightLight = {
-          autoSchedule = true; # [cite: 19]
+          autoSchedule = true;
           dayTemp = "6500";
           enabled = true;
           forced = false;
@@ -483,7 +572,7 @@ in {
         };
 
         notifications = {
-          backgroundOpacity = 1.0; # [cite: 19]
+          backgroundOpacity = 1.0;
           clearDismissed = true;
           criticalUrgencyDuration = 15;
           density = "default";
@@ -516,7 +605,7 @@ in {
 
         osd = {
           autoHideMs = 2000;
-          backgroundOpacity = 1.0; # [cite: 19]
+          backgroundOpacity = 1.0;
           enabled = true;
           enabledTypes = [0 1 2];
           location = "bottom";
@@ -526,12 +615,13 @@ in {
 
         plugins = {
           autoUpdate = false;
+          notifyUpdates = true; # New
         };
 
         sessionMenu = {
           countdownDuration = 10000;
           enableCountdown = true;
-          largeButtonsLayout = "grid";
+          largeButtonsLayout = "single-row"; # Changed
           largeButtonsStyle = true;
           position = "center";
           powerOptions = [
@@ -596,14 +686,14 @@ in {
           showKeybinds = true;
         };
 
-        settingsVersion = 57;
+        settingsVersion = 59; # Updated
 
         systemMonitor = {
           batteryCriticalThreshold = 5;
-          batteryWarningThreshold = 20; # [cite: 20]
+          batteryWarningThreshold = 20;
           cpuCriticalThreshold = 90;
           cpuWarningThreshold = 80;
-          criticalColor = "#f7768e"; # [cite: 20]
+          criticalColor = "#f7768e";
           diskAvailCriticalThreshold = 10;
           diskAvailWarningThreshold = 20;
           diskCriticalThreshold = 90;
@@ -619,7 +709,7 @@ in {
           tempCriticalThreshold = 90;
           tempWarningThreshold = 80;
           useCustomColors = false;
-          warningColor = "#7dcfff"; # [cite: 20]
+          warningColor = "#7dcfff";
         };
 
         templates = {
@@ -628,16 +718,18 @@ in {
         };
 
         ui = {
-          boxBorderEnabled = false; # [cite: 21]
+          boxBorderEnabled = false;
           fontDefault = "Adwaita Sans";
           fontDefaultScale = 1.05;
           fontFixed = "Adwaita Mono";
-          fontFixedScale = 1.0; # [cite: 21]
-          panelBackgroundOpacity = 1.0; # [cite: 21]
+          fontFixedScale = 1.0;
+          panelBackgroundOpacity = 1.0;
           panelsAttachedToBar = true;
+          scrollbarAlwaysVisible = true; # New
           settingsPanelMode = "attached";
           settingsPanelSideBarCardStyle = false;
           tooltipsEnabled = true;
+          translucentWidgets = false; # New
         };
 
         wallpaper = {
@@ -649,6 +741,7 @@ in {
           fillColor = "#000000";
           fillMode = "crop";
           hideWallpaperFilenames = false;
+          linkLightAndDarkWallpapers = true; # New
           monitorDirectories = [];
           overviewBlur = 0.4;
           overviewEnabled = false;
@@ -662,7 +755,8 @@ in {
           sortOrder = "name";
           transitionDuration = 1500;
           transitionEdgeSmoothness = 0.05;
-          transitionType = "random";
+          transitionType = ["fade" "disc" "stripes" "wipe" "pixelate" "honeycomb"]; # Changed to list
+          useOriginalImages = false; # New
           useSolidColor = false;
           useWallhaven = false;
           viewMode = "single";
