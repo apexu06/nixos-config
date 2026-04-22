@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  emacsDir = "${config.home.homeDirectory}/.dotfiles/user/app/emacs";
+  doomDir = "${config.home.homeDirectory}/.dotfiles/user/app/emacs/doom";
   link = config.lib.file.mkOutOfStoreSymlink;
 in {
   home.packages = with pkgs; [
@@ -31,9 +31,10 @@ in {
   '';
 
   home.file = {
-    ".config/doom/init.el".source = link "${emacsDir}/init.el";
-    ".config/doom/config.el".source = link "${emacsDir}/config.el";
-    ".config/doom/packages.el".source = link "${emacsDir}/packages.el";
+    ".config/doom" = {
+      source = link doomDir;
+      recursive = true;
+    };
   };
 
   home.sessionPath = ["$HOME/.config/emacs/bin"];
