@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+  config,
   ...
 }: {
   imports = [
@@ -33,7 +34,6 @@
 
   fileSystems."/mnt/nvme0" = {
     neededForBoot = false;
-    label = "Daten";
     device = "/dev/disk/by-uuid/8A7AECD97AECC355";
     fsType = "ntfs";
     options = [
@@ -48,7 +48,6 @@
 
   fileSystems."/mnt/nvme1" = {
     neededForBoot = false;
-    label = "Speed";
     device = "/dev/disk/by-uuid/2CDAE689DAE64F20";
     fsType = "ntfs";
     options = [
@@ -124,4 +123,11 @@
       };
     }
   ];
+
+  services.greetd.settings = {
+    initial_session = {
+      command = "niri-session";
+      user = "apexu";
+    };
+  };
 }
