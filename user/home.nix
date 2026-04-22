@@ -5,7 +5,7 @@
     ./shells/fish.nix
     ./shells/cli-utils.nix
     ./app/neovim/nvim.nix
-    ./app/rider/rider.nix
+    ./app/emacs/emacs.nix
     ./app/browser/firefox.nix
     ./app/apps.nix
     ./app/spotify.nix
