@@ -22,7 +22,7 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 18 :weight 'semi-bold)
-     doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 18))
+      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 18))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -43,26 +43,56 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
+(global-flycheck-mode)
+(setq evil-want-fine-undo t)
+(setq lsp-auto-configure t)
+
+(after! lsp-mode
+  (require 'lsp-ui-doc))
+
+(after! lsp-ui
+  (setq lsp-ui-doc-enable t
+        lsp-ui-doc-position 'at-point
+        lsp-ui-doc-show-with-cursor nil)
+  )
+
+
+(map! :leader
+      :n "`" #'evil-switch-to-windows-last-buffer
+      :n "DEL" #'kill-current-buffer
+      :n "o" #'dired
+
+      :n "s f" #'projectile-find-file
+      :n "s F" #'find-file
+      :n "s g" #'+vertico/project-search
+      :n "s b" #'consult-buffer
+
+
+
+      :n "r n" #'lsp-rename
+      :n "g d" #'+lookup/definition
+      :n "g I" #'+lookup/implementations
+      :n "g y" #'+lookup/type-definition
+      :n "g r" #'+lookup/references
+
+      :n "m r" #'recompile                            ; <leader>mr
+      :n "m R" #'compile                              ; <leader>mR
+
+      :n "l g" #'magit
+
+      :n "e"       #'flycheck-list-errors               ; <leader>e
+      :n "] d"     #'flycheck-next-error                  ; ]d
+      :n "[ d"     #'flycheck-previous-error              ; [d
+      :n "] e"     #'+diagnostics/next-error              ; ]e
+      :n "[ e"     #'+diagnostics/previous-error          ; [e
+      )
 
 (map!
-     :leader :n "`" #'evil-switch-to-windows-last-buffer
-     :leader :n "DEL" #'doom/kill-this-buffer-in-all-windows
-
-     :leader :n "s f" #'+default/find-file-under-here
-     :leader :n "s F" #'find-file
-     :leader :n "s g" #'+vertico/project-search
-     :leader :n "s b" #'consult-buffer
-
-     :leader :n "r n" #'lsp-rename                  
-     :leader :n "c a" #'lsp-execute-code-action              ; <leader>ca - doom has this
-     :leader :n "g d" #'lsp-find-definition                  ; <leader>gd - doom has this
-     :leader :n "g D" #'lsp-find-declaration                 ; <leader>gD
-     :leader :n "g I" #'lsp-find-implementation              ; <leader>gI
-     :leader :n "g y" #'lsp-find-type-definition             ; <leader>gy
-     :leader :n "g r" #'lsp-find-references                  ; <leader>gr
-
-     :leader :n "m r" #'recompile                            ; <leader>mr
-     :leader :n "m R" #'compile                              ; <leader>mR
-
-     :leader :n "l g" #'magit                        ; lazygit → magit
+ :n "L" #'next-buffer
+ :n "H" #'previous-buffer
+ :n "K" #'lsp-ui-doc-glance
+ :n "C-h" #'evil-window-left
+ :n "C-j" #'evil-window-down
+ :n "C-k" #'evil-window-up
+ :n "C-l" #'evil-window-right
  )
