@@ -8,7 +8,7 @@
   :group 'doom-themes)
 
 (def-doom-theme doom-sora
-  "A deep dark theme with ethereal cyan and muted accents. Ported from Sora.nvim."
+    "A deep dark theme with ethereal cyan and muted accents. Ported from Sora.nvim."
 
   ;; name        default   256       16
   ((bg         '("#0e1018" "black"   "black"))

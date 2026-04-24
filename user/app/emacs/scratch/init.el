@@ -26,19 +26,6 @@
   (dolist (file (directory-files lisp-dir t "\\.el$"))
     (load file)))
 
-(setq
-  ring-bell-function 'ignore
-  inhibit-startup-message t
-  make-backup-files nil
-  auto-save-default nil
-)
-
-(menu-bar-mode -1) 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(global-display-line-numbers-mode 1)
-
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

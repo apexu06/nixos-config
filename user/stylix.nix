@@ -35,6 +35,8 @@ in {
 
       targets.foot.fonts.enable = false;
 
+      targets.emacs.enable = false;
+
       targets.qt = {
         enable = true;
         standardDialogs = "xdgdesktopportal";
