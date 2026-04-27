@@ -3,8 +3,8 @@
 (setq user-full-name "apexu"
       user-mail-address "jj.zelger@proton.me")
 
-(setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 18 :weight 'semi-bold)
-      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 18))
+(setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 :weight 'semi-bold)
+      doom-variable-pitch-font (font-spec :family "IosevkaTerm Nerd Font" :size 17))
 (setq custom-theme-directory (expand-file-name "themes/" doom-user-dir))
 (setq doom-theme 'doom-sora)
 (setq display-line-numbers-type 'relative)

@@ -24,7 +24,7 @@ in {
 
   home.activation.installDoom = lib.hm.dag.entryAfter ["writeBoundary"] ''
     if [ ! -d "$HOME/.config/emacs" ]; then
-      export PATH="${pkgs.git}/bin:${pkgs.openssh}/bin:$PATH"
+      export PATH="${pkgs.git}/bin:${pkgs.openssh}/bin:${pkgs.emacs-pgtk}/bin:$PATH"
       ${pkgs.git}/bin/git clone --depth 1 \
         https://github.com/doomemacs/doomemacs \
         $HOME/.config/emacs
