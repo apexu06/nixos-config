@@ -33,7 +33,6 @@ in {
 
   home.packages = [
     pkgs.prismlauncher
-    pkgs.lutris
     krisp-patcher
   ];
 

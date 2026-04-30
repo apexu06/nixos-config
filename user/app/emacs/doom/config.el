@@ -28,7 +28,26 @@
   (evil-define-key 'normal vterm-mode-map (kbd "C-h") #'evil-window-left)
   (evil-define-key 'normal vterm-mode-map (kbd "C-j") #'evil-window-down)
   (evil-define-key 'normal vterm-mode-map (kbd "C-k") #'evil-window-up)
-  (evil-define-key 'normal vterm-mode-map (kbd "C-l") #'evil-window-right))
+  (evil-define-key 'normal vterm-mode-map (kbd "C-l") #'evil-window-right)
+  (evil-define-key 'normal vterm-mode-map (kbd "M-h") #'evil-window-decrease-width)
+  (evil-define-key 'normal vterm-mode-map (kbd "M-j") #'evil-window-decrease-height)
+  (evil-define-key 'normal vterm-mode-map (kbd "M-k") #'evil-window-increase-height)
+  (evil-define-key 'normal vterm-mode-map (kbd "M-l") #'evil-window-increase-width))
+
+(use-package! spacious-padding
+  :config
+  (setq spacious-padding-widths
+        '(:internal-border-width 5
+          :header-line-width 3
+          :mode-line-width 4
+          :tab-width 4
+          :right-divider-width 1
+          :scroll-bar-width 8))
+  (spacious-padding-mode 1))
+
+(set-tree-sitter! 'rust-mode 'rustic-mode
+  `((rust :url "https://github.com/tree-sitter/tree-sitter-rust"
+     :rev ,"v0.23.2")))
 
 (map! :leader
       :n "`" #'evil-switch-to-windows-last-buffer

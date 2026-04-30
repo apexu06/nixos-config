@@ -40,13 +40,4 @@ in {
   };
 
   home.sessionPath = ["$HOME/.config/emacs/bin"];
-
-  # home.file = {
-  #   ".config/emacs/init.el".source = link "${emacsDir}/scratch/init.el";
-  #   ".config/emacs/early-init.el".source = link "${emacsDir}/scratch/early-init.el";
-  #   ".config/emacs/lisp" = {
-  #     source = link "${emacsDir}/scratch/lisp";
-  #     recursive = true;
-  #   };
-  # };
 }

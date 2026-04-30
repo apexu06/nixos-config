@@ -114,10 +114,10 @@ in {
         bar = {
           autoHideDelay = 500;
           autoShowDelay = 150;
-          backgroundOpacity = 1.0;
+          backgroundOpacity = lib.mkDefault 1.0;
           barType = "simple";
           capsuleColorKey = "none";
-          capsuleOpacity = 1.0;
+          capsuleOpacity = lib.mkDefault 1.0;
           contentPadding = 2;
           density = "comfortable";
           displayMode = "always_visible";
@@ -420,7 +420,7 @@ in {
 
         dock = {
           animationSpeed = 1.0;
-          backgroundOpacity = 1.0;
+          backgroundOpacity = lib.mkDefault 1.0;
           colorizeIcons = false;
           deadOpacity = 0.6;
           displayMode = "auto_hide";
@@ -572,7 +572,7 @@ in {
         };
 
         notifications = {
-          backgroundOpacity = 1.0;
+          backgroundOpacity = lib.mkDefault 1.0;
           clearDismissed = true;
           criticalUrgencyDuration = 15;
           density = "default";
@@ -723,7 +723,7 @@ in {
           fontDefaultScale = 1.05;
           fontFixed = "Adwaita Mono";
           fontFixedScale = 1.0;
-          panelBackgroundOpacity = 1.0;
+          panelBackgroundOpacity = lib.mkDefault 1.0;
           panelsAttachedToBar = true;
           scrollbarAlwaysVisible = true; # New
           settingsPanelMode = "attached";

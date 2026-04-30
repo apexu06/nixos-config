@@ -1,4 +1,4 @@
-vim.pack.add({ 
+vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 })
 
@@ -7,8 +7,9 @@ vim.lsp.enable({
 	"rust_analyzer",
 	"gopls",
 	"ts_ls",
-	"py_lsp",
+	"ty",
 	"astro",
+	"bash-language-server",
 	"tailwindcss",
 	"svelte",
 	"nil_ls",
@@ -16,7 +17,6 @@ vim.lsp.enable({
 	"clangd",
 	"tinymist",
 })
-
 
 vim.lsp.config("lua_ls", {
 	settings = {

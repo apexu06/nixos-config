@@ -20,7 +20,6 @@
     xdg-utils
     wl-clipboard
     gdb
-    rustup
     eza
     devenv
     brightnessctl

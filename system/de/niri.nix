@@ -13,7 +13,10 @@
     ];
 
     programs = {
-      niri.enable = true;
+      niri = {
+        enable = true;
+        package = pkgs.niri-unstable;
+      };
       gnome-disks.enable = true;
     };
 

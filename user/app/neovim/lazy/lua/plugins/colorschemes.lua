@@ -1,7 +1,4 @@
-local status, active_theme = pcall(require, "../theme_choice")
-if not status then
-	active_theme = "tokyonight"
-end
+local active_theme = vim.env.NVIM_THEME or "tokyonight"
 
 return {
 	{

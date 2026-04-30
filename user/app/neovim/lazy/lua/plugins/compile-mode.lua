@@ -8,6 +8,14 @@ return {
 	config = function()
 		---@type CompileModeOpts
 		vim.g.compile_mode = {
+			error_regexp_table = {
+				rustc = {
+					regex = [[^\s*-->\s*\([^:]\+\):\(\d\+\):\(\d\+\)]],
+					filename = 1,
+					row = 2,
+					col = 3,
+				},
+			},
 			input_word_completion = true,
 			default_command = {
 				python = "python %",
@@ -20,7 +28,8 @@ return {
 			},
 			recompile_no_fail = true,
 			ask_to_interrupt = false,
-			auto_jump_to_first_error = true,
+			auto_jump_to_first_error = false,
+			ask_about_save = false,
 
 			-- to add ANSI escape code support, add:
 			-- baleia_setup = true,

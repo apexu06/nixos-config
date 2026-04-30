@@ -104,6 +104,12 @@ in {
         package = pkgs.bibata-cursors;
         size = 32;
       };
+
+      opacity = {
+        terminal = 1.0;
+        desktop = 0.7;
+        applications = 0.8;
+      };
     }
     // lib.optionalAttrs (config.settings.de.useWallpaper) {
       image =

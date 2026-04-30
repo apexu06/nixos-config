@@ -11,7 +11,9 @@
     ../hyprlock.nix
     ../../launcher/launcher.nix
   ];
+
   config = lib.mkIf (config.settings.de.name == "niri") {
+    nixpkgs.overlays = [inputs.niri.overlays.niri];
     home.packages = with pkgs;
       [
         nwg-look
@@ -39,11 +41,15 @@
       };
     };
 
-    programs.niri = {
+    programs.niri = let
+      niriPkgs = inputs.niri-pkgs.packages.${pkgs.stdenv.hostPlatform.system};
+    in {
       enable = true;
-      package = pkgs.niri;
+      package = niriPkgs.niri-unstable;
       settings = {
-        # Input configuration
+        includes = lib.mkAfter [
+          (./blur.kdl)
+        ];
         input = {
           keyboard = {
             xkb = {
@@ -232,12 +238,6 @@
             place-within-backdrop = true;
           }
         ];
-
-        gestures = {
-          hot-corners = {
-            enable = false;
-          };
-        };
 
         # Keybindings
         binds = with config.lib.niri.actions;

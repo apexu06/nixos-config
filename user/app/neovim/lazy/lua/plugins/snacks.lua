@@ -9,11 +9,19 @@ return {
 		indent = { enabled = true, animate = { enabled = false } },
 		input = { enabled = true },
 		notifier = { enabled = true },
-		picker = { enabled = true, layout = {
+		picker = {
+			enabled = true,
 			layout = {
-				backdrop = false,
+				layout = {
+					backdrop = false,
+				},
 			},
-		} },
+			matcher = {
+				sort_empty = true,
+				frecency = true,
+				history_bonus = true,
+			},
+		},
 		quickfile = { enabled = true },
 		terminal = { enabled = false, win = { position = "float" } },
 		rename = { enabled = true },

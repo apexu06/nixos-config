@@ -19,6 +19,16 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	pattern = "*compilation*",
+	callback = function()
+		local win = vim.fn.bufwinid(vim.fn.bufnr("*compilation*"))
+		if win ~= -1 then
+			vim.api.nvim_win_set_height(win, math.floor(vim.o.lines / 4))
+		end
+	end,
+})
+
 vim.api.nvim_create_autocmd("LspProgress", {
 	callback = function(ev)
 		local value = ev.data.params.value
