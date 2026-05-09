@@ -22,7 +22,7 @@
 
     security = {
       polkit.enable = true;
-      pam.services.hyprlock = {};
+      pam.services.greetd.enableGnomeKeyring = true;
     };
 
     services = {

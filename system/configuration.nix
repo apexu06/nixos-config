@@ -41,7 +41,6 @@
     ];
   };
 
-  system.stateVersion = "25.05";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Vienna";
@@ -83,8 +82,11 @@
     polkit.enable = true;
   };
 
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
+  environment = {
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
+    etc."/brave/policies/managed/GroupPolicy.json".source = ../user/app/browser/brave-policies.json;
   };
 
   qt = {
@@ -92,4 +94,6 @@
     platformTheme = "qt5ct";
     style = "kvantum";
   };
+
+  system.stateVersion = "25.05";
 }

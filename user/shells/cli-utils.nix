@@ -101,6 +101,14 @@
     flake = "/home/apexu/.dotfiles"; # sets NH_OS_FLAKE variable for you
   };
 
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      line-numbers = true;
+    };
+  };
+
   programs.git = {
     enable = true;
     settings = {
@@ -115,6 +123,10 @@
       };
 
       init.defaultBranch = "main";
+
+      merge = {
+        conflictStyle = "zdiff3";
+      };
     };
   };
 }
