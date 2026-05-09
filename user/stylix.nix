@@ -52,12 +52,13 @@ in {
         };
       };
 
-      targets.zen-browser.profileNames = ["default"];
       targets.firefox = {
         enable = true;
         firefoxGnomeTheme.enable = true;
         profileNames = ["apexu"];
       };
+
+      targets.zen-browser.enable = false;
 
       targets.obsidian.vaultNames = [
         "red-cross"

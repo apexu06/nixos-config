@@ -26,9 +26,10 @@
     tree
     file
     jq
-    felix-fm
     chafa
     inputs.systemd-manager-tui.packages.x86_64-linux.default
+    ffmpeg-full
+    yt-dlp
   ];
 
   home.shellAliases = {
