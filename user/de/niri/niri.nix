@@ -13,7 +13,6 @@
   ];
 
   config = lib.mkIf (config.settings.de.name == "niri") {
-    nixpkgs.overlays = [inputs.niri.overlays.niri];
     home.packages = with pkgs;
       [
         nwg-look
@@ -41,15 +40,10 @@
       };
     };
 
-    programs.niri = let
-      niriPkgs = inputs.niri-pkgs.packages.${pkgs.stdenv.hostPlatform.system};
-    in {
+    programs.niri = {
       enable = true;
-      package = niriPkgs.niri-unstable;
+      package = pkgs.niri;
       settings = {
-        includes = lib.mkAfter [
-          (./blur.kdl)
-        ];
         input = {
           keyboard = {
             xkb = {

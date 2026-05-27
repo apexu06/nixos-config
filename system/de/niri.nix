@@ -1,13 +1,10 @@
 {
   pkgs,
-  inputs,
   lib,
   config,
   ...
 }: {
   config = lib.mkIf (config.settings.de.name == "niri") {
-    nixpkgs.overlays = [inputs.niri.overlays.niri];
-
     environment.systemPackages = with pkgs; [
       xwayland-satellite
     ];
@@ -15,7 +12,7 @@
     programs = {
       niri = {
         enable = true;
-        package = pkgs.niri-unstable;
+        package = pkgs.niri;
       };
       gnome-disks.enable = true;
     };

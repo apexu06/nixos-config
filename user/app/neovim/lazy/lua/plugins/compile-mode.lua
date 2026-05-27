@@ -30,6 +30,7 @@ return {
 			ask_to_interrupt = false,
 			auto_jump_to_first_error = false,
 			ask_about_save = false,
+			auto_scroll = false,
 
 			-- to add ANSI escape code support, add:
 			-- baleia_setup = true,
