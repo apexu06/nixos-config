@@ -7,8 +7,8 @@
     qbittorrent
     osu-lazer-bin
     filezilla
-    wine
-    winetricks
+    # wine
+    # winetricks
     (discord.override {
       withVencord = true;
     })

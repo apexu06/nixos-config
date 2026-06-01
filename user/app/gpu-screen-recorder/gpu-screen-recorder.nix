@@ -14,10 +14,6 @@
       -o "$HOME/Videos/Replays" &
   '';
 in {
-  imports = [
-    inputs.noctalia.homeModules.default
-  ];
-
   home.packages = with pkgs; [
     gpu-screen-recorder
   ];

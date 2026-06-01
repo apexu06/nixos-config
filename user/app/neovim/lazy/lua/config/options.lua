@@ -25,3 +25,4 @@ opt.ignorecase = true -- Case insensitive search
 opt.smartcase = true -- Case sensitive if uppercase in search
 opt.hlsearch = false -- Don't highlight search results
 vim.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+vim.opt.shortmess:append({ T = true, F = true })

@@ -96,6 +96,7 @@
       "https://vicinae.cachix.org"
       "https://hyprland.cachix.org"
       "https://attic.xuyh0120.win/lantian"
+      "https://noctalia.cachix.org"
     ];
 
     extra-trusted-public-keys = [
@@ -104,6 +105,7 @@
       "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];
   };
 

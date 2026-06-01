@@ -25,6 +25,13 @@
       )
     );
 in {
+  nixpkgs.overlays = [
+    (_: prev: {
+      openldap = prev.openldap.overrideAttrs {
+        doCheck = !prev.stdenv.hostPlatform.isi686;
+      };
+    })
+  ];
   imports = [
     ./home.nix
     ./app/rider/rider.nix
@@ -37,4 +44,11 @@ in {
   ];
 
   stylix.fonts.sizes.terminal = lib.mkForce 13.5;
+
+  programs.lutris = {
+    enable = true;
+    defaultWinePackage = pkgs.proton-ge-bin;
+    winePackages = [pkgs.wineWow64Packages.full];
+    protonPackages = [pkgs.proton-ge-bin];
+  };
 }
