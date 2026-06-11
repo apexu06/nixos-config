@@ -16,6 +16,7 @@ local function open_file_picker_in_split(direction)
 end
 
 map("n", "<leader>w", ":write<CR>")
+map("n", "<leader>rs", ":restart<CR>")
 map("n", "<leader>o", "<CMD>Oil<CR>")
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 map("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true })
@@ -84,7 +85,9 @@ map("n", "<leader>sc", function()
 end)
 map("n", "<leader>sp", function()
 	Snacks.picker.projects({
+		max_depth = 3,
 		dev = { "~/coding", "~/.dotfiles" },
+		patterns = { "Cargo.toml", ".git", "_darcs", ".hg", ".bzr", ".svn", "package.json", "Makefile" },
 	})
 end)
 map("n", "<leader>gd", function()
@@ -101,6 +104,9 @@ map("n", "<leader>gy", function()
 end)
 map("n", "<leader>gr", function()
 	Snacks.picker.lsp_references()
+end)
+map("n", "<leader>ge", function()
+	Snacks.picker.diagnostics()
 end)
 map("n", "<leader><BS>", function()
 	Snacks.bufdelete()

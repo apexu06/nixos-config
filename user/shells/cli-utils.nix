@@ -2,8 +2,21 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  devinit = pkgs.writeShellScriptBin "devinit" ''
+    git init
+    devenv init
+
+    cat > .envrc <<'EOF'
+    eval "$(devenv direnvrc)"
+    use devenv
+    EOF
+
+    direnv allow
+  '';
+in {
   home.packages = with pkgs; [
+    devinit
     fd
     cloc
     devenv
@@ -117,11 +130,11 @@
         name = "apexu";
         email = "jj.zelger@proton.me";
       };
-      url = {
-        "ssh://git@github.com/" = {
-          insteadOf = "https://github.com/";
-        };
-      };
+      # url = {
+      #   "ssh://git@github.com/" = {
+      #     insteadOf = "https://github.com/";
+      #   };
+      # };
 
       init.defaultBranch = "main";
 

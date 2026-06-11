@@ -75,9 +75,9 @@ in {
           customLaunchPrefixEnabled = false;
           density = "default";
           enableClipPreview = true;
-          enableClipboardChips = true; # New
+          enableClipboardChips = true;
           enableClipboardHistory = false;
-          enableClipboardSmartIcons = true; # New
+          enableClipboardSmartIcons = true;
           enableSessionSearch = false;
           enableSettingsSearch = false;
           enableWindowsSearch = true;
@@ -103,7 +103,7 @@ in {
           mprisBlacklist = [];
           preferredPlayer = "";
           spectrumFrameRate = 30;
-          spectrumMirrored = true; # New
+          spectrumMirrored = true;
           visualizerType = "linear";
           volumeFeedback = false;
           volumeFeedbackSoundFile = "";
@@ -114,20 +114,20 @@ in {
         bar = {
           autoHideDelay = 500;
           autoShowDelay = 150;
-          backgroundOpacity = lib.mkDefault 1.0;
-          barType = "simple";
+          backgroundOpacity = 0.7;
+          barType = "floating"; # Changed from simple
           capsuleColorKey = "none";
-          capsuleOpacity = lib.mkDefault 1.0;
-          contentPadding = 2;
-          density = "comfortable";
+          capsuleOpacity = lib.mkForce 0; # Updated
+          contentPadding = 4.0; # Updated
+          density = "default"; # Changed from comfortable
           displayMode = "always_visible";
-          enableExclusionZoneInset = true; # New
+          enableExclusionZoneInset = true;
           fontScale = 1.0;
           frameRadius = 12;
           frameThickness = 8;
           hideOnOverview = true;
-          marginHorizontal = 5;
-          marginVertical = 5;
+          marginHorizontal = 350; # Updated significantly
+          marginVertical = 4; # Updated
           middleClickAction = "settings";
           middleClickCommand = "";
           middleClickFollowMouse = true;
@@ -135,7 +135,7 @@ in {
           mouseWheelAction = "workspace";
           mouseWheelWrap = true;
           outerCorners = true;
-          position = "left";
+          position = "top"; # Changed from left
           reverseScroll = false;
           rightClickAction = "controlCenter";
           rightClickCommand = "";
@@ -145,7 +145,7 @@ in {
           showOnWorkspaceSwitch = true;
           showOutline = false;
           useSeparateOpacity = false;
-          widgetSpacing = 6;
+          widgetSpacing = 2;
           widgets = {
             center = [
               {
@@ -173,6 +173,14 @@ in {
                 useFixedWidth = false;
                 visualizerType = "linear";
               }
+              {
+                hideWhenZero = false; # Moved to center
+                hideWhenZeroUnread = false;
+                iconColor = "none";
+                id = "NotificationHistory";
+                showUnreadBadge = true;
+                unreadBadgeColor = "primary";
+              }
             ];
             left = [
               {
@@ -191,43 +199,26 @@ in {
                 occupiedColor = "secondary";
                 pillSize = 0.6;
                 showApplications = false;
-                showApplicationsHover = false; # New
+                showApplicationsHover = false;
                 showBadge = true;
                 showLabelsOnlyWhenOccupied = true;
                 unfocusedIconsOpacity = 1.0;
               }
               {
-                colorizeIcons = false;
+                colorizeIcons = false; # Replaced ActiveWindow with Taskbar
                 hideMode = "hidden";
-                id = "ActiveWindow";
-                maxWidth = 145;
-                scrollingMode = "hover";
-                showIcon = true;
-                showText = true; # New
-                textColor = "none";
-                useFixedWidth = false;
+                iconScale = 0.8;
+                id = "Taskbar";
+                maxTaskbarWidth = 40;
+                onlyActiveWorkspaces = true;
+                onlySameOutput = true;
+                showPinnedApps = true;
+                showTitle = false;
+                smartWidth = true;
+                titleWidth = 120;
               }
             ];
             right = [
-              {
-                id = "plugin:pomodoro";
-                defaultSettings = {
-                  autoStartBreaks = false;
-                  autoStartWork = false;
-                  longBreakDuration = 15;
-                  sessionsBeforeLongBreak = 4;
-                  shortBreakDuration = 5;
-                  workDuration = 25;
-                };
-              }
-              {
-                hideWhenZero = false;
-                hideWhenZeroUnread = false;
-                iconColor = "none";
-                id = "NotificationHistory";
-                showUnreadBadge = true;
-                unreadBadgeColor = "primary";
-              }
               {
                 displayMode = "alwaysShow";
                 iconColor = "none";
@@ -257,16 +248,9 @@ in {
                 showPowerProfiles = true;
               }
               {
-                applyToAllMonitors = false;
-                displayMode = "onhover";
-                iconColor = "none";
-                id = "Brightness";
-                textColor = "none";
-              }
-              {
                 blacklist = ["blueman-applet" "udiskie" "blueman-tray"];
                 chevronColor = "none";
-                colorizeIcons = false;
+                colorizeIcons = true;
                 drawerEnabled = false;
                 hidePassive = false;
                 id = "Tray";
@@ -275,6 +259,7 @@ in {
               {
                 colorizeDistroLogo = false;
                 colorizeSystemIcon = "primary";
+                colorizeSystemText = "none"; # New
                 customIconPath = "";
                 enableColorization = true;
                 icon = "noctalia";
@@ -369,7 +354,7 @@ in {
         desktopWidgets = {
           enabled = true;
           gridSnap = true;
-          gridSnapScale = false; # New
+          gridSnapScale = false;
           monitorWidgets = [
             {
               name = "DP-3";
@@ -420,7 +405,7 @@ in {
 
         dock = {
           animationSpeed = 1.0;
-          backgroundOpacity = lib.mkDefault 1.0;
+          backgroundOpacity = 0.7; # Updated
           colorizeIcons = false;
           deadOpacity = 0.6;
           displayMode = "auto_hide";
@@ -455,7 +440,7 @@ in {
           allowPasswordWithFprintd = true;
           animationDisabled = false;
           animationSpeed = 1.3;
-          autoStartAuth = true; # Changed
+          autoStartAuth = true;
           avatarImage = "/home/apexu/.face";
           boxRadiusRatio = 1.0;
           clockFormat = "hh\\nmm";
@@ -479,11 +464,11 @@ in {
           };
           language = "";
           lockOnSuspend = true;
-          lockScreenAnimations = true; # Changed
-          lockScreenBlur = 0.2; # Changed
+          lockScreenAnimations = true;
+          lockScreenBlur = 0.2;
           lockScreenCountdownDuration = 10000;
           lockScreenMonitors = [];
-          lockScreenTint = 0.2; # Changed
+          lockScreenTint = 0.2;
           passwordChars = false;
           radiusRatio = 1.0;
           reverseScroll = false;
@@ -494,9 +479,9 @@ in {
           shadowOffsetY = 0.0;
           showChangelogOnStartup = true;
           showHibernateOnLockScreen = false;
-          showScreenCorners = true;
+          showScreenCorners = false; # Changed from true
           showSessionButtonsOnLockScreen = false;
-          smoothScrollEnabled = true; # New
+          smoothScrollEnabled = true;
           telemetryEnabled = false;
         };
 
@@ -514,7 +499,7 @@ in {
         };
 
         idle = {
-          customCommands = "[{\"name\":\"Brightness\",\"timeout\":150,\"command\":\"brightnessctl -s set 10\",\"resumeCommand\":\"brightnessctl -r\"}]";
+          customCommands = "[{\"timeout\":150,\"command\":\"brightnessctl -s set 10\"}]";
           enabled = true;
           fadeDuration = 5;
           lockCommand = "";
@@ -530,7 +515,7 @@ in {
 
         location = {
           analogClockInCalendar = false;
-          autoLocate = false; # New
+          autoLocate = false;
           firstDayOfWeek = -1;
           hideWeatherCityName = false;
           hideWeatherTimezone = false;
@@ -542,7 +527,7 @@ in {
           useFahrenheit = false;
           weatherEnabled = true;
           weatherShowEffects = true;
-          weatherTaliaMascotAlways = false; # New
+          weatherTaliaMascotAlways = false;
         };
 
         network = {
@@ -572,7 +557,7 @@ in {
         };
 
         notifications = {
-          backgroundOpacity = lib.mkDefault 1.0;
+          backgroundOpacity = 1.0;
           clearDismissed = true;
           criticalUrgencyDuration = 15;
           density = "default";
@@ -615,13 +600,13 @@ in {
 
         plugins = {
           autoUpdate = false;
-          notifyUpdates = true; # New
+          notifyUpdates = true;
         };
 
         sessionMenu = {
           countdownDuration = 10000;
           enableCountdown = true;
-          largeButtonsLayout = "single-row"; # Changed
+          largeButtonsLayout = "single-row";
           largeButtonsStyle = true;
           position = "center";
           powerOptions = [
@@ -686,7 +671,7 @@ in {
           showKeybinds = true;
         };
 
-        settingsVersion = 59; # Updated
+        settingsVersion = 59;
 
         systemMonitor = {
           batteryCriticalThreshold = 5;
@@ -723,13 +708,13 @@ in {
           fontDefaultScale = 1.05;
           fontFixed = "Adwaita Mono";
           fontFixedScale = 1.0;
-          panelBackgroundOpacity = lib.mkDefault 1.0;
+          panelBackgroundOpacity = 0.7; # Updated
           panelsAttachedToBar = true;
-          scrollbarAlwaysVisible = true; # New
+          scrollbarAlwaysVisible = true;
           settingsPanelMode = "attached";
           settingsPanelSideBarCardStyle = false;
           tooltipsEnabled = true;
-          translucentWidgets = false; # New
+          translucentWidgets = true; # Changed from false
         };
 
         wallpaper = {
@@ -741,7 +726,7 @@ in {
           fillColor = "#000000";
           fillMode = "crop";
           hideWallpaperFilenames = false;
-          linkLightAndDarkWallpapers = true; # New
+          linkLightAndDarkWallpapers = true;
           monitorDirectories = [];
           overviewBlur = 0.4;
           overviewEnabled = false;
@@ -755,8 +740,8 @@ in {
           sortOrder = "name";
           transitionDuration = 1500;
           transitionEdgeSmoothness = 0.05;
-          transitionType = ["fade" "disc" "stripes" "wipe" "pixelate" "honeycomb"]; # Changed to list
-          useOriginalImages = false; # New
+          transitionType = ["fade" "disc" "stripes" "wipe" "pixelate" "honeycomb"];
+          useOriginalImages = false;
           useSolidColor = false;
           useWallhaven = false;
           viewMode = "single";
@@ -774,7 +759,6 @@ in {
         };
       };
     };
-
     services.hyprpaper.enable = lib.mkForce config.settings.de.useWallpaper;
 
     services.hypridle.settings = {

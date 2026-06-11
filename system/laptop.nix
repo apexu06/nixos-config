@@ -13,6 +13,13 @@
     serviceConfig.Type = "simple";
   };
 
+  security.pam = {
+    howdy = {
+      enable = true;
+      control = "sufficient";
+    };
+  };
+
   services = {
     fprintd.enable = true;
     power-profiles-daemon.enable = true;
@@ -20,6 +27,15 @@
     upower = {
       enable = true;
       percentageLow = 20;
+    };
+
+    howdy = {
+      enable = true;
+      settings = {
+        video = {
+          device_path = "/dev/video0";
+        };
+      };
     };
   };
 }

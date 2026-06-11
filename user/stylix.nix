@@ -60,10 +60,7 @@ in {
 
       targets.zen-browser.enable = false;
 
-      targets.obsidian.vaultNames = [
-        "red-cross"
-        "personal"
-      ];
+      targets.obsidian.enable = false;
 
       fonts = {
         serif = {
