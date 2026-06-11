@@ -55,7 +55,7 @@ in {
       targets.firefox = {
         enable = true;
         firefoxGnomeTheme.enable = true;
-        profileNames = ["apexu"];
+        profileNames = ["default"];
       };
 
       targets.zen-browser.enable = false;

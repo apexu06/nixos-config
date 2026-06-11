@@ -127,14 +127,14 @@ in {
     enable = true;
     settings = {
       user = {
-        name = "apexu";
+        name = "jzep";
         email = "jj.zelger@proton.me";
       };
-      # url = {
-      #   "ssh://git@github.com/" = {
-      #     insteadOf = "https://github.com/";
-      #   };
-      # };
+      url = {
+        "ssh://git@github.com/" = {
+          insteadOf = "https://github.com/";
+        };
+      };
 
       init.defaultBranch = "main";
 
