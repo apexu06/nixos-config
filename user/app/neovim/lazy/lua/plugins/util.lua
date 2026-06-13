@@ -5,14 +5,11 @@ return {
 		event = "VeryLazy",
 	},
 	{
-		event = "BufReadPost *.*",
 		"lewis6991/gitsigns.nvim",
+		event = "BufReadPost *.*",
 	},
 	{
 		"j-hui/fidget.nvim",
 		event = "BufReadPost *.*",
-		opts = {
-			-- options
-		},
 	},
 }

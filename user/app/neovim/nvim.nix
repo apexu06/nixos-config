@@ -22,6 +22,7 @@ in {
     alejandra
     ruff
     tree-sitter
+    gdb
 
     neovim
   ];
@@ -32,6 +33,14 @@ in {
   #   vimAlias = true;
   #   defaultEditor = true;
   #   extraConfig = "";
+  # };
+
+  # programs.neovide = {
+  #   enable = true;
+  #   settings = {
+  #     font = {
+  #     };
+  #   };
   # };
 
   home.sessionVariables.EDITOR = "nvim";
