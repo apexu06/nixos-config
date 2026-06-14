@@ -12,6 +12,7 @@
     ./podman.nix
     ./hardware/pc-hardware-configuration.nix
     ./boot/lanzaboote.nix
+    ./ollama.nix
   ];
   environment.systemPackages = with pkgs; [
     ntfs3g

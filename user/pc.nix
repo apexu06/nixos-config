@@ -32,9 +32,9 @@ in {
       };
     })
   ];
+
   imports = [
     ./home.nix
-    ./app/rider/rider.nix
     ./app/gpu-screen-recorder/gpu-screen-recorder.nix
   ];
 

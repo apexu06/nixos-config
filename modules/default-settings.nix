@@ -1,5 +1,6 @@
 {lib, ...}: {
   settings = lib.mkDefault {
+    name = "none";
     de = {
       name = "niri";
       launcher = "noctalia";

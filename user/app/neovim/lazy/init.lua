@@ -49,3 +49,6 @@ vim.filetype.add({
 		["%.env%.[%w_.-]+"] = "dotenv",
 	},
 })
+
+local hostname = os.getenv("HOSTNAME")
+print("Current Hostname: " .. (hostname or "Hostname not set"))

@@ -80,8 +80,11 @@ end)
 map("n", "<leader>sr", function()
 	Snacks.picker.recent()
 end)
-map("n", "<leader>sc", function()
+map("n", "<leader>scf", function()
 	Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+end)
+map("n", "<leader>scg", function()
+	Snacks.picker.grep({ cwd = vim.fn.stdpath("config") })
 end)
 map("n", "<leader>sp", function()
 	Snacks.picker.projects({
@@ -150,3 +153,10 @@ vim.api.nvim_create_autocmd("FileType", {
 		})
 	end,
 })
+
+map("n", "<leader>at", ":CodeCompanionChat Toggle<CR>", { desc = "Toggle CodeCompanion" })
+map("n", "<leader>aa", ":CodeCompanionActions<CR>", { desc = "CodeCompanion actions" })
+map("v", "ga", ":CodeCompanionChat Add<CR>", { desc = "CodeCompanionChat add lines" })
+map("v", "gf", ":CodeCompanion /fix<CR>", { desc = "Fix selected code" })
+map("v", "gl", ":CodeCompanion /lsp<CR>", { desc = "Explain lsp diagnostics" })
+map("v", "<leader>a", ":CodeCompanion ", { desc = "Inline action" })

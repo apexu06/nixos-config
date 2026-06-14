@@ -12,6 +12,42 @@
       "call"
     ]
     ++ (pkgs.lib.splitString " " cmd);
+
+  ollamaButton = {
+    id = "CustomButton";
+    ipcIdentifier = "ollama";
+    icon = "robot";
+    showIcon = true;
+    iconPosition = "left";
+    colorizeSystemIcon = "none";
+    colorizeSystemText = "primary";
+    textCommand = "systemctl is-active ollama.service";
+    textIntervalMs = 3000;
+    textStream = true;
+    textCollapse = "inactive";
+    leftClickExec = "systemctl start ollama.service";
+    leftClickUpdateText = false;
+    rightClickExec = "systemctl stop ollama.service";
+    rightClickUpdateText = false;
+    middleClickExec = "";
+    middleClickUpdateText = false;
+    wheelMode = "unified";
+    wheelExec = "";
+    wheelUpdateText = false;
+    wheelUpExec = "";
+    wheelUpUpdateText = false;
+    wheelDownExec = "";
+    wheelDownUpdateText = false;
+    maxTextLength = {
+      horizontal = 10;
+      vertical = 10;
+    };
+    parseJson = false;
+    generalTooltipText = "";
+    showExecTooltip = true;
+    showTextTooltip = true;
+    hideMode = "expandWithOutput";
+  };
 in {
   imports = [
     inputs.noctalia.homeModules.default
@@ -218,55 +254,61 @@ in {
                 titleWidth = 120;
               }
             ];
-            right = [
-              {
-                displayMode = "alwaysShow";
-                iconColor = "none";
-                id = "Network";
-                textColor = "none";
-              }
-              {
-                displayMode = "onhover";
-                iconColor = "none";
-                id = "Volume";
-                middleClickCommand = "pwvucontrol || pavucontrol";
-                textColor = "none";
-              }
-              {
-                displayMode = "onhover";
-                iconColor = "none";
-                id = "Bluetooth";
-                textColor = "none";
-              }
-              {
-                deviceNativePath = "__default__";
-                displayMode = "onhover";
-                hideIfIdle = false;
-                hideIfNotDetected = true;
-                id = "Battery";
-                showNoctaliaPerformance = false;
-                showPowerProfiles = true;
-              }
-              {
-                blacklist = ["blueman-applet" "udiskie" "blueman-tray"];
-                chevronColor = "none";
-                colorizeIcons = true;
-                drawerEnabled = false;
-                hidePassive = false;
-                id = "Tray";
-                pinned = [];
-              }
-              {
-                colorizeDistroLogo = false;
-                colorizeSystemIcon = "primary";
-                colorizeSystemText = "none"; # New
-                customIconPath = "";
-                enableColorization = true;
-                icon = "noctalia";
-                id = "ControlCenter";
-                useDistroLogo = true;
-              }
-            ];
+            right =
+              (
+                if config.settings.name == "nixp"
+                then [ollamaButton]
+                else []
+              )
+              ++ [
+                {
+                  displayMode = "alwaysShow";
+                  iconColor = "none";
+                  id = "Network";
+                  textColor = "none";
+                }
+                {
+                  displayMode = "onhover";
+                  iconColor = "none";
+                  id = "Volume";
+                  middleClickCommand = "pwvucontrol || pavucontrol";
+                  textColor = "none";
+                }
+                {
+                  displayMode = "onhover";
+                  iconColor = "none";
+                  id = "Bluetooth";
+                  textColor = "none";
+                }
+                {
+                  deviceNativePath = "__default__";
+                  displayMode = "onhover";
+                  hideIfIdle = false;
+                  hideIfNotDetected = true;
+                  id = "Battery";
+                  showNoctaliaPerformance = false;
+                  showPowerProfiles = true;
+                }
+                {
+                  blacklist = ["blueman-applet" "udiskie" "blueman-tray"];
+                  chevronColor = "none";
+                  colorizeIcons = true;
+                  drawerEnabled = false;
+                  hidePassive = false;
+                  id = "Tray";
+                  pinned = [];
+                }
+                {
+                  colorizeDistroLogo = false;
+                  colorizeSystemIcon = "primary";
+                  colorizeSystemText = "none"; # New
+                  customIconPath = "";
+                  enableColorization = true;
+                  icon = "noctalia";
+                  id = "ControlCenter";
+                  useDistroLogo = true;
+                }
+              ];
           };
         };
 
