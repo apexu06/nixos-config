@@ -137,15 +137,16 @@ map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 map("n", "<leader>dp", ":DapToggleBreakpoint<CR>", { desc = "Toggle Breakpoint" })
-map("n", "<leader>dc", ":DapContinue<CR>", { desc = "DAP Continue" })
-map("n", "<leader>dn", function()
-	local dap = require("dap")
-
-	dap.listeners.after.launch["open_dapview"] = function()
-		vim.cmd("DapViewOpen")
-	end
-
-	vim.cmd("DapNew")
-end, { desc = "DAP launch" })
-
-map("n", "<leader>dr", "")
+map("n", "<leader>dc", ":DapContinue<CR>", { desc = "Continue" })
+map("n", "<leader>dn", ":DapNew<CR>", { desc = "New session" })
+map("n", "<leader>do", ":DapStepOver<CR>", { desc = "Step Over" })
+map("n", "<leader>di", ":DapStepInfo<CR>", { desc = "Step Info" })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "dap-view-term",
+	callback = function(args)
+		vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], {
+			buffer = args.buf,
+			silent = true,
+		})
+	end,
+})

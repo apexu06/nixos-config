@@ -1,0 +1,180 @@
+# Sora — Helix color scheme
+# Converted from Zed Sora theme by aejkatappaja
+
+"ui.background"            = { bg = "bg" }
+"ui.background.separator"  = { fg = "border" }
+"ui.statusline"            = { fg = "text_muted", bg = "surface" }
+"ui.statusline.normal"     = { fg = "text_muted", bg = "surface" }
+"ui.statusline.insert"     = { fg = "bg", bg = "blue" }
+"ui.statusline.select"     = { fg = "bg", bg = "purple" }
+"ui.statusline.separator"  = { fg = "border" }
+"ui.popup"                 = { fg = "text", bg = "elevated_surface" }
+"ui.popup.info"            = { fg = "text", bg = "elevated_surface" }
+"ui.window"                = { fg = "border" }
+"ui.help"                  = { fg = "text", bg = "elevated_surface" }
+"ui.text"                  = { fg = "text" }
+"ui.text.focus"            = { fg = "text", modifiers = ["bold"] }
+"ui.text.info"             = { fg = "text_muted" }
+"ui.text.inactive"         = { fg = "text_muted" }
+"ui.virtual"               = { fg = "border" }
+"ui.virtual.ruler"         = { bg = "wrap_guide" }
+"ui.virtual.indent-guide"  = { fg = "indent_guide" }
+"ui.virtual.inlay-hint"    = { fg = "hint_color", bg = "bg" }
+"ui.virtual.jump-label"    = { fg = "blue", modifiers = ["bold"] }
+"ui.menu"                  = { fg = "text", bg = "elevated_surface" }
+"ui.menu.selected"         = { fg = "text_accent", bg = "element_selected" }
+"ui.menu.scroll"           = { fg = "text_muted", bg = "surface" }
+"ui.selection"             = { bg = "selection" }
+"ui.selection.primary"     = { bg = "selection" }
+"ui.highlight"             = { bg = "highlighted_line" }
+"ui.highlight.frameline"   = { bg = "highlighted_line" }
+"ui.cursorline.primary"    = { bg = "active_line" }
+"ui.cursorline.secondary"  = { bg = "active_line" }
+"ui.cursor"                = { fg = "bg", bg = "blue" }
+"ui.cursor.primary"        = { fg = "bg", bg = "blue" }
+"ui.cursor.match"          = { fg = "text", bg = "search_match" }
+"ui.cursor.insert"         = { fg = "bg", bg = "text" }
+"ui.cursor.select"         = { fg = "bg", bg = "purple" }
+"ui.linenr"                = { fg = "line_number" }
+"ui.linenr.selected"       = { fg = "blue", modifiers = ["bold"] }
+"ui.gutter"                = { bg = "bg" }
+"ui.gutter.selected"       = { bg = "active_line" }
+"ui.label"                 = { fg = "text_muted" }
+"ui.debug.breakpoint"      = { fg = "red" }
+"ui.debug.active"          = { fg = "yellow" }
+"ui.indicator"             = { fg = "blue" }
+
+"editor"                   = { fg = "text", bg = "bg" }
+
+"diagnostic.error"         = { underline = { color = "red", style = "curl" } }
+"diagnostic.warning"       = { underline = { color = "yellow", style = "curl" } }
+"diagnostic.info"          = { underline = { color = "info_color", style = "curl" } }
+"diagnostic.hint"          = { underline = { color = "hint_color", style = "curl" } }
+"diagnostic.unnecessary"   = { modifiers = ["dim"] }
+"diagnostic.deprecated"    = { modifiers = ["crossed_out"] }
+"error"                    = { fg = "red" }
+"warning"                  = { fg = "yellow" }
+"info"                     = { fg = "info_color" }
+"hint"                     = { fg = "hint_color" }
+
+"diff.plus"                = { fg = "created" }
+"diff.minus"               = { fg = "deleted" }
+"diff.delta"               = { fg = "modified" }
+"diff.plus.gutter"         = { fg = "created" }
+"diff.minus.gutter"        = { fg = "deleted" }
+"diff.delta.gutter"        = { fg = "modified" }
+
+"markup.heading"           = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.1"         = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.2"         = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.3"         = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.4"         = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.5"         = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.6"         = { fg = "blue", modifiers = ["bold"] }
+"markup.list"              = { fg = "operator" }
+"markup.bold"              = { fg = "bright_text", modifiers = ["bold"] }
+"markup.italic"            = { fg = "bright_text", modifiers = ["italic"] }
+"markup.strikethrough"     = { modifiers = ["crossed_out"] }
+"markup.link.url"          = { fg = "blue", modifiers = ["underlined"] }
+"markup.link.text"         = { fg = "blue" }
+"markup.raw"               = { fg = "green" }
+"markup.raw.inline"        = { fg = "green" }
+"markup.raw.block"         = { fg = "green" }
+
+"comment"                  = { fg = "comment_color", modifiers = ["italic"] }
+"constant"                 = { fg = "yellow" }
+"constant.builtin"         = { fg = "yellow" }
+"constant.character"       = { fg = "yellow" }
+"constant.character.escape"= { fg = "cyan", modifiers = ["bold"] }
+"constant.numeric"         = { fg = "yellow" }
+"string"                   = { fg = "green" }
+"string.regexp"            = { fg = "cyan" }
+"string.special"           = { fg = "cyan" }
+"string.special.symbol"    = { fg = "yellow" }
+"string.special.path"      = { fg = "green" }
+"string.special.url"       = { fg = "blue", modifiers = ["underlined"] }
+"keyword"                  = { fg = "purple", modifiers = ["italic"] }
+"keyword.control"          = { fg = "purple", modifiers = ["italic"] }
+"keyword.control.import"   = { fg = "purple", modifiers = ["italic"] }
+"keyword.control.return"   = { fg = "purple", modifiers = ["italic"] }
+"keyword.operator"         = { fg = "purple", modifiers = ["italic"] }
+"keyword.directive"        = { fg = "purple" }
+"keyword.function"         = { fg = "purple", modifiers = ["italic"] }
+"keyword.storage"          = { fg = "purple", modifiers = ["italic"] }
+"keyword.storage.type"     = { fg = "orange" }
+"keyword.storage.modifier" = { fg = "purple", modifiers = ["italic"] }
+"operator"                 = { fg = "operator" }
+"punctuation"              = { fg = "punct" }
+"punctuation.bracket"      = { fg = "punct" }
+"punctuation.delimiter"    = { fg = "punct" }
+"punctuation.special"      = { fg = "operator" }
+"variable"                 = { fg = "variable" }
+"variable.builtin"         = { fg = "red_bright", modifiers = ["italic"] }
+"variable.parameter"       = { fg = "orange" }
+"variable.other"           = { fg = "variable" }
+"variable.other.member"    = { fg = "operator" }
+"type"                     = { fg = "orange" }
+"type.builtin"             = { fg = "orange", modifiers = ["italic"] }
+"type.enum"                = { fg = "orange" }
+"type.enum.variant"        = { fg = "orange" }
+"constructor"              = { fg = "orange", modifiers = ["bold"] }
+"function"                 = { fg = "blue" }
+"function.builtin"         = { fg = "blue", modifiers = ["italic"] }
+"function.method"          = { fg = "blue" }
+"function.method.private"  = { fg = "blue" }
+"function.macro"           = { fg = "blue" }
+"attribute"                = { fg = "orange", modifiers = ["italic"] }
+"namespace"                = { fg = "cyan" }
+"label"                    = { fg = "cyan" }
+"special"                  = { fg = "cyan" }
+"tag"                      = { fg = "cyan" }
+"tag.attribute"            = { fg = "orange" }
+"tag.delimiter"            = { fg = "punct" }
+"preproc"                  = { fg = "purple" }
+"embedded"                 = { fg = "cyan" }
+
+[palette]
+
+# ── Backgrounds ─────────────────────────────────────────────
+bg                = "#0e1018"
+surface           = "#0a0c12"
+elevated_surface  = "#14161e"
+active_line       = "#171a24"
+highlighted_line  = "#1e2430"
+search_match      = "#1a3050"
+wrap_guide        = "#181c26"
+indent_guide      = "#181c26"
+element_selected  = "#1e2430"
+selection         = "#80c8e030"
+
+# ── Borders ──────────────────────────────────────────────────
+border            = "#222838"
+
+# ── Text ─────────────────────────────────────────────────────
+text              = "#c8d0e0"
+text_muted        = "#9aa4b8"
+text_accent       = "#80c8e0"
+bright_text       = "#dce4f0"
+line_number       = "#364050"
+comment_color     = "#586478"
+
+# ── Syntax ───────────────────────────────────────────────────
+blue              = "#80c8e0"   # functions, titles, accent
+purple            = "#b0a0d8"   # keywords
+green             = "#90c8a0"   # strings
+yellow            = "#d4b878"   # constants, numbers
+orange            = "#d0a888"   # types, attributes, params
+cyan              = "#78b8b0"   # embedded, labels, tags, escapes
+red               = "#c46c78"   # errors
+red_bright        = "#d0909c"   # variable.builtin, booleans
+operator          = "#8898b8"   # operators, properties
+punct             = "#9aa4b8"   # punctuation
+variable          = "#b4bcd0"   # variables
+
+# ── Status / Diagnostics ────────────────────────────────────
+created           = "#68b080"
+deleted           = "#b86068"
+modified          = "#6898b8"
+hint_color        = "#78b0a0"
+info_color        = "#5ca8c8"
+warning_color     = "#c8a860"

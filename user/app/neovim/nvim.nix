@@ -23,6 +23,7 @@ in {
     ruff
     tree-sitter
     gdb
+    lldb
 
     neovim
   ];
