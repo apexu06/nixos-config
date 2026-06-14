@@ -140,7 +140,7 @@ map("n", "<leader>dp", ":DapToggleBreakpoint<CR>", { desc = "Toggle Breakpoint" 
 map("n", "<leader>dc", ":DapContinue<CR>", { desc = "Continue" })
 map("n", "<leader>dn", ":DapNew<CR>", { desc = "New session" })
 map("n", "<leader>do", ":DapStepOver<CR>", { desc = "Step Over" })
-map("n", "<leader>di", ":DapStepInfo<CR>", { desc = "Step Info" })
+map("n", "<leader>di", ":DapStepInto<CR>", { desc = "Step Into" })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "dap-view-term",
 	callback = function(args)
