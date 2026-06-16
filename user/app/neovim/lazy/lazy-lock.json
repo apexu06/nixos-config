@@ -20,7 +20,7 @@
   "oil.nvim": { "branch": "master", "commit": "b73018b75affd13fa38e2fc94ef753b465f770d7" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "render-markdown.nvim": { "branch": "main", "commit": "5adf0895310c1904e5abfaad40a2baad7fe44a07" },
-  "smart-splits.nvim": { "branch": "master", "commit": "501ea73e433246cbd53f0b14bbd205fa44831e4d" },
+  "smart-splits.nvim": { "branch": "master", "commit": "2aad9808f289f5d65cfa77840a04b8590e5e34e9" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "sora": { "branch": "main", "commit": "e826acb326d3ab4bbcaa5ede3e17bc6e6a6cb3ac" },
   "tokyonight.nvim": { "branch": "main", "commit": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6" },
