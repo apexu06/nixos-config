@@ -1,0 +1,19 @@
+{inputs}: {
+  username,
+  system,
+  profile,
+  theme,
+}:
+inputs.home-manager.lib.homeManagerConfiguration {
+  pkgs = inputs.nixpkgs.legacyPackages.${system};
+  extraSpecialArgs = {inherit inputs theme;};
+
+  modules = [
+    ../home/${profile}.nix
+    {
+      home.username = username;
+      home.homeDirectory = "/home/${username}";
+      home.stateVersion = "26.05";
+    }
+  ];
+}

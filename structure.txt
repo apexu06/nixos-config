@@ -1,0 +1,25 @@
+.
+├── flake.nix
+├── flake.lock
+├── hosts/                    # only if you're still managing NixOS itself for pc/laptop
+│   ├── pc/
+│   │   ├── default.nix
+│   │   └── hardware-configuration.nix
+│   └── laptop/
+│       ├── default.nix
+│       └── hardware-configuration.nix
+├── modules/
+│   ├── nixos/
+│   │   └── common.nix
+│   └── home/
+│       ├── common.nix         # fish, git, core CLI tools — always loaded
+│       ├── neovim/
+│       │   └── default.nix
+│       ├── desktop.nix        # GUI apps, fonts, theming
+│       └── stylix.nix
+├── home/
+│   ├── pc.nix
+│   ├── laptop.nix
+│   └── wsl.nix
+└── lib/
+    └── mkHome.nix
