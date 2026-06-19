@@ -43,7 +43,7 @@ in {
     krisp-patcher
   ];
 
-  stylix.fonts.sizes.terminal = lib.mkForce 13.5;
+  stylix.fonts.sizes.terminal = lib.mkForce 13;
 
   programs.lutris = {
     enable = true;

@@ -7,6 +7,7 @@
   config = lib.mkIf (config.settings.terminal.emulator == "kitty") {
     home.packages = with pkgs; [
       nerd-fonts.iosevka-term
+      maple-mono.NF
     ];
 
     home.file.".config/kitty/neighboring_window.py" = {
@@ -29,7 +30,7 @@
     programs.kitty = {
       enable = true;
       font = {
-        name = lib.mkForce "IosevkaTerm Nerd Font Mono";
+        name = lib.mkForce "Maple Mono NF";
       };
       enableGitIntegration = true;
       shellIntegration.enableFishIntegration = true;
