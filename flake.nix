@@ -110,64 +110,48 @@
   };
 
   outputs = inputs @ {
+    self,
     nixpkgs,
     home-manager,
     nixos-hardware,
     ...
   }: let
-    lib = nixpkgs.lib;
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    mkHome = import ./lib/mkHome.nix {inherit inputs;};
+    mkSystem = import ./lib/mkSystem.nix {inherit inputs;};
+
+    hosts = {
+      pc = {theme = "sora";};
+      laptop = {theme = "sora";};
+    };
   in {
-    nixosConfigurations = {
-      pc = lib.nixosSystem {
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-        };
-        modules = [
-          ./modules/pc-settings.nix
-          ./modules/settings.nix
-          ./system/pc.nix
-        ];
+    homeConfigurations = {
+      pc = mkHome {
+        username = "apexu";
+        system = "x86_64-linux";
+        profile = "pc";
+        inherit (hosts.pc) theme;
       };
-      laptop = lib.nixosSystem {
-        specialArgs = {
-          inherit system;
-          inherit inputs;
-        };
-        modules = [
-          ./modules/laptop-settings.nix
-          ./modules/settings.nix
-          ./system/laptop.nix
-          nixos-hardware.nixosModules.framework-13-7040-amd
-        ];
+
+      laptop = mkHome {
+        username = "apexu";
+        system = "x86_64-linux";
+        profile = "laptop";
+        inherit (hosts.laptop) theme;
       };
     };
 
-    homeConfigurations = {
-      pc = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./modules/settings.nix
-          ./modules/pc-settings.nix
-          ./user/pc.nix
-        ];
+    nixosConfigurations = {
+      pc = mkSystem {
+        hostname = "nixp";
+        system = "x86_64-linux";
+        inherit (hosts.pc) theme;
       };
 
-      laptop = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./modules/settings.nix
-          ./modules/laptop-settings.nix
-          ./user/laptop.nix
-        ];
+      laptop = mkSystem {
+        hostname = "nixl";
+        system = "x86_64-linux";
+        extraModules = [nixos-hardware.nixosMOdules.framework-13-7040-amd];
+        inherit (hosts.laptop) theme;
       };
     };
   };
