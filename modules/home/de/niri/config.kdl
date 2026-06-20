@@ -1,0 +1,239 @@
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            model ""
+            rules ""
+            variant "altgr-intl"
+            options "caps:escape"
+        }
+        repeat-delay 175
+        repeat-rate 25
+        track-layout "global"
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+    warp-mouse-to-focus
+    focus-follows-mouse
+}
+output "DP-3" {
+    scale 1.000000
+    transform "normal"
+    position x=0 y=0
+    mode "2560x1440@180.000000"
+}
+output "HDMI-A-1" {
+    scale 1.000000
+    transform "normal"
+    position x=-1920 y=-35
+    mode "1920x1080@71.910000"
+}
+output "eDP-1" {
+    scale 1.500000
+    transform "normal"
+    position x=0 y=0
+    mode "2880x1920@120.000000"
+    variable-refresh-rate on-demand=false
+}
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+prefer-no-csd
+layout {
+    gaps 8
+    struts {
+        left 0
+        right 0
+        top 0
+        bottom 0
+    }
+    focus-ring {
+        width 2
+        active-color "8898b8"
+    }
+    border { off; }
+    background-color "transparent"
+    shadow {
+        on
+        offset x=0 y=0
+        softness 30.000000
+        spread 5.000000
+        draw-behind-window false
+        color "#0007"
+    }
+    default-column-width { proportion 0.500000; }
+    preset-column-widths {
+        proportion 0.333330
+        proportion 0.500000
+        proportion 0.666670
+        proportion 1.000000
+    }
+    center-focused-column "never"
+    always-center-single-column
+}
+cursor {
+    xcursor-theme "Bibata-Modern-Classic"
+    xcursor-size 22
+}
+hotkey-overlay { skip-at-startup; }
+binds {
+    Alt+Print { screenshot-window; }
+    Ctrl+Alt+Delete { quit; }
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Alt+L { spawn-sh "$LOCK_CMD";  }
+    Mod+BackSpace { close-window; }
+    Mod+BracketLeft { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+C { center-column; }
+    Mod+Comma { consume-window-into-column; }
+    Mod+Ctrl+C { center-visible-columns; }
+    Mod+Ctrl+Down { move-window-down; }
+    Mod+Ctrl+End { move-column-to-last; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+Ctrl+H { move-column-left; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+I { move-column-to-workspace-up; }
+    Mod+Ctrl+J { move-window-down; }
+    Mod+Ctrl+K { move-window-up; }
+    Mod+Ctrl+L { move-column-right; }
+    Mod+Ctrl+Left { move-column-left; }
+    "Mod+Ctrl+Page_Down" { move-column-to-workspace-down; }
+    "Mod+Ctrl+Page_Up" { move-column-to-workspace-up; }
+    Mod+Ctrl+R { spawn "gsr-replay-toggle"; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+Ctrl+S { spawn "gsr-replay-save"; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp { move-column-left; }
+    Mod+Ctrl+U { move-column-to-workspace-down; }
+    Mod+Ctrl+Up { move-window-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollLeft { move-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollUp cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+Down { focus-window-down; }
+    Mod+End { focus-column-last; }
+    Mod+Equal { set-column-width "+10%"; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+F { fullscreen-window; }
+    Mod+H { focus-column-left; }
+    Mod+Home { focus-column-first; }
+    Mod+J { focus-window-down; }
+    Mod+K { focus-window-up; }
+    Mod+L { focus-column-right; }
+    Mod+Left { focus-column-left; }
+    Mod+M { maximize-column; }
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+N { switch-preset-column-width; }
+    Mod+O { toggle-overview; }
+    Mod+P { spawn-sh "$LAUNCHER_CMD"; }
+    "Mod+Page_Down" { focus-workspace-down; }
+    "Mod+Page_Up" { focus-workspace-up; }
+    Mod+Period { expel-window-from-column; }
+    Mod+Return { spawn-sh "$TERM_CMD"; }
+    Mod+Right { focus-column-right; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+C { spawn "sh" "-c" "hyprpicker -a"; }
+    Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+Left { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+Up { move-column-to-monitor-up; }
+    Mod+Shift+Down { focus-monitor-down; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+    Mod+Shift+H { focus-monitor-left; }
+    Mod+Shift+I { move-workspace-up; }
+    Mod+Shift+J { focus-workspace-down; }
+    Mod+Shift+K { focus-workspace-up; }
+    Mod+Shift+L { focus-monitor-right; }
+    Mod+Shift+Left { focus-monitor-left; }
+    Mod+Shift+M { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+N { switch-preset-column-width-back; }
+    "Mod+Shift+Page_Down" { move-workspace-down; }
+    "Mod+Shift+Page_Up" { move-workspace-up; }
+    Mod+Shift+Q { quit; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Shift+Return { spawn "kitty" "-e" "yazi"; }
+    Mod+Shift+Right { focus-monitor-right; }
+    Mod+Shift+S { spawn "qs" "-c" "bar" "ipc" "call" "recorder" "ipcSaveReplay"; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Shift+Space { switch-layout "prev"; }
+    Mod+Shift+U { spawn "qs" "-c" "bar" "ipc" "call" "recorder" "ipcToggleReplay"; }
+    Mod+Shift+Up { focus-monitor-up; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+W { spawn "noctalia-shell" "ipc" "call" "wallpaper" "toggle"; }
+    Mod+Shift+WheelScrollDown { focus-column-right; }
+    Mod+Shift+WheelScrollUp { focus-column-left; }
+    Mod+Space { switch-layout "next"; }
+    Mod+Up { focus-window-up; }
+    Mod+V { toggle-window-floating; }
+    Mod+W { toggle-column-tabbed-display; }
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollLeft { focus-column-left; }
+    Mod+WheelScrollRight { focus-column-right; }
+    Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
+    Print { screenshot; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMicMute allow-when-locked=true { spawn "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    XF86AudioMute allow-when-locked=true { spawn "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioNext allow-when-locked=true { spawn "sh" "-c" "playerctl next"; }
+    XF86AudioPlay allow-when-locked=true { spawn "sh" "-c" "playerctl play-pause"; }
+    XF86AudioPrev allow-when-locked=true { spawn "sh" "-c" "playerctl previous"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
+    XF86AudioStop allow-when-locked=true { spawn "sh" "-c" "playerctl stop"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+}
+spawn-at-startup "sh" "-c" "wl-paste --type text --watch cliphist store"
+spawn-at-startup "sh" "-c" "wl-paste --type image --watch cliphist store"
+spawn-at-startup "noctalia-shell"
+window-rule {
+    match title="(unset)"
+    match app-id="^jetbrains-.*"
+    match is-floating=true
+    default-column-width { proportion 0.300000; }
+    default-window-height { proportion 0.400000; }
+    default-floating-position relative-to="top" x=0 y=100
+}
+window-rule {
+    match app-id="^org\\.wezfurlong\\.wezterm$"
+    default-column-width { proportion 0.500000; }
+}
+window-rule {
+    match app-id="steam"
+    match title="r#\"^notificationtoasts_\\d+_desktop$\"#"
+    default-floating-position relative-to="bottom-right" x=10 y=10
+}
+window-rule {
+    geometry-corner-radius 12.000000 12.000000 12.000000 12.000000
+    clip-to-geometry true
+}
+layer-rule {
+    match namespace="^hyprpaper$"
+    match namespace="^noctalia-overview*"
+    place-within-backdrop true
+}
+layer-rule {
+    match namespace="^noctalia-wallpaper*"
+    place-within-backdrop true
+}
+

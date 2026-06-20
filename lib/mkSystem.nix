@@ -11,7 +11,6 @@ inputs.nixpkgs.lib.nixosSystem {
   modules =
     [
       ../hosts/${hostname}
-      ../modules/nixos/stylix.nix
       ../modules/nixos/common.nix
     ]
     ++ extraModules;

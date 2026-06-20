@@ -5,6 +5,7 @@
     ../../modules/nixos/de/niri.nix
     ../../modules/nixos/boot/systemd-boot.nix
     ../../modules/nixos/de/niri.nix
+    ../../modules/nixos/stylix.nix
   ];
 
   systemd.services.fprintd = {
