@@ -10,6 +10,12 @@ in {
     inputs.stylix.nixosModules.stylix
   ];
 
+  qt = {
+    enable = true;
+    platformTheme = "qt5ct";
+    style = "kvantum";
+  };
+
   stylix = {
     enable = true;
     autoEnable = false;

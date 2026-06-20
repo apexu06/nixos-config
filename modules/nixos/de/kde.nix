@@ -4,16 +4,14 @@
   pkgs,
   ...
 }: {
-  config = lib.mkIf (config.settings.de.name == "kde") {
-    services = {
-      desktopManager.plasma6.enable = true;
-      displayManager.plasma-login-manager.enable = true;
-      xserver.enable = true;
-    };
-    environment.plasma6.excludePackages = with pkgs.kdePackages; [
-      plasma-browser-integration
-      konsole
-      elisa
-    ];
+  services = {
+    desktopManager.plasma6.enable = true;
+    displayManager.plasma-login-manager.enable = true;
+    xserver.enable = true;
   };
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    plasma-browser-integration
+    konsole
+    elisa
+  ];
 }
