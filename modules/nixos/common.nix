@@ -1,4 +1,8 @@
-{pkgs, hostname ...}: {
+{
+  pkgs,
+  hostname,
+  ...
+}: {
   imports = [
     ./pipewire.nix
     ./services.nix
@@ -36,11 +40,6 @@
     ];
   };
 
-  networking = {
-    hostName = hostname;
-    networkmanager.enable = true;
-  };
-
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -53,6 +52,11 @@
     LC_PAPER = "de_AT.UTF-8";
     LC_TELEPHONE = "de_AT.UTF-8";
     LC_TIME = "de_AT.UTF-8";
+  };
+
+  networking = {
+    hostName = hostname;
+    networkmanager.enable = true;
   };
 
   users.users.apexu = {
@@ -84,12 +88,6 @@
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
     };
-  };
-
-  qt = {
-    enable = true;
-    platformTheme = "qt5ct";
-    style = "kvantum";
   };
 
   system.stateVersion = "26.05";

@@ -1,19 +1,19 @@
 {
   pkgs,
-  lib,
   inputs,
-  config,
+  lib,
   ...
 }: {
   imports = [
-    ./configuration.nix
-    ./services.nix
-    ./virtualization.nix
-    ./podman.nix
-    ./hardware/pc-hardware-configuration.nix
-    ./boot/lanzaboote.nix
-    ./ollama.nix
+    ./hardware-configuration.nix
+    ../../modules/nixos/ollama.nix
+    ../../modules/nixos/podman.nix
+    ../../modules/nixos/de/niri.nix
+    ../../modules/nixos/virtualization.nix
+    ../../modules/nixos/boot/lanzaboote.nix
+    ../../modules/nixos/de/niri.nix
   ];
+
   environment.systemPackages = with pkgs; [
     ntfs3g
     sbctl
@@ -30,7 +30,6 @@
     podman-tui
   ];
 
-  networking.hostName = "nixp";
   programs.gpu-screen-recorder.enable = true;
 
   fileSystems."/mnt/nvme0" = {

@@ -1,23 +1,15 @@
-{
+{}: {
   imports = [
-    ./configuration.nix
-    ./hardware/laptop-hardware-configuration.nix
-    ./podman.nix
-    ./boot/systemd-boot.nix
-    ./services.nix
+    ./hardware-configuration.nix
+    ../../modules/nixos/podman.nix
+    ../../modules/nixos/de/niri.nix
+    ../../modules/nixos/boot/systemd-boot.nix
+    ../../modules/nixos/de/niri.nix
   ];
-  networking.hostName = "nixl";
 
   systemd.services.fprintd = {
     wantedBy = ["multi-user.target"];
     serviceConfig.Type = "simple";
-  };
-
-  security.pam = {
-    howdy = {
-      enable = true;
-      control = "sufficient";
-    };
   };
 
   services = {
