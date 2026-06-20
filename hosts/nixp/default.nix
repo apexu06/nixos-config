@@ -6,6 +6,8 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+
+    ../../modules/nixos/stylix.nix
     ../../modules/nixos/ollama.nix
     ../../modules/nixos/podman.nix
     ../../modules/nixos/de/niri.nix
@@ -19,15 +21,6 @@
     sbctl
     android-tools
     ddcutil
-
-    virt-viewer
-    spice
-    spice-gtk
-    spice-protocol
-    virtio-win
-    win-spice
-    docker-compose
-    podman-tui
   ];
 
   programs.gpu-screen-recorder.enable = true;
@@ -89,12 +82,14 @@
     ];
   };
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
+  hardware = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+    amdgpu.initrd.enable = true;
+    i2c.enable = true;
   };
-  hardware.amdgpu.initrd.enable = true;
-  hardware.i2c.enable = true;
 
   nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
   boot.kernelPackages = lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-latest;
@@ -110,6 +105,12 @@
       enable = true;
       drivers = with pkgs; [canon-cups-ufr2];
     };
+    greetd.settings = {
+      initial_session = {
+        command = "niri-session";
+        user = "apexu";
+      };
+    };
   };
 
   hardware.printers.ensurePrinters = [
@@ -123,11 +124,4 @@
       };
     }
   ];
-
-  services.greetd.settings = {
-    initial_session = {
-      command = "niri-session";
-      user = "apexu";
-    };
-  };
 }

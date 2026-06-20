@@ -23,3 +23,7 @@
 │   └── wsl.nix
 └── lib/
     └── mkHome.nix
+
+$TERM_CMD
+$LAUNCHER_CMD
+$LOCK_CMD

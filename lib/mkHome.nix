@@ -10,6 +10,7 @@ inputs.home-manager.lib.homeManagerConfiguration {
 
   modules = [
     ../home/${profile}.nix
+    ../modules/home/common.nix
     {
       home.username = username;
       home.homeDirectory = "/home/${username}";
