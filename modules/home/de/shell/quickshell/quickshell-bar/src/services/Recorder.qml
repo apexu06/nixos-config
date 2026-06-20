@@ -9,7 +9,7 @@ Singleton {
     // Properties
     property bool isRecording: false
     property bool isReplayMode: false
-    property string outputDir: "/home/apexu/Videos/Replays"
+    property string outputDir: "/home/jzep/Videos/Replays"
     property int replayBufferSeconds: 60
     property int fps: 60
     property string audioSource: "default_output"

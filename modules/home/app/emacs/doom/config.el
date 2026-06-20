@@ -1,6 +1,6 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(setq user-full-name "apexu"
+(setq user-full-name "jzep"
       user-mail-address "jj.zelger@proton.me")
 
 (setq doom-font (font-spec :family "IosevkaTerm Nerd Font" :size 17 :weight 'semi-bold)

@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  users.users.apexu.extraGroups = ["libvirtd"];
+  users.users.jzep.extraGroups = ["libvirtd"];
   environment.systemPackages = with pkgs; [
     virt-viewer
     spice

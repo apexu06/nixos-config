@@ -181,7 +181,7 @@
         smooth-scrolling-threshold = 1;
       };
       "image#logo" = {
-        path = "/home/apexu/.config/waybar/images/arch-logo.png";
+        path = "/home/jzep/.config/waybar/images/arch-logo.png";
         size = 32;
         on-click = "wlogout";
       };

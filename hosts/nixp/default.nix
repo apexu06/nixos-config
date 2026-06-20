@@ -108,7 +108,7 @@
     greetd.settings = {
       initial_session = {
         command = "niri-session";
-        user = "apexu";
+        user = "jzep";
       };
     };
   };
