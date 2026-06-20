@@ -6,7 +6,7 @@
 }:
 inputs.home-manager.lib.homeManagerConfiguration {
   pkgs = inputs.nixpkgs.legacyPackages.${system};
-  extraSpecialArgs = {inherit inputs theme;};
+  extraSpecialArgs = {inherit inputs theme profile;};
 
   modules = [
     ../home/${profile}.nix

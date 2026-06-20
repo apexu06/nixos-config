@@ -2,17 +2,9 @@
   lib,
   pkgs,
   inputs,
-  config,
+  profile,
   ...
 }: let
-  noctalia = cmd:
-    [
-      "noctalia-shell"
-      "ipc"
-      "call"
-    ]
-    ++ (pkgs.lib.splitString " " cmd);
-
   ollamaButton = {
     id = "CustomButton";
     ipcIdentifier = "ollama";
@@ -260,7 +252,7 @@ in {
           ];
           right =
             (
-              if config.services.ollama.enable
+              if profile == "pc"
               then [ollamaButton]
               else []
             )
