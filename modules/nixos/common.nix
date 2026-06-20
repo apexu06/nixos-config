@@ -16,7 +16,7 @@
       ];
       trusted-users = [
         "root"
-        "apexu"
+        "jzep"
       ];
     };
     package = pkgs.lixPackageSets.stable.lix;
@@ -59,9 +59,9 @@
     networkmanager.enable = true;
   };
 
-  users.users.apexu = {
+  users.users.jzep = {
     isNormalUser = true;
-    description = "apexu";
+    description = "jzep";
     extraGroups = [
       "networkmanager"
       "wheel"

@@ -479,7 +479,7 @@ in {
         animationDisabled = false;
         animationSpeed = 1.3;
         autoStartAuth = true;
-        avatarImage = "/home/apexu/.face";
+        avatarImage = "/home/jzep/.face";
         boxRadiusRatio = 1.0;
         clockFormat = "hh\\nmm";
         clockStyle = "custom";
@@ -757,7 +757,7 @@ in {
 
       wallpaper = {
         automationEnabled = false;
-        directory = "/home/apexu/Pictures/Wallpapers";
+        directory = "/home/jzep/Pictures/Wallpapers";
         enableMultiMonitorDirectories = false;
         enabled = true;
         favorites = [];

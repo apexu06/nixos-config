@@ -126,14 +126,14 @@
   in {
     homeConfigurations = {
       pc = mkHome {
-        username = "apexu";
+        username = "jzep";
         system = "x86_64-linux";
         profile = "pc";
         inherit (hosts.pc) theme;
       };
 
       laptop = mkHome {
-        username = "apexu";
+        username = "jzep";
         system = "x86_64-linux";
         profile = "laptop";
         inherit (hosts.laptop) theme;
