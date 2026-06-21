@@ -230,6 +230,11 @@ in {
         };
       };
 
+      keybinds = {
+        down = ["Ctrl+n"];
+        up = ["Ctrl+p"];
+      };
+
       nightlight = {
         enabled = true;
       };
