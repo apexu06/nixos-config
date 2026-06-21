@@ -165,7 +165,7 @@ binds {
     Mod+Shift+K { focus-workspace-up; }
     Mod+Shift+L { focus-monitor-right; }
     Mod+Shift+Left { focus-monitor-left; }
-    Mod+Shift+M { spawn "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+    Mod+Shift+M { spawn "noctalia" "msg" "panel-toggle" "session"; }
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+N { switch-preset-column-width-back; }
     "Mod+Shift+Page_Down" { move-workspace-down; }
@@ -205,7 +205,15 @@ binds {
 }
 spawn-at-startup "sh" "-c" "wl-paste --type text --watch cliphist store"
 spawn-at-startup "sh" "-c" "wl-paste --type image --watch cliphist store"
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"
+
+window-rule {
+  match title="Steam Settings"
+  match app-id="steam"
+
+  open-floating true
+}
+
 window-rule {
     match title="(unset)"
     match app-id="^jetbrains-.*"
@@ -219,8 +227,7 @@ window-rule {
     default-column-width { proportion 0.500000; }
 }
 window-rule {
-    match app-id="steam"
-    match title="r#\"^notificationtoasts_\\d+_desktop$\"#"
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position relative-to="bottom-right" x=10 y=10
 }
 window-rule {
@@ -235,5 +242,19 @@ layer-rule {
 layer-rule {
     match namespace="^noctalia-wallpaper*"
     place-within-backdrop true
+}
+
+
+layer-rule {
+  match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
+  background-effect {
+    xray false
+  }
+}
+
+window-rule {
+  background-effect {
+    blur true
+  }
 }
 
