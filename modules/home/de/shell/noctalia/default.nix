@@ -1,47 +1,10 @@
 {
-  lib,
   pkgs,
   inputs,
   config,
   profile,
   ...
 }: let
-  ollamaButton = {
-    id = "CustomButton";
-    ipcIdentifier = "ollama";
-    icon = "robot";
-    showIcon = true;
-    iconPosition = "left";
-    colorizeSystemIcon = "none";
-    colorizeSystemText = "primary";
-    textCommand = "systemctl is-active ollama.service";
-    textIntervalMs = 3000;
-    textStream = true;
-    textCollapse = "inactive";
-    leftClickExec = "systemctl start ollama.service";
-    leftClickUpdateText = false;
-    rightClickExec = "systemctl stop ollama.service";
-    rightClickUpdateText = false;
-    middleClickExec = "";
-    middleClickUpdateText = false;
-    wheelMode = "unified";
-    wheelExec = "";
-    wheelUpdateText = false;
-    wheelUpExec = "";
-    wheelUpUpdateText = false;
-    wheelDownExec = "";
-    wheelDownUpdateText = false;
-    maxTextLength = {
-      horizontal = 10;
-      vertical = 10;
-    };
-    parseJson = false;
-    generalTooltipText = "";
-    showExecTooltip = true;
-    showTextTooltip = true;
-    hideMode = "expandWithOutput";
-  };
-
   colors = config.lib.stylix.colors;
 in {
   imports = [
@@ -76,10 +39,16 @@ in {
         tint_intensity = 0.59999998658895493;
       };
 
-      "bar.widgets" = {
+      "bar.widgets" = let
+        default_end = ["network" "bluetooth" "volume" "battery" "brightness" "tray" "control-center"];
+        new_prefix =
+          if profile == "pc"
+          then ["ollama"]
+          else [];
+      in {
         background_opacity = config.stylix.opacity.desktop;
         center = ["clock" "media" "notifications"];
-        end = ["network" "bluetooth" "volume" "battery" "brightness" "tray" "control-center"];
+        end = new_prefix ++ default_end;
         font_family = "Adwaita Sans";
         margin_edge = 4;
         margin_ends = 350;
@@ -310,6 +279,12 @@ in {
           length = 10;
           type = "spacer";
         };
+        ollama = {
+          command = "systemctl start ollama && systemctl start open-webui";
+          glyph = "robot";
+          right_command = "systemctl stop ollama && systemctl stop open-webui";
+          type = "custom_button";
+        };
         taskbar = {
           only_active_workspace = true;
         };
@@ -317,7 +292,7 @@ in {
           drawer = true;
           hidden = ["udiskie"];
           match_adjacent_spacing = true;
-          pinned = ["spotify"];
+          pinned = [];
         };
         volume = {
           show_label = false;
