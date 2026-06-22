@@ -139,7 +139,7 @@
       laptop = mkSystem {
         hostname = "nixl";
         system = "x86_64-linux";
-        extraModules = [nixos-hardware.nixosMOdules.framework-13-7040-amd];
+        extraModules = [nixos-hardware.nixosModules.framework-13-7040-amd];
         inherit (hosts.laptop) theme;
       };
     };
