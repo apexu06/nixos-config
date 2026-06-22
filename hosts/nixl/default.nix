@@ -21,14 +21,5 @@
       enable = true;
       percentageLow = 20;
     };
-
-    howdy = {
-      enable = true;
-      settings = {
-        video = {
-          device_path = "/dev/video0";
-        };
-      };
-    };
   };
 }
