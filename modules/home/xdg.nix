@@ -38,6 +38,8 @@
       setSessionVariables = true;
       templates = null;
       desktop = null;
+      projects = null;
+      public = null;
     };
 
     portal = {

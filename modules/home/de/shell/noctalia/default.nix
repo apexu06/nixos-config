@@ -3,6 +3,7 @@
   inputs,
   config,
   profile,
+  lib,
   ...
 }: let
   colors = config.lib.stylix.colors;
@@ -28,6 +29,7 @@ in {
 
   programs.noctalia = {
     enable = true;
+    package = lib.mkForce inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     settings = {
       audio = {
@@ -39,7 +41,7 @@ in {
         tint_intensity = 0.59999998658895493;
       };
 
-      "bar.widgets" = let
+      bar.widgets = let
         default_end = ["network" "bluetooth" "volume" "battery" "brightness" "tray" "control-center"];
         new_prefix =
           if profile == "pc"
