@@ -39,7 +39,7 @@
       templates = null;
       desktop = null;
       projects = null;
-      public = null;
+      publicShare = null;
     };
 
     portal = {
