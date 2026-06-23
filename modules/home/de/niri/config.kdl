@@ -148,6 +148,8 @@ binds {
     Mod+Shift+7 { move-column-to-workspace 7; }
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+D { spawn-sh "niri msg action move-column-to-workspace-down --focus false"; }
+    Mod+Shift+U { spawn-sh "niri msg action move-column-to-workspace-up --focus false"; }
     Mod+Shift+C { spawn "sh" "-c" "hyprpicker -a"; }
     Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
@@ -174,13 +176,10 @@ binds {
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Shift+Return { spawn "kitty" "-e" "yazi"; }
     Mod+Shift+Right { focus-monitor-right; }
-    Mod+Shift+S { spawn "qs" "-c" "bar" "ipc" "call" "recorder" "ipcSaveReplay"; }
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Shift+Space { switch-layout "prev"; }
-    Mod+Shift+U { spawn "qs" "-c" "bar" "ipc" "call" "recorder" "ipcToggleReplay"; }
     Mod+Shift+Up { focus-monitor-up; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
-    Mod+Shift+W { spawn "noctalia-shell" "ipc" "call" "wallpaper" "toggle"; }
     Mod+Shift+WheelScrollDown { focus-column-right; }
     Mod+Shift+WheelScrollUp { focus-column-left; }
     Mod+Space { switch-layout "next"; }

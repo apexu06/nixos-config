@@ -9,6 +9,10 @@
 
   programs.lazygit.enable = true;
 
+  programs.gh = {
+    enable = true;
+  };
+
   programs.git = {
     enable = true;
     settings = {

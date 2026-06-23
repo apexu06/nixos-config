@@ -28,7 +28,6 @@ in {
     fastfetch
     gdu
     fzf
-    gh
     xdg-utils
     wl-clipboard
     eza
