@@ -36,9 +36,44 @@ in {
         enable_sounds = true;
       };
 
+      hooks = {
+        battery_charging = "noctalia msg power-set performance";
+        battery_discharging = "noctalia msg power-set balanced";
+      };
+
       backdrop = {
         blur_intensity = 0.0;
         tint_intensity = 0.59999998658895493;
+      };
+
+      idle = {
+        behavior_order = ["dim-screen" "lock" "screen-off" "lock-and-suspend"];
+
+        behavior.dim-screen = {
+          enabled = true;
+          action = "command";
+          command = "brightnessctl set 10%";
+          resume_command = "brightnessctl -r";
+          timeout = 350;
+        };
+
+        behavior.lock = {
+          enabled = true;
+          action = "lock";
+          timeout = 400;
+        };
+
+        behavior.screen-off = {
+          enabled = true;
+          action = "screen_off";
+          timeout = 450;
+        };
+
+        behavior.lock-and-suspend = {
+          enabled = true;
+          action = "lock_and_suspend";
+          timeout = 900;
+        };
       };
 
       bar.widgets = let

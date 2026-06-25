@@ -64,6 +64,7 @@ in {
   programs.bat.enable = true;
   programs.btop.enable = true;
   programs.television.enable = true;
+  programs.zoxide.enable = true;
 
   programs.yazi = {
     enable = true;
@@ -101,7 +102,6 @@ in {
       ];
     };
   };
-  programs.zoxide.enable = true;
 
   programs.nh = {
     enable = true;

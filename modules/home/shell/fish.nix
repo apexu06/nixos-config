@@ -4,6 +4,9 @@
     python3
   ];
 
+  programs.zoxide.enable = true;
+  programs.television.enable = true;
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -40,10 +43,6 @@
         name = "pisces";
         src = pkgs.fishPlugins.pisces.src;
       }
-      {
-        name = "fzf-fish";
-        src = pkgs.fishPlugins.fzf-fish.src;
-      }
     ];
     functions = {
       og.body = ''
@@ -62,6 +61,12 @@
       off.body = ''
         set folder (tv dirs)
         test -n "$folder"; and nvim $folder
+      '';
+      cdd.body = ''
+        set -l dir (tv dirs)
+        if test -n "$dir"
+            z $dir
+        end
       '';
     };
   };
