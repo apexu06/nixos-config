@@ -18,6 +18,7 @@
     "$HOME/.nix-profile/bin"
     "$HOME/.nix-profile/share/applications"
   ];
+  home.pointerCursor.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 }

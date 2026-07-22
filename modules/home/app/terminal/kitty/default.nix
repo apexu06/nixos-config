@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   lib,
   ...
 }: {
@@ -34,7 +33,7 @@
   programs.kitty = {
     enable = true;
     font = {
-      name = lib.mkForce "Maple Mono NF";
+      name = lib.mkForce "IosevkaTerm Nerd Font";
     };
     enableGitIntegration = true;
     shellIntegration.enableFishIntegration = true;

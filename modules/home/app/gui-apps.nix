@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     proton-vpn
-    libreoffice-fresh
+    # libreoffice-fresh
     signal-desktop
     qbittorrent
     osu-lazer-bin

@@ -32,6 +32,7 @@ in {
 
     targets = {
       gtk.enable = true;
+      qt.enable = true;
     };
 
     base16Scheme = themeFile;

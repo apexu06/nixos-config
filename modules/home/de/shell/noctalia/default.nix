@@ -87,10 +87,10 @@ in {
         center = ["clock" "media" "notifications"];
         end = new_prefix ++ default_end;
         font_family = "Adwaita Sans";
-        margin_edge = 4;
-        margin_ends = 350;
-        padding = 10;
-        radius = 80;
+        margin_edge = 0;
+        margin_ends = 0;
+        padding = 16;
+        radius = 0;
         scale = 1.1000000089406967;
         start = ["workspaces" "taskbar"];
         thickness = 32;
@@ -261,6 +261,7 @@ in {
         ui_scale = 1.2000000104308128;
 
         panel = {
+          borders = false;
           launcher_categories = false;
           launcher_placement = "attached";
           session_placement = "centered";
@@ -268,12 +269,6 @@ in {
       };
 
       theme = {
-        builtin = "Tokyo-Night";
-        community_palette = "Tokyo Night Moon";
-        mode = "dark";
-        source = "custom";
-        custom_palette = "stylix";
-
         templates = {
           enable_builtin_templates = false;
           enable_community_templates = false;
@@ -340,54 +335,4 @@ in {
       };
     };
   };
-  home.file.".config/noctalia/palettes/stylix.json".text = ''
-    {
-      "dark": {
-        "mPrimary": "#${colors.base0D}",
-        "mOnPrimary": "#${colors.base00}",
-        "mSecondary": "#${colors.base0E}",
-        "mOnSecondary": "#${colors.base00}",
-        "mTertiary": "#${colors.base0C}",
-        "mOnTertiary": "#${colors.base00}",
-        "mError": "#${colors.base08}",
-        "mOnError": "#${colors.base00}",
-        "mSurface": "#${colors.base00}",
-        "mOnSurface": "#${colors.base05}",
-        "mHover": "#${colors.base0C}",
-        "mOnHover": "#${colors.base00}",
-        "mSurfaceVariant": "#${colors.base01}",
-        "mOnSurfaceVariant": "#${colors.base04}",
-        "mOutline": "#${colors.base03}",
-        "mShadow": "#${colors.base00}",
-        "terminal": {
-          "background": "#272822",
-          "foreground": "#f8f8f2",
-          "cursor": "#f8f8f2",
-          "cursorText": "#272822",
-          "selectionBg": "#f8f8f2",
-          "selectionFg": "#272822",
-          "normal": {
-            "black": "#272822",
-            "red": "#f92672",
-            "green": "#a6e22e",
-            "yellow": "#f4bf75",
-            "blue": "#66d9ef",
-            "magenta": "#ae81ff",
-            "cyan": "#a1efe4",
-            "white": "#f8f8f2"
-          },
-          "bright": {
-            "black": "#75715e",
-            "red": "#f92672",
-            "green": "#a6e22e",
-            "yellow": "#f4bf75",
-            "blue": "#66d9ef",
-            "magenta": "#ae81ff",
-            "cyan": "#a1efe4",
-            "white": "#f9f8f5"
-          }
-        }
-      }
-    }
-  '';
 }
