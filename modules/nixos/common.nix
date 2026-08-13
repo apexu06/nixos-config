@@ -65,6 +65,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "dialout"
       "docker"
       "video"
       "i2c"

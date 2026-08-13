@@ -7,11 +7,17 @@ return {
 	},
 	enabled = vim.fn.hostname() == "nixp",
 	opts = {
+		display = {
+			chat = {
+				fold_reasoning = false,
+				show_reasoning = false,
+			},
+		},
 		interactions = {
 			chat = {
 				adapter = {
 					name = "ollama",
-					model = "qwen2.5-coder:14b",
+					model = "gemma4:12b",
 				},
 				opts = {
 					---@param ctx CodeCompanion.SystemPrompt.Context

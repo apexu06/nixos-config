@@ -91,7 +91,7 @@ in {
         margin_ends = 0;
         padding = 16;
         radius = 0;
-        scale = 1.1000000089406967;
+        scale = lib.mkForce 1.1;
         start = ["workspaces" "taskbar"];
         thickness = 32;
         widget_spacing = 8;
@@ -121,7 +121,7 @@ in {
             box_width = 0.0;
             cx = 1596.0;
             cy = 608.0;
-            output = "HDMI-A-1";
+            output = "DP-3";
             rotation = 0.0;
             type = "fancy_audio_visualizer";
 
@@ -137,7 +137,7 @@ in {
             box_width = 384.0;
             cx = 1600.0;
             cy = 892.0;
-            output = "HDMI-A-1";
+            output = "DP-3";
             rotation = 0.0;
             type = "media_player";
 
@@ -172,7 +172,7 @@ in {
       lockscreen_widgets = {
         enabled = true;
         schema_version = 2;
-        widget_order = ["lockscreen-login-box@HDMI-A-1" "lockscreen-login-box@DP-3" "lockscreen-widget-0000000000000001"];
+        widget_order = ["lockscreen-login-box@DP-3" "lockscreen-login-box@DP-1" "lockscreen-widget-0000000000000001"];
 
         grid = {
           cell_size = 16;
@@ -181,12 +181,12 @@ in {
         };
 
         widget = {
-          "lockscreen-login-box@DP-3" = {
+          "lockscreen-login-box@DP-1" = {
             box_height = 70.0;
             box_width = 400.0;
             cx = 1280.0;
             cy = 1321.0;
-            output = "DP-3";
+            output = "DP-1";
             rotation = 0.0;
             type = "login_box";
 
@@ -200,12 +200,12 @@ in {
             };
           };
 
-          "lockscreen-login-box@HDMI-A-1" = {
+          "lockscreen-login-box@DP-3" = {
             box_height = 70.0;
             box_width = 400.0;
             cx = 960.0;
             cy = 961.0;
-            output = "HDMI-A-1";
+            output = "DP-3";
             rotation = 0.0;
             type = "login_box";
 
@@ -224,7 +224,7 @@ in {
             box_width = 432.0;
             cx = 1280.0;
             cy = 720.0;
-            output = "DP-3";
+            output = "DP-1";
             rotation = 0.0;
             type = "clock";
 
@@ -258,7 +258,7 @@ in {
         font_family = config.stylix.fonts.sansSerif.name;
         screen_time_enabled = true;
         telemetry_enabled = false;
-        ui_scale = 1.2000000104308128;
+        scale = lib.mkForce 1.1;
 
         panel = {
           borders = false;
@@ -283,10 +283,10 @@ in {
           path = "/home/jzep/Pictures/Wallpapers/wallpaper.jpg";
         };
         monitors = {
-          "DP-3" = {
+          "DP-1" = {
             path = config.stylix.image;
           };
-          "HDMI-A-1" = {
+          "DP-3" = {
             path = config.stylix.image;
           };
         };

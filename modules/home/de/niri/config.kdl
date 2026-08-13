@@ -16,7 +16,7 @@ input {
         natural-scroll
     }
     warp-mouse-to-focus
-    focus-follows-mouse
+    focus-follows-mouse max-scroll-amount="10%"
 }
 output "DP-1" {
     scale 1.000000
@@ -207,8 +207,7 @@ spawn-at-startup "sh" "-c" "wl-paste --type image --watch cliphist store"
 spawn-at-startup "noctalia"
 
 window-rule {
-  match title="Steam Settings"
-  match app-id="steam"
+  match app-id="steam" title="Steam Settings"
 
   open-floating true
 }
@@ -233,6 +232,14 @@ window-rule {
     geometry-corner-radius 12.000000 12.000000 12.000000 12.000000
     clip-to-geometry true
 }
+
+window-rule {
+  match app-id="spotify"
+  match app-id="discord"
+  open-on-output "DP-3"
+}
+
+
 layer-rule {
     match namespace="^hyprpaper$"
     match namespace="^noctalia-overview*"

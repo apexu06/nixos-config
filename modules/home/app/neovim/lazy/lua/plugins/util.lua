@@ -16,13 +16,13 @@ return {
 		end,
 	},
 	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		ft = { "markdown", "codecompanion" },
-		event = "BufReadPost *.md",
-		---@module 'render-markdown'
-		---@type render.md.UserConfig
+		"OXY2DEV/markview.nvim",
+		event = "BufReadPost *.*",
 		opts = {
-			completions = { lsp = { enabled = true } },
+			preview = {
+				filetypes = { "markdown", "codecompanion" },
+				ignore_buftypes = {},
+			},
 		},
 	},
 }

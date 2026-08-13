@@ -52,10 +52,13 @@ in {
 
   home.packages = [
     pkgs.prismlauncher
+    pkgs.eden
+    pkgs.vscode
+    pkgs.rpi-imager
     pkgs.me3
     krisp-patcher
   ];
 
-  stylix.fonts.sizes.terminal = lib.mkForce 13;
+  stylix.fonts.sizes.terminal = lib.mkForce 13.5;
   home.file.".local/share/Steam/compatibilitytools.d/Proton-GE".source = pkgs.proton-ge-bin.steamcompattool;
 }
