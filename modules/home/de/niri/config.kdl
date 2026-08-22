@@ -168,6 +168,7 @@ binds {
     Mod+Shift+L { focus-monitor-right; }
     Mod+Shift+Left { focus-monitor-left; }
     Mod+Shift+M { spawn "noctalia" "msg" "panel-toggle" "session"; }
+    Mod+Shift+W { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+N { switch-preset-column-width-back; }
     "Mod+Shift+Page_Down" { move-workspace-down; }

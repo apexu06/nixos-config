@@ -83,14 +83,15 @@ in {
           then ["ollama"]
           else [];
       in {
+        concave_edge_corners = true;
         background_opacity = config.stylix.opacity.desktop;
-        center = ["clock" "media" "notifications"];
+        center = ["notifications" "clock" "media"];
         end = new_prefix ++ default_end;
         font_family = "Adwaita Sans";
         margin_edge = 0;
-        margin_ends = 0;
+        margin_ends = 200;
         padding = 16;
-        radius = 0;
+        radius = 20;
         scale = lib.mkForce 1.1;
         start = ["workspaces" "taskbar"];
         thickness = 32;
@@ -258,13 +259,12 @@ in {
         font_family = config.stylix.fonts.sansSerif.name;
         screen_time_enabled = true;
         telemetry_enabled = false;
-        scale = lib.mkForce 1.1;
 
         panel = {
           borders = false;
-          launcher_categories = false;
+          polkit_placement = "attached";
           launcher_placement = "attached";
-          session_placement = "centered";
+          session_placement = "attached";
         };
       };
 
@@ -312,9 +312,11 @@ in {
           type = "spacer";
         };
         ollama = {
-          command = "systemctl start ollama && systemctl start open-webui";
+          actions = {
+            left = "systemctl start ollama && systemctl start open-webui";
+            right = "systemctl stop ollama && systemctl stop open-webui";
+          };
           glyph = "robot";
-          right_command = "systemctl stop ollama && systemctl stop open-webui";
           type = "custom_button";
         };
         taskbar = {

@@ -86,6 +86,11 @@
   };
 
   environment = {
+    systemPackages = with pkgs; [
+      git
+      vim
+    ];
+
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
     };

@@ -5,7 +5,6 @@
 }: {
   home.packages = with pkgs; [
     nerd-fonts.iosevka-term
-    nerd-fonts.iosevka-term-slab
     maple-mono.NF
   ];
 

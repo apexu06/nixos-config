@@ -14,6 +14,13 @@
     ../../modules/nixos/virtualization.nix
     ../../modules/nixos/boot/lanzaboote.nix
     ../../modules/nixos/de/niri.nix
+    ../../modules/nixos/gpu-screen-recorder-ui.nix
+
+    ../../packages/gpu-screen-recorder-ui/module.nix
+  ];
+
+  nixpkgs.overlays = [
+    inputs.nix-cachyos-kernel.overlays.pinned
   ];
 
   environment.systemPackages = with pkgs; [
@@ -22,8 +29,6 @@
     android-tools
     ddcutil
   ];
-
-  programs.gpu-screen-recorder.enable = true;
 
   fileSystems."/mnt/nvme0" = {
     neededForBoot = false;
@@ -91,7 +96,6 @@
     i2c.enable = true;
   };
 
-  nixpkgs.overlays = [inputs.nix-cachyos-kernel.overlays.pinned];
   boot.kernelPackages = lib.mkForce pkgs.cachyosKernels.linuxPackages-cachyos-latest;
 
   services = {
