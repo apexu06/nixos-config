@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   theme,
   config,
   ...
@@ -25,7 +26,7 @@ in {
     gdb
     lldb
 
-    neovim
+    inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
   ];
 
   home.sessionVariables.EDITOR = "nvim";

@@ -1,7 +1,7 @@
 {
   "arborist.nvim": { "branch": "main", "commit": "fdeef56c2840c6772b9f68c5774ed87e9340ec7d" },
   "blink.cmp": { "branch": "main", "commit": "78336bc89ee5365633bcf754d93df01678b5c08f" },
-  "codecompanion.nvim": { "branch": "main", "commit": "2b959b2bf5fdb13e3b333c078ba549996e477b7c" },
+  "codecompanion.nvim": { "branch": "main", "commit": "fd07e440c115e318031c5f3f8c746f01eb4cac56" },
   "compile-mode.nvim": { "branch": "main", "commit": "c53f063b86a31866294053cc42ae44541c10aa77" },
   "conform.nvim": { "branch": "master", "commit": "016802de402556da54c36bd7359b441266b01cdd" },
   "fidget.nvim": { "branch": "main", "commit": "6f793b2bcd2d35e201c09520f698bb763220908a" },
@@ -16,11 +16,11 @@
   "mini.statusline": { "branch": "main", "commit": "b5547f44560dae3ccd81f914256fa6f705837022" },
   "mini.surround": { "branch": "main", "commit": "580e4cb98c5900d9fe743865fb5a5b2178b4ab18" },
   "nvim-dap": { "branch": "master", "commit": "9e848e09a697ee95302a3ef2dd43fd6eb709e570" },
-  "nvim-dap-view": { "branch": "main", "commit": "4e73e57008df10f9971b60c3a11e6aa11ba9f94a" },
-  "nvim-lspconfig": { "branch": "master", "commit": "221c43884319e791519f0d6c94a7f2fbcd653278" },
+  "nvim-dap-view": { "branch": "main", "commit": "e766b3d8acef97e7e8b29f7f421aa4977b9978e1" },
+  "nvim-lspconfig": { "branch": "master", "commit": "ee1e369181a9e64904cdd7b739e98c70778cfc71" },
   "oil.nvim": { "branch": "master", "commit": "b73018b75affd13fa38e2fc94ef753b465f770d7" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
-  "smart-splits.nvim": { "branch": "master", "commit": "5e92431aa7f5e618c2f6825f682df6d94f6e0a02" },
+  "smart-splits.nvim": { "branch": "master", "commit": "0ab2e4928dc867dfea3ff1da186e69f289d8a532" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "sora": { "branch": "main", "commit": "504df4913c55dd9ad658e331b172f86b0537b439" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" }

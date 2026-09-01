@@ -30,32 +30,24 @@
     ddcutil
   ];
 
-  fileSystems."/mnt/nvme0" = {
-    neededForBoot = false;
-    device = "/dev/disk/by-uuid/8A7AECD97AECC355";
-    fsType = "ntfs";
-    options = [
-      "uid=1000"
-      "gid=100"
-      "rw"
-      "user"
-      "exec"
-      "umask=000"
-    ];
-  };
+  # fileSystems."/mnt/nvme0" = {
+  #   neededForBoot = false;
+  #   device = "/dev/disk/by-uuid/8A7AECD97AECC355";
+  #   fsType = "ntfs";
+  #   options = [
+  #     "uid=1000"
+  #     "gid=100"
+  #     "rw"
+  #     "user"
+  #     "exec"
+  #     "umask=000"
+  #   ];
+  # };
 
   fileSystems."/mnt/nvme1" = {
     neededForBoot = false;
-    device = "/dev/disk/by-uuid/2CDAE689DAE64F20";
-    fsType = "ntfs";
-    options = [
-      "uid=1000"
-      "gid=100"
-      "rw"
-      "user"
-      "exec"
-      "umask=000"
-    ];
+    device = "/dev/disk/by-uuid/30e54746-6d5e-4100-96f7-ab01d56edf92";
+    fsType = "ext4";
   };
 
   programs.gamescope = {
@@ -105,10 +97,11 @@
       openFirewall = true;
     };
 
-    printing = {
-      enable = true;
-      drivers = with pkgs; [canon-cups-ufr2];
-    };
+    # printing = {
+    #   enable = true;
+    #   drivers = with pkgs; [canon-cups-ufr2];
+    # };
+
     greetd.settings = {
       initial_session = {
         command = "niri-session";
@@ -116,16 +109,4 @@
       };
     };
   };
-
-  hardware.printers.ensurePrinters = [
-    {
-      name = "Canon_LBP622C";
-      location = "Home";
-      deviceUri = "dnssd://Canon%20LBP622C%2F623C%20(a0%3A59%3A30)%20(3)%20(a0%3A59%3A30)%20(2)%20(a0%20(a0%3A59%3A30)._ipp._tcp.local/?uuid=6d4ff0ce-6b11-11d8-8020-349f7ba233ec";
-      model = "CNRCUPSLBP622CZS.ppd";
-      ppdOptions = {
-        PageSize = "A4";
-      };
-    }
-  ];
 }

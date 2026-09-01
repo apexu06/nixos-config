@@ -3,6 +3,7 @@ return {
 	event = "VeryLazy",
 	config = function()
 		vim.lsp.enable({
+			"ty",
 			"lua_ls",
 			"rust_analyzer",
 			"gopls",

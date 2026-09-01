@@ -17,7 +17,7 @@ return {
 			chat = {
 				adapter = {
 					name = "ollama",
-					model = "gemma4:12b",
+					model = "gemma4:latest",
 				},
 				opts = {
 					---@param ctx CodeCompanion.SystemPrompt.Context

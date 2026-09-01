@@ -1,6 +1,8 @@
 {
   pkgs,
   lib,
+  inputs,
+  system,
   ...
 }: let
   krisp-patcher =
@@ -40,6 +42,7 @@ in {
     ../modules/home/app/gui-apps.nix
     ../modules/home/app/spotify.nix
     ../modules/home/app/gpu-screen-recorder.nix
+    ../modules/home/app/jetbrains.nix
   ];
 
   nixpkgs.overlays = [
@@ -56,6 +59,8 @@ in {
     pkgs.vscode
     pkgs.rpi-imager
     pkgs.me3
+
+    inputs.sonora.packages.${pkgs.system}.default
     krisp-patcher
   ];
 

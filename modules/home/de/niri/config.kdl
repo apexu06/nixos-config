@@ -169,6 +169,7 @@ binds {
     Mod+Shift+Left { focus-monitor-left; }
     Mod+Shift+M { spawn "noctalia" "msg" "panel-toggle" "session"; }
     Mod+Shift+W { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
+    Mod+B { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+N { switch-preset-column-width-back; }
     "Mod+Shift+Page_Down" { move-workspace-down; }
@@ -214,12 +215,8 @@ window-rule {
 }
 
 window-rule {
-    match title="(unset)"
-    match app-id="^jetbrains-.*"
-    match is-floating=true
-    default-column-width { proportion 0.300000; }
-    default-window-height { proportion 0.400000; }
-    default-floating-position relative-to="top" x=0 y=100
+    match title="Welcome to IntelliJ IDEA"
+    open-floating true
 }
 window-rule {
     match app-id="^org\\.wezfurlong\\.wezterm$"
