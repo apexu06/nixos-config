@@ -3,6 +3,7 @@
     ./cli.nix
     ./shell/fish.nix
     ./git.nix
+    ./yazi.nix
   ];
 
   config = {
@@ -10,7 +11,7 @@
     fonts.fontconfig.enable = true;
 
     home.sessionVariables = {
-      SHELL = "fish";
+      PROTON_PASS_KEY_PROVIDER = "fs";
       QT_QPA_PLATFORM = "wayland";
     };
 
@@ -21,6 +22,10 @@
       "$HOME/.nix-profile/share/applications"
     ];
     home.pointerCursor.enable = true;
+
+    services = {
+      protonmail-bridge.enable = true;
+    };
 
     nixpkgs.config.allowUnfree = true;
   };

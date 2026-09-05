@@ -5,9 +5,7 @@
   profile,
   lib,
   ...
-}: let
-  colors = config.lib.stylix.colors;
-in {
+}: {
   imports = [
     inputs.noctalia.homeModules.default
   ];
@@ -15,6 +13,7 @@ in {
   home.packages = with pkgs; [
     gpu-screen-recorder
     adwaita-icon-theme
+    proton-pass-cli
   ];
 
   home.sessionVariables = {
@@ -32,6 +31,27 @@ in {
     package = lib.mkForce inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     settings = {
+      plugins = {
+        auto_update = "all";
+        enabled = ["lucaso/proton-pass" "aristides/udiskie" "rylos/tailnet" "avivbintangaringga/nix-monitor"];
+
+        source = [
+          {
+            name = "official";
+            kind = "git";
+            location = "https://github.com/noctalia-dev/official-plugins";
+            enabled = true;
+          }
+
+          {
+            name = "community";
+            kind = "git";
+            location = "https://github.com/noctalia-dev/community-plugins";
+            enabled = true;
+          }
+        ];
+      };
+
       audio = {
         enable_sounds = true;
       };
@@ -76,24 +96,27 @@ in {
         };
       };
 
-      bar.widgets = let
-        default_end = ["network" "bluetooth" "volume" "battery" "brightness" "tray" "control-center"];
-        new_prefix =
-          if profile == "pc"
-          then ["ollama"]
-          else [];
-      in {
+      bar.widgets = {
         concave_edge_corners = true;
         background_opacity = config.stylix.opacity.desktop;
+        start = ["workspaces" "taskbar" "group:g1"];
+        capsule_group = {
+          id = "g1";
+          members = ["nix-monitor" "aristides/udiskie:status"];
+          padding = 6.0;
+          opacity = 1.0;
+          fill = "on_primary";
+          enabled = true;
+          accordion = false;
+        };
         center = ["notifications" "clock" "media"];
-        end = new_prefix ++ default_end;
+        end = ["rylos/tailnet:bar" "network" "bluetooth" "volume" "battery" "brightness" "tray" "control-center"];
         font_family = "Adwaita Sans";
         margin_edge = 0;
         margin_ends = 200;
         padding = 16;
         radius = 20;
         scale = lib.mkForce 1.1;
-        start = ["workspaces" "taskbar"];
         thickness = 32;
         widget_spacing = 8;
       };
@@ -247,11 +270,11 @@ in {
       };
 
       notification = {
-        position = "top_center";
+        position = "bottom_center";
       };
 
-      plugins = {
-        enabled = ["noctalia/screen_recorder"];
+      accessibility = {
+        ui_scale = 1.1;
       };
 
       shell = {
@@ -259,6 +282,11 @@ in {
         font_family = config.stylix.fonts.sansSerif.name;
         screen_time_enabled = true;
         telemetry_enabled = false;
+
+        button_borders = false;
+        input_borders = false;
+        popup_borders = false;
+        card_borders = false;
 
         panel = {
           borders = false;
@@ -292,7 +320,23 @@ in {
         };
       };
 
+      plugin_settings = {
+        "avivbintangaringga/nix-monitor" = {
+          update_command = "nh os switch --hostname pc --accept-flake-config -e /run/wrappers/bin/pkexec -u && nh home switch --accept-flake-config -c pc -b backup";
+          clean_command = "nh clean all -e /run/wrappers/bin/pkexec";
+        };
+        "aristides/udiskie" = {
+          manager_open_near_click = true;
+          manager_placement = "attached";
+        };
+      };
+
       widget = {
+        nix-monitor = {
+          type = "avivbintangaringga/nix-monitor:nix-monitor";
+          colorize_glyph = false;
+          show_text = false;
+        };
         brightness = {
           show_label = false;
         };

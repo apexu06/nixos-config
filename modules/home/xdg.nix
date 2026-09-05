@@ -1,14 +1,4 @@
 {pkgs, ...}: {
-  home.file.".config/xdg-desktop-portal-termfilechooser/config".text = ''
-    [filechooser]
-    cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
-    default_dir=$HOME
-    env=TERM_CMD=kitty
-    env=PATH="$PATH:/run/current-system/sw/bin"
-    open_mode = suggested
-    save_mode = last
-  '';
-
   xdg = {
     autostart.enable = true;
     configFile."electron-flags.conf".text = ''
@@ -17,10 +7,6 @@
     '';
 
     desktopEntries = {
-      yazi = {
-        name = "Yazi";
-        noDisplay = true;
-      };
       btop = {
         name = "btop++";
         noDisplay = true;
@@ -63,7 +49,6 @@
       config = {
         common = {
           default = "gnome";
-
           "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
           "org.freedesktop.impl.portal.FileChooser" = ["termfilechooser"];
         };
@@ -75,7 +60,7 @@
       defaultApplications = {
         "application/pdf" = "org.pwmt.zathura.desktop";
         "text/html" = "firefox.desktop";
-        "inode/directory" = "org.gnome.Nautilus.desktop";
+        "inode/directory" = "yazi.desktop";
         "x-scheme-handler/http" = "firefox.desktop";
         "x-scheme-handler/https" = "firefox.desktop";
         "x-scheme-handler/about" = "firefox.desktop";

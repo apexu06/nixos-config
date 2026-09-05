@@ -216,7 +216,7 @@ window-rule {
 window-rule {
   match title="termfilechooser"
   open-floating true
-  max-height 800
+  default-window-height { fixed 800; }
 }
 
 window-rule {

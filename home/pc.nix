@@ -56,7 +56,6 @@ in {
   home.packages = [
     pkgs.prismlauncher
     pkgs.eden
-    pkgs.vscode
     pkgs.rpi-imager
     pkgs.me3
 

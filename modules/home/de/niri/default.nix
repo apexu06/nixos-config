@@ -4,18 +4,14 @@
     pavucontrol
     hyprpicker
     alacritty
-    nautilus
     eog
     adwaita-icon-theme
     gnome-disk-utility
+    udiskie
   ];
 
   services = {
     polkit-gnome.enable = true;
-    udiskie = {
-      enable = true;
-      automount = true;
-    };
 
     hyprpaper = {
       enable = true;
