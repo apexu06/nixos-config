@@ -210,8 +210,13 @@ spawn-at-startup "noctalia"
 
 window-rule {
   match app-id="steam" title="Steam Settings"
-
   open-floating true
+}
+
+window-rule {
+  match title="termfilechooser"
+  open-floating true
+  max-height 800
 }
 
 window-rule {
