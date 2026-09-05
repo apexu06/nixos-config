@@ -3,10 +3,10 @@
   inputs,
   theme,
   config,
+  link,
   ...
 }: let
   nvimDir = "${config.home.homeDirectory}/.dotfiles/modules/home/app/neovim";
-  link = config.lib.file.mkOutOfStoreSymlink;
 in {
   home.packages = with pkgs; [
     lua-language-server

@@ -29,6 +29,44 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 	end,
 })
 
+local yazi_watch_timer = nil
+
+local function watch_yazi_terminal_mode(buf)
+	if yazi_watch_timer then
+		yazi_watch_timer:stop()
+		yazi_watch_timer:close()
+	end
+	yazi_watch_timer = vim.loop.new_timer()
+	yazi_watch_timer:start(
+		0,
+		200,
+		vim.schedule_wrap(function()
+			if not vim.api.nvim_buf_is_valid(buf) then
+				yazi_watch_timer:stop()
+				yazi_watch_timer:close()
+				yazi_watch_timer = nil
+				return
+			end
+			if vim.api.nvim_get_current_buf() == buf and vim.fn.mode() == "n" then
+				vim.cmd("startinsert")
+			end
+		end)
+	)
+end
+
+vim.api.nvim_create_autocmd("TermOpen", {
+	pattern = "*",
+	callback = function(args)
+		-- scope to floating terminal windows only (yazi's window is floating;
+		-- this avoids touching normal :terminal splits where Normal-mode
+		-- scrollback browsing is legitimately useful)
+		local win = vim.fn.bufwinid(args.buf)
+		if win ~= -1 and vim.api.nvim_win_get_config(win).relative ~= "" then
+			watch_yazi_terminal_mode(args.buf)
+		end
+	end,
+})
+
 vim.diagnostic.config({
 	virtual_text = false,
 	underline = true,

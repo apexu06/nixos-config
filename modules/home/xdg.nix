@@ -1,4 +1,14 @@
 {pkgs, ...}: {
+  home.file.".config/xdg-desktop-portal-termfilechooser/config".text = ''
+    [filechooser]
+    cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
+    default_dir=$HOME
+    env=TERMCMD=kitty
+    env=PATH="$PATH:/run/current-system/sw/bin"
+    open_mode = suggested
+    save_mode = last
+  '';
+
   xdg = {
     autostart.enable = true;
     configFile."electron-flags.conf".text = ''
@@ -44,11 +54,20 @@
 
     portal = {
       enable = true;
-      config.common.default = ["gnome"];
       extraPortals = with pkgs; [
         xdg-desktop-portal-gnome
         xdg-desktop-portal-gtk
+        xdg-desktop-portal-termfilechooser
       ];
+
+      config = {
+        common = {
+          default = "gnome";
+
+          "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
+          "org.freedesktop.impl.portal.FileChooser" = ["termfilechooser"];
+        };
+      };
     };
 
     mimeApps = {

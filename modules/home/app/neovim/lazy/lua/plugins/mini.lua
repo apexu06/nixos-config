@@ -37,7 +37,6 @@ return {
 
 	{
 		"nvim-mini/mini.icons",
-		event = "BufRead",
 		version = "*",
 		config = function()
 			require("mini.icons").setup()

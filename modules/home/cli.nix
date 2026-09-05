@@ -45,8 +45,8 @@ in {
     cd = "z";
     cat = "bat";
     shit = "shutdown";
-    ls = "eza --color=always --group-directories-first --icons";
-    lsa = "eza --color=always --all --group-directories-first --long --icons --no-permissions --git";
+    ls = "eza --color=always --group-directories-first --icons always";
+    lsa = "eza --color=always --all --group-directories-first --long --icons always --no-permissions --git";
     lg = "lazygit";
     xo = "xdg-open";
     n = "nvim";
@@ -71,7 +71,21 @@ in {
     shellWrapperName = "y";
     plugins = {
       compress = pkgs.yaziPlugins.compress;
+      toggle-pane = pkgs.yaziPlugins.toggle-pane;
+      wl-clipboard = pkgs.yaziPlugins.wl-clipboard;
+      mount = pkgs.yaziPlugins.mount;
     };
+    settings = {
+      mgr = {
+        ratio = [0 4 2];
+        linemode = "size";
+      };
+    };
+    initLua = ''
+      if os.getenv("NVIM") then
+      	require("toggle-pane"):entry("min-preview")
+      end
+    '';
     keymap = {
       mgr.prepend_keymap = [
         {
@@ -98,6 +112,21 @@ in {
           on = ["c" "a" "u"];
           run = "plugin compress -phl";
           desc = "Archive selected files (password+header+level)";
+        }
+        {
+          on = "P";
+          run = "plugin toggle-pane min-preview";
+          desc = "Show or hide the preview pane";
+        }
+        {
+          on = "<C-y>";
+          run = ["plugin wl-clipboard"];
+          desc = "Copy seleted items";
+        }
+        {
+          on = "M";
+          run = "plugin mount";
+          desc = "Manage mounts";
         }
       ];
     };

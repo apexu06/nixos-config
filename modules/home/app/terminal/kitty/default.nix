@@ -25,9 +25,9 @@
     executable = true;
   };
 
-  home.file.".config/kitty/relative_resize.py".text = builtins.readFile ./relative_resize.py;
-  home.file.".config/kitty/split_window.py".text = builtins.readFile ./split_window.py;
-  home.file.".config/kitty/neighboring_window.py".text = builtins.readFile ./neighboring_window.py;
+  # home.file.".config/kitty/relative_resize.py".text = builtins.readFile ./relative_resize.py;
+  # home.file.".config/kitty/split_window.py".text = builtins.readFile ./split_window.py;
+  # home.file.".config/kitty/neighboring_window.py".text = builtins.readFile ./neighboring_window.py;
 
   programs.kitty = {
     enable = true;
@@ -50,8 +50,8 @@
 
       "ctrl+space>enter" = "new_tab_with_cwd";
       "ctrl+space>e" = "close_window";
-      "ctrl+space>v" = "launch --location=hsplit --cwd=current";
-      "ctrl+space>h" = "launch --location=vsplit --cwd=current";
+      "ctrl+space>h" = "launch --location=hsplit --cwd=current";
+      "ctrl+space>v" = "launch --location=vsplit --cwd=current";
 
       "ctrl+space>1" = "goto_tab 1";
       "ctrl+space>2" = "goto_tab 2";
@@ -62,6 +62,8 @@
       "ctrl+space>7" = "goto_tab 7";
       "ctrl+space>8" = "goto_tab 8";
       "ctrl+space>9" = "goto_tab 9";
+
+      "ctrl+space>s" = "goto_session";
     };
 
     settings = {
@@ -73,13 +75,14 @@
 
       tab_bar_edge = "top";
       tab_bar_margin_width = 2;
-      tab_bar_style = "powerline";
+      tab_bar_style = "separator";
+      tab_separator = " |";
       tab_title_max_length = 10;
       tab_title_template = "{index}:{title}";
 
       confirm_os_window_close = 0;
       allow_remote_control = "yes";
-      listen_on = "unix:@mykitty";
+      listen_on = "unix:/tmp/mykitty";
     };
 
     extraConfig = ''
